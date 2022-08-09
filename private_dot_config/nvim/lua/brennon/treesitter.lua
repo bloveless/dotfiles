@@ -1,4 +1,8 @@
 require("nvim-treesitter.configs").setup {
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+  },
   rainbow = {
     enable = true,
     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
