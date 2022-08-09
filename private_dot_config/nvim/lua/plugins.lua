@@ -81,6 +81,13 @@ require('packer').startup(function(use)
 
   use 'hashivim/vim-terraform'
 
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+  }
+
+  use 'p00f/nvim-ts-rainbow'
+
   use '~/Projects/notical.nvim'
 end)
 
