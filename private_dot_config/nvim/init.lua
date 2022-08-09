@@ -62,5 +62,3 @@ vim.keymap.set('n', '<leader><leader>x', SaveAndExec)
 vim.opt.laststatus = 3
 -- Show the current filename and modified status at the top right of the window
 vim.opt.winbar = '%=%m %f'
-
-vim.opt.spell = true
