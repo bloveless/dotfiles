@@ -61,3 +61,9 @@ vim.keymap.set('n', '<leader><leader>x', SaveAndExec)
 vim.opt.laststatus = 3
 -- Show the current filename and modified status at the top right of the window
 vim.opt.winbar = '%=%m %f'
+
+-- Use ctrl-[hjkl] to select the active split!
+vim.keymap.set('n', '<c-k>', '<cmd>wincmd k<cr>', { silent = true })
+vim.keymap.set('n', '<c-j>', '<cmd>wincmd j<cr>', { silent = true })
+vim.keymap.set('n', '<c-h>', '<cmd>wincmd h<cr>', { silent = true })
+vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>', { silent = true })
