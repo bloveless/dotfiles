@@ -3,4 +3,5 @@ return {
   font_size = 13,
   initial_cols = 140,
   initial_rows = 40,
+  scrollback_lines = 4000,
 }
