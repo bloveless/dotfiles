@@ -68,5 +68,5 @@ vim.keymap.set('n', '<c-j>', '<cmd>wincmd j<cr>', { silent = true })
 vim.keymap.set('n', '<c-h>', '<cmd>wincmd h<cr>', { silent = true })
 vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>', { silent = true })
 
--- Keep the cursor in the middle of the screen
-vim.opt.scrolloff = 999
+-- Keep the cursor away from the edge of the screen by 8 lines. Use 999 to keep it in the very center of the screen
+vim.opt.scrolloff = 8
