@@ -11,6 +11,7 @@ require('brennon.telescope')
 require('brennon.lualine')
 require('brennon.gitsigns')
 require('brennon.notical')
+require('brennon.tree-sitter')
 
 if vim.fn.has("termguicolors") == 1 then
   vim.opt.termguicolors = true

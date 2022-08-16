@@ -22,6 +22,13 @@ require('packer').startup(function(use)
 
   use 'morhetz/gruvbox'
 
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+  }
+
+  use 'p00f/nvim-ts-rainbow'
+
   -- golang
   use { 'fatih/vim-go', run = ':GoUpdateBinaries' }
   -- use 'ray-x/go.nvim'
