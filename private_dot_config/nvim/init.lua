@@ -3,15 +3,14 @@ vim.g.mapleader = ' '
 
 require('plugins')
 require('brennon.globals')
-require('brennon.cmp')
-require('brennon.mason')
-require('brennon.lspconfig')
+require('brennon.lsp')
+require('brennon.tree-sitter')
 require('brennon.go')
 require('brennon.telescope')
 require('brennon.lualine')
 require('brennon.gitsigns')
 require('brennon.notical')
-require('brennon.tree-sitter')
+require('brennon.cmp')
 
 if vim.fn.has("termguicolors") == 1 then
   vim.opt.termguicolors = true
