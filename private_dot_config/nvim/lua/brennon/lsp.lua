@@ -1,12 +1,15 @@
 require("mason").setup()
-
-require('mason-tool-installer').setup({
-    ensure_installed = { "gopls", "gofumpt", "lua-language-server", "yaml-language-server", "typescript-language-server" },
-    auto_update = true,
-    run_on_start = true,
+require("mason-lspconfig").setup({
+  ensure_installed = { "sumneko_lua", "tsserver", "gopls", "yamlls" },
+  automatic_installation = false,
 })
-
-local lsputil = require('lspconfig.util')
+require("null-ls").setup({
+    sources = {
+        require("null-ls").builtins.formatting.stylua,
+        require("null-ls").builtins.diagnostics.eslint,
+        require("null-ls").builtins.completion.spell,
+    },
+})
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -30,54 +33,27 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
+  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+  vim.keymap.set('n', '<leader>f',function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-lsputil.on_setup = lsputil.add_hook_after(lsputil.on_setup, function(config)
-  if config.on_attach then
-    config.on_attach = lsputil.add_hook_after(config.on_attach, on_attach)
-  else
-    config.on_attach = on_attach
-  end
-  config.capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-end)
-
----
--- LSP Servers
----
-
-require'lspconfig'.gopls.setup {}
-require'lspconfig'.sumneko_lua.setup {
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
+require('lspconfig')['gopls'].setup{
+    on_attach = on_attach,
 }
-require'lspconfig'.tsserver.setup {}
-require'lspconfig'.terraformls.setup {}
-
+require('lspconfig')['sumneko_lua'].setup{
+    on_attach = on_attach,
+}
+require('lspconfig')['tsserver'].setup{
+    on_attach = on_attach,
+}
+require('lspconfig')['yamlls'].setup{
+    on_attach = on_attach,
+}

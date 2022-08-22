@@ -9,7 +9,6 @@ require('brennon.go')
 require('brennon.telescope')
 require('brennon.lualine')
 require('brennon.gitsigns')
-require('brennon.notical')
 require('brennon.cmp')
 
 if vim.fn.has("termguicolors") == 1 then

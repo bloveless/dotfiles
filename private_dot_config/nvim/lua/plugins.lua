@@ -47,22 +47,21 @@ require('packer').startup(function(use)
   }
 
 	use {
-    'williamboman/mason.nvim',
-    'neovim/nvim-lspconfig',
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "jose-elias-alvarez/null-ls.nvim",
+    "neovim/nvim-lspconfig",
   }
 
-  use {
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
-    'hrsh7th/nvim-cmp',
+	use 'hrsh7th/cmp-nvim-lsp'
+	use 'hrsh7th/cmp-buffer'
+	use 'hrsh7th/cmp-path'
+	use 'hrsh7th/cmp-cmdline'
+	use 'hrsh7th/nvim-cmp'
 
-    -- For luasnip users.
-    'L3MON4D3/LuaSnip',
-    'saadparwaiz1/cmp_luasnip'
-  }
+	-- For luasnip users.
+	use 'L3MON4D3/LuaSnip'
+	use 'saadparwaiz1/cmp_luasnip'
 
   use 'tpope/vim-surround'
   use 'tpope/vim-obsession'
@@ -81,7 +80,5 @@ require('packer').startup(function(use)
   }
 
   use 'hashivim/vim-terraform'
-
-  use '~/Projects/notical.nvim'
 end)
 
