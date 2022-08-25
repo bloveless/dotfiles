@@ -30,8 +30,12 @@ require('packer').startup(function(use)
   use 'p00f/nvim-ts-rainbow'
 
   -- golang
-  use { 'fatih/vim-go', run = ':GoUpdateBinaries' }
-  -- use 'ray-x/go.nvim'
+  use {
+    'ray-x/go.nvim',
+    requires = {
+      { 'ray-x/guihua.lua'},
+    }
+  }
 
   -- fancy icons
   use 'kyazdani42/nvim-web-devicons'
