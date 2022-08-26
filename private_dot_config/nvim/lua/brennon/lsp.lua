@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "sumneko_lua", "tsserver", "gopls", "yamlls", "terraformls", "eslint_d", "stylua" },
+  ensure_installed = { "sumneko_lua", "tsserver", "gopls", "yamlls", "terraformls" },
   automatic_installation = false,
 })
 require("null-ls").setup({
