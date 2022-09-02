@@ -52,3 +52,5 @@ require'nvim-treesitter.configs'.setup {
 --   end
 -- })
 ---ENDWORKAROUND
+
+require'treesitter-context'.setup {}
