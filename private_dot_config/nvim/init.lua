@@ -45,6 +45,8 @@ vim.opt.listchars = {tab = '>-', lead = '.', trail = '~', precedes = '<', extend
 vim.cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
 
 vim.keymap.set('n', '<leader>ex', '<cmd>Explore<cr>')
+vim.keymap.set('n', '<C-d>', '<C-d>zz' , { noremap = true })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { noremap = true })
 
 -- Open new splits on the right and below the current buffer by default
 vim.opt.splitright = true
