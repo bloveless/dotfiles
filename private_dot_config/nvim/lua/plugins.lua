@@ -32,8 +32,12 @@ require('packer').startup(function(use)
   use 'p00f/nvim-ts-rainbow'
 
   -- golang
-  use { 'fatih/vim-go', run = ':GoUpdateBinaries' }
-  -- use 'ray-x/go.nvim'
+  use {
+    'ray-x/go.nvim',
+    requires = {
+      { 'ray-x/guihua.lua'},
+    }
+  }
 
   -- fancy icons
   use 'kyazdani42/nvim-web-devicons'
@@ -76,10 +80,7 @@ require('packer').startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
-  use {
-    'lewis6991/gitsigns.nvim',
-    tag = 'release',
-  }
+  use { 'lewis6991/gitsigns.nvim' }
 
   use 'hashivim/vim-terraform'
 end)
