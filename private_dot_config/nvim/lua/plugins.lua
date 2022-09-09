@@ -1,8 +1,9 @@
 -- Automatically bootstrap packer when initializing a new editor
 local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+    install_path })
 end
 
 -- Auto recompile whenever this file is changed
@@ -35,7 +36,7 @@ require('packer').startup(function(use)
   use {
     'ray-x/go.nvim',
     requires = {
-      { 'ray-x/guihua.lua'},
+      { 'ray-x/guihua.lua' },
     }
   }
 
@@ -45,10 +46,10 @@ require('packer').startup(function(use)
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
-      {'nvim-lua/popup.nvim'}, -- This is a dependency for telescope-zoxide
-      {'nvim-lua/plenary.nvim'},
-      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
-      {'jvgrootveld/telescope-zoxide'}
+      { 'nvim-lua/popup.nvim' }, -- This is a dependency for telescope-zoxide
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+      { 'jvgrootveld/telescope-zoxide' }
     }
   }
 
@@ -56,23 +57,23 @@ require('packer').startup(function(use)
     'VonHeikemen/lsp-zero.nvim',
     requires = {
       -- LSP Support
-      {'neovim/nvim-lspconfig'},
-      {'williamboman/mason.nvim'},
-      {'williamboman/mason-lspconfig.nvim'},
-      { "jose-elias-alvarez/null-ls.nvim"},
+      { 'neovim/nvim-lspconfig' },
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
+      { "jose-elias-alvarez/null-ls.nvim" },
 
       -- Autocompletion
-      {'hrsh7th/nvim-cmp'},
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-cmdline'},
-      {'hrsh7th/cmp-path'},
-      {'saadparwaiz1/cmp_luasnip'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-nvim-lua'},
+      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'hrsh7th/cmp-path' },
+      { 'saadparwaiz1/cmp_luasnip' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-nvim-lua' },
 
       -- Snippets
-      {'L3MON4D3/LuaSnip'},
-      {'rafamadriz/friendly-snippets'},
+      { 'L3MON4D3/LuaSnip' },
+      { 'rafamadriz/friendly-snippets' },
     }
   }
 
@@ -94,7 +95,7 @@ require('packer').startup(function(use)
   use {
     "nvim-neorg/neorg",
     config = function()
-        require('neorg').setup {}
+      require('neorg').setup {}
     end,
     requires = "nvim-lua/plenary.nvim"
   }
@@ -104,4 +105,3 @@ require('packer').startup(function(use)
     requires = "nvim-lua/plenary.nvim"
   }
 end)
-
