@@ -49,7 +49,8 @@ require('packer').startup(function(use)
       { 'nvim-lua/popup.nvim' }, -- This is a dependency for telescope-zoxide
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-      { 'jvgrootveld/telescope-zoxide' }
+      { 'jvgrootveld/telescope-zoxide' },
+      { 'nvim-telescope/telescope-media-files.nvim' }, -- this is a dependency for telekasten
     }
   }
 
@@ -93,15 +94,25 @@ require('packer').startup(function(use)
   use 'hashivim/vim-terraform'
 
   use {
-    "nvim-neorg/neorg",
-    config = function()
-      require('neorg').setup {}
-    end,
+    'jose-elias-alvarez/null-ls.nvim',
     requires = "nvim-lua/plenary.nvim"
   }
 
+  use  {
+    'renerocksai/telekasten.nvim',
+    requires = {
+      { 'renerocksai/calendar-vim' },
+      { 'nvim-telescope/telescope-symbols.nvim' },
+      {
+        'iamcco/markdown-preview.nvim',
+        run = function() vim.fn['mkdp#util#install']() end,
+      },
+      { 'mzlogin/vim-markdown-toc' },
+    }
+  }
+
   use {
-    "ThePrimeagen/harpoon",
-    requires = "nvim-lua/plenary.nvim"
+    'ThePrimeagen/harpoon',
+    requires = 'nvim-lua/plenary.nvim'
   }
 end)

@@ -44,18 +44,19 @@ lsp.setup_nvim_cmp({
 lsp.nvim_workspace()
 lsp.setup()
 
+require("null-ls").setup({
+    sources = {
+        require("null-ls").builtins.formatting.stylua,
+        require("null-ls").builtins.diagnostics.eslint_d,
+        require("null-ls").builtins.code_actions.eslint_d,
+        require("null-ls").builtins.completion.spell,
+    },
+})
+
 -- require("mason").setup()
 -- require("mason-lspconfig").setup({
 --   ensure_installed = { "sumneko_lua", "tsserver", "gopls", "yamlls", "terraformls" },
 --   automatic_installation = false,
--- })
--- require("null-ls").setup({
---     sources = {
---         require("null-ls").builtins.formatting.stylua,
---         require("null-ls").builtins.diagnostics.eslint_d,
---         require("null-ls").builtins.code_actions.eslint_d,
---         require("null-ls").builtins.completion.spell,
---     },
 -- })
 
 -- -- Mappings.

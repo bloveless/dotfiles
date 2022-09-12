@@ -10,6 +10,7 @@ require('brennon.telescope')
 require('brennon.lualine')
 require('brennon.gitsigns')
 require('brennon.harpoon')
+require('brennon.telekasten')
 
 if vim.fn.has("termguicolors") == 1 then
   vim.opt.termguicolors = true
