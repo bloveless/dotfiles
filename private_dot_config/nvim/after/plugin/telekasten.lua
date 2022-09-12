@@ -167,9 +167,10 @@ vim.keymap.set('n', '<leader>zr', require('telekasten').rename_note)
 -- we could define [[ in **insert mode** to call insert link
 -- inoremap [[ <cmd>:lua require('telekasten').insert_link()<CR>
 -- alternatively: leader [
-vim.keymap.set('i', '<leader>[', function() require('telekasten').insert_link({ i=true }) end)
-vim.keymap.set('i', '<leader>zt', function() require('telekasten').toggle_todo({ i=true }) end)
-vim.keymap.set('i', '<leader>#', function() require('telekasten').show_tags({i = true}) end)
+-- these don't work so well right now because my leader is space and this causes a delay every time I press space until I press another key
+-- vim.keymap.set('i', '<leader>[', function() require('telekasten').insert_link({ i=true }) end)
+-- vim.keymap.set('i', '<leader>zt', function() require('telekasten').toggle_todo({ i=true }) end)
+-- vim.keymap.set('i', '<leader>#', function() require('telekasten').show_tags({i = true}) end)
 
 -- on hesitation, bring up the panel
 vim.keymap.set('n', '<leader>z', require('telekasten').panel)
