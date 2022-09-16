@@ -12,9 +12,6 @@ vim.opt.syntax = "enable"
 -- vim.cmd "colorscheme gruvbox"
 vim.cmd "colorscheme kanagawa"
 
--- Hide command line unless in use
-vim.opt.cmdheight = 0
-
 -- Hybrid line numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
