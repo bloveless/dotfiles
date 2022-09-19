@@ -66,4 +66,4 @@ vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>', { silent = true })
 vim.opt.scrolloff = 8
 
 -- Show color column
-vim.opt.colorcolumn = "100"
+vim.opt.colorcolumn = "120"
