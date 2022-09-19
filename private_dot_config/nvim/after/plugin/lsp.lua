@@ -103,3 +103,7 @@ require('lspconfig').gopls.setup {
 require('lspconfig').tsserver.setup {
   on_attach = on_attach,
 }
+require('lspconfig').psalm.setup {
+  on_attach = on_attach,
+}
+
