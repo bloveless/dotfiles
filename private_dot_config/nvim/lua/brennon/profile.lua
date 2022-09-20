@@ -21,6 +21,13 @@ vim.opt.signcolumn = "yes"
 -- Enable powerline fonts for airline
 vim.g.airline_powerline_fonts = 1
 
+-- Netrw config settings
+-- vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
+-- vim.g.netrw_browse_split = 4
+vim.g.netrw_winsize = 20
+
+
 -- Default spaces instead of tabs
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
@@ -64,6 +71,3 @@ vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>', { silent = true })
 
 -- Keep the cursor away from the edge of the screen by 8 lines. Use 999 to keep it in the very center of the screen
 vim.opt.scrolloff = 8
-
--- Show color column
-vim.opt.colorcolumn = "120"
