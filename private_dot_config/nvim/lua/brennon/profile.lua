@@ -64,3 +64,6 @@ vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>', { silent = true })
 
 -- Keep the cursor away from the edge of the screen by 8 lines. Use 999 to keep it in the very center of the screen
 vim.opt.scrolloff = 8
+
+-- Show color column
+vim.opt.colorcolumn = "120"
