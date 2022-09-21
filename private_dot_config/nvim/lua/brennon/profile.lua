@@ -10,7 +10,12 @@ end
 
 vim.opt.syntax = "enable"
 -- vim.cmd "colorscheme gruvbox"
-vim.cmd "colorscheme kanagawa"
+-- vim.cmd "colorscheme kanagawa"
+-- vim.cmd "colorscheme nord"
+-- vim.cmd "colorscheme nordfox"
+vim.cmd "colorscheme tokyonight-storm"
+-- Make the background transparent so it uses the terminal background color
+vim.cmd [[ hi normal guibg=000000 ]]
 
 -- Hybrid line numbers
 vim.opt.number = true
@@ -71,3 +76,4 @@ vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>', { silent = true })
 
 -- Keep the cursor away from the edge of the screen by 8 lines. Use 999 to keep it in the very center of the screen
 vim.opt.scrolloff = 8
+
