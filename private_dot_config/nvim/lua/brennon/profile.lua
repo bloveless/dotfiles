@@ -13,7 +13,8 @@ vim.opt.syntax = "enable"
 -- vim.cmd "colorscheme kanagawa"
 -- vim.cmd "colorscheme nord"
 -- vim.cmd "colorscheme nordfox"
-vim.cmd "colorscheme tokyonight-storm"
+-- vim.cmd "colorscheme tokyonight-storm"
+vim.cmd "colorscheme tender"
 -- Make the background transparent so it uses the terminal background color
 vim.cmd [[ hi normal guibg=000000 ]]
 

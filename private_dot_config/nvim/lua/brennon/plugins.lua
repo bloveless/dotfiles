@@ -23,9 +23,10 @@ require('packer').startup(function(use)
 
   -- use 'gruvbox-community/gruvbox'
   -- use 'rebelot/kanagawa.nvim'
-  use 'arcticicestudio/nord-vim'
+  -- use 'arcticicestudio/nord-vim'
   -- use "EdenEast/nightfox.nvim"
-  use 'folke/tokyonight.nvim'
+  -- use 'folke/tokyonight.nvim'
+	use 'jacoborus/tender.vim'
 
   use {
     'nvim-treesitter/nvim-treesitter',
