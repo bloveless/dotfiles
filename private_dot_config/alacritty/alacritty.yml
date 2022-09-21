@@ -3,7 +3,7 @@ shell:
   args:
     - -l
     - -c
-    - "tmux attach -t default || tmux new -s default"
+    - "tmux attach -t default || tmux new -s default || /opt/homebrew/bin/tmux attach -t default || /opt/homebrew/bin/tmux new -s default"
 
 font:
   normal:
