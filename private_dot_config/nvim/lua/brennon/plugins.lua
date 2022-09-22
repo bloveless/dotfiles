@@ -23,6 +23,7 @@ require('packer').startup(function(use)
 
   use 'gruvbox-community/gruvbox'
   use 'folke/tokyonight.nvim'
+  use { "catppuccin/nvim", as = "catppuccin" }
 
   use {
     'nvim-treesitter/nvim-treesitter',

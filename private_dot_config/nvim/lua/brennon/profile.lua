@@ -1,5 +1,6 @@
 -- Map leader to space
 vim.g.mapleader = ' '
+vim.g.catppuccin_flavour = "macchiato"
 
 require('brennon.globals')
 require('brennon.plugins')
@@ -10,7 +11,7 @@ end
 
 vim.opt.syntax = "enable"
 -- vim.cmd "colorscheme gruvbox"
-vim.cmd "colorscheme tokyonight-storm"
+vim.cmd "colorscheme catppuccin"
 -- Make the background transparent so it uses the terminal background color
 vim.cmd [[ hi normal guibg=000000 ]]
 

@@ -1,3 +1,6 @@
+env:
+  TERM: xterm-256color
+
 shell:
   program: /bin/zsh
   args:
@@ -7,7 +10,7 @@ shell:
 
 font:
   normal:
-    family: JetBrainsMono Nerd Font Mono
+    family: MonoLisa Nerd Font
 
   size: 13.0
 
@@ -28,6 +31,10 @@ import:
   # - ~/.config/alacritty/tokyonight_day.yml
   # - ~/.config/alacritty/tokyonight_moon.yml
   # - ~/.config/alacritty/tokyonight_night.yml
-  - ~/.config/alacritty/tokyonight_storm.yml
+  # - ~/.config/alacritty/tokyonight_storm.yml
   # - ~/.config/alacritty/gruvbox.yml
+  # - ~/.config/alacritty/catppuccin-frappe.yml
+  # - ~/.config/alacritty/catppuccin-latte.yml
+  - ~/.config/alacritty/catppuccin-macchiato.yml
+  # - ~/.config/alacritty/catppuccin-mocha.yml
 
