@@ -21,12 +21,8 @@ require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
-  -- use 'gruvbox-community/gruvbox'
-  -- use 'rebelot/kanagawa.nvim'
-  -- use 'arcticicestudio/nord-vim'
-  -- use "EdenEast/nightfox.nvim"
-  -- use 'folke/tokyonight.nvim'
-	use 'jacoborus/tender.vim'
+  use 'gruvbox-community/gruvbox'
+  use 'folke/tokyonight.nvim'
 
   use {
     'nvim-treesitter/nvim-treesitter',
