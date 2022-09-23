@@ -1,22 +1,28 @@
 env:
   TERM: xterm-256color
+  PATH: /opt/homebrew/bin:/bin:/usr/bin:/usr/local/bin
 
 shell:
   program: /bin/zsh
   args:
     - -l
     - -c
-    - "tmux attach -t default || tmux new -s default || /opt/homebrew/bin/tmux attach -t default || /opt/homebrew/bin/tmux new -s default"
+    - "tmux -u attach -t default || tmux -u new -s default"
 
 font:
   normal:
     family: MonoLisa Nerd Font
+    # family: DejaVuSansMono Nerd Font
+    # family: Hack Nerd Font
+    # family: InputMono Nerd Font
+    # family: Monoid Nerd Font
+    # family: JetBrainsMono Nerd Font Mono
 
   size: 13.0
 
   offset:
-    x: 2
-    y: 5
+    x: 1
+    y: 0
 
 window:
   dimensions:
