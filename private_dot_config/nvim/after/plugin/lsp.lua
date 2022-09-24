@@ -10,6 +10,8 @@ require('mason-tool-installer').setup {
     'gopls',
     'shellcheck',
     'typescript-language-server',
+    'svelte-language-server',
+    'css-lsp',
   },
 
   -- if set to true this will check each tool for updates. If updates
@@ -94,12 +96,26 @@ require('lspconfig').sumneko_lua.setup {
     },
   },
 }
+
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 require('lspconfig').vimls.setup {
   on_attach = on_attach,
+  capabilities = capabilities,
 }
 require('lspconfig').gopls.setup {
   on_attach = on_attach,
+  capabilities = capabilities,
 }
 require('lspconfig').tsserver.setup {
   on_attach = on_attach,
+  capabilities = capabilities,
 }
+require('lspconfig').svelte.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+require('lspconfig').cssls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
