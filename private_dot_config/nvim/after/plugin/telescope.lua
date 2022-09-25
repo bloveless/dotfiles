@@ -8,7 +8,7 @@ require('telescope').setup {
       override_file_sorter = true,     -- override the file sorter
       case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
                                        -- the default case_mode is "smart_case"
-    }
+    },
   }
 }
 -- To get fzf loaded and working with telescope, you need to call
@@ -19,8 +19,8 @@ require('telescope').load_extension('zoxide')
 
 require('telescope').load_extension('media_files')
 
-vim.api.nvim_set_keymap('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>", {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>", {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>", {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>", {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>fz', "<cmd>lua require('telescope').extensions.zoxide.list{}<cr>", {noremap = true})
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files)
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
+vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers)
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
+vim.keymap.set('n', '<leader>fz', require('telescope').extensions.zoxide.list)

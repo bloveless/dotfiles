@@ -1,6 +1,10 @@
 -- Map leader to space
 vim.g.mapleader = ' '
 vim.g.catppuccin_flavour = "macchiato"
+--
+-- disable netrw at the very start of your init.lua (strongly advised for nvim-tree)
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
 
 require('brennon.globals')
 require('brennon.plugins')
