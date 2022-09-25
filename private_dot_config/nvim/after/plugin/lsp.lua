@@ -12,6 +12,7 @@ require('mason-tool-installer').setup {
     'typescript-language-server',
     'svelte-language-server',
     'css-lsp',
+    'eslint_d',
   },
 
   -- if set to true this will check each tool for updates. If updates
