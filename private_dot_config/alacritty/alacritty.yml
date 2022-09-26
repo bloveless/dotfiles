@@ -31,7 +31,6 @@ window:
 
   padding:
     x: 5
-    y: 5
 
 import:
   # - ~/.config/alacritty/tokyonight_day.yml
