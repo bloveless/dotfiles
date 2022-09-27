@@ -132,4 +132,6 @@ require("packer").startup(function(use)
     branch = "v2.2",
     requires = { "nvim-lua/plenary.nvim" },
   })
+
+  use("mickael-menu/zk-nvim")
 end)
