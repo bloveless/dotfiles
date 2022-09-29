@@ -105,24 +105,11 @@ require("packer").startup(function(use)
   })
 
   use({
-    "renerocksai/telekasten.nvim",
-    requires = {
-      { "renerocksai/calendar-vim" },
-      { "nvim-telescope/telescope-symbols.nvim" },
-      {
-        "iamcco/markdown-preview.nvim",
-        run = function()
-          vim.fn["mkdp#util#install"]()
-        end,
-      },
-      { "mzlogin/vim-markdown-toc" },
-    },
-  })
-
-  use({
     "ThePrimeagen/harpoon",
     requires = "nvim-lua/plenary.nvim",
   })
 
   use("lukas-reineke/indent-blankline.nvim")
+
+  use("vimwiki/vimwiki")
 end)
