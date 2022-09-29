@@ -55,7 +55,6 @@ require("packer").startup(function(use)
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       { "jvgrootveld/telescope-zoxide" },
-      { "nvim-telescope/telescope-media-files.nvim" }, -- this is a dependency for telekasten
     },
   })
 
