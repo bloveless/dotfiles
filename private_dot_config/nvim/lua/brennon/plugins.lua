@@ -126,12 +126,4 @@ require("packer").startup(function(use)
   })
 
   use("lukas-reineke/indent-blankline.nvim")
-
-  use({
-    "phaazon/mind.nvim",
-    branch = "v2.2",
-    requires = { "nvim-lua/plenary.nvim" },
-  })
-
-  use("mickael-menu/zk-nvim")
 end)

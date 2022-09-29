@@ -28,7 +28,7 @@ require('telekasten').setup({
     -- "uuid" - Use uuid
     -- "uuid-title" - Prefix title by uuid
     -- "title-uuid" - Suffix title with uuid
-    new_note_filename = "title",
+    new_note_filename = "uuid-title",
     -- file uuid type ("rand" or input for os.date()")
     uuid_type = "%Y%m%d%H%M",
     -- UUID separator
@@ -81,7 +81,7 @@ require('telekasten').setup({
     tag_notation = "#tag",
 
     -- command palette theme: dropdown (window) or ivy (bottom panel)
-    command_palette_theme = "ivy",
+    command_palette_theme = "dropdown",
 
     -- tag list theme:
     -- get_cursor: small tag list at cursor; ivy and dropdown like above
@@ -152,7 +152,7 @@ vim.keymap.set('n', '<leader>zn', require('telekasten').new_note)
 vim.keymap.set('n', '<leader>zN', require('telekasten').new_templated_note)
 vim.keymap.set('n', '<leader>zy', require('telekasten').yank_notelink)
 vim.keymap.set('n', '<leader>zc', require('telekasten').show_calendar)
-vim.keymap.set('n', '<leader>zC', ':CalendarT')
+vim.keymap.set('n', '<leader>zC', '<cmd>CalendarT<cr>')
 vim.keymap.set('n', '<leader>zi', require('telekasten').paste_img_and_link)
 vim.keymap.set('n', '<leader>zt', require('telekasten').toggle_todo)
 vim.keymap.set('n', '<leader>zb', require('telekasten').show_backlinks)
