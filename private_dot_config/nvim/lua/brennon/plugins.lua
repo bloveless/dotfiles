@@ -119,9 +119,4 @@ require("packer").startup(function(use)
   })
 
   use("ellisonleao/glow.nvim")
-
-  use({
-    "preservim/vim-markdown",
-    requires = { "godlygeek/tabular" },
-  })
 end)

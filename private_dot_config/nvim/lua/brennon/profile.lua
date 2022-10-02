@@ -6,9 +6,6 @@ vim.g.catppuccin_flavour = "macchiato"
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 
--- disable automatic folding in markdown
-vim.g.vim_markdown_folding_disabled = 1
-
 require('brennon.globals')
 require('brennon.plugins')
 
