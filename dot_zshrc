@@ -1,5 +1,6 @@
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+export ZK_NOTEBOOK_DIR="$HOME/zettelkasten"
 alias vim="nvim"
 
 export PATH=$HOME/.local/bin:$PATH
@@ -26,6 +27,7 @@ alias kos="kubectl -n openebs-system"
 alias ks="kubectl -n secrets"
 alias kms="kubectl -n media-server"
 alias ktp="kubectl -n tekton-pipelines"
+alias zettel="cd ~/zettelkasten; nvim -S"
 
 alias talosctlcontrol="talosctl --nodes 192.168.4.248"
 alias talosctlworkers="talosctl --nodes 192.168.4.252,192.168.4.251,192.168.4.250"
