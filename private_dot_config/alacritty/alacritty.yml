@@ -19,10 +19,6 @@ font:
 
   size: 13.0
 
-  offset:
-    x: 1
-    y: 0
-
 window:
   dimensions:
     columns: 133
