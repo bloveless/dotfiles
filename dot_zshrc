@@ -1,7 +1,6 @@
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export ZK_NOTEBOOK_DIR="$HOME/zettelkasten"
-export TERM=alacritty
 alias vim="nvim"
 
 export PATH=$HOME/.local/bin:$PATH
