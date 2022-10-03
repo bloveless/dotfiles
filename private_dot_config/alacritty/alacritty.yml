@@ -1,5 +1,4 @@
 env:
-  TERM: xterm-256color
   PATH: /opt/homebrew/bin:/bin:/usr/bin:/usr/local/bin
 
 shell:
