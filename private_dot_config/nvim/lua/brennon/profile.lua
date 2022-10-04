@@ -44,12 +44,6 @@ vim.opt.softtabstop = 2
 vim.opt.list = true
 vim.opt.listchars = { tab = '>-', lead = '.', trail = '~', precedes = '<', extends = '>' }
 
--- Automatically trim trailing whitespace on save
--- if there are any issues with this (I.E. files that need trailing whitespace)
--- consider this link https://vim.fandom.com/wiki/Remove_unwanted_spaces for
--- solutions
-vim.cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
-
 vim.keymap.set('n', '<leader>ex', '<cmd>Explore<cr>')
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { noremap = true })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { noremap = true })
