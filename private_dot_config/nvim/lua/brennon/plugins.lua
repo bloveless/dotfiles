@@ -103,6 +103,11 @@ require("packer").startup(function(use)
   use("hashivim/vim-terraform")
 
   use({
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = "nvim-lua/plenary.nvim",
+  })
+
+  use({
     "ThePrimeagen/harpoon",
     requires = "nvim-lua/plenary.nvim",
   })
