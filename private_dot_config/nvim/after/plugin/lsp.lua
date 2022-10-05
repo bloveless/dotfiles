@@ -1,56 +1,20 @@
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("mason-tool-installer").setup({
+-- LSP Progress UI
+require("fidget").setup({})
 
-  -- a list of all tools you want to ensure are installed upon
-  -- start; they should be the names Mason uses for each tool
-  ensure_installed = {
-    "lua-language-server",
-    "vim-language-server",
-    "gopls",
-    "shellcheck",
-    "typescript-language-server",
-    "svelte-language-server",
-    "css-lsp",
-    "eslint_d",
-    "stylua",
-  },
-
-  -- if set to true this will check each tool for updates. If updates
-  -- are available the tool will be updated. This setting does not
-  -- affect :MasonToolsUpdate or :MasonToolsInstall.
-  -- Default: false
-  auto_update = false,
-
-  -- automatically install / update on startup. If set to false nothing
-  -- will happen on startup. You can use :MasonToolsInstall or
-  -- :MasonToolsUpdate to install tools and check for updates.
-  -- Default: true
-  run_on_start = true,
-})
-
-require("null-ls").setup({
-  sources = {
-    require("null-ls").builtins.formatting.stylua,
-    require("null-ls").builtins.diagnostics.eslint_d,
-    require("null-ls").builtins.code_actions.eslint_d,
-    require("null-ls").builtins.code_actions.gitsigns,
-    require("null-ls").builtins.code_actions.shellcheck,
-    -- require("null-ls").builtins.diagnostics.codespell,
-    require("null-ls").builtins.completion.spell,
-  },
-})
-
--- Mappings.
+-- Global Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
+vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
+vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
+vim.api.nvim_create_user_command("Format", function()
+  vim.lsp.buf.format({ async = true })
+end, {})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -63,24 +27,54 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
   vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set("n", "<leader>wl", function()
+  vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set("n", "<space>wl", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
+  vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-  vim.keymap.set("n", "<leader><leader>f", function()
+  vim.keymap.set("n", "<space>f", function()
     vim.lsp.buf.format({ async = true })
   end, bufopts)
+
+  -- Auto format on save
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+        vim.lsp.buf.formatting_sync()
+      end,
+    })
+  end
 end
+
+-- npm install -g eslint_d
+-- npm install -g @johnnymorganz/stylua-bin
+require("null-ls").setup({
+  sources = {
+    -- require("null-ls").builtins.formatting.stylua,
+    require("null-ls").builtins.diagnostics.eslint_d,
+    require("null-ls").builtins.code_actions.eslint_d,
+    require("null-ls").builtins.formatting.eslint_d,
+    require("null-ls").builtins.code_actions.gitsigns,
+    require("null-ls").builtins.code_actions.shellcheck,
+    -- require("null-ls").builtins.diagnostics.codespell,
+    require("null-ls").builtins.completion.spell,
+  },
+  on_attach = on_attach,
+})
 
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
+-- brew install lua-language-server
 require("lspconfig").sumneko_lua.setup({
   on_attach = on_attach,
   settings = {
@@ -110,22 +104,18 @@ require("lspconfig").sumneko_lua.setup({
 })
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-require("lspconfig").vimls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- go install golang.org/x/tools/gopls@latest
 require("lspconfig").gopls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
 })
-require("lspconfig").tsserver.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+-- npm install -g svelte-language-server
 require("lspconfig").svelte.setup({
   on_attach = on_attach,
   capabilities = capabilities,
 })
+-- npm i -g vscode-langservers-extracted
 require("lspconfig").cssls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
