@@ -1,6 +1,17 @@
 -- LSP Progress UI
 require("fidget").setup({})
 
+local lsp_formatting = function(bufnr, async)
+  vim.lsp.buf.format({
+    async = async,
+    filter = function(client)
+      -- disable using tsserver formatting
+      return client.name ~= "tsserver"
+    end,
+    bufnr = bufnr,
+  })
+end
+
 -- Global Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
@@ -37,7 +48,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
   vim.keymap.set("n", "<space>f", function()
-    vim.lsp.buf.format({ async = true })
+    lsp_formatting(bufnr, true)
   end, bufopts)
 
   -- Auto format on save
@@ -48,7 +59,7 @@ local on_attach = function(client, bufnr)
       buffer = bufnr,
       callback = function()
         -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-        vim.lsp.buf.formatting_sync()
+        lsp_formatting(bufnr, false)
       end,
     })
   end
@@ -107,6 +118,11 @@ local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protoco
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- go install golang.org/x/tools/gopls@latest
 require("lspconfig").gopls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+-- npm install -g typescript typescript-language-server
+require("lspconfig").tsserver.setup({
   on_attach = on_attach,
   capabilities = capabilities,
 })
