@@ -36,9 +36,9 @@ vim.g.netrw_winsize = 20
 
 -- Default spaces instead of tabs
 vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
 
 -- Show whitespace characters
 vim.opt.list = true
@@ -71,4 +71,3 @@ vim.keymap.set('n', '<c-l>', '<cmd>wincmd l<cr>', { silent = true })
 
 -- Keep the cursor away from the edge of the screen by 8 lines. Use 999 to keep it in the very center of the screen
 vim.opt.scrolloff = 8
-
