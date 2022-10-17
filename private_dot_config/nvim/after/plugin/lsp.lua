@@ -111,7 +111,7 @@ require("lspconfig").sumneko_lua.setup({
   },
 })
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- go install golang.org/x/tools/gopls@latest
 require("lspconfig").gopls.setup({
