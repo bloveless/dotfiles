@@ -133,3 +133,8 @@ require("lspconfig").cssls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
 })
+-- brew install hashicorp/tap/terraform-ls
+require("lspconfig").terraformls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
