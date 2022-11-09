@@ -138,3 +138,8 @@ require("lspconfig").terraformls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
 })
+-- npm install -g @tailwindcss/language-server
+require 'lspconfig'.tailwindcss.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
