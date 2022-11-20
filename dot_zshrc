@@ -40,3 +40,4 @@ eval "$(flux completion zsh)"
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
+add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea
