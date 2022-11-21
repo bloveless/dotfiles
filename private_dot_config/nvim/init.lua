@@ -168,6 +168,15 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- set the scrolloff to leave a 10 line window in the middle of the screen where scrolling doesn't happen
+vim.cmd [[
+  augroup VCenterCursor
+    au!
+    au BufEnter,WinEnter,WinNew,VimResized *,*.*
+          \ let &scrolloff=(winheight(win_getid())/2)-5
+  augroup END
+]]
+
 -- Keymaps for better split navigation
 vim.keymap.set('n', '<C-h>', '<C-w>h', { silent = true })
 vim.keymap.set('n', '<C-k>', '<C-w>k', { silent = true })
