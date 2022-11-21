@@ -212,7 +212,7 @@ require('gitsigns').setup {
 
     local function map(mode, l, r, opts)
       opts = opts or {}
-      ops.buffer = bufnr
+      opts.buffer = bufnr
       vim.keymap.set(mode, l, r, opts)
     end
 
