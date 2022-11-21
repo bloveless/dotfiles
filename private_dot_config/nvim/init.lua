@@ -153,6 +153,9 @@ vim.o.relativenumber = true
 -- Global status line
 vim.o.laststatus = 3
 
+-- Winbar show filename
+vim.o.winbar = "%=%m %f"
+
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -171,9 +174,14 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- set the scrolloff to leave a 10 line window in the middle of the screen where scrolling doesn't happen
 vim.cmd [[
   augroup VCenterCursor
+    let newscrolloff=(winheight(win_getid())/2)-5
+    if newscrolloff < 0
+      set newscrolloff=0
+    end
+
     au!
     au BufEnter,WinEnter,WinNew,VimResized *,*.*
-          \ let &scrolloff=(winheight(win_getid())/2)-5
+          \ let &scrolloff=newscrolloff
   augroup END
 ]]
 
