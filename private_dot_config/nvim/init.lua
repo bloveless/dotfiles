@@ -172,18 +172,18 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- set the scrolloff to leave a 10 line window in the middle of the screen where scrolling doesn't happen
-vim.cmd [[
-  augroup VCenterCursor
-    let newscrolloff=(winheight(win_getid())/2)-5
-    if newscrolloff < 0
-      set newscrolloff=0
+vim.api.nvim_create_augroup("SetScrolloff", { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter", "WinNew", "VimResized" }, {
+  group = "SetScrolloff",
+  callback = function()
+    local newscrolloff = math.ceil((vim.api.nvim_win_get_height(0) / 2) - 5)
+    if newscrolloff < 0 then
+      newscrolloff = 0
     end
 
-    au!
-    au BufEnter,WinEnter,WinNew,VimResized *,*.*
-          \ let &scrolloff=newscrolloff
-  augroup END
-]]
+    vim.opt.scrolloff = newscrolloff
+  end
+})
 
 -- Keymaps for better split navigation
 vim.keymap.set('n', '<C-h>', '<C-w>h', { silent = true })
