@@ -1,0 +1,23 @@
+"
+" Make sure to update https://gist.github.com/bloveless/e45e97de38f2eeeddc5ff296ed241caf when updating.
+"
+
+" let mapleader = " "
+set clipboard += unnamed
+set ideajoin
+set surround
+set commentary
+set which-key
+set sneak
+set incsearch
+set visualbell
+set noerrorbells
+set number relativenumber
+set ignorecase
+set smartcase
+
+" Change the Ctrl+E and Ctrl+Y speed to scroll 5 lines at a time.
+" Using noremap is required so we don't get into an infinite loop.
+
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
