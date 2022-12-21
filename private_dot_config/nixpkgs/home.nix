@@ -1,10 +1,14 @@
-{ config, pkgs, ... }:
+{ config, fetchFromGitHub, pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "bloveless";
   home.homeDirectory = "/Users/bloveless";
+  home.packages = [
+    pkgs.htop
+    pkgs.cowsay
+  ];
   home.sessionVariables = {
     VISUAL = "nvim";
     EDITOR = "nvim";
@@ -85,5 +89,51 @@
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  programs.tmux = {
+    enable = true;
+    keyMode = "vi";
+    newSession = true;
+    terminal = "screen-256color";
+    prefix = "C-Space";
+    plugins = with pkgs; [
+      tmuxPlugins.nord
+    ];
+    extraConfig = ''
+      set-option -sa terminal-overrides ",alacritty:Tc"
+      set-environment -g PATH "/usr/local/bin:/bin:/usr/bin:$HOME/.nix-profile/bin"
+
+      # switch panes using Alt-arrow without prefix
+      bind -n M-Left select-pane -L
+      bind -n M-Right select-pane -R
+      bind -n M-Up select-pane -U
+      bind -n M-Down select-pane -D
+
+      # Move window to the left and right
+      bind -n C-S-Left swap-window -t -1\; select-window -t -1
+      bind -n C-S-Right swap-window -t +1\; select-window -t +1
+
+      # Default to opening new windows and splits in the same directory
+      bind '"' split-window -c "#{pane_current_path}"
+      bind % split-window -h -c "#{pane_current_path}"
+      bind c new-window -c "#{pane_current_path}"
+
+      # reload config file (change file location to your the tmux.conf you want to use)
+      bind r source-file ~/.tmux.conf
+
+      # Put status bar at the top
+      set-option -g status-position top
+
+      # Enable mouse mode (tmux 2.1 and above)
+      set -g mouse on
+
+      # don't rename windows automatically
+      set-option -g allow-rename off
+
+      # Settings for vim
+      set-option -g focus-events on
+      set-option -sg escape-time 10
+    '';
   };
 }

@@ -2,7 +2,7 @@
 " Make sure to update https://gist.github.com/bloveless/e45e97de38f2eeeddc5ff296ed241caf when updating.
 "
 
-" let mapleader = " "
+let mapleader = " "
 set clipboard += unnamed
 set ideajoin
 set surround
@@ -21,3 +21,6 @@ set smartcase
 
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
+
+nnoremap <leader>f :action ReformatCode<cr>
+command! Format action ReformatCode
