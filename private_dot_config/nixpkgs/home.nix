@@ -3,8 +3,8 @@
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "bloveless";
-  home.homeDirectory = "/Users/bloveless";
+  home.username = builtins.getEnv "USER";
+  home.homeDirectory = builtins.getEnv "HOME";
   home.packages = [
     pkgs.htop
     pkgs.cowsay
