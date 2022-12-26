@@ -8,15 +8,24 @@
   home.packages = [
     pkgs.htop
     pkgs.cowsay
+    pkgs.git
+    pkgs.devbox
+    pkgs.file
+    pkgs.chezmoi
   ];
+
   home.sessionVariables = {
     VISUAL = "nvim";
     EDITOR = "nvim";
   };
+
   home.sessionPath = [
     "$HOME/.local/bin"
     "$HOME/go/bin"
   ];
+
+  
+
   home.shellAliases = {
     ".." = "cd ..";
     "..." = "cd ../..";
@@ -58,8 +67,23 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
-  programs.bash.enable = true;
-  programs.zsh.enable = true;
+  programs.bash = {
+    enable = true;
+    profileExtra = ''
+      if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+        tmux attach -t default || tmux new -s default
+      fi
+    '';
+  };
+
+  programs.zsh = {
+    enable = true;
+    profileExtra = ''
+      if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+        tmux attach -t default || tmux new -s default
+      fi
+    '';
+  };
 
   programs.neovim = {
     enable = true;
