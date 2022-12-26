@@ -24,8 +24,6 @@
     "$HOME/go/bin"
   ];
 
-  
-
   home.shellAliases = {
     ".." = "cd ..";
     "..." = "cd ../..";
@@ -120,13 +118,14 @@
     keyMode = "vi";
     newSession = true;
     terminal = "screen-256color";
+    shell ="${pkgs.zsh}/bin/zsh";
     prefix = "C-Space";
     plugins = with pkgs; [
       tmuxPlugins.nord
     ];
     extraConfig = ''
       set-option -sa terminal-overrides ",alacritty:Tc"
-      set-environment -g PATH "/usr/local/bin:/bin:/usr/bin:$HOME/.nix-profile/bin"
+      # set-environment -g PATH "/usr/local/bin:/bin:/usr/bin:$HOME/.nix-profile/bin"
 
       # switch panes using Alt-arrow without prefix
       bind -n M-Left select-pane -L
