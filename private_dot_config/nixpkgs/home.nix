@@ -11,6 +11,10 @@
     pkgs.git
     pkgs.file
     pkgs.chezmoi
+    pkgs.groff
+    pkgs.awscli2
+    pkgs.nodejs
+    pkgs.nodePackages.aws-cdk
   ];
 
   home.sessionVariables = {
