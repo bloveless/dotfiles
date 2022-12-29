@@ -19,6 +19,7 @@
     pkgs.ripgrep
     pkgs.curl
     pkgs.hugo
+    pkgs.go
   ];
 
   home.sessionVariables = {
