@@ -15,6 +15,10 @@
     pkgs.awscli2
     pkgs.nodejs
     pkgs.nodePackages.aws-cdk
+    pkgs.terraform
+    pkgs.ripgrep
+    pkgs.curl
+    pkgs.hugo
   ];
 
   home.sessionVariables = {
