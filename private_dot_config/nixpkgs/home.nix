@@ -20,6 +20,7 @@
     pkgs.curl
     pkgs.hugo
     pkgs.go
+    pkgs.gnumake
   ];
 
   home.sessionVariables = {
