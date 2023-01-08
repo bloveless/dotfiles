@@ -16,6 +16,8 @@ set number relativenumber
 set ignorecase
 set smartcase
 
+set NERDTree
+
 " Change the Ctrl+E and Ctrl+Y speed to scroll 5 lines at a time.
 " Using noremap is required so we don't get into an infinite loop.
 
@@ -23,4 +25,5 @@ nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 
 nnoremap <leader>f :action ReformatCode<cr>
+nnoremap <leader>t :NERDTreeToggle<cr>
 command! Format action ReformatCode
