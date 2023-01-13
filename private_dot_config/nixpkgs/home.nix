@@ -21,6 +21,7 @@
     pkgs.ripgrep
     pkgs.curl
     pkgs.hugo
+    pkgs.gnumake
     pkgs.go
     pkgs.golangci-lint
   ];
