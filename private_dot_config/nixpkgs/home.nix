@@ -16,11 +16,13 @@
     pkgs.ssm-session-manager-plugin
     pkgs.nodejs
     pkgs.nodePackages.aws-cdk
+    pkgs.nodePackages.redoc-cli
     pkgs.terraform
     pkgs.ripgrep
     pkgs.curl
     pkgs.hugo
     pkgs.go
+    pkgs.golangci-lint
   ];
 
   home.sessionVariables = {
