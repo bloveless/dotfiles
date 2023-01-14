@@ -21,13 +21,10 @@
     pkgs.ripgrep
     pkgs.curl
     pkgs.hugo
-<<<<<<< HEAD
     pkgs.gnumake
     pkgs.go
     pkgs.golangci-lint
-=======
     pkgs.go
->>>>>>> 8b3c7bd (Expand tmux history)
   ];
 
   home.sessionVariables = {
