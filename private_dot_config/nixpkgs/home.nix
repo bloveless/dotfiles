@@ -21,9 +21,13 @@
     pkgs.ripgrep
     pkgs.curl
     pkgs.hugo
+<<<<<<< HEAD
     pkgs.gnumake
     pkgs.go
     pkgs.golangci-lint
+=======
+    pkgs.go
+>>>>>>> 8b3c7bd (Expand tmux history)
   ];
 
   home.sessionVariables = {
@@ -174,6 +178,9 @@
       # Settings for vim
       set-option -g focus-events on
       set-option -sg escape-time 10
+
+      # Much larger history limit
+      set-option -g history-limit 100000
     '';
   };
 }
