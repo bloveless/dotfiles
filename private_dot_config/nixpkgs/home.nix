@@ -25,6 +25,7 @@
     pkgs.go
     pkgs.golangci-lint
     pkgs.go
+    pkgs.jq
   ];
 
   home.sessionVariables = {
