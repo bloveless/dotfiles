@@ -13,6 +13,7 @@
     pkgs.chezmoi
     pkgs.groff
     pkgs.awscli2
+    pkgs.aws-sam-cli
     pkgs.ssm-session-manager-plugin
     pkgs.nodejs
     pkgs.nodePackages.aws-cdk
@@ -24,7 +25,6 @@
     pkgs.gnumake
     pkgs.go
     pkgs.golangci-lint
-    pkgs.go
     pkgs.jq
   ];
 
