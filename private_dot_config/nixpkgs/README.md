@@ -10,7 +10,7 @@ nix run . switch -- --flake . --impure
 
 Impure here is required so the the non free packages can be included.
 
-Home manager can then be run normally with `home-manager switch`.
+Home manager can then be run normally with `home-manager switch --impure`.
 
 ## Resources
 
