@@ -6,7 +6,7 @@ To update home-manager from the flake run the following command from within the 
 nix run . switch -- --flake . --impure
 ```
 
-`nix run . switch` is short for `home-manager switch` later. `--` helps it understand which flags are for nix run vs to pass into home-manager switch. (See reference #1)
+`nix run . switch` is short for `home-manager switch` later. `--` helps it understand which flags are for nix run vs to pass into home-manager switch. (See resource #1)
 
 Impure here is required so the the non free packages can be included.
 

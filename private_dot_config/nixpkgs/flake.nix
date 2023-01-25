@@ -19,23 +19,31 @@
                 # Note: I am sure this could be done better with flake-utils or something
                 pkgs = nixpkgs.legacyPackages.x86_64-darwin;
 
-                modules = [ ./home.nix ];
-
-                extraSpecialArgs = {
-                    username = "bloveless";
-                    homeDirectory = "/Users/bloveless";
-                };
+                modules = [
+                    ./home.nix
+                    {
+                        home = {
+                            username = "bloveless";
+                            homeDirectory = "/Users/bloveless";
+                            stateVersion = "22.11";
+                        };
+                    }
+                ];
             };
             brennon = home-manager.lib.homeManagerConfiguration {
                 # Note: I am sure this could be done better with flake-utils or something
                 pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
-                modules = [ ./home.nix ];
-
-                extraSpecialArgs = {
-                    username = "brennon";
-                    homeDirectory = "/Users/brennon";
-                };
+                modules = [
+                    ./home.nix
+                    {
+                        home = {
+                            username = "brennon";
+                            homeDirectory = "/Users/brennon";
+                            stateVersion = "22.11";
+                        };
+                    }
+                ];
             };
         };
     };
