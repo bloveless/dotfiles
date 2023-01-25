@@ -10,28 +10,16 @@
         };
     };
 
-    outputs = {nixpkgs, home-manager, ...}:
-    let 
-        # Configuration for `nixpkgs`
-        nixpkgsConfig = {
-          config = { allowUnfree = true; };
-        };
-    in
-    {
+    outputs = {nixpkgs, home-manager, ...}: {
         defaultPackage.x86_64-darwin = home-manager.defaultPackage.x86_64-darwin;
         defaultPackage.aarch64-darwin = home-manager.defaultPackage.aarch64-darwin;
-
-        nixpkgs = nixpkgsConfig;
 
         homeConfigurations = {
             bloveless = home-manager.lib.homeManagerConfiguration {
                 # Note: I am sure this could be done better with flake-utils or something
                 pkgs = nixpkgs.legacyPackages.x86_64-darwin;
 
-                modules = [
-                    ./home.nix
-                    # { nixpkgs.config.allowUnfree = true; }
-                ];
+                modules = [ ./home.nix ];
 
                 extraSpecialArgs = {
                     username = "bloveless";
