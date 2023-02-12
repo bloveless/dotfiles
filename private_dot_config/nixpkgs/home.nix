@@ -60,7 +60,7 @@
     ktp = "kubectl -n tekton-pipelines";
     tf = "terraform";
     terrafrom = "terraform";
-    ssh = "kitty +kitten ssh"
+    ssh = "kitty +kitten ssh";
     hm-home = "home-manager switch --flake \"$HOME/.config/nixpkgs#home\" --impure";
     hm-work = "home-manager switch --flake \"$HOME/.config/nixpkgx#work\" --impure";
   };
