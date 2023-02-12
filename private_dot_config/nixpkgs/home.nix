@@ -1,4 +1,4 @@
-{ config, fetchFromGitHub, pkgs, ... }:
+{ config, fetchFromGitHub, nixpkgs, pkgs, ... }:
 
 {
   home.packages = [
@@ -12,6 +12,7 @@
     pkgs.aws-sam-cli
     pkgs.ssm-session-manager-plugin
     pkgs.nodejs
+    pkgs.yarn
     pkgs.nodePackages.aws-cdk
     pkgs.nodePackages.redoc-cli
     pkgs.terraform
@@ -22,6 +23,7 @@
     pkgs.go
     pkgs.golangci-lint
     pkgs.jq
+    nixpkgs.legacyPackages.x86_64-linux.qmk
   ];
 
   home.sessionVariables = {
@@ -56,6 +58,11 @@
     ks = "kubectl -n secrets";
     kms = "kubectl -n media-server";
     ktp = "kubectl -n tekton-pipelines";
+    tf = "terraform";
+    terrafrom = "terraform";
+    ssh = "kitty +kitten ssh"
+    hm-home = "home-manager switch --flake \"$HOME/.config/nixpkgs#home\" --impure";
+    hm-work = "home-manager switch --flake \"$HOME/.config/nixpkgx#work\" --impure";
   };
 
   # Let Home Manager install and manage itself.

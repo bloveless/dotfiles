@@ -15,7 +15,7 @@
         defaultPackage.aarch64-darwin = home-manager.defaultPackage.aarch64-darwin;
 
         homeConfigurations = {
-            bloveless = home-manager.lib.homeManagerConfiguration {
+            work = home-manager.lib.homeManagerConfiguration {
                 # Note: I am sure this could be done better with flake-utils or something
                 pkgs = nixpkgs.legacyPackages.x86_64-darwin;
 
@@ -30,7 +30,7 @@
                     }
                 ];
             };
-            brennon = home-manager.lib.homeManagerConfiguration {
+            home = home-manager.lib.homeManagerConfiguration {
                 # Note: I am sure this could be done better with flake-utils or something
                 pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
@@ -44,6 +44,10 @@
                         };
                     }
                 ];
+
+                extraSpecialArgs = {
+                    nixpkgs = nixpkgs;
+                };
             };
         };
     };
