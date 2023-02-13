@@ -24,6 +24,8 @@
     pkgs.golangci-lint
     pkgs.jq
     nixpkgs.legacyPackages.x86_64-linux.qmk
+    pkgs.nomad
+    pkgs.consul
   ];
 
   home.sessionVariables = {
@@ -71,15 +73,6 @@
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-
-  programs.bash = {
-    enable = true;
-    profileExtra = ''
-      if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-        tmux attach -t default || tmux new -s default
-      fi
-    '';
-  };
 
   programs.zsh = {
     enable = true;

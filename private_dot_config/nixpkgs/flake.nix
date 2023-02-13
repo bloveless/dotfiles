@@ -21,7 +21,7 @@
                 pkgs = nixpkgs.legacyPackages.x86_64-darwin;
 
                 modules = [
-                    ./home.nix
+                    ./hm-work.nix
                     {
                         home = {
                             username = "bloveless";
@@ -36,7 +36,7 @@
                 pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
                 modules = [
-                    ./home.nix
+                    ./hm-home.nix
                     {
                         home = {
                             username = "brennon";
@@ -55,7 +55,7 @@
                 pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
                 modules = [
-                    ./home.nix
+                    ./hm-devbox.nix
                     {
                         home = {
                             username = "brennon";
