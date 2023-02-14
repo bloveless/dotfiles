@@ -21,4 +21,8 @@
     pkgs.nomad
     pkgs.consul
   ];
+
+  home.shellAliases = {
+    ssh = "kitty +kitten ssh";
+  };
 }

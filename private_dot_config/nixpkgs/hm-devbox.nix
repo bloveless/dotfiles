@@ -3,6 +3,7 @@
 {
   home.packages = [
     pkgs.git
+    pkgs.kitty
     pkgs.file
     pkgs.chezmoi
     pkgs.terraform
