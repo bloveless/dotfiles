@@ -21,6 +21,7 @@
                 pkgs = nixpkgs.legacyPackages.x86_64-darwin;
 
                 modules = [
+                    ./modules/base.nix
                     ./hm-work.nix
                     {
                         home = {
@@ -36,6 +37,7 @@
                 pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
                 modules = [
+                    ./modules/base.nix
                     ./hm-home.nix
                     {
                         home = {
@@ -55,11 +57,12 @@
                 pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
                 modules = [
+                    ./modules/base.nix
                     ./hm-devbox.nix
                     {
                         home = {
                             username = "brennon";
-                            homeDirectory = "/Users/brennon";
+                            homeDirectory = "/home/brennon";
                             stateVersion = "22.11";
                         };
                     }
