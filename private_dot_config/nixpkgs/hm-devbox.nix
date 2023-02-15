@@ -14,5 +14,6 @@
     pkgs.jq
     pkgs.nomad
     pkgs.consul
+    pkgs.ansible
   ];
 }
