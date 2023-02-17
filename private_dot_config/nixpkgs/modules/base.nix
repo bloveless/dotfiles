@@ -98,7 +98,7 @@
     shell ="${pkgs.zsh}/bin/zsh";
     prefix = "C-Space";
     plugins = with pkgs; [
-      tmuxPlugins.nord
+      # tmuxPlugins.nord
     ];
     extraConfig = ''
       set-option -sa terminal-overrides ",alacritty:Tc"
@@ -126,9 +126,9 @@
       # set-option -g status-position top
 
       # Create a second blank status bar to create padding between the status bar and text
-      set -Fg 'status-format[1]' '#{status-format[0]}'
-      set -g 'status-format[0]' '''
-      set -g status 2
+      # set -Fg 'status-format[1]' '#{status-format[0]}'
+      # set -g 'status-format[0]' '''
+      # set -g status 2
 
       # Enable mouse mode (tmux 2.1 and above)
       set -g mouse on
