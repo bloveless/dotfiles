@@ -15,6 +15,7 @@
     pkgs.nomad
     pkgs.consul
     pkgs.ansible
+    pkgs.bind # provides nslookup
   ];
   
   programs.zsh = {
