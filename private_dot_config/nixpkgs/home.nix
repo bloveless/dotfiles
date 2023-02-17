@@ -1,6 +1,29 @@
-{ config, fetchFromGitHub, nixpkgs, pkgs, ... }:
+{ config, fetchFromGitHub, pkgs, ... }:
 
 {
+  home.packages = [
+    pkgs.htop
+    pkgs.cowsay
+    pkgs.git
+    pkgs.file
+    pkgs.chezmoi
+    pkgs.groff
+    pkgs.awscli2
+    pkgs.aws-sam-cli
+    pkgs.ssm-session-manager-plugin
+    pkgs.nodejs
+    pkgs.nodePackages.aws-cdk
+    pkgs.nodePackages.redoc-cli
+    pkgs.terraform
+    pkgs.ripgrep
+    pkgs.curl
+    pkgs.hugo
+    pkgs.gnumake
+    pkgs.go
+    pkgs.golangci-lint
+    pkgs.jq
+  ];
+
   home.sessionVariables = {
     VISUAL = "nvim";
     EDITOR = "nvim";
@@ -33,20 +56,6 @@
     ks = "kubectl -n secrets";
     kms = "kubectl -n media-server";
     ktp = "kubectl -n tekton-pipelines";
-    tf = "terraform";
-    terrafrom = "terraform";
-    hm-home = "home-manager switch --flake \"$HOME/.config/nixpkgs#home\" --impure";
-    hm-work = "home-manager switch --flake \"$HOME/.config/nixpkgs#work\" --impure";
-    hm-devbox = "home-manager switch --flake \"$HOME/.config/nixpkgs#devbox\" --impure";
-  };
-
-  programs.zsh = {
-    enable = true;
-    # profileExtra = ''
-    #   if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    #     tmux attach -t default || tmux new -s default
-    #   fi
-    # '';
   };
 
   # Let Home Manager install and manage itself.
@@ -55,16 +64,29 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
+  programs.bash = {
+    enable = true;
+    profileExtra = ''
+      if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+        tmux attach -t default || tmux new -s default
+      fi
+    '';
+  };
+
+  programs.zsh = {
+    enable = true;
+    profileExtra = ''
+      if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+        tmux attach -t default || tmux new -s default
+      fi
+    '';
+  };
+
   programs.neovim = {
     enable = true;
 
     # Alias `vim` to nvim
     vimAlias = true;
-  };
-
-  home.file.".config/nvim" = {
-    source = ../neovim;
-    recursive = true;
   };
 
   programs.starship = {
