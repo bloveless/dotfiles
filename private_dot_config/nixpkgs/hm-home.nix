@@ -2,6 +2,7 @@
 
 {
   home.packages = [
+    pkgs.ripgrep
     pkgs.git
     pkgs.chezmoi
     pkgs.groff
