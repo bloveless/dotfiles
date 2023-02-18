@@ -23,7 +23,7 @@
     pkgs.consul
   ];
 
-  # home.shellAliases = {
-  #   ssh = "kitty +kitten ssh";
-  # };
+  home.shellAliases = {
+    ssh = "kitty +kitten ssh";
+  };
 }
