@@ -16,6 +16,7 @@
     pkgs.consul
     pkgs.ansible
     pkgs.bind # provides nslookup
+    pkgs.postgresql_15 # provides psql
   ];
   
   programs.zsh = {
