@@ -21,9 +21,10 @@
     pkgs.jq
     pkgs.nomad
     pkgs.consul
+    pkgs.postgresql_15
   ];
 
-  home.shellAliases = {
-    ssh = "kitty +kitten ssh";
-  };
+  # home.shellAliases = {
+  #   ssh = "kitty +kitten ssh";
+  # };
 }
