@@ -11,7 +11,10 @@ require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
 
-  use 'shaunsingh/nord.nvim'
+  -- use 'shaunsingh/nord.nvim'
+  use { "catppuccin/nvim", as = "catppuccin" }
+
+  use { "xiyaowong/nvim-transparent" }
 
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -110,6 +113,16 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = vim.fn.expand '$MYVIMRC',
 })
 
+-- In order to prevent flashing of the background this must come before the colorscheme line below
+require("transparent").setup({
+  enable = true, -- boolean: enable transparent
+  extra_groups = {},
+  exclude = {}, -- table: groups you don't want to clear
+  ignore_linked_group = true, -- boolean: don't clear a group that links to another group
+})
+
+
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
@@ -141,7 +154,7 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme nord]]
+vim.cmd [[colorscheme catppuccin-macchiato]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
