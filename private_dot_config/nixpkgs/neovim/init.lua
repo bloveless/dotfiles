@@ -121,8 +121,6 @@ require("transparent").setup({
   ignore_linked_group = true, -- boolean: don't clear a group that links to another group
 })
 
-
-
 -- [[ Setting options ]]
 -- See `:help vim.o`
 

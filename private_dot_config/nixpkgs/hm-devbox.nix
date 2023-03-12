@@ -23,6 +23,9 @@
     pkgs.ansible
     pkgs.bind # provides nslookup
     pkgs.postgresql_15 # provides psql
+    pkgs.kubectl
+    pkgs.kubernetes-helm
+    pkgs.skaffold
   ];
   
   programs.zsh = {
