@@ -25,6 +25,7 @@
     pkgs.postgresql_15 # provides psql
     pkgs.kubectl
     pkgs.kubernetes-helm
+    pkgs.tfk8s
     pkgs.skaffold
   ];
   
