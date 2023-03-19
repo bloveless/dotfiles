@@ -13,7 +13,6 @@
     pkgs.yarn
     pkgs.nodePackages.aws-cdk
     pkgs.nodePackages.redoc-cli
-    pkgs.newman
     pkgs.terraform
     pkgs.ripgrep
     pkgs.curl

@@ -7,6 +7,7 @@
     pkgs.chezmoi
     pkgs.groff
     pkgs.awscli2
+    pkgs.k9s
     pkgs.aws-sam-cli
     pkgs.ssm-session-manager-plugin
     pkgs.terraform

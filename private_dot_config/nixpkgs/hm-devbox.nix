@@ -13,6 +13,7 @@
     pkgs.file
     pkgs.chezmoi
     pkgs.awscli2
+    pkgs.k9s
     pkgs.terraform
     pkgs.curl
     pkgs.gnumake
