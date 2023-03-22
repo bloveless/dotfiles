@@ -19,6 +19,7 @@
     pkgs.gnumake
     pkgs.go
     pkgs.golangci-lint
+    pkgs.talosctl
     pkgs.jq
     pkgs.nomad
     pkgs.consul
