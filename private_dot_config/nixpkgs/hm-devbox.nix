@@ -20,6 +20,7 @@
     pkgs.go
     pkgs.golangci-lint
     pkgs.talosctl
+    pkgs.argocd
     pkgs.jq
     pkgs.nomad
     pkgs.consul
