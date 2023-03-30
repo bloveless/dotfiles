@@ -11,6 +11,7 @@
     pkgs.ssm-session-manager-plugin
     pkgs.nodejs
     pkgs.yarn
+    pkgs.argocd
     pkgs.nodePackages.aws-cdk
     pkgs.nodePackages.redoc-cli
     pkgs.terraform
