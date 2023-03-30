@@ -7,7 +7,6 @@
     pkgs.chezmoi
     pkgs.groff
     pkgs.awscli2
-    pkgs.aws-sam-cli
     pkgs.ssm-session-manager-plugin
     pkgs.nodejs
     pkgs.yarn

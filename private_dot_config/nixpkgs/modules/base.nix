@@ -42,11 +42,20 @@
 
   programs.zsh = {
     enable = true;
-    # profileExtra = ''
-    #   if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    #     tmux attach -t default || tmux new -s default
-    #   fi
-    # '';
+
+    profileExtra = "
+      argocd()
+      {
+        trap reset_namespace EXIT INT
+        kubectl config set-context --current --namespace=argocd 2>&1 > /dev/null;
+        command argocd \"$@\";
+      }
+
+      reset_namespace()
+      {
+        kubectl config set-context --current --namespace=default 2>&1 > /dev/null;
+      }
+    ";
   };
 
   # Let Home Manager install and manage itself.
