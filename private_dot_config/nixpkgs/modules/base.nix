@@ -17,6 +17,7 @@
     "...." = "cd ../../..";
     ll = "ls -la";
     l = "ls -l";
+    wk = "watch kubectl";
     k = "kubectl";
     ku = "kubectl -n utils";
     kfs = "kubectl -n flux-system";
