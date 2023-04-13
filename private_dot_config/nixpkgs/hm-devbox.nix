@@ -31,6 +31,8 @@
     pkgs.kubernetes-helm
     pkgs.tfk8s
     pkgs.skaffold
+    pkgs.kubeseal
+    pkgs.cilium-cli
   ];
   
   programs.zsh = {

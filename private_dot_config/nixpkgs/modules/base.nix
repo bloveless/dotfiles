@@ -20,6 +20,8 @@
     wk = "watch kubectl";
     k = "kubectl";
     ku = "kubectl -n utils";
+    km = "kubectl -n mayastor";
+    kmo = "kubectl -n monitoring";
     kfs = "kubectl -n flux-system";
     kks = "kubectl -n kube-system";
     ka = "kubectl -n argo";
