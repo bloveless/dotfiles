@@ -16,13 +16,22 @@ require('packer').startup(function(use)
 
   use { "xiyaowong/nvim-transparent" }
 
-  use { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
+  use {
+    'VonHeikemen/lsp-zero.nvim',
     requires = {
-      -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
+      'neovim/nvim-lspconfig',
+      {
+        'williamboman/mason.nvim',
+        run = function()
+          pcall(vim.cmd, 'MasonUpdate')
+        end,
+      },
       'williamboman/mason-lspconfig.nvim',
-
+      {
+        -- Autocompletion
+        'hrsh7th/nvim-cmp',
+        requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+      },
       -- Useful status updates for LSP
       'j-hui/fidget.nvim',
     },
@@ -33,11 +42,6 @@ require('packer').startup(function(use)
     requires = {
       'nvim-lua/plenary.nvim',
     },
-  }
-
-  use { -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
 
   use { -- Highlight, edit, and navigate code
@@ -115,10 +119,14 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 
 -- In order to prevent flashing of the background this must come before the colorscheme line below
 require("transparent").setup({
-  enable = true, -- boolean: enable transparent
-  extra_groups = {},
-  exclude = {}, -- table: groups you don't want to clear
-  ignore_linked_group = true, -- boolean: don't clear a group that links to another group
+  groups = { -- table: default groups
+    'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
+    'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
+    'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
+    'SignColumn', 'CursorLineNr', 'EndOfBuffer',
+  },
+  extra_groups = {}, -- table: additional groups that should be cleared
+  exclude_groups = {}, -- table: groups you don't want to clear
 })
 
 -- [[ Setting options ]]
@@ -451,7 +459,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
-
+-- LSP settings.
 local lsp_formatting = function(bufnr, async)
   local opts = {
     async = async,
@@ -469,7 +477,6 @@ local lsp_formatting = function(bufnr, async)
   end
 end
 
--- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 local on_attach = function(client, bufnr)
@@ -527,28 +534,17 @@ local on_attach = function(client, bufnr)
   end
 end
 
--- Setup mason so it can manage external tooling
-require('mason').setup()
+local lsp = require('lsp-zero').preset({})
 
--- Enable the following language servers
--- Feel free to add/remove any LSPs that you want here. They will automatically be installed
-local servers = { 'tsserver', 'lua_ls', 'gopls', 'svelte', 'tailwindcss', 'cssls', 'terraformls' }
+--  This function gets run when an LSP connects to a particular buffer.
+lsp.on_attach(function(client, bufnr)
+  on_attach(client, bufnr)
+end)
 
--- Ensure the servers above are installed
-require('mason-lspconfig').setup {
-  ensure_installed = servers,
-}
+-- (Optional) Configure lua language server for neovim
+require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
--- nvim-cmp supports additional completion capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-for _, lsp in ipairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-end
+lsp.setup()
 
 -- Turn on status information
 require('fidget').setup()
@@ -569,32 +565,6 @@ vim.keymap.set('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>')
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
-
-require('lspconfig').lua_ls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = runtime_path,
-      },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = {
-          vim.api.nvim_get_runtime_file('', true),
-          vim.fn.stdpath("config") .. "/lua",
-        }
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = { enable = false },
-    },
-  },
-}
 
 local null_ls = require("null-ls")
 
