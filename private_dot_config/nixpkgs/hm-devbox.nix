@@ -33,6 +33,7 @@
     pkgs.skaffold
     pkgs.kubeseal
     pkgs.cilium-cli
+    pkgs.rustup
   ];
   
   programs.zsh = {
