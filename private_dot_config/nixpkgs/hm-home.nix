@@ -18,8 +18,6 @@
     pkgs.golangci-lint
     pkgs.jq
     nixpkgs.legacyPackages.x86_64-linux.qmk
-    pkgs.nomad
-    pkgs.consul
   ];
 
   # home.shellAliases = {
