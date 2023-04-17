@@ -344,7 +344,7 @@ require("nvim-tree").setup({
   },
 })
 
-vim.keymap.set("n", "<leader>t", function()
+vim.keymap.set("n", "<leader>tt", function()
   require("nvim-tree.api").tree.toggle({ find_file = true })
 end)
 
