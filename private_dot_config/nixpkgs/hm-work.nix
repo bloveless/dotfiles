@@ -22,6 +22,8 @@
     pkgs.nomad
     pkgs.consul
     pkgs.postgresql_15
+    pkgs.python311
+    pkgs.python311Packages.pip
   ];
 
   # home.shellAliases = {
