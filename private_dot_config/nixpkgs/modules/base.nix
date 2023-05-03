@@ -1,6 +1,16 @@
 { config, fetchFromGitHub, nixpkgs, pkgs, ... }:
 
 {
+  home.sessionVariables = {
+    VISUAL = "nvim";
+    EDITOR = "nvim";
+  };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+    "$HOME/go/bin"
+  ];
+
   home.shellAliases = {
     ".." = "cd ..";
     "..." = "cd ../..";
@@ -35,15 +45,10 @@
 
   programs.zsh = {
     enable = true;
-    initExtra = ''
-      export VISUAL="nvim";
-      export EDITOR="nvim";
-      export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/go/bin"
-    '';
-    profileExtra = ''
-      if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-        tmux attach -t default || tmux new -s default
-      fi
+
+    profileExtra = "
+      unsetopt inc_append_history
+      unsetopt share_history
 
       argocd()
       {
@@ -56,7 +61,7 @@
       {
         kubectl config set-context --current --namespace=default 2>&1 > /dev/null;
       }
-    '';
+    ";
   };
 
   # Let Home Manager install and manage itself.

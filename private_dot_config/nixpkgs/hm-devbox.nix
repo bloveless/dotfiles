@@ -1,6 +1,12 @@
 { config, fetchFromGitHub, nixpkgs, pkgs, ... }:
 
 {
+  # environment variables
+  home.sessionVariables = {
+    NOMAD_ADDR = "http://192.168.5.20:4646";
+    CONSUL_HTTP_ADDR = "192.168.5.20:8500";
+  };
+
   home.packages = [
     pkgs.ripgrep
     pkgs.git
@@ -28,4 +34,13 @@
     pkgs.kubeseal
     pkgs.cilium-cli
   ];
+  
+  programs.zsh = {
+    enable = true;
+    profileExtra = ''
+      if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+        tmux attach -t default || tmux new -s default
+      fi
+    '';
+  };
 }

@@ -25,4 +25,8 @@
     pkgs.python311
     pkgs.python311Packages.pip
   ];
+
+  # home.shellAliases = {
+  #   ssh = "kitty +kitten ssh";
+  # };
 }
