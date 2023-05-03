@@ -54,7 +54,7 @@
       {
         trap reset_namespace EXIT INT
         kubectl config set-context --current --namespace=argocd 2>&1 > /dev/null;
-        command argocd \"$@\";
+        command argocd "$@";
       }
 
       reset_namespace()
