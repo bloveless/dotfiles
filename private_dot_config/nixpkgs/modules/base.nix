@@ -43,6 +43,10 @@
     hm-devbox = "home-manager switch --flake \"$HOME/.config/nixpkgs#devbox\" --impure";
   };
 
+  programs.fish = {
+    enable = true;
+  };
+
   programs.zsh = {
     enable = true;
 
@@ -103,6 +107,7 @@
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
+    enableFishIntegration = true;
   };
 
   programs.tmux = {
