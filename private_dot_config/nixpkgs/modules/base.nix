@@ -49,6 +49,11 @@
 
   programs.zsh = {
     enable = true;
+    enableAutosuggestions = true;
+    enableCompletion = true;
+    enableSyntaxHighlighting = true;
+    historySubstringSearch.enable = true;
+    defaultKeymap = "emacs";
 
     profileExtra = "
       unsetopt inc_append_history
