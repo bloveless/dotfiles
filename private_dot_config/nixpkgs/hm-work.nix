@@ -24,6 +24,7 @@
     pkgs.postgresql_15
     pkgs.python311
     pkgs.python311Packages.pip
+    pkgs.helix
   ];
 
   # home.shellAliases = {

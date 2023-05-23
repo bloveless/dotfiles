@@ -55,6 +55,8 @@
     historySubstringSearch.enable = true;
     defaultKeymap = "emacs";
 
+    plugins = [ ];
+
     profileExtra = "
       unsetopt inc_append_history
       unsetopt share_history
