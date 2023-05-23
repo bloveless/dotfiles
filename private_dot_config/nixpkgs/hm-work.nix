@@ -14,6 +14,7 @@
     pkgs.nodePackages.aws-cdk
     pkgs.nodePackages.redoc-cli
     pkgs.terraform
+    pkgs.terraform-ls
     pkgs.ripgrep
     pkgs.curl
     pkgs.go
