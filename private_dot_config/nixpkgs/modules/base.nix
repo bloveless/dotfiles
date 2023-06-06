@@ -70,7 +70,7 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" ];
+      plugins = [ "docker" "docker-compose" "golang" "git" "helm" "kubectl" "ripgrep" "rust" ];
     };
 
     profileExtra = "
