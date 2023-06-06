@@ -1,4 +1,4 @@
-{ config, fetchFromGitHub, nixpkgs, pkgs, ... }:
+{ config, fetchFromGitHub, nixpkgs, pkgs, extraNodePackages, ... }:
 
 {
   home.packages = [
@@ -26,6 +26,7 @@
     pkgs.python311Packages.pip
     pkgs.python311Packages.pycairo
     pkgs.helix
+    extraNodePackages.serverless
   ];
 
   # home.shellAliases = {

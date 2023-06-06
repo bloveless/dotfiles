@@ -31,6 +31,11 @@
                         };
                     }
                 ];
+
+                extraSpecialArgs = {
+                    nixpkgs = nixpkgs;
+                    extraNodePackages = import ./node/default.nix {};
+                };
             };
             home = home-manager.lib.homeManagerConfiguration {
                 # Note: I am sure this could be done better with flake-utils or something
@@ -50,6 +55,7 @@
 
                 extraSpecialArgs = {
                     nixpkgs = nixpkgs;
+                    extraNodePackages = import ./node/default.nix {};
                 };
             };
             devbox = home-manager.lib.homeManagerConfiguration {
@@ -70,6 +76,7 @@
 
                 extraSpecialArgs = {
                     nixpkgs = nixpkgs;
+                    extraNodePackages = import ./node/default.nix {};
                 };
             };
         };
