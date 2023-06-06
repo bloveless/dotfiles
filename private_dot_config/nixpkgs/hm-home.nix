@@ -19,6 +19,8 @@
     pkgs.jq
     nixpkgs.legacyPackages.x86_64-linux.qmk
     pkgs.helix
+    pkgs.pkg-config
+    pkgs.pkg-configUpstream
   ];
 
   # home.shellAliases = {

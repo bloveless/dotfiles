@@ -1,4 +1,4 @@
-{ config, fetchFromGitHub, nixpkgs, pkgs, ... }:
+{ config, fetchFromGitHub, nixpkgs, pkgs, lib, ... }:
 
 {
   home.sessionVariables = {
@@ -55,7 +55,24 @@
     historySubstringSearch.enable = true;
     defaultKeymap = "emacs";
 
-    plugins = [ ];
+    plugins = [
+      {
+      name = "powerlevel10k";
+      src = pkgs.zsh-powerlevel10k;
+      file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+      {
+        name = "powerlevel10k-config";
+        src = lib.cleanSource ./p10k-config;
+        file = "p10k.zsh";
+      }
+    ];
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" ];
+      theme = "powerlevel10k";
+    };
 
     profileExtra = "
       unsetopt inc_append_history
@@ -93,23 +110,23 @@
     recursive = true;
   };
 
-  programs.starship = {
-    enable = true;
-    # Configuration written to ~/.config/starship.toml
-    settings = {
-      # Get editor completions based on the config schema
-      "$schema" = ''https://starship.rs/config-schema.json'';
+  # programs.starship = {
+  #   enable = true;
+  #   # Configuration written to ~/.config/starship.toml
+  #   settings = {
+  #     # Get editor completions based on the config schema
+  #     "$schema" = ''https://starship.rs/config-schema.json'';
 
-      command_timeout = 2000;
+  #     command_timeout = 2000;
 
-      # Inserts a blank line between shell prompts
-      add_newline = true;
+  #     # Inserts a blank line between shell prompts
+  #     add_newline = true;
 
-      cmd_duration = {
-        min_time = 0;
-      };
-    };
-  };
+  #     cmd_duration = {
+  #       min_time = 0;
+  #     };
+  #   };
+  # };
 
   programs.zoxide = {
     enable = true;
