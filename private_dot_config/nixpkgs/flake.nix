@@ -34,7 +34,6 @@
 
                 extraSpecialArgs = {
                     nixpkgs = nixpkgs;
-                    extraNodePackages = import ./node/default.nix {};
                 };
             };
             home = home-manager.lib.homeManagerConfiguration {
@@ -55,7 +54,6 @@
 
                 extraSpecialArgs = {
                     nixpkgs = nixpkgs;
-                    extraNodePackages = import ./node/default.nix {};
                 };
             };
             devbox = home-manager.lib.homeManagerConfiguration {
@@ -76,7 +74,6 @@
 
                 extraSpecialArgs = {
                     nixpkgs = nixpkgs;
-                    extraNodePackages = import ./node/default.nix {};
                 };
             };
         };

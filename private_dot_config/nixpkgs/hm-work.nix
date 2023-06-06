@@ -1,6 +1,8 @@
-{ config, fetchFromGitHub, nixpkgs, pkgs, extraNodePackages, ... }:
+{ config, fetchFromGitHub, nixpkgs, pkgs, ... }:
 
-{
+let
+  extraNodePackages = import ./node/default.nix {};
+in {
   home.packages = [
     pkgs.git
     pkgs.chezmoi
