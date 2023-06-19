@@ -8,7 +8,6 @@ in {
     pkgs.chezmoi
     pkgs.groff
     pkgs.awscli2
-    pkgs.aws-sam-cli
     pkgs.ssm-session-manager-plugin
     pkgs.nodejs
     pkgs.yarn
@@ -29,6 +28,8 @@ in {
     pkgs.python311Packages.pip
     pkgs.python311Packages.pycairo
     pkgs.helix
+    pkgs.rustup
+    pkgs.cargo-lambda
     extraNodePackages.serverless
   ];
 

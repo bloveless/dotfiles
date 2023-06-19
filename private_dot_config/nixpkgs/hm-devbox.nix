@@ -34,6 +34,7 @@
     pkgs.kubeseal
     pkgs.cilium-cli
     pkgs.helix
+    pkgs.rustup
   ];
   
   programs.zsh = {
