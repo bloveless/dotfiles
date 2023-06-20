@@ -16,7 +16,8 @@ end
 
 return {
   color_scheme = "Catppuccin Macchiato", -- or Macchiato, Frappe, Latte
-  font = wezterm.font "MonoLisa Nerd Font",
+  -- font = wezterm.font "MonoLisa Nerd Font",
+  font = wezterm.font "MesloLGS NF",
   font_size = 12,
   initial_cols = 140,
   initial_rows = 40,
