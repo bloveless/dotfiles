@@ -1,6 +1,4 @@
-brew "jq"
-brew "chezmoi"
-brew "neovim", args: ["HEAD"]
-brew "rustup-init"
+# Shared dependencies go here
 
-load "./Brewfile.local"
+# Machine specific dependencies go in the local file
+instance_eval(File.read("Brewfile.local"))

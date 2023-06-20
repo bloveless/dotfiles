@@ -38,9 +38,9 @@
     ktp = "kubectl -n tekton-pipelines";
     tf = "terraform";
     terrafrom = "terraform";
-    hm-home = "home-manager switch --flake \"$HOME/.config/nixpkgs#home\" --impure";
-    hm-work = "home-manager switch --flake \"$HOME/.config/nixpkgs#work\" --impure";
-    hm-devbox = "home-manager switch --flake \"$HOME/.config/nixpkgs#devbox\" --impure";
+    hm-home = "home-manager switch --flake \"$HOME/.config/home-manager#home\" --impure";
+    hm-work = "home-manager switch --flake \"$HOME/.config/home-manager#work\" --impure";
+    hm-devbox = "home-manager switch --flake \"$HOME/.config/home-manager#devbox\" --impure";
   };
 
   programs.fish = {

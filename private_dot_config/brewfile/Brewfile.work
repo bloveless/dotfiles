@@ -1,2 +1,5 @@
-brew "aws-sam-cli"
-# brew "cargo-lambda"
+tap "aws/tap"
+brew "aws/tap/aws-sam-cli"
+
+tap "cargo-lambda/cargo-lambda"
+brew "cargo-lambda"
