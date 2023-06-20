@@ -1,0 +1,6 @@
+brew "jq"
+brew "chezmoi"
+brew "neovim", args: ["HEAD"]
+brew "rustup-init"
+
+load "./Brewfile.local"
