@@ -1,5 +1,4 @@
 { config, fetchFromGitHub, nixpkgs, pkgs, ... }:
-
 {
   # environment variables
   home.sessionVariables = {

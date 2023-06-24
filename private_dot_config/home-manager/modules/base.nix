@@ -1,6 +1,12 @@
 { config, fetchFromGitHub, nixpkgs, pkgs, lib, ... }:
-
+let
+  zsh-powerlevel10k = import ../overlays/zsh-powerlevel10k/default.nix;
+in
 {
+  nixpkgs.overlays = [
+    zsh-powerlevel10k
+  ];
+
   home.sessionVariables = {
     VISUAL = "nvim";
     EDITOR = "nvim";
@@ -115,12 +121,12 @@
   #   settings = {
   #     # Get editor completions based on the config schema
   #     "$schema" = ''https://starship.rs/config-schema.json'';
-
+  # 
   #     command_timeout = 2000;
-
+  # 
   #     # Inserts a blank line between shell prompts
   #     add_newline = true;
-
+  # 
   #     cmd_duration = {
   #       min_time = 0;
   #     };

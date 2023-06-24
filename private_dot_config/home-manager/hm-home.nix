@@ -1,5 +1,4 @@
 { config, fetchFromGitHub, nixpkgs, pkgs, ... }:
-
 {
   home.packages = [
     pkgs.git
