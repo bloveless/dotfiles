@@ -1,30 +1,46 @@
--- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  is_bootstrap = true
-  vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-  vim.cmd [[packadd packer.nvim]]
+-- Install lazy
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-require('packer').startup(function(use)
-  -- Package manager
-  use 'wbthomason/packer.nvim'
+-- [[ Basic Keymaps ]]
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
+require('lazy').setup({
   -- use 'shaunsingh/nord.nvim'
-  use { "catppuccin/nvim", as = "catppuccin" }
+  -- { "catppuccin/nvim" }
+  {
+    "folke/tokyonight.nvim",
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      -- load the colorscheme here
+      vim.cmd([[colorscheme tokyonight-storm]])
+    end,
+  },
 
-  use { "folke/tokyonight.nvim" }
+  { "xiyaowong/nvim-transparent" },
 
-  use { "xiyaowong/nvim-transparent" }
-
-  use {
+  {
     'VonHeikemen/lsp-zero.nvim',
-    requires = {
+    dependencies = {
       'neovim/nvim-lspconfig',
       {
         'williamboman/mason.nvim',
-        run = function()
+        command = function()
           pcall(vim.cmd, 'MasonUpdate')
         end,
       },
@@ -32,91 +48,64 @@ require('packer').startup(function(use)
       {
         -- Autocompletion
         'hrsh7th/nvim-cmp',
-        requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+        dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
       },
       -- Useful status updates for LSP
       'j-hui/fidget.nvim',
     },
-  }
+  },
 
-  use {
+  {
     'jose-elias-alvarez/null-ls.nvim',
-    requires = {
+    dependencies = {
       'nvim-lua/plenary.nvim',
     },
-  }
+  },
 
-  use { -- Highlight, edit, and navigate code
+  { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    run = function()
+    command = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
-  }
+  },
 
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
+  -- Additional text objects via treesitter
+  'nvim-treesitter/nvim-treesitter-textobjects',
 
-  use 'nvim-treesitter/nvim-treesitter-context'
-  use 'p00f/nvim-ts-rainbow'
+  'nvim-treesitter/nvim-treesitter-context',
+  'p00f/nvim-ts-rainbow',
 
   -- Git related plugins
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
-  use 'lewis6991/gitsigns.nvim'
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
+  'lewis6991/gitsigns.nvim',
 
   -- Session management
-  use 'tpope/vim-obsession'
+  'tpope/vim-obsession',
 
-  use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
-  use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
+  'navarasu/onedark.nvim',               -- Theme inspired by Atom
+  'nvim-lualine/lualine.nvim',           -- Fancier statusline
+  'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
+  'numToStr/Comment.nvim',               -- "gc" to comment visual regions/lines
+  'tpope/vim-sleuth',                    -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
-  use {
+  {
     'folke/trouble.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
-  }
+    dependencies = 'kyazdani42/nvim-web-devicons',
+  },
 
-  use {
+  {
     'kyazdani42/nvim-tree.lua',
-    requires = {
+    dependencies = {
       { 'kyazdani42/nvim-web-devicons' },
     }
   }
-
-  if is_bootstrap then
-    require('packer').sync()
-  end
-end)
-
--- When we are bootstrapping a configuration, it doesn't
--- make sense to execute the rest of the init.lua.
---
--- You'll need to restart nvim, and then it will work.
-if is_bootstrap then
-  print '=================================='
-  print '    Plugins are being installed'
-  print '    Wait until Packer completes,'
-  print '       then restart nvim'
-  print '=================================='
-  return
-end
-
--- Automatically source and re-compile packer whenever you save this init.lua
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', {
-  command = 'source <afile> | PackerCompile',
-  group = packer_group,
-  pattern = vim.fn.expand '$MYVIMRC',
 })
 
 -- In order to prevent flashing of the background this must come before the colorscheme line below
@@ -177,13 +166,6 @@ vim.o.laststatus = 3
 -- Winbar show filename
 vim.o.winbar = "%=%m %f"
 
--- [[ Basic Keymaps ]]
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 -- Default tab width
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
@@ -232,7 +214,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = 'nord',
+    theme = 'tokyonight',
     component_separators = '|',
     section_separators = '',
   },
