@@ -20,19 +20,35 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 require('lazy').setup({
-  -- use 'shaunsingh/nord.nvim'
-  -- { "catppuccin/nvim" }
+  -- { 'shaunsingh/nord.nvim' }
+  -- { 'catppuccin/nvim' }
+  -- {
+  --   'folke/tokyonight.nvim',
+  --   lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  --     -- load the colorscheme here
+  --     vim.cmd([[colorscheme tokyonight-storm]])
+  --   end,
+  -- },
+
   {
-    "folke/tokyonight.nvim",
+    'rose-pine/neovim',
+    name = 'rose-pine',
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
+      require('rose-pine').setup({
+        --- @usage 'auto'|'main'|'moon'|'dawn'
+        variant = 'moon',
+        --- @usage 'main'|'moon'|'dawn'
+        dark_variant = 'moon',
+      })
+
       -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight-storm]])
+      vim.cmd([[colorscheme rose-pine]])
     end,
   },
-
-  { "xiyaowong/nvim-transparent" },
 
   {
     'VonHeikemen/lsp-zero.nvim',
@@ -105,18 +121,6 @@ require('lazy').setup({
       { 'kyazdani42/nvim-web-devicons' },
     }
   }
-})
-
--- In order to prevent flashing of the background this must come before the colorscheme line below
-require("transparent").setup({
-  groups = { -- table: default groups
-    'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
-    'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
-    'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
-    'SignColumn', 'CursorLineNr', 'EndOfBuffer',
-  },
-  extra_groups = {},   -- table: additional groups that should be cleared
-  exclude_groups = {}, -- table: groups you don't want to clear
 })
 
 -- [[ Setting options ]]
@@ -435,7 +439,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'css', 'html', 'go', 'lua', 'python', 'typescript', 'hcl', 'rust' },
+  ensure_installed = { 'css', 'html', 'go', 'lua', 'python', 'typescript', 'hcl' },
 
   highlight = { enable = true },
   indent = { enable = true },
