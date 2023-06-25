@@ -15,7 +15,8 @@ for i = 1, 8 do
 end
 
 return {
-  color_scheme = "Catppuccin Macchiato", -- or Macchiato, Frappe, Latte
+  -- color_scheme = "Catppuccin Macchiato", -- or Macchiato, Frappe, Latte
+  color_scheme = "tokyonight_storm",
   -- font = wezterm.font "MonoLisa Nerd Font",
   font = wezterm.font "MesloLGS NF",
   font_size = 12,
@@ -24,4 +25,3 @@ return {
   scrollback_lines = 50000,
   keys = mykeys,
 }
-

@@ -102,21 +102,17 @@ in
     # Configuration written to ~/.config/starship.toml
     settings = {
       # Get editor completions based on the config schema
-      # "$schema" = ''https://starship.rs/config-schema.json'';
+      "$schema" = ''https://starship.rs/config-schema.json'';
 
       command_timeout = 2000;
 
       # Inserts a blank line between shell prompts
       add_newline = true;
 
-      format = "";
-
-      right_format = "$all";
-
       cmd_duration = {
         min_time = 0;
       };
-    };
+    } // builtins.fromTOML (builtins.readFile ../modules/tokyo-night/preset.toml);
   };
 
   programs.zoxide = {
