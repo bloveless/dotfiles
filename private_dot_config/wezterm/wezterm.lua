@@ -18,7 +18,7 @@ return {
   -- color_scheme = "Catppuccin Macchiato", -- or Macchiato, Frappe, Latte
   -- color_scheme = "tokyonight_storm",
   -- color_scheme = "nord",
-  color_scheme = "rose-pine-moon",
+  color_scheme = "Gruvbox dark, soft (base16)",
   -- font = wezterm.font "MonoLisa Nerd Font",
   font = wezterm.font "MesloLGS NF",
   font_size = 12,
