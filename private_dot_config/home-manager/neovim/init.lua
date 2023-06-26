@@ -31,10 +31,10 @@ require('lazy').setup({
   --     vim.cmd([[colorscheme tokyonight-storm]])
   --   end,
   -- },
-  
+
   {
     "ellisonleao/gruvbox.nvim",
-    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000,
     config = function()
       require("gruvbox").setup({
@@ -230,7 +230,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = 'tokyonight',
+    theme = 'gruvbox',
     component_separators = '|',
     section_separators = '',
   },
