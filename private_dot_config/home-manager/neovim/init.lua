@@ -32,17 +32,27 @@ require('lazy').setup({
   --   end,
   -- },
 
+  -- {
+  --   "ellisonleao/gruvbox.nvim",
+  --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000,
+  --   config = function()
+  --     require("gruvbox").setup({
+  --       contrast = "soft",
+  --     })
+  --
+  --     vim.o.background = "dark" -- or "light" for light mode
+  --     vim.cmd([[colorscheme gruvbox]])
+  --   end,
+  -- },
+
   {
-    "ellisonleao/gruvbox.nvim",
+    "oahlen/iceberg.nvim",
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000,
     config = function()
-      require("gruvbox").setup({
-        contrast = "soft",
-      })
-
       vim.o.background = "dark" -- or "light" for light mode
-      vim.cmd([[colorscheme gruvbox]])
+      vim.cmd([[colorscheme iceberg]])
     end,
   },
 
