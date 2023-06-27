@@ -19,7 +19,7 @@ return {
   -- color_scheme = "tokyonight_storm",
   -- color_scheme = "nord",
   -- color_scheme = "Gruvbox dark, soft (base16)",
-  color_scheme = "iceberg-dark",
+  color_scheme = "Kanagawa (Gogh)",
   -- font = wezterm.font "MonoLisa Nerd Font",
   font = wezterm.font "MesloLGS NF",
   font_size = 12,

@@ -46,13 +46,23 @@ require('lazy').setup({
   --   end,
   -- },
 
+  -- {
+  --   "oahlen/iceberg.nvim",
+  --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000,
+  --   config = function()
+  --     vim.o.background = "dark" -- or "light" for light mode
+  --     vim.cmd([[colorscheme iceberg]])
+  --   end,
+  -- },
+
   {
-    "oahlen/iceberg.nvim",
+    "rebelot/kanagawa.nvim",
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000,
     config = function()
       vim.o.background = "dark" -- or "light" for light mode
-      vim.cmd([[colorscheme iceberg]])
+      vim.cmd([[colorscheme kanagawa]])
     end,
   },
 
