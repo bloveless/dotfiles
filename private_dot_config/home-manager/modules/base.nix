@@ -44,9 +44,9 @@ in
     ktp = "kubectl -n tekton-pipelines";
     tf = "terraform";
     terrafrom = "terraform";
-    hm-home = "home-manager switch --flake \"$HOME/.config/home-manager#home\" --impure";
-    hm-work = "home-manager switch --flake \"$HOME/.config/home-manager#work\" --impure";
-    hm-devbox = "home-manager switch --flake \"$HOME/.config/home-manager#devbox\" --impure";
+    hm-home = "(cd $HOME/.config/home-manager && nix run . switch -- --flake \".#home\" --impure)";
+    hm-work= "(cd $HOME/.config/home-manager && nix run . switch -- --flake \".#work\" --impure)";
+    hm-devbox= "(cd $HOME/.config/home-manager && nix run . switch -- --flake \".#devbox\" --impure)";
   };
 
   programs.fish = {
