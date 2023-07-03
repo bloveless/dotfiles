@@ -18,6 +18,7 @@
     pkgs.kubernetes-helm
     pkgs.kubeseal
     pkgs.cilium-cli
+    pkgs.nodejs # necessary for lsps to install with LspZero/Mason
   ];
   
   programs.zsh = {
