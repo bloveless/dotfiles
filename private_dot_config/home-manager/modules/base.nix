@@ -138,13 +138,15 @@ in
     enable = true;
     keyMode = "vi";
     newSession = true;
-    terminal = "xterm-256color";
+    terminal = "screen-256color";
     shell ="${pkgs.zsh}/bin/zsh";
     prefix = "C-Space";
     plugins = with pkgs; [
       # tmuxPlugins.nord
     ];
     extraConfig = ''
+      set-option -sa terminal-features ',xterm-256color:RGB'
+
       # switch panes using Alt-arrow without prefix
       bind -n M-Left select-pane -L
       bind -n M-Right select-pane -R
