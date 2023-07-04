@@ -138,7 +138,7 @@ in
     enable = true;
     keyMode = "vi";
     newSession = true;
-    terminal = "screen-256color";
+    terminal = "xterm-256color";
     shell ="${pkgs.zsh}/bin/zsh";
     prefix = "C-Space";
     plugins = with pkgs; [
