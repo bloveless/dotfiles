@@ -138,15 +138,12 @@ in
     enable = true;
     keyMode = "vi";
     newSession = true;
-    terminal = "xterm-256color";
     shell ="${pkgs.zsh}/bin/zsh";
     prefix = "C-Space";
     plugins = with pkgs; [
       # tmuxPlugins.nord
     ];
     extraConfig = ''
-      set -g default-terminal "xterm"
-
       # switch panes using Alt-arrow without prefix
       bind -n M-Left select-pane -L
       bind -n M-Right select-pane -R
@@ -161,17 +158,6 @@ in
       bind '"' split-window -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
       bind c new-window -c "#{pane_current_path}"
-
-      # reload config file (change file location to your the tmux.conf you want to use)
-      bind r source-file ~/.tmux.conf
-
-      # Put status bar at the top
-      # set-option -g status-position top
-
-      # Create a second blank status bar to create padding between the status bar and text
-      # set -Fg 'status-format[1]' '#{status-format[0]}'
-      # set -g 'status-format[0]' '''
-      # set -g status 2
 
       # Enable mouse mode (tmux 2.1 and above)
       set -g mouse on
