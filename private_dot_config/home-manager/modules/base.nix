@@ -145,6 +145,8 @@ in
       # tmuxPlugins.nord
     ];
     extraConfig = ''
+      set -g default-terminal "xterm"
+
       # switch panes using Alt-arrow without prefix
       bind -n M-Left select-pane -L
       bind -n M-Right select-pane -R
