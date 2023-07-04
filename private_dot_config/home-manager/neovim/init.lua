@@ -56,33 +56,46 @@ require('lazy').setup({
   --   end,
   -- },
 
-  {
-    "rebelot/kanagawa.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000,
-    config = function()
-      vim.o.background = "dark" -- or "light" for light mode
-      vim.cmd([[colorscheme kanagawa]])
-    end,
-  },
-
   -- {
-  --   'rose-pine/neovim',
-  --   name = 'rose-pine',
-  --   lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   "rebelot/kanagawa.nvim",
+  --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000,
   --   config = function()
-  --     require('rose-pine').setup({
-  --       --- @usage 'auto'|'main'|'moon'|'dawn'
-  --       variant = 'moon',
-  --       --- @usage 'main'|'moon'|'dawn'
-  --       dark_variant = 'moon',
-  --     })
-  --
-  --     -- load the colorscheme here
-  --     vim.cmd([[colorscheme rose-pine]])
+  --     vim.o.background = "dark" -- or "light" for light mode
+  --     vim.cmd([[colorscheme kanagawa]])
   --   end,
   -- },
+
+  -- {
+  --   'navarasu/onedark.nvim',
+  --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  --     require('onedark').setup({
+  --         style = 'cool'
+  --     })
+  --
+  --     require('onedark').load()
+  --   end,
+  -- },
+
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require('rose-pine').setup({
+        --- @usage 'auto'|'main'|'moon'|'dawn'
+        variant = 'moon',
+        --- @usage 'main'|'moon'|'dawn'
+        dark_variant = 'moon',
+      })
+
+      -- load the colorscheme here
+      vim.cmd([[colorscheme rose-pine]])
+    end,
+  },
 
   {
     'VonHeikemen/lsp-zero.nvim',
@@ -252,7 +265,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = 'kanagawa',
+    theme = 'auto',
     component_separators = '|',
     section_separators = '',
   },
