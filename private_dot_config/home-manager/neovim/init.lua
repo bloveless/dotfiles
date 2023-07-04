@@ -154,7 +154,9 @@ require('lazy').setup({
     dependencies = {
       { 'kyazdani42/nvim-web-devicons' },
     }
-  }
+  },
+
+  'hashivim/vim-terraform',
 })
 
 -- [[ Setting options ]]
@@ -658,6 +660,7 @@ null_ls.setup({
     null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.formatting.eslint_d,
     null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.formatting.prettierd,
   },
 })
 
