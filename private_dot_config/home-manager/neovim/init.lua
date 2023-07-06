@@ -170,6 +170,7 @@ require('lazy').setup({
   },
 
   'hashivim/vim-terraform',
+  'simrat39/rust-tools.nvim',
 })
 
 -- [[ Setting options ]]
@@ -704,6 +705,8 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+require("rust-tools").setup()
 
 -- filetype alias
 vim.filetype.add { extension = { nomad = 'hcl' } }
