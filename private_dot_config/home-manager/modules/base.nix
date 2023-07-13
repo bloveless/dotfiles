@@ -145,7 +145,7 @@ in
       # tmuxPlugins.nord
     ];
     extraConfig = ''
-      set-option -sa terminal-features ',xterm-256color:RGB'
+      set-option -sa terminal-features ',alacritty:RGB'
 
       # switch panes using Alt-arrow without prefix
       bind -n M-Left select-pane -L
