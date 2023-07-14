@@ -171,7 +171,8 @@ require('lazy').setup({
 
   'hashivim/vim-terraform',
   'simrat39/rust-tools.nvim',
-  'rktjmp/lush.nvim'
+  'rktjmp/lush.nvim',
+  'RRethy/vim-illuminate.git',
 })
 
 -- [[ Setting options ]]
