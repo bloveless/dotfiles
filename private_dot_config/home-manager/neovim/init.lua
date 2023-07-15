@@ -199,10 +199,12 @@ require('lazy').setup({
 
   'hashivim/vim-terraform',
   'rktjmp/lush.nvim',
+  'simrat39/rust-tools.nvim',
   'RRethy/vim-illuminate',
 })
 
 require("telescope").load_extension("themes")
+require("rust-tools").setup()
 
 -- [[ Setting options ]]
 -- See `:help vim.o`

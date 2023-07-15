@@ -94,6 +94,8 @@
   programs.neovim = {
     enable = true;
 
+    package = pkgs.neovim-unwrapped;
+
     # Alias `vim` to nvim
     vimAlias = true;
   };

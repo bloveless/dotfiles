@@ -35,7 +35,7 @@ import:
   # - ~/.config/alacritty/gruvbox.yml
   # - ~/.config/alacritty/catppuccin-frappe.yml
   # - ~/.config/alacritty/catppuccin-latte.yml
-  # - ~/.config/alacritty/catppuccin-macchiato.yml
+  - ~/.config/alacritty/catppuccin-macchiato.yml
   # - ~/.config/alacritty/catppuccin-mocha.yml
   # - ~/.config/alacritty/rose-pine-moon.yml
-  - ~/.config/alacritty/dracula.yml
+  # - ~/.config/alacritty/dracula.yml
