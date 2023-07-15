@@ -37,4 +37,5 @@ import:
   # - ~/.config/alacritty/catppuccin-latte.yml
   # - ~/.config/alacritty/catppuccin-macchiato.yml
   # - ~/.config/alacritty/catppuccin-mocha.yml
-  - ~/.config/alacritty/rose-pine-moon.yml
+  # - ~/.config/alacritty/rose-pine-moon.yml
+  - ~/.config/alacritty/dracula.yml
