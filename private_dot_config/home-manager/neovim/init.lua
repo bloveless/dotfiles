@@ -21,7 +21,17 @@ vim.g.maplocalleader = ' '
 
 require('lazy').setup({
   -- { 'shaunsingh/nord.nvim' }
-  -- { 'catppuccin/nvim' }
+
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      vim.cmd.colorscheme 'catppuccin-macchiato'
+    end,
+  },
+
   -- {
   --   'folke/tokyonight.nvim',
   --   lazy = false,    -- make sure we load this during startup if it is your main colorscheme
@@ -140,7 +150,10 @@ require('lazy').setup({
         dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
       },
       -- Useful status updates for LSP
-      'j-hui/fidget.nvim',
+      {
+        'j-hui/fidget.nvim',
+        branch = 'legacy',
+      },
     },
   },
 
@@ -197,6 +210,7 @@ require('lazy').setup({
     }
   },
 
+  'tpope/vim-surround',
   'hashivim/vim-terraform',
   'rktjmp/lush.nvim',
   'simrat39/rust-tools.nvim',
