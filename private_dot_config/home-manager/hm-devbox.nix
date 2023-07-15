@@ -21,6 +21,8 @@
     pkgs.nodejs # necessary for lsps to install with LspZero/Mason
     pkgs.unzip
     pkgs.cachix
+    pkgs.fd # for neovim telescope
+    pkgs.gcc # for neovim treesitter
   ];
   
   programs.zsh = {

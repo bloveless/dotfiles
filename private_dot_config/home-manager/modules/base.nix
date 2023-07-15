@@ -137,10 +137,15 @@
     shell ="${pkgs.zsh}/bin/zsh";
     prefix = "C-Space";
     plugins = with pkgs; [
-      # tmuxPlugins.nord
+      {
+        plugin = tmuxPlugins.catppuccin;
+        # extraConfig = ''
+        #   set -g @catppuccin_no_patched_fonts_theme_enabled on
+        # '';
+      }
     ];
     extraConfig = ''
-      set-option -sa terminal-features ',alacritty:RGB'
+      set-option -sa terminal-features ',alacritty:RGB,screen-256color:RGB,xterm-256color:RGB'
 
       # switch panes using Alt-arrow without prefix
       bind -n M-Left select-pane -L

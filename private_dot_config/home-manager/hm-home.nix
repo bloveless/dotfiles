@@ -8,6 +8,7 @@
     pkgs.curl
     pkgs.jq
     pkgs.cachix
+    pkgs.fd # for neovim telescope
   ];
 
   # home.shellAliases = {

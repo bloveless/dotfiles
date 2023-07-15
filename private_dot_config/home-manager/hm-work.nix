@@ -21,17 +21,9 @@ in
     pkgs.go
     pkgs.golangci-lint
     pkgs.jq
-    pkgs.nomad
-    pkgs.consul
-    pkgs.postgresql_15
-    pkgs.python311
-    pkgs.python311Packages.pip
-    pkgs.python311Packages.pycairo
-    pkgs.helix
-    pkgs.rustup
-    pkgs.cargo-lambda
     extraNodePackages.serverless
     pkgs.cachix
+    pkgs.fd # for neovim telescope
   ];
 
   # home.shellAliases = {
