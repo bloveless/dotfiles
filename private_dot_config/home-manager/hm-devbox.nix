@@ -20,6 +20,7 @@
     pkgs.cilium-cli
     pkgs.nodejs # necessary for lsps to install with LspZero/Mason
     pkgs.unzip
+    pkgs.cachix
   ];
   
   programs.zsh = {

@@ -31,6 +31,7 @@ in
     pkgs.rustup
     pkgs.cargo-lambda
     extraNodePackages.serverless
+    pkgs.cachix
   ];
 
   # home.shellAliases = {

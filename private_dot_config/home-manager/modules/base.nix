@@ -1,12 +1,5 @@
 { config, fetchFromGitHub, nixpkgs, pkgs, lib, ... }:
-let
-  zsh-powerlevel10k = import ../overlays/zsh-powerlevel10k/default.nix;
-in
 {
-  nixpkgs.overlays = [
-    zsh-powerlevel10k
-  ];
-
   home.sessionVariables = {
     VISUAL = "nvim";
     EDITOR = "nvim";

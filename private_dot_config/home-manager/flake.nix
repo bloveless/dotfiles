@@ -4,13 +4,23 @@
     inputs = {
         # Specify the source of Home Manager and Nixpkgs.
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
         home-manager = {
           url = "github:nix-community/home-manager";
           inputs.nixpkgs.follows = "nixpkgs";
         };
     };
 
-    outputs = {nixpkgs, home-manager, ...}: {
+    outputs = {nixpkgs, home-manager, ...}:
+    let
+        zsh-powerlevel10k = import overlays/zsh-powerlevel10k/default.nix;
+        overlays = [
+            # neovim-nightly-overlay.overlay
+            zsh-powerlevel10k
+        ];
+    in
+    {
         defaultPackage.x86_64-darwin = home-manager.defaultPackage.x86_64-darwin;
         defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
         defaultPackage.aarch64-darwin = home-manager.defaultPackage.aarch64-darwin;
@@ -24,6 +34,7 @@
                     ./modules/base.nix
                     ./hm-work.nix
                     {
+                        nixpkgs.overlays = overlays;
                         home = {
                             username = "bloveless";
                             homeDirectory = "/Users/bloveless";
@@ -44,6 +55,7 @@
                     ./modules/base.nix
                     ./hm-home.nix
                     {
+                        nixpkgs.overlays = overlays;
                         home = {
                             username = "brennon";
                             homeDirectory = "/Users/brennon";
@@ -64,6 +76,7 @@
                     ./modules/base.nix
                     ./hm-devbox.nix
                     {
+                        nixpkgs.overlays = overlays;
                         home = {
                             username = "brennon";
                             homeDirectory = "/home/brennon";

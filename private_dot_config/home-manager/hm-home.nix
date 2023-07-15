@@ -7,6 +7,7 @@
     pkgs.ripgrep
     pkgs.curl
     pkgs.jq
+    pkgs.cachix
   ];
 
   # home.shellAliases = {

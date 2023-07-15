@@ -67,6 +67,34 @@ require('lazy').setup({
   -- },
 
   -- {
+  --   'dracula/vim',
+  --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd([[colorscheme dracula]])
+  --   end,
+  -- },
+
+  {
+    'ThemerCorp/themer.lua',
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000,
+    config = function()
+      require("themer").setup({
+        colorscheme = "rose_pine_moon",
+        enable_installer = true,
+        styles = {
+          ["function"]    = { style = 'italic' },
+          functionbuiltin = { style = 'italic' },
+          variable        = { style = 'italic' },
+          variableBuiltIn = { style = 'italic' },
+          parameter       = { style = 'italic' },
+        },
+      })
+    end,
+  },
+
+  -- {
   --   'navarasu/onedark.nvim',
   --   lazy = false, -- make sure we load this during startup if it is your main colorscheme
   --   priority = 1000, -- make sure to load this before all the other start plugins
@@ -79,23 +107,23 @@ require('lazy').setup({
   --   end,
   -- },
 
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      require('rose-pine').setup({
-        --- @usage 'auto'|'main'|'moon'|'dawn'
-        variant = 'moon',
-        --- @usage 'main'|'moon'|'dawn'
-        dark_variant = 'moon',
-      })
-
-      -- load the colorscheme here
-      vim.cmd([[colorscheme rose-pine]])
-    end,
-  },
+  -- {
+  --   'rose-pine/neovim',
+  --   name = 'rose-pine',
+  --   lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  --     require('rose-pine').setup({
+  --       --- @usage 'auto'|'main'|'moon'|'dawn'
+  --       variant = 'moon',
+  --       --- @usage 'main'|'moon'|'dawn'
+  --       dark_variant = 'moon',
+  --     })
+  --
+  --     -- load the colorscheme here
+  --     vim.cmd([[colorscheme rose-pine]])
+  --   end,
+  -- },
 
   {
     'VonHeikemen/lsp-zero.nvim',
@@ -170,11 +198,11 @@ require('lazy').setup({
   },
 
   'hashivim/vim-terraform',
-  'simrat39/rust-tools.nvim',
   'rktjmp/lush.nvim',
   'RRethy/vim-illuminate',
-  'dracula/vim',
 })
+
+require("telescope").load_extension("themes")
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -492,7 +520,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'css', 'html', 'go', 'lua', 'python', 'typescript', 'javascript', 'tsx', 'hcl' },
+  ensure_installed = { 'css', 'html', 'go', 'lua', 'python', 'typescript', 'javascript', 'tsx', 'hcl', 'nix' },
 
   highlight = { enable = true },
   indent = { enable = true },
@@ -708,8 +736,6 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
-
-require("rust-tools").setup()
 
 -- filetype alias
 vim.filetype.add { extension = { nomad = 'hcl' } }
