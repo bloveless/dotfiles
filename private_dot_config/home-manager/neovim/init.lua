@@ -164,6 +164,8 @@ require('lazy').setup({
     },
   },
 
+  'davidmh/cspell.nvim',
+
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -714,6 +716,7 @@ table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
 local null_ls = require("null-ls")
+local cspell = require("cspell")
 
 null_ls.setup({
   sources = {
@@ -722,6 +725,8 @@ null_ls.setup({
     null_ls.builtins.formatting.eslint_d,
     null_ls.builtins.code_actions.gitsigns,
     null_ls.builtins.formatting.prettierd,
+    cspell.diagnostics,
+    cspell.code_actions,
   },
 })
 
