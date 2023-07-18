@@ -7,8 +7,8 @@ in
     pkgs.git
     pkgs.chezmoi
     pkgs.groff
-    # pkgs.awscli2
-    # pkgs.ssm-session-manager-plugin
+    pkgs.awscli2
+    pkgs.ssm-session-manager-plugin
     pkgs.nodejs
     # pkgs.yarn
     # pkgs.argocd
