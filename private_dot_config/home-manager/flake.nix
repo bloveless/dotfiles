@@ -24,6 +24,15 @@
         zsh-powerlevel10k = import overlays/zsh-powerlevel10k/default.nix;
         overlays = [
             neovim-nightly-overlay.overlay
+            (
+              import (let
+                # rev = "master";
+                rev = "c57746e2b9e3b42c0be9d9fd1d765f245c3827b7";
+              in
+                builtins.fetchTarball {
+                  url = "https://github.com/nix-community/neovim-nightly-overlay/archive/${rev}.tar.gz";
+                })
+            )
             zsh-powerlevel10k
         ];
     in

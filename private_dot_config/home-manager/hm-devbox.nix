@@ -23,6 +23,7 @@
     pkgs.cachix
     pkgs.fd # for neovim telescope
     pkgs.gcc # for neovim treesitter
+    pkgs.lazygit # for neovim git
   ];
   
   programs.zsh = {
