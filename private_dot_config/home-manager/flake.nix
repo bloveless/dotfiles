@@ -8,13 +8,22 @@
           url = "github:nix-community/home-manager";
           inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        # https://github.com/mitchellh/nixos-config/blob/main/flake.nix
+        # I think technically you're not supposed to override the nixpkgs
+        # used by neovim but recently I had failures if I didn't pin to my
+        # own. We can always try to remove that anytime.
+        neovim-nightly-overlay = {
+          url = "github:nix-community/neovim-nightly-overlay";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    outputs = {nixpkgs, home-manager, ...}:
+    outputs = {nixpkgs, home-manager, neovim-nightly-overlay, ...}:
     let
         zsh-powerlevel10k = import overlays/zsh-powerlevel10k/default.nix;
         overlays = [
-            # neovim-nightly-overlay.overlay
+            neovim-nightly-overlay.overlay
             zsh-powerlevel10k
         ];
     in
