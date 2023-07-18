@@ -14,15 +14,16 @@
     let
         zsh-powerlevel10k = import overlays/zsh-powerlevel10k/default.nix;
         overlays = [
-            (
-              import (let
-                # rev = "master";
-                rev = "c57746e2b9e3b42c0be9d9fd1d765f245c3827b7";
-              in
-                builtins.fetchTarball {
-                  url = "https://github.com/nix-community/neovim-nightly-overlay/archive/${rev}.tar.gz";
-                })
-            )
+            # Neovim nightly... probably don't enable this again until the master branch works
+            # (
+            #   import (let
+            #     # rev = "master";
+            #     rev = "c57746e2b9e3b42c0be9d9fd1d765f245c3827b7";
+            #   in
+            #     builtins.fetchTarball {
+            #       url = "https://github.com/nix-community/neovim-nightly-overlay/archive/${rev}.tar.gz";
+            #     })
+            # )
             zsh-powerlevel10k
         ];
     in

@@ -9,6 +9,7 @@
     pkgs.jq
     pkgs.cachix
     pkgs.fd # for neovim telescope
+    pkgs.lazygit # for neovim git
   ];
 
   # home.shellAliases = {
