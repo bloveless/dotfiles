@@ -144,7 +144,7 @@
       }
     ];
     extraConfig = ''
-      set-option -sa terminal-features ',alacritty:RGB,screen-256color:RGB,xterm-256color:RGB'
+      set-option -sa terminal-features ',alacritty:RGB,screen-256color:RGB,xterm-256color:RGB,xterm-kitty:RGB'
 
       # switch panes using Alt-arrow without prefix
       bind -n M-Left select-pane -L

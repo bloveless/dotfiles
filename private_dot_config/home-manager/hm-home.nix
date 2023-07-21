@@ -11,7 +11,7 @@
     pkgs.fd # for neovim telescope
   ];
 
-  # home.shellAliases = {
-  #   ssh = "kitty +kitten ssh";
-  # };
+  home.shellAliases = {
+    ssh = "kitty +kitten ssh";
+  };
 }
