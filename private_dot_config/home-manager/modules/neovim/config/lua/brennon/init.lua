@@ -1,0 +1,5 @@
+require('brennon.options')
+require('brennon.plugins')
+require('brennon.colorscheme')
+require('brennon.keymaps')
+require('brennon.lsp')

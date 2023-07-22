@@ -13,6 +13,7 @@
     outputs = {nixpkgs, home-manager, ...}:
     let
         zsh-powerlevel10k = import overlays/zsh-powerlevel10k/default.nix;
+        lua-language-server = import overlays/lua-language-server/default.nix;
         overlays = [
             # Neovim nightly... probably don't enable this again until the master branch works
             # (
@@ -25,6 +26,7 @@
             #     })
             # )
             zsh-powerlevel10k
+            lua-language-server
         ];
     in
     {
@@ -39,6 +41,7 @@
 
                 modules = [
                     ./modules/base.nix
+                    ./modules/neovim/default.nix
                     ./hm-work.nix
                     {
                         nixpkgs.overlays = overlays;
@@ -60,6 +63,7 @@
 
                 modules = [
                     ./modules/base.nix
+                    ./modules/neovim/default.nix
                     ./hm-home.nix
                     {
                         nixpkgs.overlays = overlays;
@@ -81,6 +85,7 @@
 
                 modules = [
                     ./modules/base.nix
+                    ./modules/neovim/default.nix
                     ./hm-devbox.nix
                     {
                         nixpkgs.overlays = overlays;

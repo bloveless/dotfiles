@@ -91,19 +91,19 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
-  programs.neovim = {
-    enable = true;
+  # programs.neovim = {
+  #   enable = true;
 
-    package = pkgs.neovim-unwrapped;
+  #   package = pkgs.neovim-unwrapped;
 
-    # Alias `vim` to nvim
-    vimAlias = true;
-  };
+  #   # Alias `vim` to nvim
+  #   vimAlias = true;
+  # };
 
-  home.file.".config/nvim" = {
-    source = ../neovim;
-    recursive = true;
-  };
+  # home.file.".config/nvim" = {
+  #   source = ../neovim;
+  #   recursive = true;
+  # };
 
   # programs.starship = {
   #   enable = true;
