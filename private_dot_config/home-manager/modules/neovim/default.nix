@@ -35,6 +35,8 @@ in
       lualine-nvim
       dressing-nvim
       nvim-navic
+      noice-nvim
+      nui-nvim
 
       persistence-nvim
       alpha-nvim
