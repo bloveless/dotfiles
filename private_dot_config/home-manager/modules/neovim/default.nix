@@ -21,6 +21,7 @@ in
     nodePackages.eslint_d
     nodePackages.prettier_d_slim
     nodePackages.cspell
+    terraform # used for terraform fmt and validate null-ls actions
     terraform-ls
     tflint
     taplo
