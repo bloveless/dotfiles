@@ -6,9 +6,10 @@ null_ls.setup({
   sources = {
     null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.code_actions.eslint_d,
-    null_ls.builtins.formatting.eslint_d,
     null_ls.builtins.code_actions.gitsigns,
     null_ls.builtins.formatting.prettier_d_slim,
+    null_ls.builtins.formatting.terraform_fmt,
+    null_ls.builtins.diagnostics.terraform_validate,
     cspell.diagnostics,
     cspell.code_actions,
   },
@@ -38,6 +39,7 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'luasnip' }, -- For luasnip users.
+    { name = 'crates' },
   }, {
     { name = 'buffer' },
   })
@@ -74,10 +76,6 @@ cmp.setup.cmdline(':', {
 local lsp_formatting = function(bufnr, async)
   local opts = {
     async = async,
-    filter = function(client)
-      -- disable using tsserver formatting
-      return client.name ~= 'tsserver'
-    end,
     bufnr = bufnr,
   }
 
@@ -130,6 +128,8 @@ local on_attach = function(client, bufnr)
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
+  nmap('[d', vim.diagnostic.goto_prev, opts)
+  nmap(']d', vim.diagnostic.goto_next, opts)
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function() lsp_formatting(bufnr, true) end,
@@ -193,17 +193,19 @@ require("typescript").setup({
 local rt = require('rust-tools')
 
 rt.setup({
-  server = {
-    on_attach = function(client, bufnr)
-      if client.server_capabilities.documentSymbolProvider then
-        navic.attach(client, bufnr)
-      end
-
-      -- Hover actions
-      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-      -- Code action groups
-      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+  tools = {
+    on_initialized = function()
+      vim.cmd([[
+        augroup RustLSP
+          autocmd CursorHold                      *.rs silent! lua vim.lsp.buf.document_highlight()
+          autocmd CursorMoved,InsertEnter         *.rs silent! lua vim.lsp.buf.clear_references()
+          autocmd BufEnter,CursorHold,InsertLeave *.rs silent! lua vim.lsp.codelens.refresh()
+        augroup END
+      ]])
     end,
+  },
+  server = {
+    on_attach = on_attach
   },
 })
 

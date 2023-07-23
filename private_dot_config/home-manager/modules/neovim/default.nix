@@ -23,6 +23,7 @@ in
     nodePackages.cspell
     terraform-ls
     tflint
+    taplo
   ];
 
   programs.neovim = {
@@ -62,6 +63,7 @@ in
       typescript-nvim
       rust-tools-nvim
       vim-terraform
+      crates-nvim
 
       #neotest
       #neotest-go
@@ -133,6 +135,7 @@ in
           python
           query
           regex
+          ron
           rust
           scss
           sql

@@ -89,7 +89,7 @@ require("nvim-surround").setup()
 
 --################### START TELESCOPE ###################--
 
--- You dont need to set any of these options. These are the default ones. Only
+-- You don't need to set any of these options. These are the default ones. Only
 -- the loading is important
 require('telescope').setup({})
 
@@ -167,11 +167,27 @@ vim.cmd([[let g:terraform_align=1]])
 --################### START NEO-TREE ###################--
 
 require("neo-tree").setup({
-    close_if_last_window = true,
-    popup_border_style = "rounded",
+    sources = { "filesystem", "buffers", "git_status", "document_symbols" },
+    open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline" },
     filesystem = {
-        follow_current_file = {
-            enabled = true,
+        bind_to_cwd = false,
+        follow_current_file = { enabled = true },
+        use_libuv_file_watcher = true,
+    },
+    buffers = {
+        follow_current_file = { enabled = true },
+    },
+    window = {
+        mappings = {
+            ["<space>"] = "none",
+        },
+    },
+    default_component_configs = {
+        indent = {
+            with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+            expander_collapsed = "",
+            expander_expanded = "",
+            expander_highlight = "NeoTreeExpander",
         },
     },
 })

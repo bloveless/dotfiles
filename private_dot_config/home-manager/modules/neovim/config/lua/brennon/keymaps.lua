@@ -17,12 +17,16 @@ map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsea
 map("n", "<leader>gg", ":LazyGit<cr>", { desc = "Open lazygit" })
 
 -- Neotree
-map("n", "<leader>e", ":Neotree source=filesystem position=float toggle=true<cr>", { desc = "Open file tree" })
+map("n", "<leader>e", ":Neotree source=filesystem position=float toggle=true reveal_file=%:p<cr>",
+  { desc = "Open file tree" })
 
 -- Persistence
-map("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]], { desc = "Restore the session for the current directory" })
-map("n", "<leader>ql", [[<cmd>lua require("persistence").load({ last = true })<cr>]], { desc = "Restore the last session" })
-map("n", "<leader>qd", [[<cmd>lua require("persistence").stop()<cr>]], { desc = "Stop persistence => session won't be saved on exit" })
+map("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]],
+  { desc = "Restore the session for the current directory" })
+map("n", "<leader>ql", [[<cmd>lua require("persistence").load({ last = true })<cr>]],
+  { desc = "Restore the last session" })
+map("n", "<leader>qd", [[<cmd>lua require("persistence").stop()<cr>]],
+  { desc = "Stop persistence => session won't be saved on exit" })
 
 -- Trouble
 map("n", "<leader>xx", function() require("trouble").toggle() end, { desc = "Trouble open" })
