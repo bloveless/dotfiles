@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 let
+  extraNodePackages = import ../node/default.nix {
+    inherit pkgs;
+  };
   fromGitHub = owner: repo: ref: hash:
     pkgs.vimUtils.buildVimPluginFrom2Nix {
       pname = "${lib.strings.sanitizeDerivationName repo}";
@@ -21,6 +24,7 @@ in
     nodePackages.eslint_d
     nodePackages.prettier_d_slim
     nodePackages.cspell
+    extraNodePackages."@tailwindcss/language-server"
     lazygit
     terraform # used for terraform fmt and validate null-ls actions
     fd # for neovim telescope

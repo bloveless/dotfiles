@@ -218,3 +218,8 @@ require('lspconfig').tflint.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
+
+require('lspconfig').tailwindcss.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
