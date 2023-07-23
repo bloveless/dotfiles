@@ -1,3 +1,19 @@
+local navic = require("nvim-navic")
+local null_ls = require("null-ls")
+local cspell = require("cspell")
+
+null_ls.setup({
+  sources = {
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.code_actions.eslint_d,
+    null_ls.builtins.formatting.eslint_d,
+    null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.formatting.prettier_d_slim,
+    cspell.diagnostics,
+    cspell.code_actions,
+  },
+})
+
 -- Set up nvim-cmp.
 local cmp = require('cmp')
 
@@ -75,6 +91,10 @@ end
 --  This function gets run when an LSP connects to a particular buffer.
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 local on_attach = function(client, bufnr)
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
+
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -157,4 +177,42 @@ require('lspconfig').lua_ls.setup({
       },
     },
   },
+})
+
+require("typescript").setup({
+  disable_commands = false, -- prevent the plugin from creating Vim commands
+  debug = false,            -- enable debug logging for commands
+  go_to_source_definition = {
+    fallback = true,        -- fall back to standard LSP definition on failure
+  },
+  server = {                -- pass options to lspconfig's setup method
+    on_attach = on_attach,
+  },
+})
+
+local rt = require('rust-tools')
+
+rt.setup({
+  server = {
+    on_attach = function(client, bufnr)
+      if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+      end
+
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
+
+require('lspconfig').terraformls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+require('lspconfig').tflint.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
 })

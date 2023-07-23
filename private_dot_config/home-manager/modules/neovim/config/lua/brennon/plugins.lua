@@ -65,6 +65,7 @@ require('lualine').setup({
 local notify = require('notify')
 notify.setup({
     top_down = false,
+    background_colour = "#000000",
 })
 
 vim.notify = notify
@@ -138,3 +139,41 @@ require("noice").setup({
 })
 
 --################### END NOICE ###################--
+
+
+--################### START FIDGET ###################--
+
+require("fidget").setup({})
+
+--################### END FIDGET ###################--
+
+
+--################### START TERRAFORM ###################--
+
+-- setup terraform file types
+vim.cmd([[silent! autocmd! filetypedetect BufRead,BufNewFile *.tf]])
+vim.cmd([[autocmd BufRead,BufNewFile *.hcl set filetype=hcl]])
+vim.cmd([[autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl]])
+vim.cmd([[autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform]])
+vim.cmd([[autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json]])
+
+-- terraform format and align on save
+vim.cmd([[let g:terraform_fmt_on_save=1]])
+vim.cmd([[let g:terraform_align=1]])
+
+--################### END TERRAFORM ###################--
+
+
+--################### START NEO-TREE ###################--
+
+require("neo-tree").setup({
+    close_if_last_window = true,
+    popup_border_style = "rounded",
+    filesystem = {
+        follow_current_file = {
+            enabled = true,
+        },
+    },
+})
+
+--################### END NEO-TREE ###################--

@@ -17,6 +17,12 @@ in
   home.packages = with pkgs; [
     rust-analyzer
     lua-language-server
+    nodePackages.typescript-language-server
+    nodePackages.eslint_d
+    nodePackages.prettier_d_slim
+    nodePackages.cspell
+    terraform-ls
+    tflint
   ];
 
   programs.neovim = {
@@ -41,6 +47,7 @@ in
       persistence-nvim
       alpha-nvim
       neo-tree-nvim
+      fidget-nvim
 
       # basics
       indent-blankline-nvim
@@ -50,6 +57,11 @@ in
       lazygit-nvim
 
       trouble-nvim
+
+      # lsp
+      typescript-nvim
+      rust-tools-nvim
+      vim-terraform
 
       #neotest
       #neotest-go
@@ -74,7 +86,7 @@ in
 
       # coding
       nvim-lspconfig
-      #null-ls-nvim
+      null-ls-nvim
       cmp-nvim-lsp
       cmp-buffer
       cmp-path
@@ -94,24 +106,22 @@ in
       #treesj
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
         with plugins; [
-          #bash
-          #cpp
-          #css
-          #diff
-          #dockerfile
-          #fish
-          #git_config
-          #git_rebase
-          #gitattributes
-          #gitcommit
-          #gitignore
-          #go
-          #gomod
-          #gowork
-          #graphql
-          #hcl
-          #html
-          #http
+          bash
+          css
+          diff
+          dockerfile
+          git_config
+          git_rebase
+          gitattributes
+          gitcommit
+          gitignore
+          go
+          gomod
+          gowork
+          graphql
+          hcl
+          html
+          http
           javascript
           jq
           json
@@ -119,20 +129,19 @@ in
           make
           markdown
           markdown_inline
-          #nix
-          #python
-          #query
+          nix
+          python
+          query
           regex
           rust
-          #scss
-          #sql
+          scss
+          sql
           terraform
-          #toml
+          toml
           typescript
-          #vhs
+          vhs
           vim
           yaml
-          #zig
         ]))
       nvim-treesitter-textobjects
       nvim-treesitter-context
