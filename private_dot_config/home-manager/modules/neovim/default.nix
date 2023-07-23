@@ -142,6 +142,7 @@ in
           sql
           terraform
           toml
+          tsx
           typescript
           vhs
           vim
