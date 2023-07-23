@@ -12,10 +12,6 @@ in
     pkgs.ripgrep
     pkgs.curl
     pkgs.jq
-    pkgs.cachix
-    pkgs.nodejs # for neovim to install language servers
-    pkgs.fd # for neovim telescope
-    pkgs.lazygit # for neovim git
   ];
 
   home.shellAliases = {

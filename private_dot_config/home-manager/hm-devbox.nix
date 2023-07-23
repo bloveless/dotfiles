@@ -18,12 +18,7 @@
     pkgs.kubernetes-helm
     pkgs.kubeseal
     pkgs.cilium-cli
-    pkgs.nodejs # necessary for lsps to install with LspZero/Mason
     pkgs.unzip
-    pkgs.cachix
-    pkgs.fd # for neovim telescope
-    pkgs.gcc # for neovim treesitter
-    pkgs.lazygit # for neovim git
   ];
   
   programs.zsh = {

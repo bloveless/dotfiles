@@ -15,6 +15,7 @@ map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsea
 
 -- LazyGit
 map("n", "<leader>gg", ":LazyGit<cr>", { desc = "Open lazygit" })
+map("n", "<leader>gG", ":LazyGitCurrentFile<cr>", { desc = "Open lazygit" })
 
 -- Neotree
 map("n", "<leader>e", ":Neotree source=filesystem position=float toggle=true reveal_file=%:p<cr>",

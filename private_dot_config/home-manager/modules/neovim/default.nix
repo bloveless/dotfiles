@@ -21,7 +21,9 @@ in
     nodePackages.eslint_d
     nodePackages.prettier_d_slim
     nodePackages.cspell
+    lazygit
     terraform # used for terraform fmt and validate null-ls actions
+    fd # for neovim telescope
     terraform-ls
     tflint
     taplo

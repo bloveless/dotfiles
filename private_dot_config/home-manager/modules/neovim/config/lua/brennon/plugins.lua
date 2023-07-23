@@ -193,6 +193,8 @@ require("neo-tree").setup({
 })
 
 --################### END NEO-TREE ###################--
+
+
 --################### START TREESITTER ###################--
 
 require("nvim-treesitter.configs").setup({
