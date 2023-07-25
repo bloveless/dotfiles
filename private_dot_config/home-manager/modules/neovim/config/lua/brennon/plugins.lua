@@ -37,7 +37,9 @@ require("alpha").setup(dashboard.opts)
 
 --################### START COMMENT ###################--
 
-require('Comment').setup()
+require('Comment').setup({
+    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+})
 
 --################### END COMMENT ###################--
 
@@ -208,6 +210,9 @@ require("nvim-treesitter.configs").setup({
             scope_incremental = false,
             node_decremental = "<bs>",
         },
+    },
+    context_commentstring = {
+        enable = true,
     },
 })
 

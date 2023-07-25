@@ -112,6 +112,7 @@ in
       #neodev-nvim
       nvim-surround
       comment-nvim
+      nvim-ts-context-commentstring
       #treesj
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
         with plugins; [
