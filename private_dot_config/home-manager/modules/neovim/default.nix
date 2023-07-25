@@ -111,8 +111,11 @@ in
       #friendly-snippets
       #neodev-nvim
       nvim-surround
-      comment-nvim
+
+      (fromGitHub "echasnovski" "mini.comment" "877acea5b2a32ff55f808fc0ebe9aa898648318c" "sha256-oeXDsSlXHnVt2EcTlJZOdATs90TpWUX+yfKKhxALnZo=
+")
       nvim-ts-context-commentstring
+
       #treesj
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
         with plugins; [
