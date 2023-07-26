@@ -1,3 +1,4 @@
+local util = require('brennon.utils')
 local map = vim.keymap.set
 
 -- Move to window using the <ctrl> hjkl keys
@@ -18,8 +19,9 @@ map("n", "<leader>gg", ":LazyGit<cr>", { desc = "Open lazygit" })
 map("n", "<leader>gG", ":LazyGitCurrentFile<cr>", { desc = "Open lazygit" })
 
 -- Neotree
-map("n", "<leader>e", ":Neotree source=filesystem position=float toggle=true reveal_file=%:p<cr>",
-  { desc = "Open file tree" })
+map("n", "<leader>e", function()
+  require("neo-tree.command").execute({ toggle = true, dir = util.get_root(), position = "float" })
+end, { desc = "Open file tree" })
 
 -- Persistence
 map("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]],
