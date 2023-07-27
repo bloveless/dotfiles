@@ -20,7 +20,7 @@ map("n", "<leader>gG", ":LazyGitCurrentFile<cr>", { desc = "Open lazygit" })
 
 -- Neotree
 map("n", "<leader>e", function()
-  require("neo-tree.command").execute({ toggle = true, dir = util.get_root(), position = "float" })
+  require("neo-tree.command").execute({ position = "float", reveal = true })
 end, { desc = "Open file tree" })
 
 -- Persistence
