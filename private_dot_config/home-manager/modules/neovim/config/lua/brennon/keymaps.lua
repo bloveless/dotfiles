@@ -39,6 +39,10 @@ map("n", "<leader>xl", function() require("trouble").toggle("quickfix") end, { d
 map("n", "<leader>xq", function() require("trouble").toggle("loclist") end, { desc = "Trouble in a location list" })
 map("n", "gR", function() require("trouble").toggle("lsp_references") end, { desc = "Trouble lsp references" })
 
+-- Notify
+map("n", "<leader>un", function() require("notify").dismiss({ silent = true, pending = true }) end,
+  { desc = "Dismiss all Notifications" })
+
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
