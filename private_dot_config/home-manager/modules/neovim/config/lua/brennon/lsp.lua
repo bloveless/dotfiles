@@ -10,6 +10,10 @@ null_ls.setup({
     null_ls.builtins.formatting.prettier_d_slim,
     null_ls.builtins.formatting.terraform_fmt,
     null_ls.builtins.diagnostics.terraform_validate,
+    null_ls.builtins.code_actions.gomodifytags,
+    null_ls.builtins.code_actions.impl,
+    null_ls.builtins.formatting.gofumpt,
+    null_ls.builtins.formatting.goimports_reviser,
     -- cspell.diagnostics,
     -- cspell.code_actions,
   },
@@ -220,6 +224,11 @@ require('lspconfig').tflint.setup({
 })
 
 require('lspconfig').tailwindcss.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+require('lspconfig').gopls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })

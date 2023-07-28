@@ -131,6 +131,7 @@ in
           go
           gomod
           gowork
+          gosum
           graphql
           hcl
           html
