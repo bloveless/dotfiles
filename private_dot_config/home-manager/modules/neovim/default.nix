@@ -92,6 +92,8 @@ in
 
       (fromGitHub "echasnovski" "mini.indentscope" "f60e9b51a6214c73a170ffc5445ce91560981031" "sha256-lqy5GMi0J90X7TDrp4ao5Mp6FmBascfJhLjLurq1TMA=")
       (fromGitHub "davidmh" "cspell.nvim" "0e9c586bd7f7ab3f1f2f000a084121203e0ee62c" "sha256-wPzivrgKK22baYEqCOTpPbeXNtwGWsN4z08OoKYcxPM=")
+      (fromGitHub "ray-x" "guihua.lua" "9a15128d92dfba57ada2857316073d1fa3d97c93" "sha256-OlS89mX+AyyErQjRDWybqDrCv
+UdwopXdqwOR2QZeTmw=")
 
       # coding
       nvim-lspconfig
@@ -103,6 +105,7 @@ in
       cmp-emoji
       cmp-calc
       nvim-cmp
+      go-nvim
       #nvim-autopairs
       #nvim-ts-autotag
       cmp-nvim-lsp-signature-help

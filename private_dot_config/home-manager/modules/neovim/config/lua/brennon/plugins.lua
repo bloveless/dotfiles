@@ -84,7 +84,9 @@ notify.setup({
 
 vim.notify = notify
 
---################### START NOTIFY ###################--
+require("telescope").load_extension("notify")
+
+--################### END NOTIFY ###################--
 
 
 --################### START PERSISTENCE ###################--
@@ -229,3 +231,10 @@ require("nvim-treesitter.configs").setup({
 })
 
 --################### END TREESITTER ###################--
+
+
+--################### START GO ###################--
+
+require('go').setup()
+
+--################### END GO ###################--
