@@ -31,6 +31,9 @@ in
     terraform-ls
     tflint
     taplo
+    hadolint # dockerfile
+    nodePackages.dockerfile-language-server-nodejs
+    nodePackages.svelte-language-server
   ];
 
   programs.neovim = {
@@ -55,7 +58,9 @@ in
       persistence-nvim
       alpha-nvim
       neo-tree-nvim
-      fidget-nvim
+
+      # fidget-nvim fidget locked to legacy tag
+      (fromGitHub "j-hui" "fidget.nvim" "90c22e47be057562ee9566bad313ad42d622c1d3" "sha256-N3O/AvsD6Ckd62kDEN4z/K5A3SZNR15DnQeZhH6/Rr0=")
 
       # basics
       indent-blankline-nvim
@@ -154,6 +159,7 @@ UdwopXdqwOR2QZeTmw=")
           rust
           scss
           sql
+          svelte
           terraform
           toml
           tsx

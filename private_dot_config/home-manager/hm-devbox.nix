@@ -19,6 +19,7 @@
     pkgs.kubeseal
     pkgs.cilium-cli
     pkgs.unzip
+    pkgs.btop
   ];
   
   programs.zsh = {

@@ -8,6 +8,7 @@
     pkgs.curl
     pkgs.jq
     pkgs.cachix
+    pkgs.btop
   ];
 
   home.shellAliases = {

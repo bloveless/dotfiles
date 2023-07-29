@@ -1,6 +1,6 @@
 local navic = require("nvim-navic")
 local null_ls = require("null-ls")
--- local cspell = require("cspell")
+local cspell = require("cspell")
 
 null_ls.setup({
   sources = {
@@ -14,8 +14,9 @@ null_ls.setup({
     null_ls.builtins.code_actions.impl,
     null_ls.builtins.formatting.gofumpt,
     null_ls.builtins.formatting.goimports_reviser,
-    -- cspell.diagnostics,
-    -- cspell.code_actions,
+    null_ls.builtins.diagnostics.hadolint, -- dockerfile
+    cspell.diagnostics,
+    cspell.code_actions,
   },
 })
 
@@ -267,4 +268,19 @@ require('lspconfig').gopls.setup({
       semanticTokens = true,
     },
   },
+})
+
+require('lspconfig').docker_compose_language_service.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+require('lspconfig').dockerls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+require('lspconfig').svelte.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
 })

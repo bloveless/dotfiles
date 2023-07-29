@@ -12,6 +12,7 @@ in
     pkgs.ripgrep
     pkgs.curl
     pkgs.jq
+    pkgs.btop
   ];
 
   home.shellAliases = {
