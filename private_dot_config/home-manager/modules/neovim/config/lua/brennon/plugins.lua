@@ -185,7 +185,14 @@ vim.cmd([[let g:terraform_align=1]])
 require("neo-tree").setup({
     sources = { "filesystem", "buffers", "git_status", "document_symbols" },
     open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline" },
+    enable_git_status = true,
+    enable_diagnostics = true,
     filesystem = {
+        filtered_items = {
+            visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
+            hide_dotfiles = true,
+            hide_gitignored = true,
+        },
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
@@ -204,6 +211,21 @@ require("neo-tree").setup({
             expander_collapsed = "",
             expander_expanded = "",
             expander_highlight = "NeoTreeExpander",
+        },
+        git_status = {
+            symbols = {
+                -- Change type
+                added     = "✚", -- or "✚", but this is redundant info if you use git_status_colors on the name
+                modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
+                deleted   = "✖", -- this can only be used in the git_status source
+                renamed   = "󰁕", -- this can only be used in the git_status source
+                -- Status type
+                untracked = "",
+                ignored   = "",
+                unstaged  = "󰄱",
+                staged    = "",
+                conflict  = "",
+            }
         },
     },
 })
