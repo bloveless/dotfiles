@@ -34,6 +34,10 @@ in
     hadolint # dockerfile
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.svelte-language-server
+    gopls
+    gofumpt
+    gotools
+    goimports-reviser
   ];
 
   programs.neovim = {

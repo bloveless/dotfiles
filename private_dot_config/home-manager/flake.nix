@@ -14,6 +14,7 @@
     let
         zsh-powerlevel10k = import overlays/zsh-powerlevel10k/default.nix;
         lua-language-server = import overlays/lua-language-server/default.nix;
+        goimports-reviser = import overlays/goimports-reviser/default.nix;
         overlays = [
             # Neovim nightly... probably don't enable this again until the master branch works
             # (
@@ -27,6 +28,7 @@
             # )
             zsh-powerlevel10k
             lua-language-server
+            goimports-reviser
         ];
     in
     {
