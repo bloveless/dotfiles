@@ -9,6 +9,7 @@
     pkgs.jq
     pkgs.cachix
     pkgs.btop
+    pkgs.temurin-jre-bin-18 # for dynamobd local
   ];
 
   home.shellAliases = {
