@@ -19,9 +19,7 @@ map("n", "<leader>gg", ":LazyGit<cr>", { desc = "Open lazygit" })
 map("n", "<leader>gG", ":LazyGitCurrentFile<cr>", { desc = "Open lazygit" })
 
 -- Neotree
-map("n", "<leader>e", function()
-  require("neo-tree.command").execute({ position = "float", reveal = true })
-end, { desc = "Open file tree" })
+map("n", "<leader>e", ":NvimTreeToggle<cr>", { desc = "Open file tree" })
 
 -- Persistence
 map("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]],
