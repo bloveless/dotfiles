@@ -1,6 +1,6 @@
 local navic = require("nvim-navic")
 local null_ls = require("null-ls")
-local cspell = require("cspell")
+-- local cspell = require("cspell")
 
 null_ls.setup({
   sources = {
@@ -15,8 +15,8 @@ null_ls.setup({
     null_ls.builtins.formatting.gofumpt,
     null_ls.builtins.formatting.goimports_reviser,
     null_ls.builtins.diagnostics.hadolint, -- dockerfile
-    cspell.diagnostics,
-    cspell.code_actions,
+    -- cspell.diagnostics,
+    -- cspell.code_actions,
   },
 })
 
