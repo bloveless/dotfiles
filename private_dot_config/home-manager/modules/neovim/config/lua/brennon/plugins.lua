@@ -266,6 +266,12 @@ require("nvim-tree").setup({
             return math.floor(vim.opt.columns:get() * NVIM_TREE_WIDTH_RATIO)
         end,
     },
+    update_focused_file = {
+        enable = true,
+    },
+    diagnostics = {
+        enable = true,
+    },
 })
 
 --################### END NVIM-TREE ###################--
