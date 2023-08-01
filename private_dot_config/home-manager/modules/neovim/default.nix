@@ -21,9 +21,8 @@ in
     rust-analyzer
     lua-language-server
     nodePackages.typescript-language-server
-    nodePackages.eslint_d
-    nodePackages.prettier_d_slim
     nodePackages.cspell
+    efm-langserver
     extraNodePackages."@tailwindcss/language-server"
     lazygit
     terraform # used for terraform fmt and validate null-ls actions
@@ -38,6 +37,8 @@ in
     gofumpt
     gotools
     goimports-reviser
+    stylua
+    luajitPackages.luacheck
   ];
 
   programs.neovim = {
@@ -82,7 +83,7 @@ in
       typescript-nvim
       rust-tools-nvim
       vim-terraform
-      crates-nvim
+      # crates-nvim
 
       #neotest
       #neotest-go
@@ -105,12 +106,13 @@ in
       (fromGitHub "echasnovski" "mini.indentscope" "f60e9b51a6214c73a170ffc5445ce91560981031" "sha256-lqy5GMi0J90X7TDrp4ao5Mp6FmBascfJhLjLurq1TMA=")
       (fromGitHub "davidmh" "cspell.nvim" "0e9c586bd7f7ab3f1f2f000a084121203e0ee62c" "sha256-wPzivrgKK22baYEqCOTpPbeXNtwGWsN4z08OoKYcxPM=")
 
-      (fromGitHub "ray-x" "guihua.lua" "9a15128d92dfba57ada2857316073d1fa3d97c93" "sha256-OlS89mX+AyyErQjRDWybqDrCv
-UdwopXdqwOR2QZeTmw=")
+      (fromGitHub "ray-x" "guihua.lua" "9a15128d92dfba57ada2857316073d1fa3d97c93" "sha256-OlS89mX+AyyErQjRDWybqDrCvUdwopXdqwOR2QZeTmw=")
+
+      (fromGitHub "creativenull" "efmls-configs-nvim" "4721dfdaf259318e94e90e65678cf214c7a5458c" "sha256-xTu3F1xTH+5ipJYhhVJmTe2T8vXS8Nh8mShQ486rOl8=")
 
       # coding
       nvim-lspconfig
-      null-ls-nvim
+      # null-ls-nvim
       cmp-nvim-lsp
       cmp-buffer
       cmp-path

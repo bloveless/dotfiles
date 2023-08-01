@@ -14,17 +14,17 @@ local logo = [[
 
 dashboard.section.header.val = vim.split(logo, "\n")
 dashboard.section.buttons.val = {
-    dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
-    dashboard.button("e", " " .. " File explorer", ":NvimTreeOpen<CR>"),
-    dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-    dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
-    dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
-    dashboard.button("s", " " .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
-    dashboard.button("q", " " .. " Quit", ":qa<CR>"),
+	dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
+	dashboard.button("e", " " .. " File explorer", ":NvimTreeOpen<CR>"),
+	dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
+	dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
+	dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
+	dashboard.button("s", " " .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
+	dashboard.button("q", " " .. " Quit", ":qa<CR>"),
 }
 for _, button in ipairs(dashboard.section.buttons.val) do
-    button.opts.hl = "AlphaButtons"
-    button.opts.hl_shortcut = "AlphaShortcut"
+	button.opts.hl = "AlphaButtons"
+	button.opts.hl_shortcut = "AlphaShortcut"
 end
 dashboard.section.header.opts.hl = "AlphaHeader"
 dashboard.section.buttons.opts.hl = "AlphaButtons"
@@ -35,51 +35,47 @@ require("alpha").setup(dashboard.opts)
 
 --################### END ALPHA ###################--
 
-
 --################### START COMMENT ###################--
 
-require('mini.comment').setup({
-    options = {
-        custom_commentstring = function()
-            return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-        end,
-    },
+require("mini.comment").setup({
+	options = {
+		custom_commentstring = function()
+			return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+		end,
+	},
 })
 
 --################### END COMMENT ###################--
 
-
 --################### START GITSIGNS ###################--
 
-require('gitsigns').setup()
+require("gitsigns").setup()
 
 --################### END GITSIGNS ###################--
 
-
 --################### START LUALINE ###################--
 
-require('lualine').setup({
-    options = {
-        theme = "catppuccin"
-    }
+require("lualine").setup({
+	options = {
+		theme = "catppuccin",
+	},
 })
 
 --################### END LUALINE ###################--
 
-
 --################### START NOTIFY ###################--
 
-local notify = require('notify')
+local notify = require("notify")
 notify.setup({
-    top_down = false,
-    background_colour = "#000000",
-    timeout = 3000,
-    max_height = function()
-        return math.floor(vim.o.lines * 0.75)
-    end,
-    max_width = function()
-        return math.floor(vim.o.columns * 0.75)
-    end,
+	top_down = false,
+	background_colour = "#000000",
+	timeout = 3000,
+	max_height = function()
+		return math.floor(vim.o.lines * 0.75)
+	end,
+	max_width = function()
+		return math.floor(vim.o.columns * 0.75)
+	end,
 })
 
 vim.notify = notify
@@ -88,13 +84,11 @@ require("telescope").load_extension("notify")
 
 --################### END NOTIFY ###################--
 
-
 --################### START PERSISTENCE ###################--
 
 require("persistence").setup()
 
 --################### END PERSISTENCE ###################--
-
 
 --################### START SURROUND ###################--
 
@@ -102,33 +96,33 @@ require("nvim-surround").setup()
 
 --################### END SURROUND ###################--
 
-
 --################### START TELESCOPE ###################--
 
 -- You don't need to set any of these options. These are the default ones. Only
 -- the loading is important
-require('telescope').setup({})
+require("telescope").setup({})
 
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
-require('telescope').load_extension('fzf')
+require("telescope").load_extension("fzf")
 
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
-vim.keymap.set('n', '<leader>sg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>sb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>sh', builtin.help_tags, {})
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>sf", function()
+	builtin.find_files({ hidden = true })
+end, {})
+vim.keymap.set("n", "<leader>sg", builtin.live_grep, {})
+vim.keymap.set("n", "<leader>sb", builtin.buffers, {})
+vim.keymap.set("n", "<leader>sh", builtin.help_tags, {})
 
 --################### END TELESCOPE ###################--
 
-
 --################### MINI INDENT SCOPE ###################--
 
-require('mini.indentscope').setup({
-    symbol = "│",
-    options = {
-        try_as_border = true
-    },
+require("mini.indentscope").setup({
+	symbol = "│",
+	options = {
+		try_as_border = true,
+	},
 })
 
 --################### END MINI INDENT SCOPE ###################--
@@ -136,33 +130,31 @@ require('mini.indentscope').setup({
 --################### START NOICE ###################--
 
 require("noice").setup({
-    lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-        override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
-        },
-    },
-    -- you can enable a preset for easier configuration
-    presets = {
-        bottom_search = true,         -- use a classic bottom cmdline for search
-        command_palette = true,       -- position the cmdline and popupmenu together
-        long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false,       -- add a border to hover docs and signature help
-    },
+	lsp = {
+		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+		override = {
+			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+			["vim.lsp.util.stylize_markdown"] = true,
+			["cmp.entry.get_documentation"] = true,
+		},
+	},
+	-- you can enable a preset for easier configuration
+	presets = {
+		bottom_search = true, -- use a classic bottom cmdline for search
+		command_palette = true, -- position the cmdline and popupmenu together
+		long_message_to_split = true, -- long messages will be sent to a split
+		inc_rename = false, -- enables an input dialog for inc-rename.nvim
+		lsp_doc_border = false, -- add a border to hover docs and signature help
+	},
 })
 
 --################### END NOICE ###################--
-
 
 --################### START FIDGET ###################--
 
 require("fidget").setup({})
 
 --################### END FIDGET ###################--
-
 
 --################### START TERRAFORM ###################--
 
@@ -178,7 +170,6 @@ vim.cmd([[let g:terraform_fmt_on_save=1]])
 vim.cmd([[let g:terraform_align=1]])
 
 --################### END TERRAFORM ###################--
-
 
 --################### START NEO-TREE ###################--
 
@@ -232,75 +223,71 @@ vim.cmd([[let g:terraform_align=1]])
 
 --################### END NEO-TREE ###################--
 
-
 --################### START NVIM-TREE ###################--
 
 local NVIM_TREE_HEIGHT_RATIO = 0.8 -- You can change this
-local NVIM_TREE_WIDTH_RATIO = 0.5  -- You can change this too
+local NVIM_TREE_WIDTH_RATIO = 0.5 -- You can change this too
 
 require("nvim-tree").setup({
-    view = {
-        float = {
-            enable = true,
-            open_win_config = function()
-                local screen_w = vim.opt.columns:get()
-                local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
-                local window_w = screen_w * NVIM_TREE_WIDTH_RATIO
-                local window_h = screen_h * NVIM_TREE_HEIGHT_RATIO
-                local window_w_int = math.floor(window_w)
-                local window_h_int = math.floor(window_h)
-                local center_x = (screen_w - window_w) / 2
-                local center_y = ((vim.opt.lines:get() - window_h) / 2)
-                    - vim.opt.cmdheight:get()
-                return {
-                    border = 'rounded',
-                    relative = 'editor',
-                    row = center_y,
-                    col = center_x,
-                    width = window_w_int,
-                    height = window_h_int,
-                }
-            end,
-        },
-        width = function()
-            return math.floor(vim.opt.columns:get() * NVIM_TREE_WIDTH_RATIO)
-        end,
-    },
-    update_focused_file = {
-        enable = true,
-    },
-    diagnostics = {
-        enable = true,
-    },
+	view = {
+		float = {
+			enable = true,
+			open_win_config = function()
+				local screen_w = vim.opt.columns:get()
+				local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+				local window_w = screen_w * NVIM_TREE_WIDTH_RATIO
+				local window_h = screen_h * NVIM_TREE_HEIGHT_RATIO
+				local window_w_int = math.floor(window_w)
+				local window_h_int = math.floor(window_h)
+				local center_x = (screen_w - window_w) / 2
+				local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
+				return {
+					border = "rounded",
+					relative = "editor",
+					row = center_y,
+					col = center_x,
+					width = window_w_int,
+					height = window_h_int,
+				}
+			end,
+		},
+		width = function()
+			return math.floor(vim.opt.columns:get() * NVIM_TREE_WIDTH_RATIO)
+		end,
+	},
+	update_focused_file = {
+		enable = true,
+	},
+	diagnostics = {
+		enable = true,
+	},
 })
 
 --################### END NVIM-TREE ###################--
 
-
 --################### START TREESITTER ###################--
 
 require("nvim-treesitter.configs").setup({
-    highlight = { enable = true },
-    indent = { enable = true },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "<C-space>",
-            node_incremental = "<C-space>",
-            scope_incremental = false,
-            node_decremental = "<bs>",
-        },
-    },
-    context_commentstring = {
-        enable = true,
-    },
+	highlight = { enable = true },
+	indent = { enable = true },
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "<C-space>",
+			node_incremental = "<C-space>",
+			scope_incremental = false,
+			node_decremental = "<bs>",
+		},
+	},
+	context_commentstring = {
+		enable = true,
+	},
 })
 
 --################### END TREESITTER ###################--
 
-
 --################### START GO ###################--
 
-require('go').setup()
+require("go").setup()
 
 --################### END GO ###################--
