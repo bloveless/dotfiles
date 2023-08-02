@@ -163,6 +163,13 @@ end
 
 -- Set up lspconfig.
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+require 'lspconfig'.jsonls.setup {
+	capabilities = capabilities,
+	on_attach = on_attach,
+}
+
 
 require("lspconfig").lua_ls.setup({
 	capabilities = capabilities,
@@ -335,7 +342,7 @@ local cspell = {
 }
 
 require("lspconfig").efm.setup({
-	filetypes = { "typescript", "javascript", "lua", "svelte" },
+	filetypes = { "go", "gomod", "gowork", "gotmpl", "typescript", "javascript", "lua", "svelte" },
 	settings = {
 		rootMarkers = { ".git/" },
 		languages = {

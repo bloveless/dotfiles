@@ -21,6 +21,7 @@ in
     rust-analyzer
     lua-language-server
     nodePackages.typescript-language-server
+    nodePackages.vscode-json-languageserver
     nodePackages.cspell
     efm-langserver
     extraNodePackages."@tailwindcss/language-server"
