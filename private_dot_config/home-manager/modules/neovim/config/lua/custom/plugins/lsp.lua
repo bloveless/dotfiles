@@ -8,6 +8,7 @@ return {
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -106,8 +107,6 @@ return {
         tsserver = {},
         html = {},
         gopls = {},
-        eslint_d = {},
-        prettier = {},
         svelte = {},
         lua_ls = {
           Lua = {
@@ -127,9 +126,9 @@ return {
       -- Ensure the servers above are installed
       local mason_lspconfig = require 'mason-lspconfig'
 
-      mason_lspconfig.setup {
+      mason_lspconfig.setup({
         ensure_installed = vim.tbl_keys(servers),
-      }
+      })
 
       mason_lspconfig.setup_handlers {
         function(server_name)
@@ -141,6 +140,17 @@ return {
           }
         end
       }
+
+      -- these language servers don't match up with the lspconfig used by mason-lspconfig
+      -- so they have to be installed by mason-tool-installer. They are used by null-ls
+      require('mason-tool-installer').setup({
+        ensure_installed = {
+          'eslint_d',
+          'prettierd',
+          'gofumpt',
+          'goimports-reviser',
+        },
+      })
 
       -- Diagnostic keymaps
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })

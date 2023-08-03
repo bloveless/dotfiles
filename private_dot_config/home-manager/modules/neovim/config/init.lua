@@ -204,6 +204,7 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
+vim.wo.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -236,6 +237,22 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+-- Default tab width is 4 space characters
+vim.o.tabstop=4
+vim.o.shiftwidth=4
+vim.o.expandtab = true
+vim.o.smarttab = true
+
+-- Making splitting make more sense to me
+vim.o.splitright = true
+vim.o.splitbelow = true
+
+-- Enable global status line
+vim.o.laststatus = 3
+
+-- Enable winbar with file name to the right
+vim.o.winbar = [[%=%m %f]]
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -245,6 +262,13 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- Remap for moving between splits
+-- Use ctrl-[hjkl] to select the active split!
+vim.keymap.set('n', '<c-k>', ':wincmd k<CR>', { silent = true })
+vim.keymap.set('n', '<c-j>', ':wincmd j<CR>', { silent = true })
+vim.keymap.set('n', '<c-h>', ':wincmd h<CR>', { silent = true })
+vim.keymap.set('n', '<c-l>', ':wincmd l<CR>', { silent = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
