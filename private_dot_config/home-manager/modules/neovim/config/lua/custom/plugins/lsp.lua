@@ -149,6 +149,7 @@ return {
           'prettierd',
           'gofumpt',
           'goimports-reviser',
+          'stylua',
         },
       })
 
