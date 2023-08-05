@@ -18,27 +18,8 @@ return {
       'folke/neodev.nvim',
     },
     init = function()
-      -- LSP settings.
-      local lsp_formatting = function(bufnr, async)
-        local opts = {
-          async = async,
-          filter = function(client)
-            -- disable using tsserver formatting
-            return client.name ~= 'tsserver'
-          end,
-          bufnr = bufnr,
-        }
-
-        if vim.lsp.buf.format then
-          vim.lsp.buf.format(opts)
-        elseif vim.lsp.buf.formatting then
-          vim.lsp.buf.formatting(opts)
-        end
-      end
-
       -- [[ Configure LSP ]]
       --  This function gets run when an LSP connects to a particular buffer.
-      local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
       local on_attach = function(client, bufnr)
         -- NOTE: Remember that lua is a real programming language, and as such it is possible
         -- to define small helper and utility functions so you don't have to repeat yourself
@@ -75,24 +56,6 @@ return {
         nmap('<leader>wl', function()
           print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, '[W]orkspace [L]ist Folders')
-
-        -- Create a command `:Format` local to the LSP buffer
-        vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-          vim.lsp.buf.format()
-        end, { desc = 'Format current buffer with LSP' })
-
-        nmap('<leader>f', function() lsp_formatting(bufnr, true) end, '[F]ormat')
-
-        if client.supports_method('textDocument/formatting') then
-          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-              lsp_formatting(bufnr, false)
-            end
-          })
-        end
       end
 
       -- Enable the following language servers
