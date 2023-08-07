@@ -71,6 +71,7 @@ return {
         html = {},
         gopls = {},
         svelte = {},
+        terraformls = {},
         lua_ls = {
           Lua = {
             workspace = { checkThirdParty = false },
