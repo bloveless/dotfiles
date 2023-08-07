@@ -76,7 +76,7 @@ require('lazy').setup({
   'tpope/vim-sleuth',
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -90,7 +90,8 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
+          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
         vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
         vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
       end,
@@ -186,12 +187,33 @@ require('lazy').setup({
   {
     'kdheepak/lazygit.nvim',
     keys = {
-      { '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'Open LazyGit' } },
+      { '<leader>gg', '<cmd>LazyGit<cr>', desc = 'Open LazyGit' },
     },
     -- optional for floating window border decoration
     dependencies = {
       'nvim-lua/plenary.nvim',
     },
+  },
+
+  {
+    'folke/trouble.nvim',
+    keys = {
+      {
+        '<leader>xx',
+        function()
+          require('trouble').open()
+        end,
+        desc = 'Trouble Toggle',
+      },
+      {
+        '<leader>xw',
+        function()
+          require('trouble').open 'workspace_diagnostics'
+        end,
+        desc = 'Trouble Toggle Workspace',
+      },
+    },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart

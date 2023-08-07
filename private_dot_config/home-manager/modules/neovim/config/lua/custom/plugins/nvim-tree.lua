@@ -3,13 +3,13 @@ local WIDTH_RATIO = 0.8
 
 return {
   {
-    "nvim-tree/nvim-tree.lua",
+    'nvim-tree/nvim-tree.lua',
     dependencies = {
-      "nvim-tree/nvim-web-devicons"
+      'nvim-tree/nvim-web-devicons',
     },
-    cmd = {"NvimTreeOpen", "NvimTreeToggle"},
+    cmd = { 'NvimTreeOpen', 'NvimTreeToggle' },
     keys = {
-      { "<leader>e", "<cmd>NvimTreeToggle<cr>", "[E]xplore file tree" },
+      { '<leader>e', '<cmd>NvimTreeToggle<cr>', desc = '[E]xplore file tree' },
     },
     config = {
       view = {
@@ -23,8 +23,7 @@ return {
             local window_w_int = math.floor(window_w)
             local window_h_int = math.floor(window_h)
             local center_x = (screen_w - window_w) / 2
-            local center_y = ((vim.opt.lines:get() - window_h) / 2)
-                             - vim.opt.cmdheight:get()
+            local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
             return {
               border = 'rounded',
               relative = 'editor',
@@ -33,12 +32,12 @@ return {
               width = window_w_int,
               height = window_h_int,
             }
-            end,
+          end,
         },
         width = function()
           return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
         end,
       },
-    }
-  }
+    },
+  },
 }

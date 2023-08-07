@@ -42,7 +42,7 @@ return {
         nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
         nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
         nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-        nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+        nmap('<leader>Ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
         nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
         -- See `:help K` for why this keymap
@@ -89,9 +89,9 @@ return {
       -- Ensure the servers above are installed
       local mason_lspconfig = require 'mason-lspconfig'
 
-      mason_lspconfig.setup({
+      mason_lspconfig.setup {
         ensure_installed = vim.tbl_keys(servers),
-      })
+      }
 
       mason_lspconfig.setup_handlers {
         function(server_name)
@@ -101,12 +101,12 @@ return {
             settings = servers[server_name],
             filetypes = (servers[server_name] or {}).filetypes,
           }
-        end
+        end,
       }
 
       -- these language servers don't match up with the lspconfig used by mason-lspconfig
       -- so they have to be installed by mason-tool-installer. They are used by null-ls
-      require('mason-tool-installer').setup({
+      require('mason-tool-installer').setup {
         ensure_installed = {
           'eslint_d',
           'prettierd',
@@ -114,7 +114,7 @@ return {
           'goimports-reviser',
           'stylua',
         },
-      })
+      }
 
       -- Diagnostic keymaps
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
