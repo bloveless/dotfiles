@@ -24,6 +24,8 @@ in
     efm-langserver
     lazygit
     fd # for neovim telescope
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Security
   ];
 
   programs.neovim = {
