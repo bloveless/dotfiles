@@ -321,5 +321,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- Set the background to transparent
+vim.cmd [[highlight Normal guibg=none ctermbg=none]]
+vim.cmd [[highlight NonText guibg=none ctermbg=none]]
+vim.cmd [[highlight FidgetTitle ctermbg=none guibg=none]]
+vim.cmd [[highlight FidgetTask ctermbg=none guibg=none]]
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
