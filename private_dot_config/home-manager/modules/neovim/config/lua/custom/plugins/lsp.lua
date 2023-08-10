@@ -118,10 +118,11 @@ return {
       }
 
       -- these language servers don't match up with the lspconfig used by mason-lspconfig
-      -- so they have to be installed by mason-tool-installer. They are used by null-ls
+      -- so they have to be installed by mason-tool-installer. They are used mostly by null-ls
       require('mason-tool-installer').setup {
         ensure_installed = {
           'eslint_d',
+          'prettier',
           'prettierd',
           'gofumpt',
           'goimports-reviser',
