@@ -74,10 +74,13 @@ return {
       --
       --  If you want to override the default filetypes that your language server will attach to you can
       --  define the property 'filetypes' to the map in question.
+
+      local cfg = require('go.lsp').config()
+
       local servers = {
         tsserver = {},
         html = {},
-        -- gopls = {}, Don't setup gopls since it is setup by the go plugin
+        gopls = cfg.settings,
         svelte = {},
         terraformls = {},
         golangci_lint_ls = {},
@@ -124,7 +127,6 @@ return {
           'goimports-reviser',
           'golangci-lint',
           'stylua',
-          'gopls', -- manually install it since we are skipping gopls setup in lspconfig above
         },
       }
 
