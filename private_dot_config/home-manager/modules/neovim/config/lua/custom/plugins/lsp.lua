@@ -77,7 +77,7 @@ return {
       local servers = {
         tsserver = {},
         html = {},
-        gopls = {},
+        -- gopls = {}, Don't setup gopls since it is setup by the go plugin
         svelte = {},
         terraformls = {},
         golangci_lint_ls = {},
@@ -124,6 +124,7 @@ return {
           'goimports-reviser',
           'golangci-lint',
           'stylua',
+          'gopls', -- manually install it since we are skipping gopls setup in lspconfig above
         },
       }
 
