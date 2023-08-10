@@ -7,9 +7,9 @@ return {
     dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
-    cmd = { 'NvimTreeOpen', 'NvimTreeToggle' },
+    cmd = { 'NvimTreeOpen', 'NvimTreeFindFile', 'NvimTreeFindFileToggle' },
     keys = {
-      { '<leader>e', '<cmd>NvimTreeToggle<cr>', desc = '[E]xplore file tree' },
+      { '<leader>e', '<cmd>NvimTreeFindFileToggle<cr>', desc = '[E]xplore file tree' },
     },
     config = {
       view = {
