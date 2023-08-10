@@ -80,6 +80,7 @@ return {
         gopls = {},
         svelte = {},
         terraformls = {},
+        golangci_lint_ls = {},
         lua_ls = {
           Lua = {
             workspace = { checkThirdParty = false },
@@ -121,6 +122,7 @@ return {
           'prettierd',
           'gofumpt',
           'goimports-reviser',
+          'golangci-lint',
           'stylua',
         },
       }
