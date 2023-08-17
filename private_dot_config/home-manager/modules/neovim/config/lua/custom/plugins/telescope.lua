@@ -5,21 +5,42 @@ return {
     branch = '0.1.x',
     dependencies = { 'nvim-lua/plenary.nvim' },
     init = function()
+      local telescope = require 'telescope'
+      local telescopeConfig = require 'telescope.config'
+      -- Clone the default Telescope configuration
+      local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+
+      -- I want to search in hidden/dot files.
+      table.insert(vimgrep_arguments, '--hidden')
+      -- I don't want to search in the `.git` directory.
+      table.insert(vimgrep_arguments, '--glob')
+      table.insert(vimgrep_arguments, '!{**/.git/*,**/node_modules/*}')
+
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
-      require('telescope').setup {
+      telescope.setup {
         defaults = {
+          defaults = {
+            -- `hidden = true` is not supported in text grep commands.
+            vimgrep_arguments = vimgrep_arguments,
+          },
           mappings = {
             i = {
               ['<C-u>'] = false,
               ['<C-d>'] = false,
             },
           },
+          pickers = {
+            find_files = {
+              -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+              find_command = { 'rg', '--files', '--hidden', '--glob', '!{**/.git/*,**/node_modules/*}' },
+            },
+          },
         },
       }
 
       -- Enable telescope fzf native, if installed
-      pcall(require('telescope').load_extension, 'fzf')
+      -- pcall(require('telescope').load_extension, 'fzf')
 
       -- See `:help telescope.builtin`
       vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -46,13 +67,13 @@ return {
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
   -- requirements installed.
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    -- NOTE: If you are having trouble with this installation,
-    --       refer to the README for telescope-fzf-native for more instructions.
-    build = 'make',
-    cond = function()
-      return vim.fn.executable 'make' == 1
-    end,
-  },
+  -- {
+  --   'nvim-telescope/telescope-fzf-native.nvim',
+  --   -- NOTE: If you are having trouble with this installation,
+  --   --       refer to the README for telescope-fzf-native for more instructions.
+  --   build = 'make',
+  --   cond = function()
+  --     return vim.fn.executable 'make' == 1
+  --   end,
+  -- },
 }

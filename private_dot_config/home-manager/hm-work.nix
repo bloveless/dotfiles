@@ -1,8 +1,4 @@
-{ config, fetchFromGitHub, nixpkgs, pkgs, ... }:
-let
-  extraNodePackages = import ./node/default.nix {};
-in
-{
+{ config, fetchFromGitHub, nixpkgs, pkgs, ... }: {
   home.packages = [
     pkgs.git
     pkgs.chezmoi
@@ -17,5 +13,13 @@ in
 
   home.shellAliases = {
     ssh = "kitty +kitten ssh";
+  };
+
+  programs.zsh = {
+    enable = true;
+    profileExtra = ''
+      test -d "$HOME/.tea" && source <("$HOME/.tea/tea.xyz/v*/bin/tea" --magic=zsh --silent)
+      export PATH="$PATH:$HOME/.npm-global/bin"
+    '';
   };
 }
