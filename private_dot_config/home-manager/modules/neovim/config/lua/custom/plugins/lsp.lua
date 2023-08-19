@@ -21,6 +21,9 @@ return {
           },
         },
       },
+
+      -- Additional lua configuration, makes nvim stuff amazing!
+      'folke/neodev.nvim',
     },
     init = function()
       -- [[ Configure LSP ]]
@@ -88,6 +91,9 @@ return {
           },
         },
       }
+
+      -- Setup neovim lua configuration
+      require('neodev').setup()
 
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
       local capabilities = vim.lsp.protocol.make_client_capabilities()
