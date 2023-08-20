@@ -80,14 +80,16 @@ return {
       local servers = {
         tsserver = {},
         html = {},
-        gopls = cfg.settings,
+        gopls = cfg,
         svelte = {},
         terraformls = {},
         golangci_lint_ls = {},
         lua_ls = {
-          Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
+          settings = {
+            Lua = {
+              workspace = { checkThirdParty = false },
+              telemetry = { enable = false },
+            },
           },
         },
       }
@@ -111,7 +113,7 @@ return {
           require('lspconfig')[server_name].setup {
             capabilities = capabilities,
             on_attach = on_attach,
-            settings = servers[server_name],
+            settings = (servers[server_name] or {}).settings,
             filetypes = (servers[server_name] or {}).filetypes,
           }
         end,

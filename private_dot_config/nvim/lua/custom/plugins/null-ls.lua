@@ -40,6 +40,8 @@ return {
   {
     'mhartington/formatter.nvim',
     config = function()
+      local util = require('formatter.util')
+
       -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
       require('formatter').setup {
         -- Enable or disable logging
@@ -72,13 +74,7 @@ return {
             require 'formatter.defaults.prettierd',
           },
 
-          go = {
-            require('formatter.filetypes.go').gofumpt,
-            {
-              exe = "goimports-reviser",
-              stdin = true,
-            }
-          },
+          -- all go formatting is handled by go plugin
 
           -- Use the special "*" filetype for defining formatter configurations on
           -- any filetype
@@ -89,6 +85,14 @@ return {
           },
         },
       }
+
+      vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+        callback = function()
+          vim.api.nvim_cmd({
+            cmd = 'FormatWrite'
+          }, {})
+        end,
+      })
     end,
   },
 }
