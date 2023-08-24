@@ -9,6 +9,10 @@ return {
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      {
+        'creativenull/efmls-configs-nvim',
+        version = 'v1.x.x', -- version is optional, but recommended
+      },
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -83,7 +87,6 @@ return {
         gopls = cfg,
         svelte = {},
         terraformls = {},
-        golangci_lint_ls = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -123,13 +126,14 @@ return {
       -- so they have to be installed by mason-tool-installer. They are used mostly by null-ls
       require('mason-tool-installer').setup {
         ensure_installed = {
-          'eslint_d',
-          'prettier',
-          'prettierd',
-          'gofumpt',
-          'goimports-reviser',
-          'golangci-lint',
-          'stylua',
+          'efm',
+          'staticcheck',
+          -- 'eslint',
+          -- 'prettier',
+          -- 'gofumpt',
+          -- 'goimports-reviser',
+          -- 'golangci-lint',
+          -- 'stylua',
         },
       }
 
@@ -138,6 +142,36 @@ return {
       vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
       -- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
       vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+      local eslint = require 'efmls-configs.linters.eslint'
+      local prettier = require 'efmls-configs.formatters.prettier'
+      local stylua = require 'efmls-configs.formatters.stylua'
+      local staticcheck = require 'efmls-configs.linters.staticcheck'
+      local languages = {
+        typescript = { eslint, prettier },
+        typescriptreact = { eslint, prettier },
+        javascript = { eslint, prettier },
+        javascriptreact = { eslint, prettier },
+        svelte = { eslint, prettier },
+        go = { staticcheck },
+      }
+
+      local efmls_config = {
+        filetypes = vim.tbl_keys(languages),
+        settings = {
+          rootMarkers = { '.git/' },
+          languages = languages,
+        },
+        init_options = {
+          documentFormatting = true,
+          documentRangeFormatting = true,
+        },
+      }
+
+      require('lspconfig').efm.setup(vim.tbl_extend('force', efmls_config, {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      }))
     end,
   },
 }
