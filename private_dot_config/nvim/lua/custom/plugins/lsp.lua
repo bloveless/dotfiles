@@ -78,6 +78,7 @@ return {
       local cfg = require('go.lsp').config()
 
       local servers = {
+        astro = {},
         tsserver = {},
         html = {},
         gopls = cfg,
