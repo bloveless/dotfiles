@@ -15,17 +15,17 @@ for i = 1, 8 do
 end
 
 return {
-  -- color_scheme = "Catppuccin Macchiato", -- or Macchiato, Frappe, Latte
+  color_scheme = "Catppuccin Macchiato", -- or Macchiato, Frappe, Latte
   -- color_scheme = "tokyonight_storm",
   -- color_scheme = "nord",
   -- color_scheme = "Gruvbox dark, soft (base16)",
   -- color_scheme = "Kanagawa (Gogh)",
-  color_scheme = "rose-pine-moon",
+  -- color_scheme = "rose-pine-moon",
   -- font = wezterm.font "MonoLisa Nerd Font",
   font = wezterm.font "MesloLGS NF",
-  font_size = 12,
-  initial_cols = 140,
-  initial_rows = 40,
+  font_size = 13,
+  initial_cols = 150,
+  initial_rows = 45,
   scrollback_lines = 50000,
   keys = mykeys,
 }
