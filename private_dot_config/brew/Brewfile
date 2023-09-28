@@ -1,0 +1,8 @@
+tap "aws/tap"
+brew "aws-sam-cli"
+brew "awscli"
+brew "curl"
+brew "git"
+brew "neovim"
+brew "asdf"
+brew "chezmoi"
