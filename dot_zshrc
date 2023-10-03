@@ -17,3 +17,4 @@ export PATH="$HOME/.local/bin:$(npm prefix --global)/bin:$PATH"
 
 alias brewup="brew bundle --file ~/.config/brew/Brewfile"
 
+source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode

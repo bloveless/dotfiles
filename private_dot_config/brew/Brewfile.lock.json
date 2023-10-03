@@ -708,11 +708,32 @@
             }
           }
         }
+      },
+      "pkgxdev/made/pkgx": {
+      },
+      "pkgx": {
+        "version": "1.0.0",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://github.com/pkgxdev/homebrew-made/releases/download/v1.0.0",
+          "files": {
+            "arm64_big_sur": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://github.com/pkgxdev/homebrew-made/releases/download/v1.0.0/pkgx-1.0.0.arm64_big_sur.bottle.tar.gz",
+              "sha256": "dd05ac86653a14076d6198dae84cc680acafad8e731301ef70e5313abbe193bd"
+            },
+            "big_sur": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://github.com/pkgxdev/homebrew-made/releases/download/v1.0.0/pkgx-1.0.0.big_sur.bottle.tar.gz",
+              "sha256": "58897c76440901a38edc412f4ae62c7a6e053d1caa9ea18978b930aaa5247c30"
+            }
+          }
+        }
       }
     },
     "tap": {
       "aws/tap": {
-        "revision": "05f7d2b3bc12bded320da0699719d34f35c70548"
+        "revision": "741bba3e530781c2c228e8d042ed89a809866302"
       },
       "cargo-lambda/cargo-lambda": {
         "revision": "74e6dfd1805b9d2c6565b2504dcb7b5d713b908e"
@@ -722,6 +743,9 @@
       },
       "stripe/stripe-cli": {
         "revision": "a7b55f1824f0f2699ea9d3afc0bff2a2aab5810d"
+      },
+      "pkgxdev/made": {
+        "revision": "3173884a89a05f45ebdd81fd192da2f0ffd8c6e4"
       }
     },
     "vscode": {
@@ -753,7 +777,7 @@
   "system": {
     "macos": {
       "ventura": {
-        "HOMEBREW_VERSION": "4.1.13",
+        "HOMEBREW_VERSION": "4.1.14",
         "HOMEBREW_PREFIX": "/usr/local",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.0.0.0.1.1694021235",

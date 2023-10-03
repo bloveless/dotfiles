@@ -1,4 +1,6 @@
 tap "aws/tap"
+tap "pkgxdev/made"
+
 brew "aws-sam-cli"
 brew "awscli"
 brew "curl"
@@ -11,3 +13,4 @@ brew "gawk"
 brew "coreutils"
 brew "pnpm"
 brew "jq"
+brew "pkgx"
