@@ -107,46 +107,62 @@ require('lazy').setup({
   --   end,
   -- },
 
-  -- catppuccin
+  -- {
+  --   'rebelot/kanagawa.nvim',
+  --   config = function()
+  --     vim.cmd.colorscheme 'kanagawa'
+  --   end,
+  -- },
+
   {
-    'catppuccin/nvim',
+    "ellisonleao/gruvbox.nvim",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'catppuccin-macchiato'
+      vim.cmd.colorscheme 'gruvbox'
     end,
-    name = 'catppuccin',
-    opts = {
-      integrations = {
-        alpha = true,
-        cmp = true,
-        flash = true,
-        gitsigns = true,
-        illuminate = true,
-        indent_blankline = { enabled = true },
-        lsp_trouble = true,
-        mason = true,
-        mini = true,
-        native_lsp = {
-          enabled = true,
-          underlines = {
-            errors = { 'undercurl' },
-            hints = { 'undercurl' },
-            warnings = { 'undercurl' },
-            information = { 'undercurl' },
-          },
-        },
-        navic = { enabled = true, custom_bg = 'lualine' },
-        neotest = true,
-        noice = true,
-        notify = true,
-        neotree = true,
-        semantic_tokens = true,
-        telescope = true,
-        treesitter = true,
-        which_key = true,
-      },
-    },
+    opts = {},
   },
+
+  -- catppuccin
+  -- {
+  --   'catppuccin/nvim',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme 'catppuccin-macchiato'
+  --   end,
+  --   name = 'catppuccin',
+  --   opts = {
+  --     integrations = {
+  --       alpha = true,
+  --       cmp = true,
+  --       flash = true,
+  --       gitsigns = true,
+  --       illuminate = true,
+  --       indent_blankline = { enabled = true },
+  --       lsp_trouble = true,
+  --       mason = true,
+  --       mini = true,
+  --       native_lsp = {
+  --         enabled = true,
+  --         underlines = {
+  --           errors = { 'undercurl' },
+  --           hints = { 'undercurl' },
+  --           warnings = { 'undercurl' },
+  --           information = { 'undercurl' },
+  --         },
+  --       },
+  --       navic = { enabled = true, custom_bg = 'lualine' },
+  --       neotest = true,
+  --       noice = true,
+  --       notify = true,
+  --       neotree = true,
+  --       semantic_tokens = true,
+  --       telescope = true,
+  --       treesitter = true,
+  --       which_key = true,
+  --     },
+  --   },
+  -- },
 
   {
     -- Set lualine as statusline
@@ -167,10 +183,15 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
+    main = "ibl",
     opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+      indent = {
+        char = '┊',
+      },
+      whitespace = {
+        remove_blankline_trail = false,
+      }
+    }
   },
 
   -- "gc" to comment visual regions/lines
