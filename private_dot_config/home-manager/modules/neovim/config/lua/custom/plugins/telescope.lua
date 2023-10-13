@@ -6,41 +6,23 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     init = function()
       local telescope = require 'telescope'
-      local telescopeConfig = require 'telescope.config'
-      -- Clone the default Telescope configuration
-      local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
-
-      -- I want to search in hidden/dot files.
-      table.insert(vimgrep_arguments, '--hidden')
-      -- I don't want to search in the `.git` directory.
-      table.insert(vimgrep_arguments, '--glob')
-      table.insert(vimgrep_arguments, '!{**/.git/*}')
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       telescope.setup {
-        defaults = {
-          defaults = {
-            -- `hidden = true` is not supported in text grep commands.
-            vimgrep_arguments = vimgrep_arguments,
-          },
-          mappings = {
-            i = {
-              ['<C-u>'] = false,
-              ['<C-d>'] = false,
-            },
-          },
-          pickers = {
-            find_files = {
-              -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-              find_command = { 'rg', '--files', '--hidden', '--glob', '!{**/.git/*}' },
-            },
+        extensions = {
+          fzf = {
+            fuzzy = true,                   -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
           },
         },
       }
 
       -- Enable telescope fzf native, if installed
-      -- pcall(require('telescope').load_extension, 'fzf')
+      pcall(require('telescope').load_extension, 'fzf')
 
       -- See `:help telescope.builtin`
       vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -55,7 +37,8 @@ return {
 
       vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
       vim.keymap.set('n', '<leader>sf', function()
-        require('telescope.builtin').find_files { hidden = true }
+        require('telescope.builtin').find_files { find_command = { "rg", "--no-ignore", "--hidden", "--files", "--glob",
+          "!{node_modules,.git}" } }
       end, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
@@ -64,16 +47,5 @@ return {
     end,
   },
 
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-  -- Only load if `make` is available. Make sure you have the system
-  -- requirements installed.
-  -- {
-  --   'nvim-telescope/telescope-fzf-native.nvim',
-  --   -- NOTE: If you are having trouble with this installation,
-  --   --       refer to the README for telescope-fzf-native for more instructions.
-  --   build = 'make',
-  --   cond = function()
-  --     return vim.fn.executable 'make' == 1
-  --   end,
-  -- },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
 }

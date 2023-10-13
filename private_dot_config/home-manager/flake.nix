@@ -27,8 +27,8 @@
             #     })
             # )
             zsh-powerlevel10k
-            lua-language-server
-            goimports-reviser
+            # lua-language-server
+            # goimports-reviser
         ];
     in
     {

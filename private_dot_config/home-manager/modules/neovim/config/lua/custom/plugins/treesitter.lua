@@ -17,12 +17,11 @@ return {
           'go',
           'lua',
           'python',
-          'rust',
           'svelte',
           'tsx',
           'typescript',
           'vimdoc',
-          'vim'
+          'vim',
         },
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)

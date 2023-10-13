@@ -17,7 +17,8 @@ return {
 
       dashboard.section.header.val = vim.split(logo, '\n')
       dashboard.section.buttons.val = {
-        dashboard.button('f', ' ' .. ' Find file', ':Telescope find_files <CR>'),
+        dashboard.button('f', ' ' .. ' Find file',
+          [[:lua require('telescope.builtin').find_files { find_command = { "rg", "--no-ignore", "--hidden", "--files", "--glob", "!{node_modules,.git}" } } <cr>]]),
         dashboard.button('e', ' ' .. ' File explorer', [[:lua require('oil').open_float() <cr>]]),
         dashboard.button('n', ' ' .. ' New file', ':ene <BAR> startinsert <CR>'),
         dashboard.button('r', ' ' .. ' Recent files', ':Telescope oldfiles <CR>'),

@@ -8,6 +8,7 @@
   home.sessionPath = [
     "$HOME/.local/bin"
     "$HOME/go/bin"
+    "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
   ];
 
   home.shellAliases = {
