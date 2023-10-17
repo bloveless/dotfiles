@@ -3,7 +3,6 @@
   # environment variables
   home.packages = [
     pkgs.ripgrep
-    pkgs.git
     pkgs.file
     pkgs.chezmoi
     pkgs.curl

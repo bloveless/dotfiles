@@ -1,7 +1,6 @@
 { config, fetchFromGitHub, nixpkgs, pkgs, ... }:
 {
   home.packages = [
-    pkgs.git
     pkgs.chezmoi
     pkgs.ripgrep
     pkgs.curl

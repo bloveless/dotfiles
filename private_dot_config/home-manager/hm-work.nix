@@ -1,6 +1,5 @@
 { config, fetchFromGitHub, nixpkgs, pkgs, ... }: {
   home.packages = [
-    pkgs.git
     pkgs.chezmoi
     pkgs.groff
     pkgs.awscli2
