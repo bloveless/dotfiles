@@ -18,7 +18,6 @@
   programs.zsh = {
     enable = true;
     profileExtra = ''
-      test -d "$HOME/.tea" && source <("$HOME/.tea/tea.xyz/v*/bin/tea" --magic=zsh --silent)
       export PATH="$PATH:$HOME/.npm-global/bin"
     '';
   };

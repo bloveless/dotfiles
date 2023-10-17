@@ -16,7 +16,7 @@
   programs.zsh = {
     enable = true;
     profileExtra = ''
-      export PATH="$PATH:$HOME/.npm-global"
+      export PATH="$PATH:$HOME/.npm-global/bin"
     '';
   };
 }

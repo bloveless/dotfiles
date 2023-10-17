@@ -124,6 +124,10 @@
   #   } // builtins.fromTOML (builtins.readFile ../modules/tokyo-night/preset.toml);
   # };
 
+  home.file.".npmrc".text = ''
+    prefix = "~/.npm-global"
+  '';
+
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;

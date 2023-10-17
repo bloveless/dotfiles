@@ -21,7 +21,7 @@
     pkgs.unzip
     pkgs.btop
   ];
-  
+
   programs.zsh = {
     enable = true;
     profileExtra = ''
@@ -29,7 +29,7 @@
         tmux attach -t default || tmux new -s default
       fi
 
-      export PATH="$PATH:$HOME/.npm-global"
+      export PATH="$PATH:$HOME/.npm-global/bin"
     '';
   };
 }
