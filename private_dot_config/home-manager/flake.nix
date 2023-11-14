@@ -39,7 +39,7 @@
         homeConfigurations = {
             work = home-manager.lib.homeManagerConfiguration {
                 # Note: I am sure this could be done better with flake-utils or something
-                pkgs = nixpkgs.legacyPackages.x86_64-darwin;
+                pkgs = nixpkgs.legacyPackages.aarch64-darwin;
 
                 modules = [
                     ./modules/base.nix
