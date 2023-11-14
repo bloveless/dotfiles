@@ -21,6 +21,10 @@
     pkgs.btop
   ];
 
+  programs.git = {
+    userEmail = "brennon.loveless@gmail.com";
+  };
+
   programs.zsh = {
     enable = true;
     profileExtra = ''

@@ -1,23 +1,32 @@
 { config, fetchFromGitHub, nixpkgs, pkgs, ... }: {
   home.packages = [
     pkgs.chezmoi
-    pkgs.groff
-    pkgs.awscli2
-    pkgs.ssm-session-manager-plugin
     pkgs.ripgrep
     pkgs.curl
     pkgs.jq
     pkgs.btop
+    pkgs.google-cloud-sdk # bayer p360-genomics
+    pkgs.go # bayer p360-genomics
+    pkgs.yq # bayer p360-genomics
   ];
 
-  home.shellAliases = {
-    ssh = "kitty +kitten ssh";
+  programs.git = {
+    userEmail = "brennon.loveless.ext@bayer.com";
+    extraConfig = {
+      url = {
+        "ssh://git@github.com/" = {
+	  insteadOf = [
+	    "https://github.com/"
+	  ];
+	};
+      };
+    };
   };
 
   programs.zsh = {
     enable = true;
     profileExtra = ''
-      export PATH="$PATH:$HOME/.npm-global/bin"
+      ssh-add --apple-load-keychain > /dev/null 2>&1
     '';
   };
 }

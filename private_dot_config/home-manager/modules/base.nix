@@ -89,7 +89,6 @@
   programs.git = {
     enable = true;
     userName = "Brennon Loveless";
-    userEmail = "brennon.loveless@gmail.com";
     extraConfig = {
       push.autoSetupRemote = true;
     };

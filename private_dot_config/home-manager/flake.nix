@@ -48,8 +48,8 @@
                     {
                         nixpkgs.overlays = overlays;
                         home = {
-                            username = "bloveless";
-                            homeDirectory = "/Users/bloveless";
+                            username = "ejvzx";
+                            homeDirectory = "/Users/ejvzx";
                             stateVersion = "22.11";
                         };
                     }
