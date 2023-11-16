@@ -8,9 +8,13 @@
           url = "github:nix-community/home-manager";
           inputs.nixpkgs.follows = "nixpkgs";
         };
+	sops-nix = {
+	  url = "github:Mic92/sops-nix";
+          inputs.nixpkgs.follows = "nixpkgs";
+	};
     };
 
-    outputs = {nixpkgs, home-manager, ...}:
+    outputs = {nixpkgs, home-manager, sops-nix, ...}:
     let
         zsh-powerlevel10k = import overlays/zsh-powerlevel10k/default.nix;
         lua-language-server = import overlays/lua-language-server/default.nix;
@@ -53,6 +57,7 @@
                             stateVersion = "22.11";
                         };
                     }
+		    sops-nix.homeManagerModules.sops
                 ];
 
                 extraSpecialArgs = {
