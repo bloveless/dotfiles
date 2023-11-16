@@ -29,7 +29,7 @@
       # %r gets replaced with a runtime directory, use %% to specify a '%'
       # sign. Runtime dir is $XDG_RUNTIME_DIR on linux and $(getconf
       # DARWIN_USER_TEMP_DIR) on darwin.
-      path = "${config.home.homeDirectory}/.secrets/hub-github-token"; 
+      path = "%r/hub_github_token"; 
     };
   };
 
@@ -52,8 +52,11 @@
       ssh-add --apple-load-keychain > /dev/null 2>&1
 
       export VAULT_ADDR="https://vault.agro.services"
-      export HOMEBREW_GITHUB_TOKEN=$(cat ${config.home.homeDirectory}/.secrets/hub-github-token)
-      export GITHUB_TOKEN=$(cat ${config.home.homeDirectory}/.secrets/hub-github-token)
+      export HOMEBREW_GITHUB_TOKEN=$(cat $(getconf DARWIN_USER_TEMP_DIR)secrets/hub_github_token)
+      export GITHUB_TOKEN=$(cat $(getconf DARWIN_USER_TEMP_DIR)secrets/hub_github_token)
+      export GONOPROXY="github.platforms.engineering,github.com/bayer-int"
+      export GONOSUMDB="github.platforms.engineering,github.com/bayer-int"
+      export GOPRIVATE="github.platforms.engineering,github.com/bayer-int"
 
       # Environment variables necessary for development in p360 apps
       export ARCHITECTURE="arm64"
