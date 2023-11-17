@@ -12,6 +12,7 @@
     pkgs.yq # bayer p360-genomics
     pkgs.vault # bayer p360-genomics
     pkgs.hub # bayer p360
+    pkgs.gh # bayer p360
     pkgs.kubectl # bayer p360
     pkgs.kubectx # bayer p360
     pkgs.kubernetes-helm # bayer p360
