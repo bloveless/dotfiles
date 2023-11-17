@@ -5,7 +5,7 @@
     pkgs.curl
     pkgs.jq
     pkgs.btop
-    pkgs.sops
+    pkgs.agenix
     (pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin]) # bayer p360-genomics
     pkgs.nodejs_18 # bayer p360
     pkgs.go # bayer p360-genomics
@@ -18,20 +18,7 @@
     pkgs.k9s # bayer p360
   ];
 
-  sops = {
-    # age.keyFile = "/home/user/.age-key.txt"; # must have no password!
-    # It's also possible to use a ssh key, but only when it has no password:
-    age.sshKeyPaths = [ "/Users/ejvzx/.ssh/id_ed25519" ];
-    defaultSopsFile = ./secrets/secrets.yaml;
-    secrets.hub_github_token = {
-      # sopsFile = ./secrets.yml.enc; # optionally define per-secret files
-
-      # %r gets replaced with a runtime directory, use %% to specify a '%'
-      # sign. Runtime dir is $XDG_RUNTIME_DIR on linux and $(getconf
-      # DARWIN_USER_TEMP_DIR) on darwin.
-      path = "%r/hub_github_token"; 
-    };
-  };
+  age.secrets.bayer-github-token.file = ./secrets/bayer-github-token.age;
 
   programs.git = {
     userEmail = "brennon.loveless.ext@bayer.com";
@@ -52,8 +39,8 @@
       ssh-add --apple-load-keychain > /dev/null 2>&1
 
       export VAULT_ADDR="https://vault.agro.services"
-      export HOMEBREW_GITHUB_TOKEN=$(cat $(getconf DARWIN_USER_TEMP_DIR)secrets/hub_github_token)
-      export GITHUB_TOKEN=$(cat $(getconf DARWIN_USER_TEMP_DIR)secrets/hub_github_token)
+      export HOMEBREW_GITHUB_TOKEN=$(cat ${config.age.secrets.bayer-github-token.path})
+      export GITHUB_TOKEN=$(cat ${config.age.secrets.bayer-github-token.path})
       export GONOPROXY="github.platforms.engineering,github.com/bayer-int"
       export GONOSUMDB="github.platforms.engineering,github.com/bayer-int"
       export GOPRIVATE="github.platforms.engineering,github.com/bayer-int"

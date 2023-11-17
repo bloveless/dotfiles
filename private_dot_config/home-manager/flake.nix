@@ -8,18 +8,19 @@
           url = "github:nix-community/home-manager";
           inputs.nixpkgs.follows = "nixpkgs";
         };
-	sops-nix = {
-	  url = "github:Mic92/sops-nix";
+	agenix = {
+	  url = "github:ryantm/agenix";
           inputs.nixpkgs.follows = "nixpkgs";
 	};
     };
 
-    outputs = {nixpkgs, home-manager, sops-nix, ...}:
+    outputs = {nixpkgs, home-manager, agenix, ...}:
     let
         zsh-powerlevel10k = import overlays/zsh-powerlevel10k/default.nix;
         lua-language-server = import overlays/lua-language-server/default.nix;
         goimports-reviser = import overlays/goimports-reviser/default.nix;
         overlays = [
+	    agenix.overlays.default
             # Neovim nightly... probably don't enable this again until the master branch works
             # (
             #   import (let
@@ -57,7 +58,7 @@
                             stateVersion = "22.11";
                         };
                     }
-		    sops-nix.homeManagerModules.sops
+		    agenix.homeManagerModules.default
                 ];
 
                 extraSpecialArgs = {
