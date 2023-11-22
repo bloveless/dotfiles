@@ -37,6 +37,7 @@
     kms = "kubectl -n media-server";
     ktp = "kubectl -n tekton-pipelines";
     tf = "terraform";
+    cgit = "chezmoi git";
     terrafrom = "terraform";
     hm-home = "(cd $HOME/.config/home-manager && nix run . switch -- --flake \".#home\" --impure)";
     hm-work= "(cd $HOME/.config/home-manager && nix run . switch -- --flake \".#work\" --impure)";
@@ -55,18 +56,23 @@
     historySubstringSearch.enable = true;
     defaultKeymap = "emacs";
 
-    plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-      {
-        name = "powerlevel10k-config";
-        src = lib.cleanSource ./p10k-config;
-        file = "p10k.zsh";
-      }
-    ];
+    # plugins = [
+    #   {
+    #     name = "powerlevel10k";
+    #     src = pkgs.zsh-powerlevel10k;
+    #     file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+    #   }
+    #   {
+    #     name = "powerlevel10k-config";
+    #     src = lib.cleanSource ./p10k-config;
+    #     file = "p10k.zsh";
+    #   }
+    # ];
+
+    # Backup for when /etc/zshrc gets changed by every macos upgrade
+    initExtra = "if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+      . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+    fi";
 
     profileExtra = "
       unsetopt inc_append_history
