@@ -70,9 +70,15 @@
     # ];
 
     # Backup for when /etc/zshrc gets changed by every macos upgrade
-    initExtra = "if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-      . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-    fi";
+    initExtra = "
+      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+      fi
+
+
+      # Warpify subshells. Keep at the end of initExtra
+      printf '\\eP$f{\"hook\": \"SourcedRcFileForWarp\", \"value\": { \"shell\": \"zsh\" }}\\x9c'
+    ";
 
     profileExtra = "
       unsetopt inc_append_history
