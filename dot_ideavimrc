@@ -15,6 +15,7 @@ set noerrorbells
 set number relativenumber
 set ignorecase
 set smartcase
+set scrolloff=10
 
 set NERDTree
 
@@ -31,6 +32,9 @@ map <leader>f <Action>(ReformatCode)
 " map <leader>f <Action>(GotoFile)
 map <leader>g <Action>(FindInPath)
 map <leader>b <Action>(Switcher)
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
 
 " map <leader>ff <Action>(GoToFile)
 " map K <Action>(QuickJavaDoc)
