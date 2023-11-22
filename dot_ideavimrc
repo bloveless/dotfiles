@@ -32,6 +32,12 @@ map <leader>f <Action>(ReformatCode)
 " map <leader>f <Action>(GotoFile)
 map <leader>g <Action>(FindInPath)
 map <leader>b <Action>(Switcher)
+nnoremap [[ :action MethodUp<CR>
+nnoremap ]] :action MethodDown<CR>
+nnoremap ]d :action GotoNextError<CR>
+nnoremap [d :action GotoPreviousError<CR>
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
