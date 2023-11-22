@@ -46,6 +46,8 @@
       export GONOSUMDB="github.platforms.engineering,github.com/bayer-int"
       export GOPRIVATE="github.platforms.engineering,github.com/bayer-int"
 
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+
       # Environment variables necessary for development in p360 apps
       export ARCHITECTURE="arm64"
       export PLATFORM="linux/$ARCHITECTURE"
