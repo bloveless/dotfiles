@@ -25,7 +25,7 @@ nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 
 nnoremap <leader>si :source ~/.ideavimrc<CR>
-nnoremap <leader>t :NERDTreeToggle<cr>
+nnoremap <leader>e :NERDTreeToggle<cr>
 " Actions aren't supposed to use remap
 map <leader>f <Action>(ReformatCode)
 " map <leader>f <Action>(GotoFile)
@@ -34,7 +34,6 @@ map <leader>b <Action>(Switcher)
 
 " map <leader>ff <Action>(GoToFile)
 " map K <Action>(QuickJavaDoc)
-map <leader>e <Action>(ShowErrorDescription)
 map <leader>i <Action>(QuickImplementations)
 map K <Action>(ShowErrorDescription)
 command! Format action ReformatCode
