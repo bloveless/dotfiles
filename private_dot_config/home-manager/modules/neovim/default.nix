@@ -18,7 +18,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    go
+    # go # causes conflicts with using specific versions of go in other settings. Need to find a way to make these packages specific to neovim and not global
     nodejs
     nodePackages.cspell
     efm-langserver

@@ -8,7 +8,7 @@
     pkgs.agenix
     (pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin]) # bayer p360-genomics
     pkgs.nodejs_18 # bayer p360
-    pkgs.go # bayer p360-genomics
+    pkgs.go_1_20 # bayer p360-genomics
     pkgs.yq # bayer p360-genomics
     pkgs.vault # bayer p360-genomics
     pkgs.hub # bayer p360
@@ -53,7 +53,8 @@
       export PLATFORM="linux/$ARCHITECTURE"
       export CWID="EJVZX"
       export GENOMICS_ROOT="$HOME/Projects/p360-genomics"
-      export PATH="$PATH:$GENOMICS_ROOT/scripts:$GENOMICS_ROOT/cloudbuild/stages"
+      # .rd is for rancher desktop
+      export PATH="$PATH:$GENOMICS_ROOT/scripts:$GENOMICS_ROOT/cloudbuild/stages:$HOME/.rd/bin"
     '';
   };
 }
