@@ -86,6 +86,7 @@ nnoremap [d :action GotoPreviousError<CR>
 nnoremap ]c :action VcsShowNextChangeMarker<CR>
 nnoremap [c :action VcsShowPrevChangeMarker<CR>
 nnoremap gi :action GotoImplementation<CR>
+nnoremap <space>fu :action FindUsages<CR>
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
