@@ -5,7 +5,6 @@
     pkgs.curl
     pkgs.jq
     pkgs.btop
-    pkgs.agenix
     (pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin]) # bayer p360-genomics
     pkgs.nodejs_18 # bayer p360
     pkgs.go_1_20 # bayer p360-genomics
@@ -18,8 +17,6 @@
     pkgs.kubernetes-helm # bayer p360
     pkgs.k9s # bayer p360
   ];
-
-  age.secrets.bayer-github-token.file = ./secrets/bayer-github-token.age;
 
   programs.git = {
     userEmail = "brennon.loveless.ext@bayer.com";
@@ -40,8 +37,8 @@
       ssh-add --apple-load-keychain > /dev/null 2>&1
 
       export VAULT_ADDR="https://vault.agro.services"
-      export HOMEBREW_GITHUB_TOKEN=$(cat ${config.age.secrets.bayer-github-token.path})
-      export GITHUB_TOKEN=$(cat ${config.age.secrets.bayer-github-token.path})
+      export HOMEBREW_GITHUB_TOKEN=$(cat $HOME/.secrets/hub-github-token)
+      export GITHUB_TOKEN=$(cat $HOME/.secrets/hub-github-token)
       export GONOPROXY="github.platforms.engineering,github.com/bayer-int"
       export GONOSUMDB="github.platforms.engineering,github.com/bayer-int"
       export GOPRIVATE="github.platforms.engineering,github.com/bayer-int"

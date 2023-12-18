@@ -8,29 +8,24 @@
           url = "github:nix-community/home-manager";
           inputs.nixpkgs.follows = "nixpkgs";
         };
-	agenix = {
-	  url = "github:ryantm/agenix";
-          inputs.nixpkgs.follows = "nixpkgs";
-	};
     };
 
-    outputs = {nixpkgs, home-manager, agenix, ...}:
+    outputs = {nixpkgs, home-manager, ...}:
     let
         zsh-powerlevel10k = import overlays/zsh-powerlevel10k/default.nix;
         lua-language-server = import overlays/lua-language-server/default.nix;
         goimports-reviser = import overlays/goimports-reviser/default.nix;
         overlays = [
-	    agenix.overlays.default
             # Neovim nightly... probably don't enable this again until the master branch works
-            # (
-            #   import (let
-            #     # rev = "master";
-            #     rev = "c57746e2b9e3b42c0be9d9fd1d765f245c3827b7";
-            #   in
-            #     builtins.fetchTarball {
-            #       url = "https://github.com/nix-community/neovim-nightly-overlay/archive/${rev}.tar.gz";
-            #     })
-            # )
+            (
+              import (let
+                rev = "master";
+                # rev = "c57746e2b9e3b42c0be9d9fd1d765f245c3827b7";
+              in
+                builtins.fetchTarball {
+                  url = "https://github.com/nix-community/neovim-nightly-overlay/archive/${rev}.tar.gz";
+                })
+            )
             zsh-powerlevel10k
             # lua-language-server
             # goimports-reviser
@@ -58,7 +53,6 @@
                             stateVersion = "22.11";
                         };
                     }
-		    agenix.homeManagerModules.default
                 ];
 
                 extraSpecialArgs = {
