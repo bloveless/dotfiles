@@ -125,6 +125,12 @@ command! Format action ReformatCode
 
     # Backup for when /etc/zshrc gets changed by every macos upgrade
     initExtra = "
+
+      # Make nix work correctly on work computer
+      if [ -e '/etc/ssl/certs/allCAbundle.pem' ]; then
+        export NIX_SSL_CERT_FILE=/etc/ssl/certs/allCAbundle.pem
+      fi
+
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
