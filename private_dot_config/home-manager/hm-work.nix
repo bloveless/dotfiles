@@ -7,7 +7,7 @@
     pkgs.btop
     (pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin]) # bayer p360-genomics
     pkgs.nodejs_18 # bayer p360
-    pkgs.go_1_20 # bayer p360-genomics
+    pkgs.go # bayer p360-genomics
     pkgs.yq # bayer p360-genomics
     pkgs.vault # bayer p360-genomics
     pkgs.hub # bayer p360
