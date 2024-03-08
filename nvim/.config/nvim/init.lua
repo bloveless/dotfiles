@@ -205,28 +205,28 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#imports-and-formatting
--- vim.api.nvim_create_autocmd("BufWritePre", {
---  pattern = "*.go",
---  callback = function()
---    local params = vim.lsp.util.make_range_params()
---    params.context = { only = { "source.organizeImports" } }
---    -- buf_request_sync defaults to a 1000ms timeout. Depending on your
---    -- machine and codebase, you may want longer. Add an additional
---    -- argument after params if you find that you have to write the file
---    -- twice for changes to be saved.
---    -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
---    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
---    for cid, res in pairs(result or {}) do
---      for _, r in pairs(res.result or {}) do
---        if r.edit then
---          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
---          vim.lsp.util.apply_workspace_edit(r.edit, enc)
---        end
---      end
---    end
---    vim.lsp.buf.format({ async = false })
---  end,
--- })
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.go",
+	callback = function()
+		local params = vim.lsp.util.make_range_params()
+		params.context = { only = { "source.organizeImports" } }
+		-- buf_request_sync defaults to a 1000ms timeout. Depending on your
+		-- machine and codebase, you may want longer. Add an additional
+		-- argument after params if you find that you have to write the file
+		-- twice for changes to be saved.
+		-- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
+		local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+		for cid, res in pairs(result or {}) do
+			for _, r in pairs(res.result or {}) do
+				if r.edit then
+					local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+					vim.lsp.util.apply_workspace_edit(r.edit, enc)
+				end
+			end
+		end
+		vim.lsp.buf.format({ async = false })
+	end,
+})
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -252,7 +252,7 @@ require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
-	"tpope/vim-obsession",
+	-- "tpope/vim-obsession",
 
 	-- NOTE: Plugins can also be added by using a table,
 	-- with the first argument being the link and the following
@@ -428,6 +428,23 @@ require("lazy").setup({
 		end,
 	},
 
+	{ -- Golang setup
+		"ray-x/go.nvim",
+		dependencies = { -- optional packages
+			"ray-x/guihua.lua",
+			"neovim/nvim-lspconfig",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = function()
+			require("go").setup({
+				lsp_cfg = false,
+			})
+		end,
+		event = { "CmdlineEnter" },
+		ft = { "go", "gomod" },
+		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+	},
+
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -564,23 +581,12 @@ require("lazy").setup({
 			--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+
+			local goCfg = require("go.lsp").config()
+
 			local servers = {
 				-- clangd = {},
-				gopls = {
-					settings = {
-						gopls = {
-							["build.templateExtensions"] = { "gohtml", "html", "gotmpl", "tmpl" },
-							-- ['ui.inlayhint.hints'] = {
-							--   compositeLiteralFields = true,
-							--   constantValues = true,
-							--   parameterNames = true,
-							-- },
-							["formatting.local"] = "github.com/bayer-int",
-							staticcheck = true,
-							gofumpt = true,
-						},
-					},
-				},
+				gopls = goCfg,
 				golangci_lint_ls = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
@@ -824,6 +830,7 @@ require("lazy").setup({
 
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
+			require("mini.sessions").setup()
 		end,
 	},
 
@@ -850,7 +857,6 @@ require("lazy").setup({
 			--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 		end,
 	},
-
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
 	-- init.lua. If you want these files, they are in the repository, so you can just download them and
 	-- put them in the right spots if you want.
@@ -890,6 +896,16 @@ require("lazy").setup({
 		},
 	},
 })
+
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.gotmpl = {
+	install_info = {
+		url = "https://github.com/ngalaiko/tree-sitter-go-template",
+		files = { "src/parser.c" },
+	},
+	filetype = "gotmpl",
+	used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml" },
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
