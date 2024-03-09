@@ -152,7 +152,7 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 -- Set default tab width
-vim.opt.tabstop = 4
+-- vim.opt.tabstop = 4
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -251,8 +251,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
-
-	-- "tpope/vim-obsession",
 
 	-- NOTE: Plugins can also be added by using a table,
 	-- with the first argument being the link and the following
@@ -830,8 +828,15 @@ require("lazy").setup({
 
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
-			require("mini.sessions").setup()
+
+			require("mini.misc").setup()
+			require("mini.misc").setup_auto_root()
 		end,
+	},
+
+	{
+		"Shatur/neovim-session-manager",
+		opts = {},
 	},
 
 	{ -- Highlight, edit, and navigate code
