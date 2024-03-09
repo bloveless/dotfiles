@@ -152,7 +152,7 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 -- Set default tab width
--- vim.opt.tabstop = 4
+vim.opt.tabstop = 4
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -436,6 +436,13 @@ require("lazy").setup({
 		config = function()
 			require("go").setup({
 				lsp_cfg = false,
+				lsp_gofumpt = true,
+				goimport = "goimport-revise",
+				tag_transform = "camelcase",
+				tag_options = "",
+				lsp_inlay_hints = {
+					style = "eol",
+				},
 			})
 		end,
 		event = { "CmdlineEnter" },
@@ -655,25 +662,25 @@ require("lazy").setup({
 		end,
 	},
 
-	{ -- Autoformat
-		"stevearc/conform.nvim",
-		opts = {
-			notify_on_error = false,
-			format_on_save = {
-				timeout_ms = 500,
-				lsp_fallback = true,
-			},
-			formatters_by_ft = {
-				lua = { "stylua" },
-				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
-				--
-				-- You can use a sub-list to tell conform to run *until* a formatter
-				-- is found.
-				-- javascript = { { "prettierd", "prettier" } },
-			},
-		},
-	},
+	-- { -- Autoformat
+	-- 	"stevearc/conform.nvim",
+	-- 	opts = {
+	-- 		notify_on_error = false,
+	-- 		format_on_save = {
+	-- 			timeout_ms = 500,
+	-- 			lsp_fallback = true,
+	-- 		},
+	-- 		formatters_by_ft = {
+	-- 			lua = { "stylua" },
+	-- 			-- Conform can also run multiple formatters sequentially
+	-- 			-- python = { "isort", "black" },
+	-- 			--
+	-- 			-- You can use a sub-list to tell conform to run *until* a formatter
+	-- 			-- is found.
+	-- 			-- javascript = { { "prettierd", "prettier" } },
+	-- 		},
+	-- 	},
+	-- },
 
 	{ -- Autocompletion
 		"hrsh7th/nvim-cmp",
@@ -880,6 +887,27 @@ require("lazy").setup({
 	--  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
 	--    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
 	-- { import = 'custom.plugins' },
+	{
+		"nvimtools/none-ls.nvim",
+		dependencies = {
+			"davidmh/cspell.nvim",
+		},
+		config = function()
+			local null_ls = require("null-ls")
+			local cspell = require("cspell")
+
+			null_ls.setup({
+				sources = {
+					null_ls.builtins.formatting.stylua,
+					-- null_ls.builtins.completion.spell,
+					null_ls.builtins.code_actions.gitsigns,
+          null_ls.builtins.diagnostics.golangci_lint,
+					cspell.diagnostics,
+					cspell.code_actions,
+				},
+			})
+		end,
+	},
 }, {
 	ui = {
 		-- If you have a Nerd Font, set icons to an empty table which will use the
