@@ -102,7 +102,7 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, for help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -150,6 +150,11 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+-- Default tab width is 4 spaces
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -200,6 +205,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+-- local lsp_fmt_group = vim.api.nvim_create_augroup('LspFormattingGroup', {})
+-- vim.api.nvim_create_autocmd('BufWritePost', {
+--   group = lsp_fmt_group,
+--   callback = function(ev)
+--     local efm = vim.lsp.get_clients { name = 'efm', bufnr = ev.buf }
+--
+--     if vim.tbl_isempty(efm) then
+--       return
+--     end
+--
+--     vim.lsp.buf.format { name = 'efm' }
+--   end,
+-- })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -539,6 +558,7 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = goCfg,
+
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -594,6 +614,7 @@ require('lazy').setup({
         'cspell',
         'luacheck',
         'codespell',
+        'staticcheck',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -612,55 +633,78 @@ require('lazy').setup({
     end,
   },
 
-  { -- Autoformat
-    'stevearc/conform.nvim',
-    opts = {
-      formatters = {
-        ['goimports-reviser'] = {
-          prepend_args = {
-            '-company-prefixes',
-            'github.com/bayer-int',
-          },
-        },
-      },
-      notify_on_error = false,
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
-
-        go = { 'gofumpt', 'goimports-reviser' },
-      },
-    },
-  },
-
   {
-    'mfussenegger/nvim-lint',
-    dependencies = {},
+    'nvimtools/none-ls.nvim',
+    dependencies = {
+      'davidmh/cspell.nvim',
+    },
     config = function()
-      require('lint').linters_by_ft = {
-        go = { 'codespell', 'golangcilint' },
-        lua = { 'codespell', 'luacheck' },
-      }
+      local null_ls = require 'null-ls'
+      local cspell = require 'cspell'
 
-      -- lint on save
-      vim.api.nvim_create_autocmd({
-        'InsertLeave' --[[ if EnterLeave is causing slowdowns to back to BufWritePost ]],
-      }, {
-        callback = function()
-          require('lint').try_lint()
-        end,
-      })
+      null_ls.setup {
+        sources = {
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.code_actions.gitsigns,
+          null_ls.builtins.diagnostics.golangci_lint,
+          null_ls.builtins.formatting.goimports_reviser,
+          null_ls.builtins.diagnostics.codespell,
+          null_ls.builtins.diagnostics.commitlint,
+          null_ls.builtins.diagnostics.staticcheck,
+          cspell.diagnostics,
+          cspell.code_actions,
+        },
+      }
     end,
   },
+
+  -- { -- Autoformat
+  --   'stevearc/conform.nvim',
+  --   opts = {
+  --     formatters = {
+  --       ['goimports-reviser'] = {
+  --         prepend_args = {
+  --           '-company-prefixes',
+  --           'github.com/bayer-int',
+  --         },
+  --       },
+  --     },
+  --     notify_on_error = false,
+  --     format_on_save = {
+  --       timeout_ms = 500,
+  --       lsp_fallback = true,
+  --     },
+  --     formatters_by_ft = {
+  --       lua = { 'stylua' },
+  --       -- Conform can also run multiple formatters sequentially
+  --       -- python = { "isort", "black" },
+  --       --
+  --       -- You can use a sub-list to tell conform to run *until* a formatter refreence
+  --       -- is found.
+  --       -- javascript = { { "prettierd", "prettier" } },
+  --
+  --       go = { 'gofumpt', 'goimports-reviser' },
+  --     },
+  --   },
+  -- },
+
+  -- {
+  --   'mfussenegger/nvim-lint',
+  --   dependencies = {},
+  --   config = function()
+  --     require('lint').linters_by_ft = {
+  --       go = { 'cspell', 'codespell', 'golangcilint' },
+  --       lua = { 'cspell', 'codespell', 'luacheck' },
+  --     }
+  --
+  --     -- lint on save
+  --     vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+  --       callback = function()
+  --         require('lint').try_lint()
+  --       end,
+  --     })
+  --   end,
+  -- },
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
