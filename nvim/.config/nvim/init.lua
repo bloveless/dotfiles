@@ -190,6 +190,10 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.keymap.set('n', '<leader>qs', [[<cmd>lua require("persistence").load()<cr>]], { desc = 'Restore the session for the current directory' })
+vim.keymap.set('n', '<leader>ql', [[<cmd>lua require("persistence").load({ last = true })<cr>]], { desc = 'Restore the last session' })
+vim.keymap.set('n', '<leader>qd', [[<cmd>lua require("persistence").stop()<cr>]], { desc = "stop Persistence => session won't be saved on exit" })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -255,6 +259,62 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      on_attach = function(bufnr)
+        local gs = package.loaded.gitsigns
+
+        local function map(mode, l, r, opts)
+          opts = opts or {}
+          opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+          if vim.wo.diff then
+            return ']c'
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
+          return '<Ignore>'
+        end, { expr = true })
+
+        map('n', '[c', function()
+          if vim.wo.diff then
+            return '[c'
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
+          return '<Ignore>'
+        end, { expr = true })
+
+        -- Actions
+        map('n', '<leader>hs', gs.stage_hunk, { desc = '[h]unk [s]tage' })
+        map('n', '<leader>hr', gs.reset_hunk, { desc = '[h]unk [r]eset' })
+        map('v', '<leader>hs', function()
+          gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end, { desc = '[h]unk [s]tage' })
+        map('v', '<leader>hr', function()
+          gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end, { desc = '[h]unk [r]eset' })
+        map('n', '<leader>hS', gs.stage_buffer, { desc = '[s]tage buffer' })
+        map('n', '<leader>hu', gs.undo_stage_hunk, { desc = '[h]unk [u]ndo stage' })
+        map('n', '<leader>hR', gs.reset_buffer, { desc = '[R]eset buffer' })
+        map('n', '<leader>hp', gs.preview_hunk, { desc = '[h]unk [p]review' })
+        map('n', '<leader>hb', function()
+          gs.blame_line { full = true }
+        end, { desc = '[h]unk [b]lame' })
+        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = '[t]oggle [b]lame' })
+        map('n', '<leader>hd', gs.diffthis, { desc = '[h]unk [d]iff' })
+        map('n', '<leader>hD', function()
+          gs.diffthis '~'
+        end, { desc = '[h]unk [D]iff' })
+        map('n', '<leader>td', gs.toggle_deleted, { desc = '[t]oggle [d]eleted' })
+
+        -- Text object
+        map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select [i]nner [h]unk' })
+      end,
     },
   },
 
@@ -539,6 +599,7 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = goCfg,
+        golangci_lint_ls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -591,6 +652,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format lua code
+        'golangci-lint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -836,6 +898,11 @@ require('lazy').setup({
     event = { 'CmdlineEnter' },
     ft = { 'go', 'gomod' },
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+  },
+  {
+    'folke/persistence.nvim',
+    event = 'BufReadPre', -- this will only start session saving when an actual file was opened
+    opts = {},
   },
 }, {
   ui = {
