@@ -1,6 +1,8 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 source $HOME/.zshrc.local
 
+alias resetnvim="rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim"
+
 export GPG_TTY=$(tty)
 
 # START OH MY ZSH
