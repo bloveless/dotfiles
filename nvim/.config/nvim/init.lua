@@ -154,6 +154,9 @@ vim.opt.scrolloff = 10
 -- Default tab width
 vim.opt.tabstop = 4
 
+-- Global status line
+vim.opt.laststatus = 3
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -840,11 +843,32 @@ require('lazy').setup({
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {
-      options = {
-        theme = 'nord',
-      },
-    },
+    config = function(_, opts)
+      local config = require('lualine').get_config()
+      config = vim.tbl_deep_extend('force', config, {
+        options = {
+          theme = 'nord',
+        },
+        sections = {
+          lualine_c = {
+            {
+              'filename',
+              file_status = true,
+              path = 1,
+            },
+          },
+        },
+      })
+
+      vim.print(config)
+
+      require('lualine').setup(config)
+    end,
+    -- opts = {
+    --   options = {
+    --     theme = 'nord',
+    --   },
+    -- },
   },
 
   { -- Highlight, edit, and navigate code
