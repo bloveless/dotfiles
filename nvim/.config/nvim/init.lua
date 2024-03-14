@@ -860,8 +860,6 @@ require('lazy').setup({
         },
       })
 
-      vim.print(config)
-
       require('lualine').setup(config)
     end,
     -- opts = {
