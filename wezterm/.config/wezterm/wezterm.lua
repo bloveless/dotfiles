@@ -26,6 +26,7 @@ config.color_scheme = "nord"
 -- font = wezterm.font "MesloLGS NF",
 config.font = wezterm.font("MonaspiceXe Nerd Font")
 config.font_size = 12
+config.line_height = 1.1
 config.initial_cols = 150
 config.initial_rows = 45
 config.scrollback_lines = 50000
