@@ -13,6 +13,12 @@ local mykeys = {
 		mods = "SHIFT|ALT",
 		action = wezterm.action.MoveTabRelative(1),
 	},
+	-- In order to clear the scrollback and with CMD+K an update needs to be made in MacOS keyboard shortcuts -> App Shortcuts
+	-- Application: WezTerm
+	-- Menu name: Clear the scrollback and viewport
+	-- Shortcut CMD+K
+	-- Menu name: Clear scrollback
+	-- Shortcut CMD+SHIFT+K
 	{
 		key = "K",
 		mods = "CMD",
