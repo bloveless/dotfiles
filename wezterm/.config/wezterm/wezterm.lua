@@ -3,8 +3,24 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 local mykeys = {
-	{ key = "{", mods = "SHIFT|ALT", action = wezterm.action.MoveTabRelative(-1) },
-	{ key = "}", mods = "SHIFT|ALT", action = wezterm.action.MoveTabRelative(1) },
+	{
+		key = "{",
+		mods = "SHIFT|ALT",
+		action = wezterm.action.MoveTabRelative(-1),
+	},
+	{
+		key = "}",
+		mods = "SHIFT|ALT",
+		action = wezterm.action.MoveTabRelative(1),
+	},
+	{
+		key = "K",
+		mods = "CMD",
+		action = wezterm.action.Multiple({
+			wezterm.action.ClearScrollback("ScrollbackAndViewport"),
+			wezterm.action.SendKey({ key = "L", mods = "CTRL" }),
+		}),
+	},
 }
 
 for i = 1, 8 do
