@@ -207,7 +207,7 @@ vim.keymap.set('n', '<leader>qd', [[<cmd>lua require("persistence").stop()<cr>]]
 
 -- Buffer management
 vim.keymap.set('n', '<leader>x', function()
-  require('bufdelete').bufdelete(0)
+  require('mini.bufremove').delete(0, false)
 end, { desc = 'Delete the current buffer' })
 
 -- [[ Basic Autocommands ]]
@@ -885,6 +885,9 @@ require('lazy').setup({
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-context',
+    },
     build = ':TSUpdate',
     opts = {
       ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc' },
@@ -898,6 +901,9 @@ require('lazy').setup({
 
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
+
+      -- set some treesitter context colors
+      vim.cmd [[hi TreesitterContext guibg=#3B4252]]
 
       -- There are additional nvim-treesitter modules that you can use to interact
       -- with nvim-treesitter. You should go explore a few and see what interests you:
