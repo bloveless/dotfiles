@@ -942,7 +942,15 @@ require('lazy').setup({
     },
     config = function()
       require('go').setup {
-        lsp_cfg = false,
+        lsp_cfg = {
+          settings = {
+            gopls = {
+              ['local'] = 'github.com/bayer-int',
+              gofumpt = true,
+              staticcheck = true,
+            },
+          },
+        },
         lsp_inlay_hints = {
           style = 'eol',
         },
