@@ -989,6 +989,7 @@ require('lazy').setup({
         },
         trouble = true,
         luasnip = true,
+        run_in_floaterm = true,
       }
     end,
     event = { 'CmdlineEnter' },
