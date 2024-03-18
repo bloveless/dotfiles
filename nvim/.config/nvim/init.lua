@@ -168,6 +168,8 @@ vim.opt.winminwidth = 20
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+vim.keymap.set('n', ';', ':', { desc = 'Link ; to : to enter cmd mode' })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
@@ -947,6 +949,7 @@ require('lazy').setup({
             gopls = {
               ['local'] = 'github.com/bayer-int',
               gofumpt = true,
+              staticcheck = true,
               codelenses = {
                 gc_details = false,
                 generate = true,
@@ -975,15 +978,17 @@ require('lazy').setup({
               },
               usePlaceholders = true,
               completeUnimported = true,
-              staticcheck = true,
               directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
               semanticTokens = true,
             },
           },
         },
+        lsp_gofumpt = true,
         lsp_inlay_hints = {
           style = 'eol',
         },
+        trouble = true,
+        luasnip = true,
       }
     end,
     event = { 'CmdlineEnter' },
