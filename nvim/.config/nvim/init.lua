@@ -971,9 +971,8 @@ require('lazy').setup({
               },
               analyses = {
                 fieldalignment = true,
-                nilness = true,
-                unusedparams = true,
                 unusedwrite = true,
+                unusedvariable = true,
                 useany = true,
               },
               usePlaceholders = true,
