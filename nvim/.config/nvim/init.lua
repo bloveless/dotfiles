@@ -208,7 +208,7 @@ vim.keymap.set('n', '<leader>ql', [[<cmd>lua require("persistence").load({ last 
 vim.keymap.set('n', '<leader>qd', [[<cmd>lua require("persistence").stop()<cr>]], { desc = "stop Persistence => session won't be saved on exit" })
 
 -- Buffer management
-vim.keymap.set('n', '<leader>bd', function()
+vim.keymap.set('n', '<leader>q', function()
   require('mini.bufremove').delete(0, false)
 end, { desc = 'Delete the current buffer' })
 
