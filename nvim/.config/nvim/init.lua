@@ -1065,7 +1065,7 @@ require('lazy').setup({
   },
   {
     'ruifm/gitlinker.nvim',
-    dependencies = 'nvim-lua/plenary.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {
       mappings = nil,
     },
