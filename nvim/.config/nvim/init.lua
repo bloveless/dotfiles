@@ -232,6 +232,14 @@ vim.keymap.set('n', 'gR', function()
   require('trouble').toggle 'lsp_references'
 end, { desc = 'Trouble lsp references' })
 
+-- Git permalink
+vim.keymap.set('n', '<leader>gy', function()
+  require('gitlinker').get_buf_range_url 'n'
+end, { desc = '[g]it permalink [y]ank' })
+vim.keymap.set('v', '<leader>gy', function()
+  require('gitlinker').get_buf_range_url 'v'
+end, { desc = '[g]it permalink [y]ank' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -1053,6 +1061,13 @@ require('lazy').setup({
       -- your configuration comes here
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
+    },
+  },
+  {
+    'ruifm/gitlinker.nvim',
+    dependencies = 'nvim-lua/plenary.nvim',
+    opts = {
+      mappings = nil,
     },
   },
 
