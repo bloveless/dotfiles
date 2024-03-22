@@ -21,6 +21,8 @@ return {
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
 
+    'nvim-neotest/nvim-nio',
+
     'theHamsta/nvim-dap-virtual-text',
   },
   config = function()
