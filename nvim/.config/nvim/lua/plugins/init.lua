@@ -81,6 +81,15 @@ return {
     end,
   },
 
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        golangci_lint_ls = {},
+      },
+    },
+  },
+
   -- Configure LazyVim to load nord
   {
     "LazyVim/LazyVim",
