@@ -7,7 +7,6 @@ set which-key
 set sneak
 set incsearch
 set visualbell
-set noerrorbells
 set number relativenumber
 set ignorecase
 set smartcase
@@ -33,9 +32,11 @@ nnoremap <leader>si :source ~/.ideavimrc<CR>
 nnoremap <leader>e :NERDTreeToggle<cr>
 " Actions aren't supposed to use remap
 map <leader>f <Action>(ReformatCode)
-" map <leader>f <Action>(GotoFile)
-map <leader>g <Action>(FindInPath)
-map <leader>b <Action>(Switcher)
+map <leader>sf :action GotoFile<CR>
+map <leader>g :action FindInPath<CR>
+map <leader>b :action Switcher<CR>
+map <leader>rn :action RenameElement<CR>
+map <c-y> :action EditorChooseLookupItem<CR>
 nnoremap [[ :action MethodUp<CR>
 nnoremap ]] :action MethodDown<CR>
 nnoremap ]d :action GotoNextError<CR>
@@ -43,7 +44,7 @@ nnoremap [d :action GotoPreviousError<CR>
 nnoremap ]c :action VcsShowNextChangeMarker<CR>
 nnoremap [c :action VcsShowPrevChangeMarker<CR>
 nnoremap gi :action GotoImplementation<CR>
-nnoremap <space>fu :action FindUsages<CR>
+nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
