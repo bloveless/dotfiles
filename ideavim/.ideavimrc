@@ -1,42 +1,32 @@
+"
+" Make sure to update https://gist.github.com/bloveless/e45e97de38f2eeeddc5ff296ed241caf when updating.
+"
+
+let g:EasyMotion_override_acejump = 0
+
 let mapleader = " "
-set clipboard += unnamed
 set ideajoin
 set surround
 set commentary
 set which-key
-set sneak
+set easymotion
 set incsearch
 set visualbell
 set number relativenumber
 set ignorecase
 set smartcase
-set quickscope
 set scrolloff=10
-set vim-paragraph-motion
-set highlightedyank
-set easymotion
-
-" set which-key timeout
-set notimeout
-" set timeoutlen=5000
-
-set NERDTree
-
-" Change the Ctrl+E and Ctrl+Y speed to scroll 5 lines at a time.
-" Using noremap is required so we don't get into an infinite loop.
-
-nnoremap <C-e> 5<C-e>
-nnoremap <C-y> 5<C-y>
 
 nnoremap <leader>si :source ~/.ideavimrc<CR>
-nnoremap <leader>e :NERDTreeToggle<cr>
+nnoremap <leader>e :NERDTreeToggle<CR>
 " Actions aren't supposed to use remap
-map <leader>f <Action>(ReformatCode)
-map <leader>sf :action GotoFile<CR>
-map <leader>g :action FindInPath<CR>
-map <leader>b :action Switcher<CR>
-map <leader>rn :action RenameElement<CR>
-map <c-y> :action EditorChooseLookupItem<CR>
+nnoremap <leader>f :action ReformatCode<CR>
+nnoremap <leader>sf :action GotoFile<CR>
+nnoremap <leader>g :action FindInPath<CR>
+nnoremap <leader>b :action Switcher<CR>
+nnoremap <leader>rn :action RenameElement<CR>
+nnoremap <c-y> :action EditorChooseLookupItem<CR>
+inoremap <c-y> :action EditorChooseLookupItem<CR>
 nnoremap [[ :action MethodUp<CR>
 nnoremap ]] :action MethodDown<CR>
 nnoremap ]d :action GotoNextError<CR>
@@ -49,8 +39,6 @@ nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
 " Don't use Ex mode, use Q for formatting.
 map Q gq
 
-" map <leader>ff <Action>(GoToFile)
-" map K <Action>(QuickJavaDoc)
-map <leader>i <Action>(QuickImplementations)
-map K <Action>(ShowErrorDescription)
+map <leader>i :action QuickImplementations<CR>
+map K :action ShowErrorDescription<CR>
 command! Format action ReformatCode
