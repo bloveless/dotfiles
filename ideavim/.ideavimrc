@@ -17,6 +17,9 @@ set ignorecase
 set smartcase
 set scrolloff=10
 
+" Disable which-key timeout
+set notimeout
+
 nnoremap <leader>si :source ~/.ideavimrc<CR>
 nnoremap <leader>e :NERDTreeToggle<CR>
 " Actions aren't supposed to use remap
