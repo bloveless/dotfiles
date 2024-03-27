@@ -20,24 +20,25 @@ set scrolloff=10
 " Disable which-key timeout
 set notimeout
 
-nnoremap <leader>si :source ~/.ideavimrc<CR>
-nnoremap <leader>e :NERDTreeToggle<CR>
+nnoremap <leader>si :source ~/.ideavimrc<cr>
+nnoremap <leader>e :NERDTreeToggle<cr>
 " Actions aren't supposed to use remap
-nnoremap <leader>f :action ReformatCode<CR>
-nnoremap <leader>sf :action GotoFile<CR>
-nnoremap <leader>g :action FindInPath<CR>
-nnoremap <leader>b :action Switcher<CR>
-nnoremap <leader>rn :action RenameElement<CR>
-nnoremap <c-y> :action EditorChooseLookupItem<CR>
-inoremap <c-y> :action EditorChooseLookupItem<CR>
-nnoremap [[ :action MethodUp<CR>
-nnoremap ]] :action MethodDown<CR>
-nnoremap ]d :action GotoNextError<CR>
-nnoremap [d :action GotoPreviousError<CR>
-nnoremap ]c :action VcsShowNextChangeMarker<CR>
-nnoremap [c :action VcsShowPrevChangeMarker<CR>
-nnoremap gi :action GotoImplementation<CR>
-nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
+nnoremap <leader>f :action ReformatCode<cr>
+nnoremap <leader>sf :action GotoFile<cr>
+nnoremap <leader>g :action FindInPath<cr>
+nnoremap <leader>b :action Switcher<cr>
+nnoremap <leader>rn :action RenameElement<cr>
+nnoremap <c-y> :action EditorChooseLookupItem<cr>
+inoremap <c-y> :action EditorChooseLookupItem<cr>
+nnoremap [[ :action MethodUp<cr>
+nnoremap ]] :action MethodDown<cr>
+nnoremap ]d :action GotoNextError<cr>
+nnoremap [d :action GotoPreviousError<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap gi :action GotoImplementation<cr>
+nnoremap <leader>z :action ToggleDistractionFreeMode<cr>
+nnoremap <leader>rt :action RunClass<cr>
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
