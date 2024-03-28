@@ -208,9 +208,9 @@ vim.keymap.set('n', '<leader>ql', [[<cmd>lua require("persistence").load({ last 
 vim.keymap.set('n', '<leader>qd', [[<cmd>lua require("persistence").stop()<cr>]], { desc = "stop Persistence => session won't be saved on exit" })
 
 -- Buffer management
-vim.keymap.set('n', '<leader>qq', function()
+vim.keymap.set('n', '<leader>bd', function()
   require('mini.bufremove').delete(0, false)
-end, { desc = 'Delete/[q]uit the current buffer' })
+end, { desc = '[b]uffer [d]elete' })
 
 -- Dignostics
 vim.keymap.set('n', '<leader>xx', function()
@@ -394,6 +394,9 @@ require('lazy').setup({
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
       }
+
+      -- set some treesitter context colors
+      vim.cmd [[hi WhichKeyFloat guibg=#3B4252]]
     end,
   },
 
@@ -908,11 +911,6 @@ require('lazy').setup({
 
       require('lualine').setup(config)
     end,
-    -- opts = {
-    --   options = {
-    --     theme = 'nord',
-    --   },
-    -- },
   },
 
   { -- Highlight, edit, and navigate code
@@ -944,6 +942,12 @@ require('lazy').setup({
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    opts = {
+      multiline_threshold = 4,
+    },
   },
   {
     'ray-x/go.nvim',
