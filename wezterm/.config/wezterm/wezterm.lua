@@ -55,6 +55,8 @@ config.scrollback_lines = 50000
 config.keys = mykeys
 config.tab_bar_at_bottom = true
 
+local theme = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
+
 config.window_frame = {
 	-- The font used in the tab bar.
 	-- Roboto Bold is the default; this font is bundled
@@ -70,17 +72,19 @@ config.window_frame = {
 
 	-- The overall background color of the tab bar when
 	-- the window is focused
-	-- active_titlebar_bg = "#2e3440",
+	active_titlebar_bg = theme.tab_bar.active_tab.bg_color, -- "#2e3440",
 
 	-- The overall background color of the tab bar when
 	-- the window is not focused
-	-- inactive_titlebar_bg = "#2e3440",
+	inactive_titlebar_bg = "#2e3440",
 }
+
+config.colors = theme.tab_bar
 
 -- config.colors = {
 -- 	tab_bar = {
 -- 		-- The color of the inactive tab bar edge/divider
--- 		inactive_tab_edge = "#2e3440",
+-- 		inactive_tab_edge = theme.background, -- "#2e3440",
 --
 -- 		active_tab = {
 -- 			bg_color = "#4C566A",
@@ -108,5 +112,5 @@ config.window_frame = {
 -- 		},
 -- 	},
 -- }
-
-return config
+--
+-- return config
