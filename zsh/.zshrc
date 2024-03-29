@@ -112,4 +112,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+function dstrm { # [d]ocker [st]op [r]e[m]ove
+  echo "Stopping docker containers"
+  docker stop $(docker container ls -aq)
+  echo "Removing docker containers"
+  docker rm $(docker container ls -aq)
+}
+
 eval "$(starship init zsh)"

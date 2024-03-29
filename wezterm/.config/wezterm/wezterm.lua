@@ -38,9 +38,9 @@ for i = 1, 8 do
 	})
 end
 
--- color_scheme = "Catppuccin Macchiato", -- or Macchiato, Frappe, Latte
+config.color_scheme = "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
 -- color_scheme = "tokyonight_storm",
-config.color_scheme = "nord"
+-- config.color_scheme = "nord"
 -- color_scheme = "Gruvbox dark, medium (base16)",
 -- color_scheme = "Kanagawa (Gogh)",
 -- color_scheme = "rose-pine-moon",
@@ -70,43 +70,43 @@ config.window_frame = {
 
 	-- The overall background color of the tab bar when
 	-- the window is focused
-	active_titlebar_bg = "#2e3440",
+	-- active_titlebar_bg = "#2e3440",
 
 	-- The overall background color of the tab bar when
 	-- the window is not focused
-	inactive_titlebar_bg = "#2e3440",
+	-- inactive_titlebar_bg = "#2e3440",
 }
 
-config.colors = {
-	tab_bar = {
-		-- The color of the inactive tab bar edge/divider
-		inactive_tab_edge = "#2e3440",
-
-		active_tab = {
-			bg_color = "#4C566A",
-			fg_color = "#FFFFFF",
-		},
-
-		inactive_tab = {
-			bg_color = "#2E3440",
-			fg_color = "#FFFFFF",
-		},
-
-		inactive_tab_hover = {
-			bg_color = "#3B4252",
-			fg_color = "#FFFFFF",
-		},
-
-		new_tab = {
-			bg_color = "#2e3440",
-			fg_color = "#FFFFFF",
-		},
-
-		new_tab_hover = {
-			bg_color = "#2e3440",
-			fg_color = "#FFFFFF",
-		},
-	},
-}
+-- config.colors = {
+-- 	tab_bar = {
+-- 		-- The color of the inactive tab bar edge/divider
+-- 		inactive_tab_edge = "#2e3440",
+--
+-- 		active_tab = {
+-- 			bg_color = "#4C566A",
+-- 			fg_color = "#FFFFFF",
+-- 		},
+--
+-- 		inactive_tab = {
+-- 			bg_color = "#2E3440",
+-- 			fg_color = "#FFFFFF",
+-- 		},
+--
+-- 		inactive_tab_hover = {
+-- 			bg_color = "#3B4252",
+-- 			fg_color = "#FFFFFF",
+-- 		},
+--
+-- 		new_tab = {
+-- 			bg_color = "#2e3440",
+-- 			fg_color = "#FFFFFF",
+-- 		},
+--
+-- 		new_tab_hover = {
+-- 			bg_color = "#2e3440",
+-- 			fg_color = "#FFFFFF",
+-- 		},
+-- 	},
+-- }
 
 return config
