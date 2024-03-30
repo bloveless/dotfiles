@@ -39,6 +39,7 @@ for i = 1, 8 do
 end
 
 config.color_scheme = "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
+
 -- color_scheme = "tokyonight_storm",
 -- config.color_scheme = "nord"
 -- color_scheme = "Gruvbox dark, medium (base16)",
@@ -55,7 +56,7 @@ config.scrollback_lines = 50000
 config.keys = mykeys
 config.tab_bar_at_bottom = true
 
-local theme = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
+local theme = wezterm.color.get_builtin_schemes()["Catppuccin Frappe"]
 
 config.window_frame = {
 	-- The font used in the tab bar.
@@ -72,45 +73,27 @@ config.window_frame = {
 
 	-- The overall background color of the tab bar when
 	-- the window is focused
-	active_titlebar_bg = theme.tab_bar.active_tab.bg_color, -- "#2e3440",
+	active_titlebar_bg = theme.background,
 
 	-- The overall background color of the tab bar when
 	-- the window is not focused
-	inactive_titlebar_bg = "#2e3440",
+	inactive_titlebar_bg = theme.background,
 }
 
-config.colors = theme.tab_bar
+config.colors = {
+	tab_bar = {
+		active_tab = {
+			bg_color = theme.ansi[3],
+			fg_color = "#333",
+		},
 
--- config.colors = {
--- 	tab_bar = {
--- 		-- The color of the inactive tab bar edge/divider
--- 		inactive_tab_edge = theme.background, -- "#2e3440",
---
--- 		active_tab = {
--- 			bg_color = "#4C566A",
--- 			fg_color = "#FFFFFF",
--- 		},
---
--- 		inactive_tab = {
--- 			bg_color = "#2E3440",
--- 			fg_color = "#FFFFFF",
--- 		},
---
--- 		inactive_tab_hover = {
--- 			bg_color = "#3B4252",
--- 			fg_color = "#FFFFFF",
--- 		},
---
--- 		new_tab = {
--- 			bg_color = "#2e3440",
--- 			fg_color = "#FFFFFF",
--- 		},
---
--- 		new_tab_hover = {
--- 			bg_color = "#2e3440",
--- 			fg_color = "#FFFFFF",
--- 		},
--- 	},
--- }
---
--- return config
+		inactive_tab_edge = "#EEE",
+
+		inactive_tab = {
+			bg_color = "#4E5471",
+			fg_color = "#EEE",
+		},
+	},
+}
+
+return config
