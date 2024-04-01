@@ -389,6 +389,18 @@ require('lazy').setup({
       local servers = {
         gopls = goCfg,
         golangci_lint_ls = {},
+        intelephense = {
+          init_options = {
+            licenceKey = '~/.config/intelephense/license.txt',
+          },
+          settings = {
+            intelephense = {
+              files = {
+                maxSize = 10000000,
+              },
+            },
+          },
+        },
         lua_ls = {
           settings = {
             Lua = {
@@ -805,6 +817,20 @@ require('lazy').setup({
       { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
       { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+
+  {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'MunifTanjim/nui.nvim',
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
+    keys = {
+      { '<leader>e', mode = { 'n', 'v' }, '<cmd>Neotree toggle=true<cr>', desc = 'file [e]xplorer' },
     },
   },
 
