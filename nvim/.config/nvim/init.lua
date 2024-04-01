@@ -91,12 +91,9 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Session management
-vim.keymap.set('n', '<leader>qs', [[<cmd>lua require("persistence").load()<cr>]],
-  { desc = 'Restore the session for the current directory' })
-vim.keymap.set('n', '<leader>ql', [[<cmd>lua require("persistence").load({ last = true })<cr>]],
-  { desc = 'Restore the last session' })
-vim.keymap.set('n', '<leader>qd', [[<cmd>lua require("persistence").stop()<cr>]],
-  { desc = "stop Persistence => session won't be saved on exit" })
+vim.keymap.set('n', '<leader>qs', [[<cmd>lua require("persistence").load()<cr>]], { desc = 'Restore the session for the current directory' })
+vim.keymap.set('n', '<leader>ql', [[<cmd>lua require("persistence").load({ last = true })<cr>]], { desc = 'Restore the last session' })
+vim.keymap.set('n', '<leader>qd', [[<cmd>lua require("persistence").stop()<cr>]], { desc = "stop Persistence => session won't be saved on exit" })
 
 -- Buffer management
 vim.keymap.set('n', '<leader>bd', function()
@@ -136,7 +133,7 @@ require('lazy').setup({
 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-  {                   -- "gc" to comment visual regions/lines
+  { -- "gc" to comment visual regions/lines
     'numToStr/Comment.nvim',
     opts = {},
   },
@@ -210,7 +207,7 @@ require('lazy').setup({
     },
   },
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
@@ -252,7 +249,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       require('telescope').setup {
@@ -463,11 +460,9 @@ require('lazy').setup({
     'nvimtools/none-ls.nvim',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'ray-x/go.nvim',
     },
     config = function()
       local null_ls = require 'null-ls'
-      local gotest_codeaction = require('go.null_ls').gotest_action()
 
       local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
       null_ls.setup {
@@ -477,7 +472,6 @@ require('lazy').setup({
           null_ls.builtins.formatting.gofumpt,
           null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.completion.spell,
-          gotest_codeaction,
         },
 
         on_attach = function(client, bufnr)
@@ -727,15 +721,15 @@ require('lazy').setup({
     'akinsho/bufferline.nvim',
     event = 'VeryLazy',
     keys = {
-      { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>',            desc = 'Toggle pin' },
+      { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle pin' },
       { '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete non-pinned buffers' },
-      { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>',          desc = 'Delete other buffers' },
-      { '<leader>br', '<Cmd>BufferLineCloseRight<CR>',           desc = 'Delete buffers to the right' },
-      { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>',            desc = 'Delete buffers to the left' },
-      { '<S-h>',      '<cmd>BufferLineCyclePrev<cr>',            desc = 'Prev buffer' },
-      { '<S-l>',      '<cmd>BufferLineCycleNext<cr>',            desc = 'Next buffer' },
-      { '[b',         '<cmd>BufferLineCyclePrev<cr>',            desc = 'Prev buffer' },
-      { ']b',         '<cmd>BufferLineCycleNext<cr>',            desc = 'Next buffer' },
+      { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete other buffers' },
+      { '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete buffers to the right' },
+      { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete buffers to the left' },
+      { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
+      { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
+      { '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
+      { ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
     },
     opts = {
       options = {
@@ -872,8 +866,26 @@ require('lazy').setup({
       -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     },
     keys = {
-      { '<leader>e', mode = { 'n', 'v' }, '<cmd>Neotree toggle=true<cr>', desc = 'file [e]xplorer' },
+      { '<c-n>', mode = { 'n', 'v' }, '<cmd>Neotree toggle=true<cr>', desc = 'file [e]xplorer' },
     },
+  },
+
+  {
+    'jeniasaigak/goplay.nvim',
+    event = 'VeryLazy',
+    keys = {
+      {
+        '<leader>gpt',
+        '<cmd>GPToggle<cr>',
+        desc = '[g]o [p]layground [t]oggle',
+      },
+      {
+        '<leader>gpe',
+        '<cmd>GPExec<cr>',
+        desc = '[g]o [p]layground [e]xec',
+      },
+    },
+    opts = {},
   },
 
   require 'kickstart.plugins.debug',
