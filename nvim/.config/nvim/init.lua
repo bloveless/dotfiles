@@ -456,24 +456,39 @@ require('lazy').setup({
     end,
   },
 
-  { -- Autoformat
-    'stevearc/conform.nvim',
-    opts = {
-      notify_on_error = false,
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
-      formatters = {
-        ['goimports'] = {
-          prepend_args = { '-local', 'github.com/bayer-int' },
-        },
-      },
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        go = { 'goimports', 'gofumpt' },
-      },
+  {
+    'nvimtools/none-ls.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
     },
+    config = function()
+      local null_ls = require 'null-ls'
+
+      local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+      null_ls.setup {
+        sources = {
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.goimports.with { extra_args = { '-local', 'github.com/bayer-int' } },
+          null_ls.builtins.formatting.gofumpt,
+          null_ls.builtins.code_actions.gitsigns,
+          null_ls.builtins.completion.spell,
+          null_ls.builtins.diagnostics.golangci_lint,
+        },
+
+        on_attach = function(client, bufnr)
+          if client.supports_method 'textDocument/formatting' then
+            vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+            vim.api.nvim_create_autocmd('BufWritePre', {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format { async = false }
+              end,
+            })
+          end
+        end,
+      }
+    end,
   },
 
   { -- Autocompletion
@@ -812,11 +827,11 @@ require('lazy').setup({
     opts = {},
     -- stylua: ignore
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+      { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+      { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+      { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
     },
   },
 
