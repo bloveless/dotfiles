@@ -472,7 +472,6 @@ require('lazy').setup({
           null_ls.builtins.formatting.gofumpt,
           null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.completion.spell,
-          null_ls.builtins.diagnostics.golangci_lint,
         },
 
         on_attach = function(client, bufnr)
@@ -620,7 +619,7 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'go' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'go' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = { enable = true },
@@ -767,6 +766,7 @@ require('lazy').setup({
 
   {
     'folke/trouble.nvim',
+    branch = 'dev',
     keys = {
       {
         '<leader>xx',
