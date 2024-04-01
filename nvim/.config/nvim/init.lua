@@ -868,6 +868,13 @@ require('lazy').setup({
     keys = {
       { '<c-n>', mode = { 'n', 'v' }, '<cmd>Neotree toggle=true<cr>', desc = 'file [e]xplorer' },
     },
+    opts = {
+      filesystem = {
+        follow_current_file = {
+          enabled = true,
+        },
+      },
+    },
   },
 
   {
