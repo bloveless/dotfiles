@@ -878,6 +878,9 @@ require('lazy').setup({
     },
     opts = {
       filesystem = {
+        filtered_items = {
+          visible = true, -- make hidden items greyed out instead of invisible
+        },
         follow_current_file = {
           enabled = true,
         },
@@ -922,6 +925,7 @@ require('lazy').setup({
   },
 
   require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.indent_line',
 }, {
   ui = {
     -- If you have a Nerd Font, set icons to an empty table which will use the
