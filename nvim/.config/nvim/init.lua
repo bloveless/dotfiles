@@ -925,7 +925,6 @@ require('lazy').setup({
   },
 
   require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.indent_line',
 }, {
   ui = {
     -- If you have a Nerd Font, set icons to an empty table which will use the
