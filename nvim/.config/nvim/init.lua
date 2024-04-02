@@ -438,6 +438,8 @@ require('lazy').setup({
         'gofumpt',
         'goimports',
         'golangci-lint',
+        'phpcs',
+        'phpstan',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -472,6 +474,9 @@ require('lazy').setup({
           null_ls.builtins.formatting.gofumpt,
           null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.completion.spell,
+          null_ls.builtins.diagnostics.phpcs,
+          null_ls.builtins.formatting.phpcsfixer,
+          null_ls.builtins.diagnostics.phpstan,
         },
 
         on_attach = function(client, bufnr)
@@ -633,6 +638,8 @@ require('lazy').setup({
 
       -- set some treesitter context colors
       vim.cmd [[hi TreesitterContext guibg=#3B4252]]
+      -- disable the underline in treesitter context
+      vim.cmd [[hi TreesitterContextBottom gui=NONE]]
 
       -- There are additional nvim-treesitter modules that you can use to interact
       -- with nvim-treesitter. You should go explore a few and see what interests you:
