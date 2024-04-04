@@ -119,6 +119,8 @@ function dstrm { # [d]ocker [st]op [r]e[m]ove
   docker rm $(docker container ls -aq)
 }
 
+alias dps="docker ps"
+
 eval "$(starship init zsh)"
 export PATH="/opt/homebrew/opt/php@8.1/bin:$PATH"
 export PATH="/opt/homebrew/opt/php@8.1/sbin:$PATH"
