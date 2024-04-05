@@ -61,6 +61,13 @@ vim.opt.tabstop = 4
 -- Global status line
 vim.opt.laststatus = 3
 
+-- Additional file types
+vim.filetype.add {
+  extension = {
+    ddl = 'sql',
+  },
+}
+
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -233,6 +240,12 @@ require('lazy').setup({
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
+      {
+        'nvim-telescope/telescope-live-grep-args.nvim',
+        -- This will not install any breaking changes.
+        -- For major updates, this must be adjusted manually.
+        version = '^1.0.0',
+      },
       { -- If encountering errors, see telescope-fzf-native README for install instructions
         'nvim-telescope/telescope-fzf-native.nvim',
 
@@ -249,11 +262,38 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      {
+        'nvim-tree/nvim-web-devicons',
+        enabled = vim.g.have_nerd_font,
+      },
     },
     config = function()
+      local open_with_trouble = require('trouble.sources.telescope').open
+      local lga_actions = require 'telescope-live-grep-args.actions'
+
       require('telescope').setup {
+        defaults = {
+          mappings = {
+            i = { ['<c-t>'] = open_with_trouble },
+            n = { ['<c-t>'] = open_with_trouble },
+          },
+        },
         extensions = {
+          live_grep_args = {
+            auto_quoting = true, -- enable/disable auto-quoting
+            -- define mappings, e.g.
+            mappings = { -- extend mappings
+              i = {
+                ['<C-k>'] = lga_actions.quote_prompt(),
+                ['<C-i>'] = lga_actions.quote_prompt { postfix = ' --iglob ' },
+              },
+            },
+            -- ... also accepts theme settings, for example:
+            -- theme = "dropdown", -- use dropdown theme
+            -- theme = { }, -- use own theme spec
+            -- layout_config = { mirror=true }, -- mirror preview pane
+          },
+
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
@@ -263,6 +303,7 @@ require('lazy').setup({
       -- Enable telescope extensions, if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'live_grep_args')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -271,7 +312,9 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sg', function()
+        require('telescope').extensions.live_grep_args.live_grep_args()
+      end, { desc = '[S]earch by [l]ive grep args' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
@@ -827,6 +870,15 @@ require('lazy').setup({
             size = 0.5,
           },
         },
+        telescope = {
+          mode = 'telescope',
+          preview = {
+            type = 'split',
+            relative = 'win',
+            position = 'right',
+            size = 0.5,
+          },
+        },
       },
     },
   },
@@ -942,8 +994,28 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'nvim-dbee',
+    dev = true,
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+    },
+    build = function()
+      -- Install tries to automatically detect the install method.
+      -- if it fails, try calling it with one of these parameters:
+      --    "curl", "wget", "bitsadmin", "go"
+      require('dbee').install 'go'
+    end,
+    config = function()
+      require('dbee').setup( --[[optional config]])
+    end,
+  },
+
   require 'kickstart.plugins.debug',
 }, {
+  dev = {
+    path = '~/dotfiles/nvim/.config/nvim/dev',
+  },
   ui = {
     -- If you have a Nerd Font, set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons otherwise define a unicode icons table

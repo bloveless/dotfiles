@@ -1,0 +1,3 @@
+[submodule "nvim/.config/nvim/dev/nvim-dbee"]
+	path = nvim/.config/nvim/dev/nvim-dbee
+	url = git@github.com:bloveless/nvim-dbee.git
