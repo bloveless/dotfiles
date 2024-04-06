@@ -98,9 +98,12 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Session management
-vim.keymap.set('n', '<leader>qs', [[<cmd>lua require("persistence").load()<cr>]], { desc = 'Restore the session for the current directory' })
-vim.keymap.set('n', '<leader>ql', [[<cmd>lua require("persistence").load({ last = true })<cr>]], { desc = 'Restore the last session' })
-vim.keymap.set('n', '<leader>qd', [[<cmd>lua require("persistence").stop()<cr>]], { desc = "stop Persistence => session won't be saved on exit" })
+vim.keymap.set('n', '<leader>qs', [[<cmd>lua require("persistence").load()<cr>]],
+  { desc = 'Restore the session for the current directory' })
+vim.keymap.set('n', '<leader>ql', [[<cmd>lua require("persistence").load({ last = true })<cr>]],
+  { desc = 'Restore the last session' })
+vim.keymap.set('n', '<leader>qd', [[<cmd>lua require("persistence").stop()<cr>]],
+  { desc = "stop Persistence => session won't be saved on exit" })
 
 -- Buffer management
 vim.keymap.set('n', '<leader>bd', function()
@@ -140,7 +143,7 @@ require('lazy').setup({
 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-  { -- "gc" to comment visual regions/lines
+  {                   -- "gc" to comment visual regions/lines
     'numToStr/Comment.nvim',
     opts = {},
   },
@@ -214,7 +217,7 @@ require('lazy').setup({
     },
   },
 
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
@@ -282,7 +285,7 @@ require('lazy').setup({
           live_grep_args = {
             auto_quoting = true, -- enable/disable auto-quoting
             -- define mappings, e.g.
-            mappings = { -- extend mappings
+            mappings = {         -- extend mappings
               i = {
                 ['<C-k>'] = lga_actions.quote_prompt(),
                 ['<C-i>'] = lga_actions.quote_prompt { postfix = ' --iglob ' },
@@ -772,15 +775,15 @@ require('lazy').setup({
     'akinsho/bufferline.nvim',
     event = 'VeryLazy',
     keys = {
-      { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle pin' },
+      { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>',            desc = 'Toggle pin' },
       { '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete non-pinned buffers' },
-      { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete other buffers' },
-      { '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete buffers to the right' },
-      { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete buffers to the left' },
-      { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
-      { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
-      { '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
-      { ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
+      { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>',          desc = 'Delete other buffers' },
+      { '<leader>br', '<Cmd>BufferLineCloseRight<CR>',           desc = 'Delete buffers to the right' },
+      { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>',            desc = 'Delete buffers to the left' },
+      { '<S-h>',      '<cmd>BufferLineCyclePrev<cr>',            desc = 'Prev buffer' },
+      { '<S-l>',      '<cmd>BufferLineCycleNext<cr>',            desc = 'Next buffer' },
+      { '[b',         '<cmd>BufferLineCyclePrev<cr>',            desc = 'Prev buffer' },
+      { ']b',         '<cmd>BufferLineCycleNext<cr>',            desc = 'Next buffer' },
     },
     opts = {
       options = {
@@ -979,7 +982,7 @@ require('lazy').setup({
   {
     'kristijanhusak/vim-dadbod-ui',
     dependencies = {
-      { 'tpope/vim-dadbod', lazy = true },
+      { 'tpope/vim-dadbod',                     lazy = true },
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
     },
     cmd = {
@@ -1010,6 +1013,8 @@ require('lazy').setup({
       require('dbee').setup( --[[optional config]])
     end,
   },
+
+  'tpope/vim-fugitive',
 
   require 'kickstart.plugins.debug',
 }, {
