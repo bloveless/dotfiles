@@ -37,6 +37,7 @@ nnoremap [d :action GotoPreviousError<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap gi :action GotoImplementation<cr>
+nnoremap gr :action GotoDeclaration<cr>
 nnoremap <leader>z :action ToggleDistractionFreeMode<cr>
 nnoremap <leader>rt :action RunClass<cr>
 nnoremap <leader>m :action AddToHarpoon<cr>
