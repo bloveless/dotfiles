@@ -16,12 +16,16 @@ set number relativenumber
 set ignorecase
 set smartcase
 set scrolloff=10
+set NERDTree
 
 " Disable which-key timeout
 set notimeout
 
+" change easymotion prefix to a single leader + command. I.E. <leader>f or <leader>w
+map <Leader> <Plug>(easymotion-prefix)
+
 nnoremap <leader>si :source ~/.ideavimrc<cr>
-nnoremap <leader>e :NERDTreeToggle<cr>
+nnoremap <c-n> :action ActivateProjectToolWindow<cr>
 " Actions aren't supposed to use remap
 nnoremap <leader>f :action ReformatCode<cr>
 nnoremap <leader>sf :action GotoFile<cr>
