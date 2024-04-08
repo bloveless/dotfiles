@@ -65,6 +65,7 @@ vim.opt.laststatus = 3
 vim.filetype.add {
   extension = {
     ddl = 'sql',
+    ['blade.php'] = 'blade',
   },
 }
 
@@ -435,6 +436,7 @@ require('lazy').setup({
       local servers = {
         gopls = goCfg,
         golangci_lint_ls = {},
+        tsserver = {},
         intelephense = {
           init_options = {
             licenceKey = '~/.config/intelephense/license.txt',
@@ -671,7 +673,7 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'go', 'sql' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'go', 'sql', 'php' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = { enable = true },
@@ -679,6 +681,18 @@ require('lazy').setup({
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+
+      --@class ParseInfo[]
+      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+
+      parser_config.blade = {
+        install_info = {
+          url = 'https://github.com/EmranMR/tree-sitter-blade',
+          files = { 'src/parser.c' },
+          branch = 'main',
+        },
+        filetype = 'blade',
+      }
 
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
@@ -961,23 +975,23 @@ require('lazy').setup({
     opts = {},
   },
 
-  {
-    'adalessa/laravel.nvim',
-    dependencies = {
-      'nvim-telescope/telescope.nvim',
-      'tpope/vim-dotenv',
-      'MunifTanjim/nui.nvim',
-      'nvimtools/none-ls.nvim',
-    },
-    cmd = { 'Sail', 'Artisan', 'Composer', 'Npm', 'Yarn', 'Laravel' },
-    keys = {
-      { '<leader>la', ':Laravel artisan<cr>' },
-      { '<leader>lr', ':Laravel routes<cr>' },
-      { '<leader>lm', ':Laravel related<cr>' },
-    },
-    event = { 'VeryLazy' },
-    config = true,
-  },
+  -- {
+  --   'adalessa/laravel.nvim',
+  --   dependencies = {
+  --     'nvim-telescope/telescope.nvim',
+  --     'tpope/vim-dotenv',
+  --     'MunifTanjim/nui.nvim',
+  --     'nvimtools/none-ls.nvim',
+  --   },
+  --   cmd = { 'Sail', 'Artisan', 'Composer', 'Npm', 'Yarn', 'Laravel' },
+  --   keys = {
+  --     { '<leader>la', ':Laravel artisan<cr>' },
+  --     { '<leader>lr', ':Laravel routes<cr>' },
+  --     { '<leader>lm', ':Laravel related<cr>' },
+  --   },
+  --   event = { 'VeryLazy' },
+  --   config = true,
+  -- },
 
   {
     'kristijanhusak/vim-dadbod-ui',
@@ -1015,6 +1029,28 @@ require('lazy').setup({
   },
 
   'tpope/vim-fugitive',
+
+  -- necessary for blade indentation
+  'jwalton512/vim-blade',
+
+  {
+    'cbochs/grapple.nvim',
+    opts = {
+      scope = 'git', -- also try out "git_branch"
+    },
+    event = { 'BufReadPost', 'BufNewFile' },
+    cmd = 'Grapple',
+    keys = {
+      { '<leader>m', '<cmd>Grapple toggle<cr>',          desc = 'Grapple toggle tag' },
+      { '<leader>M', '<cmd>Grapple toggle_tags<cr>',     desc = 'Grapple open tags window' },
+      { '<leader>n', '<cmd>Grapple cycle_tags next<cr>', desc = 'Grapple cycle next tag' },
+      { '<leader>p', '<cmd>Grapple cycle_tags prev<cr>', desc = 'Grapple cycle previous tag' },
+      { '<leader>1', '<cmd>Grapple select index=1<cr>',  desc = 'Grapple index 1' },
+      { '<leader>2', '<cmd>Grapple select index=2<cr>',  desc = 'Grapple index 2' },
+      { '<leader>3', '<cmd>Grapple select index=3<cr>',  desc = 'Grapple index 3' },
+      { '<leader>4', '<cmd>Grapple select index=4<cr>',  desc = 'Grapple index 4' },
+    },
+  },
 
   require 'kickstart.plugins.debug',
 }, {

@@ -39,6 +39,15 @@ nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap gi :action GotoImplementation<cr>
 nnoremap <leader>z :action ToggleDistractionFreeMode<cr>
 nnoremap <leader>rt :action RunClass<cr>
+nnoremap <leader>m :action AddToHarpoon<cr>
+nnoremap <leader>M :action ShowHarpoon<cr>
+nnoremap <leader>1 :action GotoHarpoon1<cr>
+nnoremap <leader>2 :action GotoHarpoon2<cr>
+nnoremap <leader>3 :action GotoHarpoon3<cr>
+nnoremap <leader>4 :action GotoHarpoon4<cr>
+nnoremap <leader>5 :action GotoHarpoon5<cr>
+nnoremap L :action NextTab<cr>
+nnoremap H :action PreviousTab<cr>
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
