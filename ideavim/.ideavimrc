@@ -31,7 +31,7 @@ nnoremap <leader>f :action ReformatCode<cr>
 nnoremap <leader>sf :action GotoFile<cr>
 nnoremap <leader>g :action FindInPath<cr>
 nnoremap <leader>b :action Switcher<cr>
-nnoremap <leader>rn :action RenameElement<cr>
+nnoremap <leader>rn :action Refactorings.QuickListPopupAction<cr>
 nnoremap <c-y> :action EditorChooseLookupItem<cr>
 inoremap <c-y> :action EditorChooseLookupItem<cr>
 nnoremap [[ :action MethodUp<cr>
