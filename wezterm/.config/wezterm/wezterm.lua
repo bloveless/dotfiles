@@ -27,6 +27,9 @@ local mykeys = {
 			wezterm.action.SendKey({ key = "L", mods = "CTRL" }),
 		}),
 	},
+	-- Enable scolling back to the last input prompt
+	{ key = "UpArrow", mods = "SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
+	{ key = "DownArrow", mods = "SHIFT", action = wezterm.action.ScrollToPrompt(1) },
 }
 
 for i = 1, 8 do
