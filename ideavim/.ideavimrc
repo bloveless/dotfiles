@@ -18,6 +18,9 @@ set smartcase
 set scrolloff=10
 set NERDTree
 
+" Use system clipboard by default
+set clipboard+=unnamedplus
+
 " Disable which-key timeout
 set notimeout
 
