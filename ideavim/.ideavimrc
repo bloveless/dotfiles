@@ -40,8 +40,8 @@ nnoremap <leader>f :action ReformatCode<cr>
 nnoremap <leader>sf :action GotoFile<cr>
 nnoremap <leader>g :action FindInPath<cr>
 nnoremap <leader>b :action Switcher<cr>
-nnoremap <leader>gy :action com.github.kawamataryo.copygitlink.CopyPermalink<cr>
-vnoremap <leader>gy :action com.github.kawamataryo.copygitlink.CopyPermalink<cr>
+nnoremap gy :action com.github.kawamataryo.copygitlink.CopyPermalink<cr>
+vnoremap gy :action com.github.kawamataryo.copygitlink.CopyPermalink<cr>
 nnoremap <leader>rn :action Refactorings.QuickListPopupAction<cr>
 nnoremap <c-y> :action EditorChooseLookupItem<cr>
 inoremap <c-y> :action EditorChooseLookupItem<cr>

@@ -134,13 +134,23 @@ vim.opt.rtp:prepend(lazypath)
 -- [[ Configure and install plugins ]]
 require('lazy').setup({
   {
-    'catppuccin/nvim',
-    name = 'catppuccin',
+    'folke/tokyonight.nvim',
+    lazy = false,
     priority = 1000,
+    opts = {},
     init = function()
-      vim.cmd.colorscheme 'catppuccin-frappe'
+      vim.cmd.colorscheme 'tokyonight-moon'
     end,
   },
+
+  -- {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
+  --   priority = 1000,
+  --   init = function()
+  --     vim.cmd.colorscheme 'catppuccin-frappe'
+  --   end,
+  -- },
 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -616,6 +626,13 @@ require('lazy').setup({
           { name = 'path' },
         },
       }
+
+      cmp.setup.filetype({ 'sql' }, {
+        sources = {
+          { name = 'vim-dadbod-completion' },
+          { name = 'buffer' },
+        },
+      })
     end,
   },
 
@@ -649,7 +666,7 @@ require('lazy').setup({
       local config = require('lualine').get_config()
       config = vim.tbl_deep_extend('force', config, {
         options = {
-          theme = 'catppuccin',
+          theme = 'tokyonight',
         },
         sections = {
           lualine_c = {
