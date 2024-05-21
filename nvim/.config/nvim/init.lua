@@ -99,12 +99,9 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Session management
-vim.keymap.set('n', '<leader>qs', [[<cmd>lua require("persistence").load()<cr>]],
-  { desc = 'Restore the session for the current directory' })
-vim.keymap.set('n', '<leader>ql', [[<cmd>lua require("persistence").load({ last = true })<cr>]],
-  { desc = 'Restore the last session' })
-vim.keymap.set('n', '<leader>qd', [[<cmd>lua require("persistence").stop()<cr>]],
-  { desc = "stop Persistence => session won't be saved on exit" })
+vim.keymap.set('n', '<leader>qs', [[<cmd>lua require("persistence").load()<cr>]], { desc = 'Restore the session for the current directory' })
+vim.keymap.set('n', '<leader>ql', [[<cmd>lua require("persistence").load({ last = true })<cr>]], { desc = 'Restore the last session' })
+vim.keymap.set('n', '<leader>qd', [[<cmd>lua require("persistence").stop()<cr>]], { desc = "stop Persistence => session won't be saved on exit" })
 
 -- Buffer management
 vim.keymap.set('n', '<leader>bd', function()
@@ -134,27 +131,17 @@ vim.opt.rtp:prepend(lazypath)
 -- [[ Configure and install plugins ]]
 require('lazy').setup({
   {
-    'folke/tokyonight.nvim',
-    lazy = false,
+    'catppuccin/nvim',
+    name = 'catppuccin',
     priority = 1000,
-    opts = {},
     init = function()
-      vim.cmd.colorscheme 'tokyonight-moon'
+      vim.cmd.colorscheme 'catppuccin-frappe'
     end,
   },
 
-  -- {
-  --   'catppuccin/nvim',
-  --   name = 'catppuccin',
-  --   priority = 1000,
-  --   init = function()
-  --     vim.cmd.colorscheme 'catppuccin-frappe'
-  --   end,
-  -- },
-
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-  {                   -- "gc" to comment visual regions/lines
+  { -- "gc" to comment visual regions/lines
     'numToStr/Comment.nvim',
     opts = {},
   },
@@ -228,7 +215,7 @@ require('lazy').setup({
     },
   },
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
@@ -296,7 +283,7 @@ require('lazy').setup({
           live_grep_args = {
             auto_quoting = true, -- enable/disable auto-quoting
             -- define mappings, e.g.
-            mappings = {         -- extend mappings
+            mappings = { -- extend mappings
               i = {
                 ['<C-k>'] = lga_actions.quote_prompt(),
                 ['<C-i>'] = lga_actions.quote_prompt { postfix = ' --iglob ' },
@@ -666,7 +653,7 @@ require('lazy').setup({
       local config = require('lualine').get_config()
       config = vim.tbl_deep_extend('force', config, {
         options = {
-          theme = 'tokyonight',
+          theme = 'catppuccin',
         },
         sections = {
           lualine_c = {
@@ -806,15 +793,15 @@ require('lazy').setup({
     'akinsho/bufferline.nvim',
     event = 'VeryLazy',
     keys = {
-      { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>',            desc = 'Toggle pin' },
+      { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle pin' },
       { '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete non-pinned buffers' },
-      { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>',          desc = 'Delete other buffers' },
-      { '<leader>br', '<Cmd>BufferLineCloseRight<CR>',           desc = 'Delete buffers to the right' },
-      { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>',            desc = 'Delete buffers to the left' },
-      { '<S-h>',      '<cmd>BufferLineCyclePrev<cr>',            desc = 'Prev buffer' },
-      { '<S-l>',      '<cmd>BufferLineCycleNext<cr>',            desc = 'Next buffer' },
-      { '[b',         '<cmd>BufferLineCyclePrev<cr>',            desc = 'Prev buffer' },
-      { ']b',         '<cmd>BufferLineCycleNext<cr>',            desc = 'Next buffer' },
+      { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete other buffers' },
+      { '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete buffers to the right' },
+      { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete buffers to the left' },
+      { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
+      { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
+      { '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev buffer' },
+      { ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next buffer' },
     },
     opts = {
       options = {
@@ -1013,7 +1000,7 @@ require('lazy').setup({
   {
     'kristijanhusak/vim-dadbod-ui',
     dependencies = {
-      { 'tpope/vim-dadbod',                     lazy = true },
+      { 'tpope/vim-dadbod', lazy = true },
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
     },
     cmd = {
@@ -1058,14 +1045,14 @@ require('lazy').setup({
     event = { 'BufReadPost', 'BufNewFile' },
     cmd = 'Grapple',
     keys = {
-      { '<leader>m', '<cmd>Grapple toggle<cr>',          desc = 'Grapple toggle tag' },
-      { '<leader>M', '<cmd>Grapple toggle_tags<cr>',     desc = 'Grapple open tags window' },
+      { '<leader>m', '<cmd>Grapple toggle<cr>', desc = 'Grapple toggle tag' },
+      { '<leader>M', '<cmd>Grapple toggle_tags<cr>', desc = 'Grapple open tags window' },
       { '<leader>n', '<cmd>Grapple cycle_tags next<cr>', desc = 'Grapple cycle next tag' },
       { '<leader>p', '<cmd>Grapple cycle_tags prev<cr>', desc = 'Grapple cycle previous tag' },
-      { '<leader>1', '<cmd>Grapple select index=1<cr>',  desc = 'Grapple index 1' },
-      { '<leader>2', '<cmd>Grapple select index=2<cr>',  desc = 'Grapple index 2' },
-      { '<leader>3', '<cmd>Grapple select index=3<cr>',  desc = 'Grapple index 3' },
-      { '<leader>4', '<cmd>Grapple select index=4<cr>',  desc = 'Grapple index 4' },
+      { '<leader>1', '<cmd>Grapple select index=1<cr>', desc = 'Grapple index 1' },
+      { '<leader>2', '<cmd>Grapple select index=2<cr>', desc = 'Grapple index 2' },
+      { '<leader>3', '<cmd>Grapple select index=3<cr>', desc = 'Grapple index 3' },
+      { '<leader>4', '<cmd>Grapple select index=4<cr>', desc = 'Grapple index 4' },
     },
   },
 
