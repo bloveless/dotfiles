@@ -157,6 +157,14 @@ vim.opt.scrolloff = 10
 -- Default tab width
 vim.opt.tabstop = 4
 
+-- Additional file types
+vim.filetype.add {
+  extension = {
+    ddl = 'sql',
+    ['blade.php'] = 'blade',
+  },
+}
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -206,6 +214,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+-- Buffer management
+vim.keymap.set('n', '<leader>bd', function()
+  require('mini.bufremove').delete(0, false)
+end, { desc = '[b]uffer [d]elete' })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -578,8 +591,19 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
-        --
+        tsserver = {},
+        intelephense = {
+          init_options = {
+            licenceKey = '~/.config/intelephense/license.txt',
+          },
+          settings = {
+            intelephense = {
+              files = {
+                maxSize = 10000000,
+              },
+            },
+          },
+        },
 
         lua_ls = {
           -- cmd = {...},
@@ -860,6 +884,17 @@ require('lazy').setup({
       require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
+
+      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+
+      parser_config.blade = {
+        install_info = {
+          url = 'https://github.com/EmranMR/tree-sitter-blade',
+          files = { 'src/parser.c' },
+          branch = 'main',
+        },
+        filetype = 'blade',
+      }
 
       -- There are additional nvim-treesitter modules that you can use to interact
       -- with nvim-treesitter. You should go explore a few and see what interests you:

@@ -119,4 +119,7 @@ return {
       require('lualine').setup(config)
     end,
   },
+
+  -- necessary for blade indentation
+  'jwalton512/vim-blade',
 }
