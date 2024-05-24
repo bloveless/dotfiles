@@ -27,8 +27,13 @@ local mykeys = {
 			wezterm.action.SendKey({ key = "L", mods = "CTRL" }),
 		}),
 	},
+	{
+		key = "r",
+		mods = "CMD|SHIFT",
+		action = wezterm.action.ReloadConfiguration,
+	},
 	-- Enable scolling back to the last input prompt
-	{ key = "UpArrow",   mods = "SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
+	{ key = "UpArrow", mods = "SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
 	{ key = "DownArrow", mods = "SHIFT", action = wezterm.action.ScrollToPrompt(1) },
 }
 
@@ -41,7 +46,8 @@ for i = 1, 8 do
 	})
 end
 
-config.color_scheme = "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
+-- config.color_scheme = "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
+config.color_scheme = "Monokai Pro (Gogh)"
 
 -- color_scheme = "tokyonight_storm",
 -- config.color_scheme = "nord"
@@ -60,7 +66,7 @@ config.scrollback_lines = 50000
 config.keys = mykeys
 config.tab_bar_at_bottom = true
 
-local theme = wezterm.color.get_builtin_schemes()["Catppuccin Frappe"]
+local theme = wezterm.color.get_builtin_schemes()["Monokai Pro (Gogh)"]
 
 config.window_frame = {
 	-- The font used in the tab bar.
@@ -69,7 +75,7 @@ config.window_frame = {
 	-- Whatever font is selected here, it will have the
 	-- main font setting appended to it to pick up any
 	-- fallback fonts you may have used there.
-	font = wezterm.font({ family = "MonoLisa", weight = "Bold" }),
+	font = wezterm.font({ family = "MonaspiceXe Nerd Font", weight = "Bold" }),
 
 	-- The size of the font in the tab bar.
 	-- Default to 10.0 on Windows but 12.0 on other systems
@@ -77,24 +83,28 @@ config.window_frame = {
 
 	-- The overall background color of the tab bar when
 	-- the window is focused
-	active_titlebar_bg = theme.background,
+	active_titlebar_bg = "#282a3a",
 
 	-- The overall background color of the tab bar when
 	-- the window is not focused
-	inactive_titlebar_bg = theme.background,
+	inactive_titlebar_bg = "#282a3a",
 }
 
 config.colors = {
+	selection_bg = "#313443",
+	background = "#282a3a",
+	foreground = "#eaf2f1",
+
 	tab_bar = {
 		active_tab = {
-			bg_color = theme.ansi[3],
+			bg_color = "#BAD761",
 			fg_color = "#333",
 		},
 
 		inactive_tab_edge = "#EEE",
 
 		inactive_tab = {
-			bg_color = "#4E5471",
+			bg_color = "#282a3a",
 			fg_color = "#EEE",
 		},
 	},
