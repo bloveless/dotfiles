@@ -9,7 +9,7 @@ return {
       lint.linters_by_ft = lint.linters_by_ft or {}
       lint.linters_by_ft['clojure'] = nil
       lint.linters_by_ft['dockerfile'] = { 'hadolint' }
-      lint.linters_by_ft['go'] = { 'golangcilint', 'vale' }
+      lint.linters_by_ft['go'] = { 'golangcilint' }
       lint.linters_by_ft['inko'] = nil
       lint.linters_by_ft['janet'] = nil
       lint.linters_by_ft['json'] = { 'jsonlint' }
