@@ -592,18 +592,19 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         tsserver = {},
-        intelephense = {
-          init_options = {
-            licenceKey = '~/.config/intelephense/license.txt',
-          },
-          settings = {
-            intelephense = {
-              files = {
-                maxSize = 10000000,
-              },
-            },
-          },
-        },
+        phpactor = {},
+        -- intelephense = {
+        --   init_options = {
+        --     licenceKey = '~/.config/intelephense/license.txt',
+        --   },
+        --   settings = {
+        --     intelephense = {
+        --       files = {
+        --         maxSize = 10000000,
+        --       },
+        --     },
+        --   },
+        -- },
 
         lua_ls = {
           -- cmd = {...},
