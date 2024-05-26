@@ -872,18 +872,19 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       { 'nvim-treesitter/nvim-treesitter-textobjects' }, -- Syntax aware text-objects
       {
         'nvim-treesitter/nvim-treesitter-context', -- Show code context
-        opts = { enable = true, mode = 'topline', line_numbers = true },
+        opts = { enable = true, mode = 'topline', line_numbers = true, multiline_threshold = 2 },
       },
     },
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'go', 'php' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'go', 'php' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -933,7 +934,7 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
