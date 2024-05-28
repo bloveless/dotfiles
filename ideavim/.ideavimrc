@@ -54,9 +54,10 @@ nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap gi :action GotoImplementation<cr>
 nnoremap gr :action GotoDeclaration<cr>
 nnoremap <leader>z :action ToggleDistractionFreeMode<cr>
-nnoremap <leader>rt :action RunClass<cr>
-nnoremap <leader>dt :action DebugClass<cr>
+nnoremap <leader>rc :action RunClass<cr>
+nnoremap <leader>dc :action DebugClass<cr>
 nnoremap <leader>rr :action Rerun<cr>
+nnoremap <leader>hw :action HideAllWindows<cr>
 nnoremap <leader>m :action AddToHarpoon<cr>
 nnoremap <leader>M :action ShowHarpoon<cr>
 nnoremap <leader>1 :action GotoHarpoon1<cr>
