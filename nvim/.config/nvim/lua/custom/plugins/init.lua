@@ -61,7 +61,6 @@ return {
 
   {
     'folke/trouble.nvim',
-    branch = 'dev',
     keys = {
       {
         '<leader>xx',
@@ -151,9 +150,6 @@ return {
     config = function(_, opts)
       local config = require('lualine').get_config()
       config = vim.tbl_deep_extend('force', config, {
-        options = {
-          theme = 'monokai-pro',
-        },
         sections = {
           lualine_c = {
             {

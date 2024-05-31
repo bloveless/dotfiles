@@ -821,14 +821,11 @@ require('lazy').setup({
   },
 
   {
-    'loctvl842/monokai-pro.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      require('monokai-pro').setup {
-        filter = 'octagon',
-      }
-
-      vim.cmd.colorscheme 'monokai-pro'
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme [[catppuccin-macchiato]]
     end,
   },
 

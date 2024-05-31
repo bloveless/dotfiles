@@ -46,7 +46,7 @@ for i = 1, 8 do
 	})
 end
 
-config.color_scheme = "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
+config.color_scheme = "Catppuccin Macchiato" -- or Macchiato, Frappe, Latte
 
 -- color_scheme = "tokyonight_storm",
 -- config.color_scheme = "nord"
@@ -65,7 +65,7 @@ config.scrollback_lines = 50000
 config.keys = mykeys
 config.tab_bar_at_bottom = true
 
-local theme = wezterm.color.get_builtin_schemes()["Catppuccin Frappe"]
+local theme = wezterm.color.get_builtin_schemes()["Catppuccin Macchiato"]
 
 config.window_frame = {
 	-- The font used in the tab bar.
