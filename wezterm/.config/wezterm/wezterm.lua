@@ -46,8 +46,7 @@ for i = 1, 8 do
 	})
 end
 
--- config.color_scheme = "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
-config.color_scheme = "Monokai Pro (Gogh)"
+config.color_scheme = "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
 
 -- color_scheme = "tokyonight_storm",
 -- config.color_scheme = "nord"
@@ -66,7 +65,7 @@ config.scrollback_lines = 50000
 config.keys = mykeys
 config.tab_bar_at_bottom = true
 
-local theme = wezterm.color.get_builtin_schemes()["Monokai Pro (Gogh)"]
+local theme = wezterm.color.get_builtin_schemes()["Catppuccin Frappe"]
 
 config.window_frame = {
 	-- The font used in the tab bar.
@@ -83,28 +82,24 @@ config.window_frame = {
 
 	-- The overall background color of the tab bar when
 	-- the window is focused
-	active_titlebar_bg = "#282a3a",
+	active_titlebar_bg = theme.background,
 
 	-- The overall background color of the tab bar when
 	-- the window is not focused
-	inactive_titlebar_bg = "#282a3a",
+	inactive_titlebar_bg = theme.background,
 }
 
 config.colors = {
-	selection_bg = "#313443",
-	background = "#282a3a",
-	foreground = "#eaf2f1",
-
 	tab_bar = {
 		active_tab = {
-			bg_color = "#BAD761",
+			bg_color = theme.ansi[3],
 			fg_color = "#333",
 		},
 
 		inactive_tab_edge = "#EEE",
 
 		inactive_tab = {
-			bg_color = "#282a3a",
+			bg_color = "#4E5471",
 			fg_color = "#EEE",
 		},
 	},
