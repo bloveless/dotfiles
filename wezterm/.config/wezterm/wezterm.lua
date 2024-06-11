@@ -50,7 +50,6 @@ end
 config.color_scheme = "nord"
 
 -- color_scheme = "tokyonight_storm",
--- config.color_scheme = "nord"
 -- color_scheme = "Gruvbox dark, medium (base16)",
 -- color_scheme = "Kanagawa (Gogh)",
 -- color_scheme = "rose-pine-moon",
@@ -63,7 +62,7 @@ config.font_size = 12
 config.line_height = 1.4
 config.initial_cols = 150
 config.initial_rows = 45
-config.scrollback_lines = 50000
+config.scrollback_lines = 100000
 config.keys = mykeys
 config.tab_bar_at_bottom = true
 
@@ -94,14 +93,14 @@ config.window_frame = {
 config.colors = {
 	tab_bar = {
 		active_tab = {
-			bg_color = theme.ansi[3],
+			bg_color = theme.ansi[7],
 			fg_color = "#333",
 		},
 
-		inactive_tab_edge = "#EEE",
+		inactive_tab_edge = theme.ansi[1],
 
 		inactive_tab = {
-			bg_color = "#4E5471",
+			bg_color = theme.background,
 			fg_color = "#EEE",
 		},
 	},
