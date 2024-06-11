@@ -820,12 +820,21 @@ require('lazy').setup({
     end,
   },
 
+  -- {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme [[catppuccin-macchiato]]
+  --   end,
+  -- },
+
   {
-    'catppuccin/nvim',
-    name = 'catppuccin',
+    'arcticicestudio/nord-vim',
+    name = 'nord',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme [[catppuccin-macchiato]]
+      vim.cmd.colorscheme [[nord]]
     end,
   },
 
@@ -896,6 +905,9 @@ require('lazy').setup({
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+
+      vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = '#3B4252' })
+      vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { bg = '#3B4252' })
 
       -- Prefer git instead of curl in order to improve connectivity in some environments
       require('nvim-treesitter.install').prefer_git = true

@@ -46,7 +46,8 @@ for i = 1, 8 do
 	})
 end
 
-config.color_scheme = "Catppuccin Macchiato" -- or Macchiato, Frappe, Latte
+-- config.color_scheme = "Catppuccin Macchiato" -- or Macchiato, Frappe, Latte
+config.color_scheme = "nord"
 
 -- color_scheme = "tokyonight_storm",
 -- config.color_scheme = "nord"
@@ -56,16 +57,17 @@ config.color_scheme = "Catppuccin Macchiato" -- or Macchiato, Frappe, Latte
 -- font = wezterm.font "MonoLisa Nerd Font",
 -- font = wezterm.font "MesloLGS NF",
 -- config.font = wezterm.font("MonaspiceXe Nerd Font")
-config.font = wezterm.font("MonoLisa")
+-- config.font = wezterm.font("MonoLisa")
+config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 12
-config.line_height = 1.2
+config.line_height = 1.4
 config.initial_cols = 150
 config.initial_rows = 45
 config.scrollback_lines = 50000
 config.keys = mykeys
 config.tab_bar_at_bottom = true
 
-local theme = wezterm.color.get_builtin_schemes()["Catppuccin Macchiato"]
+local theme = wezterm.color.get_builtin_schemes()["nord"]
 
 config.window_frame = {
 	-- The font used in the tab bar.
@@ -74,7 +76,7 @@ config.window_frame = {
 	-- Whatever font is selected here, it will have the
 	-- main font setting appended to it to pick up any
 	-- fallback fonts you may have used there.
-	font = wezterm.font({ family = "MonaspiceXe Nerd Font", weight = "Bold" }),
+	font = wezterm.font({ family = "JetBrainsMono Nerd Font", weight = "Bold" }),
 
 	-- The size of the font in the tab bar.
 	-- Default to 10.0 on Windows but 12.0 on other systems
