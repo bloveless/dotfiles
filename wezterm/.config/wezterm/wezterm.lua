@@ -106,4 +106,15 @@ config.colors = {
 	},
 }
 
+wezterm.on("update-right-status", function(window)
+	local time = wezterm.strftime("%H:%M")
+
+	window:set_right_status(wezterm.format({
+		{ Background = { Color = theme.background } },
+		{ Text = " " },
+		{ Text = wezterm.nerdfonts.md_clock .. "  " .. time },
+		{ Text = "  " },
+	}))
+end)
+
 return config
