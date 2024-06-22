@@ -20,8 +20,6 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
 fi
 
-export PATH="/opt/homebrew/opt/php@8.1/bin:$PATH"
-export PATH="/opt/homebrew/opt/php@8.1/sbin:$PATH"
 export PATH="/Applications/WezTerm.app/Contents/MacOS:$PATH"
 
 # brew install zsh-autosuggestions
