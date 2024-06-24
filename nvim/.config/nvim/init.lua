@@ -820,23 +820,23 @@ require('lazy').setup({
     end,
   },
 
-  -- {
-  --   'catppuccin/nvim',
-  --   name = 'catppuccin',
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd.colorscheme [[catppuccin-macchiato]]
-  --   end,
-  -- },
-
   {
-    'arcticicestudio/nord-vim',
-    name = 'nord',
+    'catppuccin/nvim',
+    name = 'catppuccin',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme [[nord]]
+      vim.cmd.colorscheme [[catppuccin-frappe]]
     end,
   },
+
+  -- {
+  --   'arcticicestudio/nord-vim',
+  --   name = 'nord',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme [[nord]]
+  --   end,
+  -- },
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },

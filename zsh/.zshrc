@@ -24,7 +24,8 @@ alias ll='eza -lah'
 alias ls='eza --color=auto'
 
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
+  # eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/catppuccin_frappe.omp.json)"
+  eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/catppuccin.json)"
 fi
 
 export PATH="/Applications/WezTerm.app/Contents/MacOS:$PATH"

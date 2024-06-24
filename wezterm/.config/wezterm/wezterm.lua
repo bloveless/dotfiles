@@ -46,8 +46,8 @@ for i = 1, 8 do
 	})
 end
 
--- config.color_scheme = "Catppuccin Macchiato" -- or Macchiato, Frappe, Latte
-config.color_scheme = "nord"
+config.color_scheme = "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
+-- config.color_scheme = "nord"
 
 -- color_scheme = "tokyonight_storm",
 -- color_scheme = "Gruvbox dark, medium (base16)",
@@ -56,9 +56,9 @@ config.color_scheme = "nord"
 -- font = wezterm.font "MonoLisa Nerd Font",
 -- font = wezterm.font "MesloLGS NF",
 -- config.font = wezterm.font("MonaspiceXe Nerd Font")
--- config.font = wezterm.font("MonoLisa")
-config.font = wezterm.font("JetBrainsMono Nerd Font")
-config.font_size = 12
+config.font = wezterm.font("MonoLisa")
+-- config.font = wezterm.font("JetBrainsMono Nerd Font")
+config.font_size = 11
 config.line_height = 1.4
 config.initial_cols = 150
 config.initial_rows = 45
@@ -66,7 +66,7 @@ config.scrollback_lines = 100000
 config.keys = mykeys
 config.tab_bar_at_bottom = true
 
-local theme = wezterm.color.get_builtin_schemes()["nord"]
+local theme = wezterm.color.get_builtin_schemes()["Catppuccin Frappe"]
 
 config.window_frame = {
 	-- The font used in the tab bar.
@@ -75,11 +75,11 @@ config.window_frame = {
 	-- Whatever font is selected here, it will have the
 	-- main font setting appended to it to pick up any
 	-- fallback fonts you may have used there.
-	font = wezterm.font({ family = "JetBrainsMono Nerd Font", weight = "Bold" }),
+	font = wezterm.font({ family = "MonoLisa", weight = "Bold" }),
 
 	-- The size of the font in the tab bar.
 	-- Default to 10.0 on Windows but 12.0 on other systems
-	font_size = 11.0,
+	font_size = 10.0,
 
 	-- The overall background color of the tab bar when
 	-- the window is focused
@@ -93,7 +93,7 @@ config.window_frame = {
 config.colors = {
 	tab_bar = {
 		active_tab = {
-			bg_color = theme.ansi[7],
+			bg_color = theme.ansi[3],
 			fg_color = "#333",
 		},
 
@@ -102,6 +102,11 @@ config.colors = {
 		inactive_tab = {
 			bg_color = theme.background,
 			fg_color = "#EEE",
+		},
+
+		new_tab = {
+			fg_color = "#EEE",
+			bg_color = theme.background,
 		},
 	},
 }
