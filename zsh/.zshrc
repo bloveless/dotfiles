@@ -15,6 +15,13 @@ function dstrm { # [d]ocker [st]op [r]e[m]ove
 
 alias dps="docker ps -a"
 alias gpf="git push --force-with-lease --force-if-includes"
+# brew install bat
+alias cat='bat'
+# brew install eza
+alias l='eza'
+alias la='eza -a'
+alias ll='eza -lah'
+alias ls='eza --color=auto'
 
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
