@@ -23,14 +23,14 @@ alias la='eza -a'
 alias ll='eza -lah'
 alias ls='eza --color=auto'
 
-if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  # eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/catppuccin_frappe.omp.json)"
-  eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/catppuccin.json)"
-fi
-
 export PATH="/Applications/WezTerm.app/Contents/MacOS:$PATH"
 
 # brew install zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # brew install zsh-syntax-highlighting
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# brew install zoxide
+eval "$(zoxide init zsh)"
+# brew install starship
+eval "$(starship init zsh)"
