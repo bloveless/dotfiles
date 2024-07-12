@@ -1,3 +1,5 @@
+autoload -U +X compinit && compinit
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
 source $HOME/.wezterm.sh
 source $HOME/.zshrc.local
@@ -29,6 +31,9 @@ export PATH="/Applications/WezTerm.app/Contents/MacOS:$PATH"
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # brew install zsh-syntax-highlighting
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 # brew install zoxide
 eval "$(zoxide init zsh)"
