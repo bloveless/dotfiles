@@ -151,7 +151,7 @@ return {
       local config = require('lualine').get_config()
       config = vim.tbl_deep_extend('force', config, {
         options = {
-          theme = 'nord',
+          theme = 'gruvbox',
         },
         sections = {
           lualine_c = {
