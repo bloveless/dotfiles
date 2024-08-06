@@ -830,15 +830,25 @@ require('lazy').setup({
   -- },
 
   {
-    'ellisonleao/gruvbox.nvim',
+    'navarasu/onedark.nvim',
     priority = 1000,
     config = function()
-      require('gruvbox').setup {
-        contrast = 'soft',
-      }
-      vim.cmd 'colorscheme gruvbox'
+      require('onedark').setup {}
+
+      require('onedark').load()
     end,
   },
+
+  -- {
+  --   'ellisonleao/gruvbox.nvim',
+  --   priority = 1000,
+  --   config = function()
+  --     require('gruvbox').setup {
+  --       contrast = 'soft',
+  --     }
+  --     vim.cmd 'colorscheme gruvbox'
+  --   end,
+  -- },
 
   -- {
   --   'arcticicestudio/nord-vim',

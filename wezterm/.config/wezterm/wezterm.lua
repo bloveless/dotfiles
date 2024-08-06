@@ -46,19 +46,10 @@ for i = 1, 8 do
 	})
 end
 
--- config.color_scheme = "Catppuccin Frappe" -- or Macchiato, Frappe, Latte
 config.color_scheme = "Gruvbox dark, soft (base16)"
--- config.color_scheme = "nord"
+config.color_scheme = "OneDark (base16)"
 
--- color_scheme = "tokyonight_storm",
--- color_scheme = "Gruvbox dark, medium (base16)",
--- color_scheme = "Kanagawa (Gogh)",
--- color_scheme = "rose-pine-moon",
--- font = wezterm.font "MonoLisa Nerd Font",
--- font = wezterm.font "MesloLGS NF",
--- config.font = wezterm.font("MonaspiceXe Nerd Font")
 config.font = wezterm.font("MonoLisa")
--- config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 11
 config.line_height = 1.4
 config.initial_cols = 150
@@ -67,7 +58,7 @@ config.scrollback_lines = 100000
 config.keys = mykeys
 config.tab_bar_at_bottom = true
 
-local theme = wezterm.color.get_builtin_schemes()["Gruvbox dark, soft (base16)"]
+local theme = wezterm.color.get_builtin_schemes()["OneDark (base16)"]
 
 config.window_frame = {
 	-- The font used in the tab bar.

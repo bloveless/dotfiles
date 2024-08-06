@@ -150,9 +150,6 @@ return {
     config = function(_, opts)
       local config = require('lualine').get_config()
       config = vim.tbl_deep_extend('force', config, {
-        options = {
-          theme = 'gruvbox',
-        },
         sections = {
           lualine_c = {
             {
@@ -172,61 +169,102 @@ return {
   'jwalton512/vim-blade',
 
   {
-    'romgrk/barbar.nvim',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons', -- patched fonts support
-      'lewis6991/gitsigns.nvim', -- display git status
+    'akinsho/bufferline.nvim',
+    event = 'VeryLazy',
+    keys = {
+      { '<leader>bp', '<Cmd>BufferLineTogglePin<CR>', desc = 'Toggle Pin' },
+      { '<leader>bP', '<Cmd>BufferLineGroupClose ungrouped<CR>', desc = 'Delete Non-Pinned Buffers' },
+      { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Delete Other Buffers' },
+      { '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the Right' },
+      { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the Left' },
+      { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
+      { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
+      { '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
+      { ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
+      { '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move buffer prev' },
+      { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
     },
-    init = function()
-      vim.g.barbar_auto_setup = false
-    end,
-    config = function()
-      local barbar = require 'barbar'
-
-      barbar.setup {
-        clickable = true, -- Enables/disables clickable tabs
-        tabpages = false, -- Enable/disables current/total tabpages indicator (top right corner)
-        insert_at_end = true,
-        icons = {
-          button = '',
-          buffer_index = true,
-          filetype = { enabled = true },
-          visible = { modified = { buffer_number = false } },
-          gitsigns = {
-            added = { enabled = true, icon = '+' },
-            changed = { enabled = true, icon = '~' },
-            deleted = { enabled = true, icon = '-' },
-          },
-        },
-      }
-
-      -- key maps
-
-      local map = vim.api.nvim_set_keymap
-      local opts = { noremap = true, silent = true }
-
-      -- Move to previous/next
-      map('n', 'H', '<Cmd>BufferPrevious<CR>', opts)
-      map('n', 'L', '<Cmd>BufferNext<CR>', opts)
-      -- Re-order to previous/next
-      -- map('n', '<A-H>', '<Cmd>BufferMovePrevious<CR>', opts)
-      -- map('n', '<A-L>', '<Cmd>BufferMoveNext<CR>', opts)
-      -- Goto buffer in position...
-      -- map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
-      -- map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
-      -- map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
-      -- map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
-      -- map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
-      -- map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
-      -- map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
-      -- map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
-      -- map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
-      -- map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
-      -- Pin/unpin buffer
-      -- map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
-      -- Close buffer
-      map('n', '<C-c>', '<Cmd>BufferClose<CR>', opts)
-      -- map('n', '<A-b>', '<Cmd>BufferCloseAllButCurrent<CR>', opts)
+    opts = {
+      options = {
+        close_command = function(n)
+          require('mini.bufremove').delete(n, false)
+        end,
+        right_mouse_command = function(n)
+          require('mini.bufremove').delete(n, false)
+        end,
+        diagnostics = 'nvim_lsp',
+        always_show_bufferline = true,
+      },
+    },
+    config = function(_, opts)
+      require('bufferline').setup(opts)
+      -- Fix bufferline when restoring a session
+      vim.api.nvim_create_autocmd({ 'BufAdd', 'BufDelete' }, {
+        callback = function()
+          vim.schedule(function()
+            pcall(nvim_bufferline)
+          end)
+        end,
+      })
     end,
   },
+
+  -- {
+  --   'romgrk/barbar.nvim',
+  --   dependencies = {
+  --     'nvim-tree/nvim-web-devicons', -- patched fonts support
+  --     'lewis6991/gitsigns.nvim', -- display git status
+  --   },
+  --   init = function()
+  --     vim.g.barbar_auto_setup = false
+  --   end,
+  --   config = function()
+  --     local barbar = require 'barbar'
+  --
+  --     barbar.setup {
+  --       clickable = true, -- Enables/disables clickable tabs
+  --       tabpages = false, -- Enable/disables current/total tabpages indicator (top right corner)
+  --       insert_at_end = true,
+  --       icons = {
+  --         button = '',
+  --         buffer_index = true,
+  --         filetype = { enabled = true },
+  --         visible = { modified = { buffer_number = false } },
+  --         gitsigns = {
+  --           added = { enabled = true, icon = '+' },
+  --           changed = { enabled = true, icon = '~' },
+  --           deleted = { enabled = true, icon = '-' },
+  --         },
+  --       },
+  --     }
+  --
+  --     -- key maps
+  --
+  --     local map = vim.api.nvim_set_keymap
+  --     local opts = { noremap = true, silent = true }
+  --
+  --     -- Move to previous/next
+  --     map('n', 'H', '<Cmd>BufferPrevious<CR>', opts)
+  --     map('n', 'L', '<Cmd>BufferNext<CR>', opts)
+  --     -- Re-order to previous/next
+  --     -- map('n', '<A-H>', '<Cmd>BufferMovePrevious<CR>', opts)
+  --     -- map('n', '<A-L>', '<Cmd>BufferMoveNext<CR>', opts)
+  --     -- Goto buffer in position...
+  --     -- map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
+  --     -- map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
+  --     -- map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
+  --     -- map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
+  --     -- map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
+  --     -- map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+  --     -- map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
+  --     -- map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
+  --     -- map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
+  --     -- map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+  --     -- Pin/unpin buffer
+  --     -- map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+  --     -- Close buffer
+  --     map('n', '<C-c>', '<Cmd>BufferClose<CR>', opts)
+  --     -- map('n', '<A-b>', '<Cmd>BufferCloseAllButCurrent<CR>', opts)
+  --   end,
+  -- },
 }
