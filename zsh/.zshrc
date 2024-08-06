@@ -26,6 +26,7 @@ alias ll='eza -lah'
 alias ls='eza --color=auto'
 
 export PATH="/Applications/WezTerm.app/Contents/MacOS:$PATH"
+export PATH="$PATH:$(go env GOPATH)/bin"
 
 # brew install zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
