@@ -27,6 +27,12 @@ set notimeout
 " change easymotion prefix to a single leader + command. I.E. <leader>f or <leader>w
 map <Leader> <Plug>(easymotion-prefix)
 
+" Navigate splits/tabs
+map <C-H> <C-W>h
+map <C-L> <C-W>l
+nnoremap L :action NextTab<cr>
+nnoremap H :action PreviousTab<cr>
+
 " Save relative jumps to jumplist so they can be undone with ctrl+o
 nnoremap <expr> j (v:count <= 1 ? 'j' : "m'" . v:count . 'j')
 nnoremap <expr> k (v:count <= 1 ? 'k' : "m'" . v:count . 'k')
@@ -39,7 +45,8 @@ nnoremap <c-n> :action ActivateProjectToolWindow<cr>
 nnoremap <leader>f :action ReformatCode<cr>
 nnoremap <leader>sf :action GotoFile<cr>
 nnoremap <leader>g :action FindInPath<cr>
-nnoremap <leader>b :action Switcher<cr>
+nnoremap <leader>s :action Switcher<cr>
+nnoremap <leader>bd :action CloseEditor<cr>
 nnoremap gy :action com.github.kawamataryo.copygitlink.CopyPermalink<cr>
 vnoremap gy :action com.github.kawamataryo.copygitlink.CopyPermalink<cr>
 nnoremap <leader>rn :action Refactorings.QuickListPopupAction<cr>
@@ -51,7 +58,7 @@ nnoremap ]d :action GotoNextError<cr>
 nnoremap [d :action GotoPreviousError<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
-nnoremap gi :action GotoImplementation<cr>
+nnoremap gI :action GotoImplementation<cr>
 nnoremap gr :action GotoDeclaration<cr>
 nnoremap <leader>z :action ToggleDistractionFreeMode<cr>
 nnoremap <leader>rc :action RunClass<cr>
@@ -65,8 +72,6 @@ nnoremap <leader>2 :action GotoHarpoon2<cr>
 nnoremap <leader>3 :action GotoHarpoon3<cr>
 nnoremap <leader>4 :action GotoHarpoon4<cr>
 nnoremap <leader>5 :action GotoHarpoon5<cr>
-nnoremap L :action NextTab<cr>
-nnoremap H :action PreviousTab<cr>
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq

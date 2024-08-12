@@ -223,10 +223,19 @@ end, { desc = '[b]uffer [d]elete' })
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-end ---@diagnostic disable-next-line: undefined-field
+  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+      { out, 'WarningMsg' },
+      { '\nPress any key to exit...' },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
@@ -954,6 +963,64 @@ require('lazy').setup({
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
+  },
+
+  {
+    'shortcuts/no-neck-pain.nvim',
+    version = '*',
+    keys = {
+      {
+        '<leader>z',
+        function()
+          require('no-neck-pain').toggle {}
+        end,
+        desc = '[Z]en mode',
+      },
+    },
+    opts = {
+      width = 170,
+    },
+  },
+
+  {
+    'folke/persistence.nvim',
+    event = 'BufReadPre', -- this will only start session saving when an actual file was opened
+    keys = {
+      {
+        '<leader>qs',
+        function()
+          require('persistence').load()
+        end,
+        desc = '[q][s] Load session',
+      },
+
+      {
+        '<leader>qS',
+        function()
+          require('persistence').load()
+        end,
+        desc = '[q][S] Select session to load',
+      },
+
+      {
+        '<leader>ql',
+        function()
+          require('persistence').load { last = true }
+        end,
+        desc = '[q][l] Load last session',
+      },
+
+      {
+        '<leader>qd',
+        function()
+          require('persistence').load { last = true }
+        end,
+        desc = "[q][d] Stop persistence, session won't be saved",
+      },
+    },
+    opts = {
+      -- add any custom options here
+    },
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
