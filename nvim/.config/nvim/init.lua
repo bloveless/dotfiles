@@ -979,7 +979,7 @@ require('lazy').setup({
       {
         '<leader>z',
         function()
-          require('no-neck-pain').toggle {}
+          require('no-neck-pain').toggle()
         end,
         desc = '[Z]en mode',
       },
