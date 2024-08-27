@@ -36,8 +36,8 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
-# Bind tab to zsh autosuggestions accept
-bindkey '^ ' autosuggest-accept
+# Bind ctry+y to zsh autosuggestions accept
+bindkey '^y' autosuggest-accept
 
 # brew install zoxide
 eval "$(zoxide init zsh)"
