@@ -262,24 +262,44 @@ require('lazy').setup({
   --  This is equivalent to:
   --    require('Comment').setup({})
 
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
-
-  -- Here is a more advanced example where we pass configuration
-  -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
-  --    require('gitsigns').setup({ ... })
-  --
-  -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+  {
+    'folke/persistence.nvim',
+    event = 'BufReadPre', -- this will only start session saving when an actual file was opened
+    keys = {
+      {
+        '<leader>qs',
+        function()
+          require('persistence').load()
+        end,
+        desc = '[q][s] Load session',
       },
+
+      {
+        '<leader>qS',
+        function()
+          require('persistence').load()
+        end,
+        desc = '[q][S] Select session to load',
+      },
+
+      {
+        '<leader>ql',
+        function()
+          require('persistence').load { last = true }
+        end,
+        desc = '[q][l] Load last session',
+      },
+
+      {
+        '<leader>qd',
+        function()
+          require('persistence').load { last = true }
+        end,
+        desc = "[q][d] Stop persistence, session won't be saved",
+      },
+    },
+    opts = {
+      -- add any custom options here
     },
   },
 
@@ -910,6 +930,10 @@ require('lazy').setup({
       statusline.section_location = function()
         return '%2l:%-2v'
       end
+
+      require('mini.diff').setup()
+
+      require('mini.comment').setup()
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim

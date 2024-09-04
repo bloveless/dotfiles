@@ -43,7 +43,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
--- vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "yes"
 
 -- Decrease update time
 vim.opt.updatetime = 250
@@ -70,6 +70,9 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+-- display tabs as 4 characters
+vim.opt.tabstop = 4
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -132,6 +135,47 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+
+	{
+		"folke/persistence.nvim",
+		event = "BufReadPre", -- this will only start session saving when an actual file was opened
+		keys = {
+			{
+				"<leader>qs",
+				function()
+					require("persistence").load()
+				end,
+				desc = "[q][s] Load session",
+			},
+
+			{
+				"<leader>qS",
+				function()
+					require("persistence").load()
+				end,
+				desc = "[q][S] Select session to load",
+			},
+
+			{
+				"<leader>ql",
+				function()
+					require("persistence").load({ last = true })
+				end,
+				desc = "[q][l] Load last session",
+			},
+
+			{
+				"<leader>qd",
+				function()
+					require("persistence").load({ last = true })
+				end,
+				desc = "[q][d] Stop persistence, session won't be saved",
+			},
+		},
+		opts = {
+			-- add any custom options here
+		},
+	},
 
 	{ -- Useful plugin to show you pending keybinds.
 		"folke/which-key.nvim",
@@ -209,7 +253,7 @@ require("lazy").setup({
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 
 			-- Useful for getting pretty icons, but requires a Nerd Font.
-			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+			-- { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 		},
 		config = function()
 			-- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -314,10 +358,6 @@ require("lazy").setup({
 			{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-
-			-- Useful status updates for LSP.
-			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			{ "j-hui/fidget.nvim", opts = {} },
 
 			-- Allows extra capabilities provided by nvim-cmp
 			"hrsh7th/cmp-nvim-lsp",
@@ -466,7 +506,7 @@ require("lazy").setup({
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
 				-- clangd = {},
-				-- gopls = {},
+				gopls = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -507,6 +547,9 @@ require("lazy").setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
+				"goimports",
+				"gofumpt",
+				"golangci-lint",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -557,8 +600,17 @@ require("lazy").setup({
 					lsp_format = lsp_format_opt,
 				}
 			end,
+			formatters = {
+				goimports = {
+					prepend_args = { "-local", "github.com/bayer-int" },
+				},
+			},
 			formatters_by_ft = {
 				lua = { "stylua" },
+				go = {
+					"goimports",
+					"gofumpt",
+				},
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
@@ -736,6 +788,9 @@ require("lazy").setup({
 
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
+		dependencies = {
+			"mfussenegger/nvim-lint",
+		},
 		config = function()
 			require("mini.basics").setup({
 				autocommands = {
@@ -751,6 +806,12 @@ require("lazy").setup({
 			--  - ci'  - [C]hange [I]nside [']quote
 			require("mini.ai").setup({ n_lines = 500 })
 
+			-- lsp info and other notifications
+			require("mini.notify").setup({})
+			require("mini.git").setup()
+			require("mini.diff").setup()
+			require("mini.icons").setup()
+
 			-- Add/delete/replace surroundings (brackets, quotes, etc.)
 			--
 			-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
@@ -765,23 +826,35 @@ require("lazy").setup({
 
 			require("mini.tabline").setup()
 
-			-- Simple and easy statusline.
-			--  You could remove this setup call if you don't like it,
-			--  and try some other statusline plugin
-			local statusline = require("mini.statusline")
-			-- set use_icons to true if you have a Nerd Font
-			statusline.setup({ use_icons = vim.g.have_nerd_font })
-
-			-- You can configure sections in the statusline by overriding their
-			-- default behavior. For example, here we set the section for
-			-- cursor location to LINE:COLUMN
-			---@diagnostic disable-next-line: duplicate-set-field
-			statusline.section_location = function()
-				return "%2l:%-2v"
+			local lint_progress = function()
+				local linters = require("lint").get_running()
+				if #linters == 0 then
+					return ""
+				end
+				return "󱉶 " .. table.concat(linters, ", ")
 			end
 
-			-- ... and there is more!
-			--  Check out: https://github.com/echasnovski/mini.nvim
+			local active_content = function()
+				local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+				local git = MiniStatusline.section_git({ trunc_width = 75 })
+				local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+				local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+				local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+				local location = "%2l:%-2v" -- MiniStatusline.section_location({ trunc_width = 75 })
+				local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+
+				return MiniStatusline.combine_groups({
+					{ hl = mode_hl, strings = { mode } },
+					{ hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
+					"%<", -- Mark general truncate point
+					{ hl = "MiniStatuslineFilename", strings = { filename } },
+					"%=", -- End left alignment
+					{ hl = "MiniStatuslineFileinfo", strings = { fileinfo, lint_progress() } },
+					{ hl = mode_hl, strings = { search, location } },
+				})
+			end
+
+			require("mini.statusline").setup({ content = { active = active_content }, use_icons = vim.g.have_nerd_font })
 		end,
 	},
 
@@ -877,4 +950,4 @@ require("lazy").setup({
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-- vim: ts=4 sts=4 sw=4 et
