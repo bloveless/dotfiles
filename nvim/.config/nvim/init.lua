@@ -74,6 +74,14 @@ vim.opt.scrolloff = 10
 -- display tabs as 4 characters
 vim.opt.tabstop = 4
 
+-- Additional file types
+vim.filetype.add({
+	extension = {
+		ddl = "sql",
+		[".*%.blade%.php"] = "blade",
+	},
+})
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -507,6 +515,7 @@ require("lazy").setup({
 			local servers = {
 				-- clangd = {},
 				gopls = {},
+				phpactor = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -550,6 +559,8 @@ require("lazy").setup({
 				"goimports-reviser",
 				"gofumpt",
 				"golangci-lint",
+				"phpactor",
+				"blade-formatter",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -618,6 +629,7 @@ require("lazy").setup({
 					"goimports-reviser",
 					"gofumpt",
 				},
+				blade = { "blade-formatter" },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
@@ -904,6 +916,19 @@ require("lazy").setup({
 			},
 			indent = { enable = true, disable = { "ruby" } },
 		},
+		config = function(_, opts)
+			require("nvim-treesitter.configs").setup(opts)
+			local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+			parser_config.blade = {
+				install_info = {
+					url = "https://github.com/EmranMR/tree-sitter-blade",
+					files = { "src/parser.c" },
+					branch = "main",
+				},
+				filetype = "blade",
+			}
+		end,
 	},
 
 	{
