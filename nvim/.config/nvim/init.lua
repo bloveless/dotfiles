@@ -77,8 +77,15 @@ vim.opt.tabstop = 4
 -- Additional file types
 vim.filetype.add({
 	extension = {
+		gotmpl = "gotmpl",
+		[".go.tmpl"] = "gotmpl",
 		ddl = "sql",
 		[".*%.blade%.php"] = "blade",
+	},
+	pattern = {
+		[".*/templates/.*%.tpl"] = "helm",
+		[".*/templates/.*%.ya?ml"] = "helm",
+		["helmfile.*%.ya?ml"] = "helm",
 	},
 })
 
@@ -514,8 +521,12 @@ require("lazy").setup({
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
 				-- clangd = {},
-				-- gopls = {},
+				-- gopls = {}, -- included with go.nvim
 				phpactor = {},
+				helm_ls = {},
+				docker_compose_language_service = {},
+				dockerls = {},
+				jsonls = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -555,13 +566,16 @@ require("lazy").setup({
 			-- for you, so that they are available from within Neovim.
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
-				"stylua", -- Used to format Lua code
-				"goimports-reviser",
+				"blade-formatter",
 				"gofumpt",
+				"goimports-reviser",
 				"golangci-lint",
+				"hadolint",
 				"phpactor",
 				"pint",
-				"blade-formatter",
+				"stylua", -- Used to format Lua code
+				"tflint",
+				"tfsec",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -657,7 +671,8 @@ require("lazy").setup({
 			lint.linters_by_ft["markdown"] = { "markdownlint" }
 			lint.linters_by_ft["rst"] = nil
 			lint.linters_by_ft["ruby"] = nil
-			lint.linters_by_ft["terraform"] = { "tflint" }
+			lint.linters_by_ft["terraform"] = { "tflint", "tfsec" }
+			lint.linters_by_ft["docker"] = { "hadolint" }
 			lint.linters_by_ft["text"] = nil
 
 			-- Create autocommand which carries out the actual linting
