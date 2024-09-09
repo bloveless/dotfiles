@@ -572,6 +572,7 @@ require("lazy").setup({
 				"goimports-reviser",
 				"golangci-lint",
 				"hadolint",
+				"markdownlint",
 				"phpactor",
 				"pint",
 				"stylua", -- Used to format Lua code
