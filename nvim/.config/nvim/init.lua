@@ -528,6 +528,7 @@ require("lazy").setup({
 				dockerls = {},
 				jsonls = {},
 				["typos-lsp"] = {},
+				["terraform-ls"] = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -568,6 +569,7 @@ require("lazy").setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"blade-formatter",
+				-- "cspell",
 				"gofumpt",
 				"goimports-reviser",
 				"golangci-lint",
@@ -662,6 +664,12 @@ require("lazy").setup({
 		config = function()
 			local lint = require("lint")
 
+			-- change cspell diagnostics to hints
+			lint.linters.cspell = require("lint.util").wrap(lint.linters.cspell, function(diagnostic)
+				diagnostic.severity = vim.diagnostic.severity.HINT
+				return diagnostic
+			end)
+
 			-- To allow other plugins to add linters to require('lint').linters_by_ft,
 			lint.linters_by_ft = lint.linters_by_ft or {}
 			lint.linters_by_ft["clojure"] = nil
@@ -684,6 +692,9 @@ require("lazy").setup({
 				group = lint_augroup,
 				callback = function()
 					require("lint").try_lint()
+
+					-- run cspell on all files
+					-- require("lint").try_lint("cspell")
 				end,
 			})
 		end,
@@ -844,7 +855,7 @@ require("lazy").setup({
 			require("mini.ai").setup({ n_lines = 500 })
 
 			-- lsp info and other notifications
-			require("mini.notify").setup({})
+			require("mini.notify").setup()
 			-- require("mini.git").setup()
 			-- require("mini.diff").setup()
 			require("mini.icons").setup()
@@ -1071,6 +1082,39 @@ require("lazy").setup({
 					end)
 				end,
 			})
+		end,
+	},
+
+	{
+		"stevearc/aerial.nvim",
+		opts = {
+			on_attach = function(bufnr)
+				-- Jump forwards/backwards with '{' and '}'
+				vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+				vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+			end,
+		},
+		keys = {
+			{
+				"<leader>a",
+				"<cmd>AerialToggle!<CR>",
+				desc = "Toggle [a]erial",
+			},
+		},
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
+
+	{
+		"petertriho/nvim-scrollbar",
+		dependencies = {
+			"lewis6991/gitsigns.nvim",
+		},
+		config = function(_, opts)
+			require("scrollbar").setup()
+			require("scrollbar.handlers.gitsigns").setup()
 		end,
 	},
 
