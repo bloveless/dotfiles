@@ -987,6 +987,7 @@ require("lazy").setup({
 				"c",
 				"diff",
 				"go",
+				"hcl",
 				"html",
 				"lua",
 				"luadoc",
