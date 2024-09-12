@@ -525,7 +525,19 @@ require("lazy").setup({
 			local servers = {
 				-- clangd = {},
 				gopls = {},
-				phpactor = {},
+				-- phpactor = {},
+				intelephense = {
+					init_options = {
+						licenceKey = "~/.config/intelephense/license.txt",
+					},
+					settings = {
+						intelephense = {
+							files = {
+								maxSize = 10000000,
+							},
+						},
+					},
+				},
 				helm_ls = {},
 				docker_compose_language_service = {},
 				dockerls = {},
@@ -578,7 +590,7 @@ require("lazy").setup({
 				"golangci-lint",
 				"hadolint",
 				"markdownlint",
-				"phpactor",
+				"phpcs",
 				"pint",
 				"stylua", -- Used to format Lua code
 				"tflint",
@@ -681,6 +693,7 @@ require("lazy").setup({
 			lint.linters_by_ft["terraform"] = { "tflint", "tfsec" }
 			lint.linters_by_ft["docker"] = { "hadolint" }
 			lint.linters_by_ft["text"] = nil
+			lint.linters_by_ft["php"] = { "phpcs" }
 
 			-- Create autocommand which carries out the actual linting
 			-- on the specified events.
@@ -1231,13 +1244,17 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			"fredrikaverpil/neotest-golang", -- Installation
+			"fredrikaverpil/neotest-golang",
+			"V13Axel/neotest-pest",
 		},
 		opts = {
 			adapters = {
 				["neotest-golang"] = {
 					go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
 					dap_go_enabled = true,
+				},
+				["neotest-pest"] = {
+					sail_enabled = false,
 				},
 			},
 			status = {
