@@ -1132,14 +1132,44 @@ require("lazy").setup({
 		},
 	},
 
+	-- {
+	-- 	"kevinhwang91/nvim-hlslens",
+	-- 	opts = {},
+	-- 	config = function(_, opts)
+	-- 		require("hlslens").setup(opts)
+	-- 		local kopts = { noremap = true, silent = true }
+	--
+	-- 		vim.api.nvim_set_keymap(
+	-- 			"n",
+	-- 			"n",
+	-- 			[[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+	-- 			kopts
+	-- 		)
+	-- 		vim.api.nvim_set_keymap(
+	-- 			"n",
+	-- 			"N",
+	-- 			[[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+	-- 			kopts
+	-- 		)
+	-- 		vim.api.nvim_set_keymap("n", "*", [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+	-- 		vim.api.nvim_set_keymap("n", "#", [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+	-- 		vim.api.nvim_set_keymap("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+	-- 		vim.api.nvim_set_keymap("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+	--
+	-- 		vim.api.nvim_set_keymap("n", "<Leader>l", "<Cmd>noh<CR>", kopts)
+	-- 	end,
+	-- },
+
 	{
 		"petertriho/nvim-scrollbar",
 		dependencies = {
 			"lewis6991/gitsigns.nvim",
+			"kevinhwang91/nvim-hlslens",
 		},
 		config = function(_, opts)
 			require("scrollbar").setup()
 			require("scrollbar.handlers.gitsigns").setup()
+			require("scrollbar.handlers.search").setup({})
 		end,
 	},
 
@@ -1552,6 +1582,21 @@ require("lazy").setup({
 			-- refer to the configuration section below
 		},
 	},
+
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		---@type Flash.Config
+		opts = {},
+		-- stylua: ignore
+		keys = {
+			{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+			{ "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+			{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+			{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+			{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+		},
+	},
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -1573,6 +1618,3 @@ require("lazy").setup({
 		},
 	},
 })
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=4 sts=4 sw=4 et
