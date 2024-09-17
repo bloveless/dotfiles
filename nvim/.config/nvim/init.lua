@@ -584,7 +584,6 @@ require("lazy").setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"blade-formatter",
-				-- "cspell",
 				"gofumpt",
 				"goimports",
 				"golangci-lint",
@@ -674,12 +673,6 @@ require("lazy").setup({
 		config = function()
 			local lint = require("lint")
 
-			-- change cspell diagnostics to hints
-			lint.linters.cspell = require("lint.util").wrap(lint.linters.cspell, function(diagnostic)
-				diagnostic.severity = vim.diagnostic.severity.HINT
-				return diagnostic
-			end)
-
 			-- To allow other plugins to add linters to require('lint').linters_by_ft,
 			lint.linters_by_ft = lint.linters_by_ft or {}
 			lint.linters_by_ft["clojure"] = nil
@@ -703,9 +696,6 @@ require("lazy").setup({
 				group = lint_augroup,
 				callback = function()
 					require("lint").try_lint()
-
-					-- run cspell on all files
-					-- require("lint").try_lint("cspell")
 				end,
 			})
 		end,
@@ -1039,6 +1029,26 @@ require("lazy").setup({
 	},
 
 	{
+		"kdheepak/lazygit.nvim",
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		-- optional for floating window border decoration
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		-- setting the keybinding for LazyGit with 'keys' is recommended in
+		-- order to load the plugin when the command is run for the first time
+		keys = {
+			{ "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+		},
+	},
+
+	{
 		"ruifm/gitlinker.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		keys = {
@@ -1261,9 +1271,28 @@ require("lazy").setup({
 			"leoluz/nvim-dap-go",
 		},
 		opts = {
+			-- See all config options with :h neotest.Config (options from https://github.com/fredrikaverpil/neotest-golang to help neotest performance in large code bases)
+			discovery = {
+				-- Drastically improve performance in ginormous projects by
+				-- only AST-parsing the currently opened buffer.
+				enabled = false,
+				-- Number of workers to parse files concurrently.
+				-- A value of 0 automatically assigns number based on CPU.
+				-- Set to 1 if experiencing lag.
+				concurrent = 0,
+			},
+			running = {
+				-- Run tests concurrently when an adapter provides multiple commands to run.
+				concurrent = true,
+			},
+			summary = {
+				-- Enable/disable animation of icons.
+				animated = false,
+			},
 			adapters = {
 				["neotest-golang"] = {
-					go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
+					-- go_test_rgs = { "-v", "-race", "-count=1", "-timeout=60s" },
+					go_test_args = { "-cover", "-short" },
 					dap_go_enabled = true,
 				},
 				["neotest-pest"] = {
