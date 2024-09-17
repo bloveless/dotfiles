@@ -687,7 +687,7 @@ require("lazy").setup({
 			lint.linters_by_ft["terraform"] = { "tflint", "tfsec" }
 			lint.linters_by_ft["docker"] = { "hadolint" }
 			lint.linters_by_ft["text"] = nil
-			lint.linters_by_ft["php"] = { "phpcs" }
+			-- lint.linters_by_ft["php"] = { "phpcs" }
 
 			-- Create autocommand which carries out the actual linting
 			-- on the specified events.
