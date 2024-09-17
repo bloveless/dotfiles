@@ -595,6 +595,7 @@ require("lazy").setup({
 				"stylua", -- Used to format Lua code
 				"tflint",
 				"tfsec",
+				"delve",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -1178,6 +1179,7 @@ require("lazy").setup({
 			{
 				"<leader>tt",
 				function()
+					require("neotest").output_panel.clear()
 					require("neotest").run.run(vim.fn.expand("%"))
 				end,
 				desc = "Run File",
@@ -1185,6 +1187,7 @@ require("lazy").setup({
 			{
 				"<leader>tT",
 				function()
+					require("neotest").output_panel.clear()
 					require("neotest").run.run(vim.uv.cwd())
 				end,
 				desc = "Run All Test Files",
@@ -1192,13 +1195,22 @@ require("lazy").setup({
 			{
 				"<leader>tr",
 				function()
+					require("neotest").output_panel.clear()
 					require("neotest").run.run()
 				end,
 				desc = "Run Nearest",
 			},
 			{
+				"<leader>td",
+				function()
+					require("neotest").run.run({ strategy = "dap" })
+				end,
+				desc = "Debug nearest",
+			},
+			{
 				"<leader>tl",
 				function()
+					require("neotest").output_panel.clear()
 					require("neotest").run.run_last()
 				end,
 				desc = "Run Last",
@@ -1246,6 +1258,7 @@ require("lazy").setup({
 			"nvim-treesitter/nvim-treesitter",
 			"fredrikaverpil/neotest-golang",
 			"V13Axel/neotest-pest",
+			"leoluz/nvim-dap-go",
 		},
 		opts = {
 			adapters = {
@@ -1261,12 +1274,10 @@ require("lazy").setup({
 				virtual_text = false,
 			},
 			output = {
-				open_on_run = true,
+				open_on_run = false,
 			},
-			quickfix = {
-				open = function()
-					require("trouble").open({ mode = "quickfix", focus = false })
-				end,
+			output_summary = {
+				enabled = true,
 			},
 		},
 		config = function(_, opts)
@@ -1274,7 +1285,6 @@ require("lazy").setup({
 			vim.diagnostic.config({
 				virtual_text = {
 					format = function(diagnostic)
-						print("diagnostics" .. vim.inspect(diagnostic))
 						-- Replace newline and tab characters with space for more compact diagnostics
 						local message =
 							diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
@@ -1343,6 +1353,164 @@ require("lazy").setup({
 			end
 
 			require("neotest").setup(opts)
+		end,
+	},
+
+	{
+		"mfussenegger/nvim-dap",
+		recommended = true,
+		desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
+
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			-- virtual text for the debugger
+			{
+				"theHamsta/nvim-dap-virtual-text",
+				opts = {},
+			},
+			{
+				"leoluz/nvim-dap-go",
+				opts = {},
+			},
+		},
+
+		keys = {
+			{ "<leader>d", "", desc = "+debug", mode = { "n", "v" } },
+			{
+				"<leader>dB",
+				function()
+					require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+				end,
+				desc = "Breakpoint Condition",
+			},
+			{
+				"<leader>db",
+				function()
+					require("dap").toggle_breakpoint()
+				end,
+				desc = "Toggle Breakpoint",
+			},
+			{
+				"<leader>dc",
+				function()
+					require("dap").continue()
+				end,
+				desc = "Continue",
+			},
+			{
+				"<leader>da",
+				function()
+					require("dap").continue({ before = get_args })
+				end,
+				desc = "Run with Args",
+			},
+			{
+				"<leader>dC",
+				function()
+					require("dap").run_to_cursor()
+				end,
+				desc = "Run to Cursor",
+			},
+			{
+				"<leader>dg",
+				function()
+					require("dap").goto_()
+				end,
+				desc = "Go to Line (No Execute)",
+			},
+			{
+				"<leader>di",
+				function()
+					require("dap").step_into()
+				end,
+				desc = "Step Into",
+			},
+			{
+				"<leader>dj",
+				function()
+					require("dap").down()
+				end,
+				desc = "Down",
+			},
+			{
+				"<leader>dk",
+				function()
+					require("dap").up()
+				end,
+				desc = "Up",
+			},
+			{
+				"<leader>dl",
+				function()
+					require("dap").run_last()
+				end,
+				desc = "Run Last",
+			},
+			{
+				"<leader>do",
+				function()
+					require("dap").step_out()
+				end,
+				desc = "Step Out",
+			},
+			{
+				"<leader>dO",
+				function()
+					require("dap").step_over()
+				end,
+				desc = "Step Over",
+			},
+			{
+				"<leader>dp",
+				function()
+					require("dap").pause()
+				end,
+				desc = "Pause",
+			},
+			{
+				"<leader>dr",
+				function()
+					require("dap").repl.toggle()
+				end,
+				desc = "Toggle REPL",
+			},
+			{
+				"<leader>ds",
+				function()
+					require("dap").session()
+				end,
+				desc = "Session",
+			},
+			{
+				"<leader>dt",
+				function()
+					require("dap").terminate()
+				end,
+				desc = "Terminate",
+			},
+			{
+				"<leader>dw",
+				function()
+					require("dap.ui.widgets").hover()
+				end,
+				desc = "Widgets",
+			},
+		},
+		config = function(_, opts)
+			local dap, dapui = require("dap"), require("dapui")
+			dapui.setup()
+			dap.listeners.before.attach.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.launch.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated.dapui_config = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited.dapui_config = function()
+				dapui.close()
+			end
 		end,
 	},
 

@@ -9,14 +9,14 @@ set ideajoin
 set surround
 set commentary
 set which-key
-set easymotion
+" set easymotion
 set incsearch
-set visualbell
-set number relativenumber
+" set visualbell
+set number " relativenumber
 set ignorecase
 set smartcase
 set scrolloff=10
-set NERDTree
+" set NERDTree
 
 " Use system clipboard by default
 set clipboard+=unnamedplus
@@ -25,11 +25,13 @@ set clipboard+=unnamedplus
 set notimeout
 
 " change easymotion prefix to a single leader + command. I.E. <leader>f or <leader>w
-map <Leader> <Plug>(easymotion-prefix)
+" map <Leader> <Plug>(easymotion-prefix)
 
 " Navigate splits/tabs
 map <C-H> <C-W>h
 map <C-L> <C-W>l
+map <C-K> <C-W>k
+map <C-J> <C-W>j
 nnoremap L :action NextTab<cr>
 nnoremap H :action PreviousTab<cr>
 
@@ -61,8 +63,14 @@ nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap gI :action GotoImplementation<cr>
 nnoremap gr :action GotoDeclaration<cr>
 nnoremap <leader>z :action ToggleDistractionFreeMode<cr>
-nnoremap <leader>rc :action RunClass<cr>
-nnoremap <leader>dc :action DebugClass<cr>
+" Run whole test file (not sure what the command is here)
+nnoremap <leader>tt :action RunClass<cr>
+" Run/debug closest test
+nnoremap <leader>tr :action RunClass<cr>
+nnoremap <leader>dr :action DebugClass<cr>
+" Test/debug run last
+nnoremap <leader>tl :action Rerun<cr>
+nnoremap <leader>dl :action Rerun<cr>
 nnoremap <leader>rr :action Rerun<cr>
 nnoremap <leader>hw :action HideAllWindows<cr>
 nnoremap <leader>m :action AddToHarpoon<cr>
