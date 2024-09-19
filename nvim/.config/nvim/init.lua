@@ -269,7 +269,7 @@ require("lazy").setup({
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 
 			-- Useful for getting pretty icons, but requires a Nerd Font.
-			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+			-- { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 		},
 		config = function()
 			-- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -827,14 +827,6 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Highlight todo, notes, etc in comments
-	{
-		"folke/todo-comments.nvim",
-		event = "VimEnter",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
-	},
-
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
 		dependencies = {
@@ -859,7 +851,32 @@ require("lazy").setup({
 			require("mini.notify").setup()
 			-- require("mini.git").setup()
 			-- require("mini.diff").setup()
-			require("mini.icons").setup()
+			local icons = require("mini.icons")
+			icons.setup()
+			icons.mock_nvim_web_devicons()
+
+			require("mini.pick").setup()
+			local minifiles = require("mini.files")
+			minifiles.setup({
+				window = {
+					preview = true,
+				},
+			})
+			vim.keymap.set("n", "<leader>e", function()
+				minifiles.open(vim.api.nvim_buf_get_name(0))
+				minifiles.reveal_cwd()
+			end, { desc = "File explorer" })
+
+			local hipatterns = require("mini.hipatterns")
+			hipatterns.setup({
+				highlighters = {
+					fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
+					hack = { pattern = "HACK", group = "MiniHipatternsHack" },
+					todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
+					note = { pattern = "NOTE", group = "MiniHipatternsNote" },
+					hex_color = hipatterns.gen_highlighter.hex_color(),
+				},
+			})
 
 			-- Add/delete/replace surroundings (brackets, quotes, etc.)
 			--
@@ -869,11 +886,19 @@ require("lazy").setup({
 			require("mini.surround").setup()
 
 			require("mini.bufremove").setup()
-			vim.keymap.set("n", "<leader>bd", function()
+			vim.keymap.set("n", "<leader>w", function()
 				require("mini.bufremove").delete(0, false)
-			end, { desc = "[b]uffer [d]elete" })
+			end, { desc = "buffer delete" })
 
-			-- require("mini.tabline").setup()
+			require("mini.tabline").setup({
+				format = function(buf_id, label)
+					-- TODO: would be nice to add diagnostics here
+					local suffix = vim.bo[buf_id].modified and "+ " or ""
+					return MiniTabline.default_format(buf_id, label) .. suffix
+				end,
+			})
+			vim.keymap.set("n", "<S-h>", "<cmd>bp<cr>", { desc = "Prev Buffer" })
+			vim.keymap.set("n", "<S-l>", "<cmd>bn<cr>", { desc = "Next Buffer" })
 
 			local lint_progress = function()
 				local linters = require("lint").get_running()
@@ -968,6 +993,10 @@ require("lazy").setup({
 				map("n", "<leader>tD", gitsigns.toggle_deleted, { desc = "[T]oggle git show [D]eleted" })
 			end,
 		},
+		config = function(_, opts)
+			require("gitsigns").setup(opts)
+			require("scrollbar.handlers.gitsigns").setup()
+		end,
 	},
 
 	{ -- Highlight, edit, and navigate code
@@ -1067,50 +1096,6 @@ require("lazy").setup({
 	},
 
 	{
-		"akinsho/bufferline.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
-		},
-		keys = {
-			{ "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
-			{ "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
-			{ "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete Other Buffers" },
-			{ "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
-			{ "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
-			{ "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-			{ "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-			{ "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-			{ "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-			{ "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
-			{ "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
-		},
-		opts = {
-			options = {
-				close_command = function(n)
-					require("mini.bufremove").delete(n, false)
-				end,
-				right_mouse_command = function(n)
-					require("mini.bufremove").delete(n, false)
-				end,
-				diagnostics = "nvim_lsp",
-				always_show_bufferline = true,
-			},
-		},
-		config = function(_, opts)
-			require("bufferline").setup(opts)
-			-- Fix bufferline when restoring a session
-			vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
-				callback = function()
-					vim.schedule(function()
-						pcall(nvim_bufferline)
-					end)
-				end,
-			})
-		end,
-	},
-
-	{
 		"stevearc/aerial.nvim",
 		opts = {
 			on_attach = function(bufnr)
@@ -1128,49 +1113,23 @@ require("lazy").setup({
 		},
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons",
+			-- "nvim-tree/nvim-web-devicons",
 		},
 	},
 
-	-- {
-	-- 	"kevinhwang91/nvim-hlslens",
-	-- 	opts = {},
-	-- 	config = function(_, opts)
-	-- 		require("hlslens").setup(opts)
-	-- 		local kopts = { noremap = true, silent = true }
-	--
-	-- 		vim.api.nvim_set_keymap(
-	-- 			"n",
-	-- 			"n",
-	-- 			[[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
-	-- 			kopts
-	-- 		)
-	-- 		vim.api.nvim_set_keymap(
-	-- 			"n",
-	-- 			"N",
-	-- 			[[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
-	-- 			kopts
-	-- 		)
-	-- 		vim.api.nvim_set_keymap("n", "*", [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-	-- 		vim.api.nvim_set_keymap("n", "#", [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-	-- 		vim.api.nvim_set_keymap("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-	-- 		vim.api.nvim_set_keymap("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-	--
-	-- 		vim.api.nvim_set_keymap("n", "<Leader>l", "<Cmd>noh<CR>", kopts)
-	-- 	end,
-	-- },
+	{
+		"kevinhwang91/nvim-hlslens",
+		opts = {
+			nearest_only = true,
+		},
+		config = function(_, opts)
+			require("scrollbar.handlers.search").setup(opts)
+		end,
+	},
 
 	{
 		"petertriho/nvim-scrollbar",
-		dependencies = {
-			"lewis6991/gitsigns.nvim",
-			"kevinhwang91/nvim-hlslens",
-		},
-		config = function(_, opts)
-			require("scrollbar").setup()
-			require("scrollbar.handlers.gitsigns").setup()
-			require("scrollbar.handlers.search").setup({})
-		end,
+		opts = {},
 	},
 
 	{
@@ -1240,12 +1199,20 @@ require("lazy").setup({
 				end,
 				desc = "Run Nearest",
 			},
+			{ "<leader>td", "", desc = "+test debug" },
 			{
-				"<leader>td",
+				"<leader>tdr",
 				function()
 					require("neotest").run.run({ strategy = "dap" })
 				end,
 				desc = "Debug nearest",
+			},
+			{
+				"<leader>tdl",
+				function()
+					require("neotest").run.run_last({ strategy = "dap" })
+				end,
+				desc = "Debug last",
 			},
 			{
 				"<leader>tl",
