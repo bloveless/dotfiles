@@ -122,6 +122,10 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+-- Move buffers
+vim.keymap.set("n", "<S-h>", "<cmd>bp<cr>", { desc = "Prev Buffer" })
+vim.keymap.set("n", "<S-l>", "<cmd>bn<cr>", { desc = "Next Buffer" })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -890,15 +894,13 @@ require("lazy").setup({
 				require("mini.bufremove").delete(0, false)
 			end, { desc = "buffer delete" })
 
-			require("mini.tabline").setup({
-				format = function(buf_id, label)
-					-- TODO: would be nice to add diagnostics here
-					local suffix = vim.bo[buf_id].modified and "+ " or ""
-					return MiniTabline.default_format(buf_id, label) .. suffix
-				end,
-			})
-			vim.keymap.set("n", "<S-h>", "<cmd>bp<cr>", { desc = "Prev Buffer" })
-			vim.keymap.set("n", "<S-l>", "<cmd>bn<cr>", { desc = "Next Buffer" })
+			-- require("mini.tabline").setup({
+			-- 	format = function(buf_id, label)
+			-- 		-- TODO: would be nice to add diagnostics here
+			-- 		local suffix = vim.bo[buf_id].modified and "+ " or ""
+			-- 		return MiniTabline.default_format(buf_id, label) .. suffix .. "|"
+			-- 	end,
+			-- })
 
 			local lint_progress = function()
 				local linters = require("lint").get_running()
@@ -930,6 +932,52 @@ require("lazy").setup({
 
 			require("mini.statusline").setup({ content = { active = active_content }, use_icons = vim.g.have_nerd_font })
 		end,
+	},
+
+	{
+		"utilyre/barbecue.nvim",
+		name = "barbecue",
+		version = "*",
+		dependencies = {
+			"SmiteshP/nvim-navic",
+			--"nvim-tree/nvim-web-devicons", -- optional dependency
+		},
+		opts = {
+			create_autocmd = false, -- prevent barbecue from updating itself automatically
+		},
+		config = function(_, opts)
+			-- triggers CursorHold event faster
+			vim.opt.updatetime = 200
+
+			require("barbecue").setup(opts)
+
+			vim.api.nvim_create_autocmd({
+				"WinScrolled", -- or WinResized on NVIM-v0.9 and higher
+				"BufWinEnter",
+				"CursorHold",
+				"InsertLeave",
+
+				-- include this if you have set `show_modified` to `true`
+				"BufModifiedSet",
+			}, {
+				group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+				callback = function()
+					require("barbecue.ui").update()
+				end,
+			})
+		end,
+	},
+
+	{
+		"romgrk/barbar.nvim",
+		dependencies = {
+			"lewis6991/gitsigns.nvim",
+			"echasnovski/mini.nvim", -- for icons
+		},
+		init = function()
+			vim.g.barbar_auto_setup = false
+		end,
+		opts = {},
 	},
 
 	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
@@ -1006,10 +1054,10 @@ require("lazy").setup({
 		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 		dependencies = {
 			{ "nvim-treesitter/nvim-treesitter-textobjects" }, -- Syntax aware text-objects
-			{
-				"nvim-treesitter/nvim-treesitter-context", -- Show code context
-				opts = { enable = true, mode = "topline", line_numbers = true, multiline_threshold = 2 },
-			},
+			-- {
+			-- 	"nvim-treesitter/nvim-treesitter-context", -- Show code context
+			-- 	opts = { enable = true, mode = "topline", line_numbers = true, multiline_threshold = 2 },
+			-- },
 		},
 		opts = {
 			ensure_installed = {
