@@ -588,6 +588,7 @@ require("lazy").setup({
 				"goimports",
 				"golangci-lint",
 				"hadolint",
+				"jsonlint",
 				"markdownlint",
 				"phpcs",
 				"pint",
