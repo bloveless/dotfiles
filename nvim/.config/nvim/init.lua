@@ -849,7 +849,7 @@ require("lazy").setup({
 			require("mini.ai").setup({ n_lines = 500 })
 
 			-- lsp info and other notifications
-			require("mini.notify").setup()
+			-- require("mini.notify").setup()
 			-- require("mini.git").setup()
 			-- require("mini.diff").setup()
 			local icons = require("mini.icons")
@@ -949,6 +949,13 @@ require("lazy").setup({
 		---@module 'oil'
 		---@type oil.SetupOpts
 		opts = {},
+	},
+
+	{
+		"j-hui/fidget.nvim",
+		opts = {
+			-- options
+		},
 	},
 
 	{
