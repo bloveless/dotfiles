@@ -671,6 +671,9 @@ require("lazy").setup({
 	{ -- Linting
 		"mfussenegger/nvim-lint",
 		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"j-hui/fidget.nvim",
+		},
 		config = function()
 			local lint = require("lint")
 
@@ -697,6 +700,31 @@ require("lazy").setup({
 				group = lint_augroup,
 				callback = function()
 					require("lint").try_lint()
+
+					local start_linters = require("lint").get_running()
+					if #start_linters ~= 0 then
+						local progress = require("fidget.progress")
+						local handle = progress.handle.create({
+							title = "Running linters",
+							message = "",
+							lsp_client = { name = "nvim-lint" },
+							percentage = 0,
+						})
+
+						local timer = vim.uv.new_timer()
+						timer:start(0, 100, function()
+							local running_linters = require("lint").get_running()
+							if #running_linters == 0 then
+								handle:finish()
+								timer:stop()
+							end
+
+							handle:report({
+								message = table.concat(running_linters, ", "),
+								percentage = ((#start_linters - #running_linters) / #start_linters) * 100,
+							})
+						end)
+					end
 				end,
 			})
 		end,
@@ -899,36 +927,41 @@ require("lazy").setup({
 			-- 	end,
 			-- })
 
-			local lint_progress = function()
-				local linters = require("lint").get_running()
-				if #linters == 0 then
-					return ""
-				end
-				return "󱉶 " .. table.concat(linters, ", ")
-			end
+			-- local lint_progress = function()
+			-- 	local linters = require("lint").get_running()
+			-- 	if #linters == 0 then
+			-- 		return ""
+			-- 	end
+			-- 	return "󱉶 " .. table.concat(linters, ", ")
+			-- end
+			--
+			-- local active_content = function()
+			-- 	local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+			-- 	local git = MiniStatusline.section_git({ trunc_width = 75 })
+			-- 	local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+			-- 	local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+			-- 	local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+			-- 	local location = "%2l:%-2v" -- MiniStatusline.section_location({ trunc_width = 75 })
+			-- 	local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+			--
+			-- 	return MiniStatusline.combine_groups({
+			-- 		{ hl = mode_hl, strings = { mode } },
+			-- 		{ hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
+			-- 		"%<", -- Mark general truncate point
+			-- 		{ hl = "MiniStatuslineFilename", strings = { filename } },
+			-- 		"%=", -- End left alignment
+			-- 		{ hl = "MiniStatuslineFileinfo", strings = { fileinfo, lint_progress() } },
+			-- 		{ hl = mode_hl, strings = { search, location } },
+			-- 	})
+			-- end
 
-			local active_content = function()
-				local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-				local git = MiniStatusline.section_git({ trunc_width = 75 })
-				local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
-				local filename = MiniStatusline.section_filename({ trunc_width = 140 })
-				local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
-				local location = "%2l:%-2v" -- MiniStatusline.section_location({ trunc_width = 75 })
-				local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
-
-				return MiniStatusline.combine_groups({
-					{ hl = mode_hl, strings = { mode } },
-					{ hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
-					"%<", -- Mark general truncate point
-					{ hl = "MiniStatuslineFilename", strings = { filename } },
-					"%=", -- End left alignment
-					{ hl = "MiniStatuslineFileinfo", strings = { fileinfo, lint_progress() } },
-					{ hl = mode_hl, strings = { search, location } },
-				})
-			end
-
-			require("mini.statusline").setup({ content = { active = active_content }, use_icons = vim.g.have_nerd_font })
+			-- require("mini.statusline").setup({ content = { active = active_content }, use_icons = vim.g.have_nerd_font })
 		end,
+	},
+
+	{
+		"nvim-lualine/lualine.nvim",
+		opts = {},
 	},
 
 	{
