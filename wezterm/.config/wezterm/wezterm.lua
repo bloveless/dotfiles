@@ -32,7 +32,7 @@ local mykeys = {
 		mods = "CMD|SHIFT",
 		action = wezterm.action.ReloadConfiguration,
 	},
-	-- Enable scolling back to the last input prompt
+	-- Enable scrolling back to the last input prompt
 	{ key = "UpArrow", mods = "SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
 	{ key = "DownArrow", mods = "SHIFT", action = wezterm.action.ScrollToPrompt(1) },
 }
