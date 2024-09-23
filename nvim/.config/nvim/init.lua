@@ -1359,7 +1359,7 @@ require("lazy").setup({
 			},
 			summary = {
 				-- Enable/disable animation of icons.
-				animated = false,
+				animated = true,
 			},
 			adapters = {
 				["neotest-golang"] = {
