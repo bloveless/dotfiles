@@ -699,9 +699,22 @@ require("lazy").setup({
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 				group = lint_augroup,
 				callback = function()
+					local preview_window = nil
+					for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+						if vim.api.nvim_win_is_valid(winid) and vim.wo[winid].previewwindow then
+							preview_window = winid
+						end
+					end
+
+					-- don't run linters if a preview window is visible (assuming that this means oil is open with a preview pane visible)
+					if preview_window ~= nil then
+						return
+					end
+
 					require("lint").try_lint()
 
 					local start_linters = require("lint").get_running()
+					local last_percentage = 0
 					if #start_linters ~= 0 then
 						local progress = require("fidget.progress")
 						local handle = progress.handle.create({
@@ -719,10 +732,14 @@ require("lazy").setup({
 								timer:stop()
 							end
 
-							handle:report({
-								message = table.concat(running_linters, ", "),
-								percentage = ((#start_linters - #running_linters) / #start_linters) * 100,
-							})
+							local new_percentage = ((#start_linters - #running_linters) / #start_linters) * 100
+							if new_percentage ~= last_percentage then
+								last_percentage = new_percentage
+								handle:report({
+									message = table.concat(running_linters, ", "),
+									percentage = last_percentage,
+								})
+							end
 						end)
 					end
 				end,
@@ -1347,7 +1364,7 @@ require("lazy").setup({
 			{
 				"<leader>to",
 				function()
-					require("neotest").output.open({ enter = true, auto_close = true })
+					require("neotest").output.open({ enter = false, auto_close = true })
 				end,
 				desc = "Show Output",
 			},
