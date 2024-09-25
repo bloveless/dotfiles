@@ -74,6 +74,29 @@ vim.opt.scrolloff = 10
 -- display tabs as 4 characters
 vim.opt.tabstop = 4
 
+-- Show line diagnostics automatically in hover window
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
+	pattern = "*",
+	callback = function()
+		for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+			if vim.api.nvim_win_get_config(winid).zindex then
+				return
+			end
+		end
+		vim.diagnostic.open_float({
+			scope = "cursor",
+			focusable = false,
+			close_events = {
+				"CursorMoved",
+				"CursorMovedI",
+				"BufHidden",
+				"InsertCharPre",
+				"WinLeave",
+			},
+		})
+	end,
+})
+
 -- Additional file types
 vim.filetype.add({
 	extension = {
@@ -592,6 +615,7 @@ require("lazy").setup({
 				"markdownlint",
 				"phpcs",
 				"pint",
+				"revive",
 				"stylua", -- Used to format Lua code
 				"tflint",
 				"tfsec",
@@ -681,7 +705,7 @@ require("lazy").setup({
 			lint.linters_by_ft = lint.linters_by_ft or {}
 			lint.linters_by_ft["clojure"] = nil
 			lint.linters_by_ft["dockerfile"] = { "hadolint" }
-			lint.linters_by_ft["go"] = { "golangcilint" }
+			lint.linters_by_ft["go"] = { "golangcilint", "revive" }
 			lint.linters_by_ft["inko"] = nil
 			lint.linters_by_ft["janet"] = nil
 			lint.linters_by_ft["json"] = { "jsonlint" }
@@ -1051,7 +1075,9 @@ require("lazy").setup({
 		init = function()
 			vim.g.barbar_auto_setup = false
 		end,
-		opts = {},
+		opts = {
+			animation = false,
+		},
 		config = function(_, opts)
 			require("barbar").setup(opts)
 
