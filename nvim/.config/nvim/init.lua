@@ -667,9 +667,7 @@ require("lazy").setup({
 			},
 		},
 		opts = {
-			log_level = vim.log.levels.DEBUG,
-			ignore_errors = false,
-			notify_on_error = true,
+			-- log_level = vim.log.levels.DEBUG,
 			format_after_save = function(bufnr)
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
@@ -751,7 +749,7 @@ require("lazy").setup({
 						return
 					end
 
-					require("lint").try_lint(nil, { ignore_errors = false })
+					require("lint").try_lint()
 
 					local start_linters = require("lint").get_running()
 					local last_percentage = 0
@@ -1452,6 +1450,8 @@ require("lazy").setup({
 			"leoluz/nvim-dap-go",
 		},
 		opts = {
+			-- this will log to `:lua vim.print(require("neotest.logging"):get_filename())`
+			-- log_level = vim.log.levels.DEBUG,
 			-- See all config options with :h neotest.Config (options from https://github.com/fredrikaverpil/neotest-golang to help neotest performance in large code bases)
 			discovery = {
 				-- Drastically improve performance in ginormous projects by
@@ -1472,7 +1472,7 @@ require("lazy").setup({
 			},
 			adapters = {
 				["neotest-golang"] = {
-					-- go_test_rgs = { "-v", "-race", "-count=1", "-timeout=60s" },
+					-- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
 					go_test_args = { "-cover", "-short" },
 					dap_go_enabled = true,
 				},
