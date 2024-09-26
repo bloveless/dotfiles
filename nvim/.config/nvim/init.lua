@@ -894,7 +894,13 @@ require("lazy").setup({
 		"navarasu/onedark.nvim",
 		priority = 1000,
 		config = function()
-			require("onedark").setup({})
+			require("onedark").setup({
+				highlights = {
+					DiagnosticUnderlineWarn = {
+						sp = "#513a10",
+					},
+				},
+			})
 
 			require("onedark").load()
 		end,
