@@ -159,6 +159,19 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- Shortcut to inspect diagnostics just in case they don't open for some reason
+vim.keymap.set("n", "<leader>i", function()
+	-- If we find a floating window, close it.
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		if vim.api.nvim_win_get_config(win).relative ~= "" then
+			vim.api.nvim_win_close(win, true)
+			return
+		end
+	end
+
+	vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+end, { desc = "Toggle Diagnostics" })
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
