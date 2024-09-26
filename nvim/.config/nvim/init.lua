@@ -614,6 +614,7 @@ require("lazy").setup({
 				"jsonlint",
 				"markdownlint",
 				"phpcs",
+				"phpstan",
 				"pint",
 				"revive",
 				"stylua", -- Used to format Lua code
@@ -653,8 +654,9 @@ require("lazy").setup({
 			},
 		},
 		opts = {
-			-- log_level = vim.log.levels.DEBUG,
-			notify_on_error = false,
+			log_level = vim.log.levels.DEBUG,
+			ignore_errors = false,
+			notify_on_error = true,
 			format_after_save = function(bufnr)
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
@@ -700,6 +702,7 @@ require("lazy").setup({
 		},
 		config = function()
 			local lint = require("lint")
+			table.insert(lint.linters.phpstan.args, "--memory-limit=256M")
 
 			-- To allow other plugins to add linters to require('lint').linters_by_ft,
 			lint.linters_by_ft = lint.linters_by_ft or {}
@@ -715,7 +718,7 @@ require("lazy").setup({
 			lint.linters_by_ft["terraform"] = { "tflint", "tfsec" }
 			lint.linters_by_ft["docker"] = { "hadolint" }
 			lint.linters_by_ft["text"] = nil
-			-- lint.linters_by_ft["php"] = { "phpcs" }
+			lint.linters_by_ft["php"] = { "phpstan" }
 
 			-- Create autocommand which carries out the actual linting
 			-- on the specified events.
@@ -735,7 +738,7 @@ require("lazy").setup({
 						return
 					end
 
-					require("lint").try_lint()
+					require("lint").try_lint(nil, { ignore_errors = false })
 
 					local start_linters = require("lint").get_running()
 					local last_percentage = 0
@@ -1022,7 +1025,11 @@ require("lazy").setup({
 		},
 		---@module 'oil'
 		---@type oil.SetupOpts
-		opts = {},
+		opts = {
+			view_options = {
+				show_hidden = true,
+			},
+		},
 	},
 
 	{
