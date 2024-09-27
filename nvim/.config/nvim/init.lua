@@ -946,16 +946,17 @@ require("lazy").setup({
 			icons.mock_nvim_web_devicons()
 
 			require("mini.pick").setup()
-			-- local minifiles = require("mini.files")
-			-- minifiles.setup({
-			-- 	window = {
-			-- 		preview = true,
-			-- 	},
-			-- })
-			-- vim.keymap.set("n", "<leader>e", function()
-			-- 	minifiles.open(vim.api.nvim_buf_get_name(0))
-			-- 	minifiles.reveal_cwd()
-			-- end, { desc = "File explorer" })
+			local minifiles = require("mini.files")
+			minifiles.setup({
+				windows = {
+					preview = true,
+					width_preview = 75,
+				},
+			})
+			vim.keymap.set("n", "<leader>e", function()
+				minifiles.open(vim.api.nvim_buf_get_name(0))
+				minifiles.reveal_cwd()
+			end, { desc = "File explorer" })
 
 			local hipatterns = require("mini.hipatterns")
 			hipatterns.setup({
@@ -1025,29 +1026,29 @@ require("lazy").setup({
 		opts = {},
 	},
 
-	{
-		"stevearc/oil.nvim",
-		keys = {
-			{
-				"<leader>e",
-				function()
-					local oil = require("oil")
-					oil.open_float()
-					require("oil.util").run_after_load(0, function()
-						oil.open_preview()
-					end)
-				end,
-				{ desc = "Open explorer" },
-			},
-		},
-		---@module 'oil'
-		---@type oil.SetupOpts
-		opts = {
-			view_options = {
-				show_hidden = true,
-			},
-		},
-	},
+	-- {
+	-- 	"stevearc/oil.nvim",
+	-- 	keys = {
+	-- 		{
+	-- 			"<leader>e",
+	-- 			function()
+	-- 				local oil = require("oil")
+	-- 				oil.open_float()
+	-- 				require("oil.util").run_after_load(0, function()
+	-- 					oil.open_preview()
+	-- 				end)
+	-- 			end,
+	-- 			{ desc = "Open explorer" },
+	-- 		},
+	-- 	},
+	-- 	---@module 'oil'
+	-- 	---@type oil.SetupOpts
+	-- 	opts = {
+	-- 		view_options = {
+	-- 			show_hidden = true,
+	-- 		},
+	-- 	},
+	-- },
 
 	{
 		"j-hui/fidget.nvim",
