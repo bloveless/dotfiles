@@ -132,6 +132,10 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+-- Navigate quickfix list quicker
+vim.keymap.set("n", "]q", "<cmd>cn<cr>", { desc = "Next quickfix item" })
+vim.keymap.set("n", "[q", "<cmd>cp<cr>", { desc = "Previous quickfix item" })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -306,48 +310,31 @@ require("lazy").setup({
 					end
 
 					-- Jump to the definition of the word under your cursor.
-					--  This is where a variable was first declared, or where a function is defined, etc.
-					--  To jump back, press <C-t>.
-					map("gd", function()
-						MiniExtra.pickers.lsp({ scope = "definition" })
-					end, "[G]oto [D]efinition")
+					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 
 					-- Find references for the word under your cursor.
-					map("gr", function()
-						MiniExtra.pickers.lsp({ scope = "references" })
-					end, "[G]oto [R]eferences")
+					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 
 					-- Jump to the implementation of the word under your cursor.
-					--  Useful when your language has ways of declaring types without an actual implementation.
-					map("gI", function()
-						MiniExtra.pickers.lsp({ scope = "implementation" })
-					end, "[G]oto [I]mplementation")
+					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
 
 					-- Jump to the type of the word under your cursor.
-					--  Useful when you're not sure what type a variable is and you want to see
-					--  the definition of its *type*, not where it was *defined*.
-					map("<leader>D", function()
-						MiniExtra.pickers.lsp({ scope = "definition" })
-					end, "Type [D]efinition")
+					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
 
 					-- Fuzzy find all the symbols in your current document.
-					--  Symbols are things like variables, functions, types, etc.
-					map("<leader>ds", function()
-						MiniExtra.pickers.lsp({ scope = "document_symbol" })
-					end, "[D]ocument [S]ymbols")
+					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 
 					-- Fuzzy find all the symbols in your current workspace.
-					--  Similar to document symbols, except searches over your entire project.
-					map("<leader>ws", function()
-						MiniExtra.pickers.lsp({ scope = "workspace_symbol" })
-					end, "[W]orkspace [S]ymbols")
+					map(
+						"<leader>ws",
+						require("telescope.builtin").lsp_dynamic_workspace_symbols,
+						"[W]orkspace [S]ymbols"
+					)
 
 					-- Rename the variable under your cursor.
-					--  Most Language Servers support renaming across files, etc.
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 
 					-- Execute a code action, usually your cursor needs to be on top of an error
-					-- or a suggestion from your LSP for this to activate.
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
@@ -396,14 +383,9 @@ require("lazy").setup({
 				end,
 			})
 
-			-- LSP servers and clients are able to communicate to each other what features they support.
-			--  By default, Neovim doesn't support everything that is in the LSP specification.
-			--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-			--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-			-- Enable the following language servers
 			local servers = {
 				-- clangd = {},
 				gopls = {},
@@ -553,49 +535,49 @@ require("lazy").setup({
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 				group = lint_augroup,
 				callback = function()
-					local preview_window = nil
-					for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-						if vim.api.nvim_win_is_valid(winid) and vim.wo[winid].previewwindow then
-							preview_window = winid
-						end
-					end
-
-					-- don't run linters if a preview window is visible (assuming that this means oil is open with a preview pane visible)
-					if preview_window ~= nil then
-						return
-					end
+					-- local preview_window = nil
+					-- for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+					-- 	if vim.api.nvim_win_is_valid(winid) and vim.wo[winid].previewwindow then
+					-- 		preview_window = winid
+					-- 	end
+					-- end
+					--
+					-- -- don't run linters if a preview window is visible (assuming that this means oil is open with a preview pane visible)
+					-- if preview_window ~= nil then
+					-- 	return
+					-- end
 
 					require("lint").try_lint()
 
-					local start_linters = require("lint").get_running()
-					local last_percentage = 0
-					if #start_linters ~= 0 then
-						local progress = require("fidget.progress")
-						local handle = progress.handle.create({
-							title = "Running linters",
-							message = "",
-							lsp_client = { name = "nvim-lint" },
-							percentage = 0,
-						})
-
-						local timer = vim.uv.new_timer()
-						timer:start(0, 100, function()
-							local running_linters = require("lint").get_running()
-							if #running_linters == 0 then
-								handle:finish()
-								timer:stop()
-							end
-
-							local new_percentage = ((#start_linters - #running_linters) / #start_linters) * 100
-							if new_percentage ~= last_percentage then
-								last_percentage = new_percentage
-								handle:report({
-									message = table.concat(running_linters, ", "),
-									percentage = last_percentage,
-								})
-							end
-						end)
-					end
+					-- local start_linters = require("lint").get_running()
+					-- local last_percentage = 0
+					-- if #start_linters ~= 0 then
+					-- 	local progress = require("fidget.progress")
+					-- 	local handle = progress.handle.create({
+					-- 		title = "Running linters",
+					-- 		message = "",
+					-- 		lsp_client = { name = "nvim-lint" },
+					-- 		percentage = 0,
+					-- 	})
+					--
+					-- 	local timer = vim.uv.new_timer()
+					-- 	timer:start(0, 100, function()
+					-- 		local running_linters = require("lint").get_running()
+					-- 		if #running_linters == 0 then
+					-- 			handle:finish()
+					-- 			timer:stop()
+					-- 		end
+					--
+					-- 		local new_percentage = ((#start_linters - #running_linters) / #start_linters) * 100
+					-- 		if new_percentage ~= last_percentage then
+					-- 			last_percentage = new_percentage
+					-- 			handle:report({
+					-- 				message = table.concat(running_linters, ", "),
+					-- 				percentage = last_percentage,
+					-- 			})
+					-- 		end
+					-- 	end)
+					-- end
 				end,
 			})
 		end,
@@ -878,6 +860,14 @@ require("lazy").setup({
 			-- [[ Configure Telescope ]]
 			-- See `:help telescope` and `:help telescope.setup()`
 			require("telescope").setup({
+				defaults = {
+					-- layout_strategy = "vertical",
+					path_display = {
+						shorten = 3,
+						truncate = 2,
+					},
+					dynamic_preview_title = true,
+				},
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
