@@ -1,5 +1,7 @@
 autoload -U +X compinit && compinit
 
+export EDITOR=nvim
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
 source $HOME/.wezterm.sh
 source $HOME/.zshrc.local
