@@ -754,32 +754,29 @@ require("lazy").setup({
 	},
 
 	{
-		"akinsho/bufferline.nvim",
-		version = "*",
+		"romgrk/barbar.nvim",
 		dependencies = {
-			"echasnovski/mini.nvim", -- for icons
+			"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+			"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
 		},
+		init = function()
+			vim.g.barbar_auto_setup = false
+		end,
 		opts = {
-			options = {
-				diagnostics = "nvim_lsp",
-			},
+			-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+			animation = false,
+			-- insert_at_start = true,
+			-- …etc.
 		},
 		config = function(_, opts)
-			local bufferline = require("bufferline")
-			bufferline.setup(opts)
+			require("barbar").setup(opts)
 
-			vim.keymap.set("n", "<S-l>", function()
-				bufferline.cycle(1)
-			end, { desc = "Buffer next" })
-			vim.keymap.set("n", "<S-h>", function()
-				bufferline.cycle(-1)
-			end, { desc = "Buffer previous" })
-			vim.keymap.set("n", "<A-<>", function()
-				bufferline.move(-1)
-			end, { desc = "Move buffer previous" })
-			vim.keymap.set("n", "<A->>", function()
-				bufferline.move(1)
-			end, { desc = "Move buffer next" })
+			vim.keymap.set("n", "<C-p>", "<Cmd>BufferPick<CR>", { desc = "Buffer pick" })
+			vim.keymap.set("n", "<S-l>", "<cmd>BufferNext<cr>", { desc = "Buffer next" })
+			vim.keymap.set("n", "<S-h>", "<cmd>BufferPrevious<cr>", { desc = "Buffer previous" })
+			vim.keymap.set("n", "<A-<>", "<Cmd>BufferMovePrevious<cr>", { desc = "Move buffer previous" })
+			vim.keymap.set("n", "<A->>", "<Cmd>BufferMoveNext<cr>", { desc = "Move buffer next" })
+			vim.keymap.set("n", "<leader>w", "<cmd>BufferDelete<cr>", { desc = "Buffer previous" })
 		end,
 	},
 
