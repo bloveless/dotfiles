@@ -179,6 +179,132 @@ require("lazy").setup({
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
 	{
+		"rmehri01/onenord.nvim",
+		enabled = false,
+		config = function()
+			require("onenord").setup()
+		end,
+	},
+
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		enabled = true,
+		priority = 1000,
+		opts = {
+			integrations = {
+				cmp = true,
+				gitsigns = true,
+				treesitter = true,
+				notify = true,
+				barbecue = {
+					dim_dirname = true, -- directory name is dimmed by default
+					bold_basename = true,
+					dim_context = false,
+					alt_background = false,
+				},
+				barbar = true,
+				fidget = true,
+				flash = true,
+				indent_blankline = {
+					enabled = true,
+					scope_color = "", -- catppuccin color (eg. `lavender`) Default: text
+					colored_indent_levels = false,
+				},
+				mason = true,
+				mini = {
+					enabled = true,
+					indentscope_color = "", -- catppuccin color (eg. `lavender`) Default: text
+				},
+				dap = true,
+				dap_ui = true,
+				telescope = {
+					enabled = true,
+					-- style = "nvchad"
+				},
+				lsp_trouble = true,
+				which_key = true,
+			},
+		},
+		config = function(_, opts)
+			require("catppuccin").setup(opts)
+			vim.cmd([[colorscheme catppuccin-macchiato]])
+		end,
+	},
+
+	{
+		"shaunsingh/nord.nvim",
+		enabled = false,
+		priority = 1000,
+		config = function()
+			require("nord").set()
+		end,
+	},
+
+	{
+		"rose-pine/neovim",
+		name = "rose-pine",
+		enabled = false,
+		priority = 1000,
+		opts = {
+			variant = "moon",
+		},
+		config = function(_, opts)
+			require("rose-pine").setup(opts)
+			vim.cmd([[colorscheme rose-pine]])
+		end,
+	},
+
+	{
+		"neanias/everforest-nvim",
+		enabled = false,
+		priority = 1000,
+		opts = {},
+		config = function(_, opts)
+			require("everforest").setup(opts)
+			vim.cmd([[colorscheme everforest]])
+		end,
+	},
+
+	{
+		"AlexvZyl/nordic.nvim",
+		enabled = false,
+		priority = 1000,
+		config = function()
+			require("nordic").load()
+		end,
+	},
+
+	{
+		"EdenEast/nightfox.nvim",
+		enabled = false,
+		priority = 1000,
+		opts = {},
+		config = function(_, opts)
+			require("nightfox").setup(opts)
+
+			vim.cmd("colorscheme nightfox")
+		end,
+	},
+
+	{
+		"navarasu/onedark.nvim",
+		enabled = false,
+		priority = 1000,
+		config = function()
+			require("onedark").setup({
+				highlights = {
+					DiagnosticUnderlineWarn = {
+						sp = "#513a10",
+					},
+				},
+			})
+
+			require("onedark").load()
+		end,
+	},
+
+	{
 		"folke/persistence.nvim",
 		event = "BufReadPre", -- this will only start session saving when an actual file was opened
 		keys = {
@@ -665,22 +791,6 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"navarasu/onedark.nvim",
-		priority = 1000,
-		config = function()
-			require("onedark").setup({
-				highlights = {
-					DiagnosticUnderlineWarn = {
-						sp = "#513a10",
-					},
-				},
-			})
-
-			require("onedark").load()
-		end,
-	},
-
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
 		dependencies = {
@@ -705,9 +815,9 @@ require("lazy").setup({
 			-- require("mini.notify").setup()
 			-- require("mini.git").setup()
 			-- require("mini.diff").setup()
-			local icons = require("mini.icons")
-			icons.setup()
-			icons.mock_nvim_web_devicons()
+			-- local icons = require("mini.icons")
+			-- icons.setup()
+			-- icons.mock_nvim_web_devicons()
 
 			require("mini.extra").setup()
 
@@ -785,7 +895,9 @@ require("lazy").setup({
 		dependencies = {
 			"echasnovski/mini.nvim", -- for icons
 		},
-		opts = {},
+		opts = {
+			theme = "catppuccin",
+		},
 	},
 
 	{
@@ -801,9 +913,10 @@ require("lazy").setup({
 		version = "*",
 		dependencies = {
 			"SmiteshP/nvim-navic",
-			--"nvim-tree/nvim-web-devicons", -- optional dependency
+			"nvim-tree/nvim-web-devicons", -- optional dependency
 		},
 		opts = {
+			theme = "catppuccin-macchiato",
 			create_autocmd = false, -- prevent barbecue from updating itself automatically
 		},
 		config = function(_, opts)
@@ -851,7 +964,7 @@ require("lazy").setup({
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 
 			-- Useful for getting pretty icons, but requires a Nerd Font.
-			-- { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 		},
 		config = function()
 			-- [[ Configure Telescope ]]
@@ -1093,7 +1206,7 @@ require("lazy").setup({
 		},
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
-			-- "nvim-tree/nvim-web-devicons",
+			"nvim-tree/nvim-web-devicons",
 		},
 	},
 

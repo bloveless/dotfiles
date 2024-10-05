@@ -46,19 +46,21 @@ for i = 1, 8 do
 	})
 end
 
-config.color_scheme = "Gruvbox dark, soft (base16)"
-config.color_scheme = "OneDark (base16)"
+-- config.color_scheme = "Gruvbox dark, soft (base16)"
+-- config.color_scheme = "OneDark (base16)"
+config.color_scheme = "Catppuccin Macchiato"
 
 config.font = wezterm.font("MonoLisa")
-config.font_size = 11
-config.line_height = 1.4
+config.font_size = 12
+config.line_height = 1.6
 config.initial_cols = 150
 config.initial_rows = 45
 config.scrollback_lines = 100000
 config.keys = mykeys
 config.tab_bar_at_bottom = true
 
-local theme = wezterm.color.get_builtin_schemes()["OneDark (base16)"]
+-- local theme = require("lua/rose-pine").moon
+local theme = wezterm.color.get_builtin_schemes()["Catppuccin Macchiato"]
 
 config.window_frame = {
 	-- The font used in the tab bar.
@@ -71,7 +73,7 @@ config.window_frame = {
 
 	-- The size of the font in the tab bar.
 	-- Default to 10.0 on Windows but 12.0 on other systems
-	font_size = 10.0,
+	font_size = 12.0,
 
 	-- The overall background color of the tab bar when
 	-- the window is focused
@@ -102,6 +104,9 @@ config.colors = {
 		},
 	},
 }
+
+-- config.colors = theme.colors()
+-- config.window_frame = theme.window_frame() -- needed only if using fancy tab bar
 
 wezterm.on("update-right-status", function(window)
 	local time = wezterm.strftime("%H:%M")
