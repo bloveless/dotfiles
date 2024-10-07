@@ -176,6 +176,39 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		enabled = false,
+		opts = {},
+		config = function(_, opts)
+			require("tokyonight").setup(opts)
+			vim.cmd([[colorscheme tokyonight-moon]])
+		end,
+	},
+
+	{
+		"navarasu/onedark.nvim",
+		lazy = false,
+		priority = 1000,
+		enabled = true,
+		config = function()
+			require("onedark").setup({
+				highlights = {
+					DiagnosticUnderlineWarn = {
+						sp = "#513a10",
+					},
+					CursorColumn = {
+						bg = "#242830",
+					},
+				},
+			})
+
+			require("onedark").load()
+		end,
+	},
+
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
 	{

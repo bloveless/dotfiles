@@ -45,3 +45,4 @@ bindkey '^y' autosuggest-accept
 eval "$(zoxide init zsh)"
 # brew install starship
 eval "$(starship init zsh)"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
