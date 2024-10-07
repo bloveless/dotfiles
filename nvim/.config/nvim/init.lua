@@ -105,6 +105,7 @@ vim.filetype.add({
 		[".*/templates/.*%.tpl"] = "helm",
 		[".*/templates/.*%.ya?ml"] = "helm",
 		["helmfile.*%.ya?ml"] = "helm",
+		["docker-compose.ya?ml"] = "yaml.docker-compose",
 	},
 })
 

@@ -1,1 +1,1 @@
-vim.bo.cursorcolumn = true
+vim.wo.cursorcolumn = true
