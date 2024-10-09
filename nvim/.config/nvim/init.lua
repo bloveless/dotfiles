@@ -666,9 +666,7 @@ require("lazy").setup({
 	{ -- Linting
 		"mfussenegger/nvim-lint",
 		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"j-hui/fidget.nvim",
-		},
+		dependencies = {},
 		config = function()
 			local lint = require("lint")
 			table.insert(lint.linters.phpstan.args, "--memory-limit=256M")
@@ -695,49 +693,7 @@ require("lazy").setup({
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 				group = lint_augroup,
 				callback = function()
-					-- local preview_window = nil
-					-- for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-					-- 	if vim.api.nvim_win_is_valid(winid) and vim.wo[winid].previewwindow then
-					-- 		preview_window = winid
-					-- 	end
-					-- end
-					--
-					-- -- don't run linters if a preview window is visible (assuming that this means oil is open with a preview pane visible)
-					-- if preview_window ~= nil then
-					-- 	return
-					-- end
-
 					require("lint").try_lint()
-
-					-- local start_linters = require("lint").get_running()
-					-- local last_percentage = 0
-					-- if #start_linters ~= 0 then
-					-- 	local progress = require("fidget.progress")
-					-- 	local handle = progress.handle.create({
-					-- 		title = "Running linters",
-					-- 		message = "",
-					-- 		lsp_client = { name = "nvim-lint" },
-					-- 		percentage = 0,
-					-- 	})
-					--
-					-- 	local timer = vim.uv.new_timer()
-					-- 	timer:start(0, 100, function()
-					-- 		local running_linters = require("lint").get_running()
-					-- 		if #running_linters == 0 then
-					-- 			handle:finish()
-					-- 			timer:stop()
-					-- 		end
-					--
-					-- 		local new_percentage = ((#start_linters - #running_linters) / #start_linters) * 100
-					-- 		if new_percentage ~= last_percentage then
-					-- 			last_percentage = new_percentage
-					-- 			handle:report({
-					-- 				message = table.concat(running_linters, ", "),
-					-- 				percentage = last_percentage,
-					-- 			})
-					-- 		end
-					-- 	end)
-					-- end
 				end,
 			})
 		end,
@@ -935,13 +891,6 @@ require("lazy").setup({
 	},
 
 	{
-		"j-hui/fidget.nvim",
-		opts = {
-			-- options
-		},
-	},
-
-	{
 		"utilyre/barbecue.nvim",
 		name = "barbecue",
 		version = "*",
@@ -1135,10 +1084,6 @@ require("lazy").setup({
 		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 		dependencies = {
 			{ "nvim-treesitter/nvim-treesitter-textobjects" }, -- Syntax aware text-objects
-			-- {
-			-- 	"nvim-treesitter/nvim-treesitter-context", -- Show code context
-			-- 	opts = { enable = true, mode = "topline", line_numbers = true, multiline_threshold = 2 },
-			-- },
 		},
 		opts = {
 			ensure_installed = {
@@ -1242,16 +1187,6 @@ require("lazy").setup({
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-tree/nvim-web-devicons",
 		},
-	},
-
-	{
-		"kevinhwang91/nvim-hlslens",
-		opts = {
-			nearest_only = true,
-		},
-		config = function(_, opts)
-			require("scrollbar.handlers.search").setup(opts)
-		end,
 	},
 
 	{
@@ -1672,11 +1607,7 @@ require("lazy").setup({
 	{
 		"maxandron/goplements.nvim",
 		ft = "go",
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
+		opts = {},
 	},
 
 	{
@@ -1691,6 +1622,40 @@ require("lazy").setup({
 			{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
 			{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
 			{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+		},
+	},
+
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			cmdline = {
+				view = "cmdline",
+			},
+			lsp = {
+				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+				override = {
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true,
+					["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+				},
+			},
+			-- you can enable a preset for easier configuration
+			presets = {
+				bottom_search = true, -- use a classic bottom cmdline for search
+				command_palette = true, -- position the cmdline and popupmenu together
+				long_message_to_split = true, -- long messages will be sent to a split
+				inc_rename = false, -- enables an input dialog for inc-rename.nvim
+				lsp_doc_border = false, -- add a border to hover docs and signature help
+			},
+		},
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			"rcarriga/nvim-notify",
 		},
 	},
 }, {

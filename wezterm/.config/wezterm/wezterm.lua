@@ -108,6 +108,8 @@ config.colors = {
 -- config.colors = theme.colors()
 -- config.window_frame = theme.window_frame() -- needed only if using fancy tab bar
 
+config.window_padding = { left = 10, right = 10, top = 0, bottom = 0 }
+
 wezterm.on("update-right-status", function(window)
 	local time = wezterm.strftime("%H:%M")
 
