@@ -61,9 +61,6 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
 
--- Show which line/column your cursor is on
-vim.opt.cursorline = true
-
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
@@ -1656,6 +1653,23 @@ require("lazy").setup({
 			--   `nvim-notify` is only needed, if you want to use the notification view.
 			--   If not available, we use `mini` as the fallback
 			"rcarriga/nvim-notify",
+		},
+	},
+
+	{ -- show cursor column only on specific file types
+		"tummetott/reticle.nvim",
+		event = "VeryLazy", -- optionally lazy load the plugin
+		opts = {
+			on_startup = {
+				cursorline = true,
+				cursorcolumn = false,
+			},
+			always = {
+				cursorcolumn = {
+					"yaml",
+					"python",
+				},
+			},
 		},
 	},
 }, {
