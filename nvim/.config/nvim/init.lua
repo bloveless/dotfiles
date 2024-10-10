@@ -880,11 +880,33 @@ require("lazy").setup({
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = {
-			"echasnovski/mini.nvim", -- for icons
+			"folke/noice.nvim",
+			"nvim-tree/nvim-web-devicons", -- optional dependency
 		},
-		opts = {
-			theme = "catppuccin",
-		},
+		config = function()
+			require("lualine").setup({
+				theme = "catppuccin",
+				sections = {
+					lualine_x = {
+						{
+							require("noice").api.status.command.get,
+							cond = require("noice").api.status.command.has,
+							color = { fg = "#ff9e64" },
+						},
+						{
+							require("noice").api.status.mode.get,
+							cond = require("noice").api.status.mode.has,
+							color = { fg = "#ff9e64" },
+						},
+						{
+							require("noice").api.status.search.get,
+							cond = require("noice").api.status.search.has,
+							color = { fg = "#ff9e64" },
+						},
+					},
+				},
+			})
+		end,
 	},
 
 	{
@@ -1628,6 +1650,19 @@ require("lazy").setup({
 		opts = {
 			cmdline = {
 				view = "cmdline",
+			},
+			routes = {
+				{
+					filter = {
+						event = "msg_show",
+						any = { -- put save and other messages in the mini area instead of a popup
+							{ find = "%d+L, %d+B" },
+							{ find = "; after #%d+" },
+							{ find = "; before #%d+" },
+						},
+					},
+					view = "mini",
+				},
 			},
 			lsp = {
 				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
