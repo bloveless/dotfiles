@@ -1655,13 +1655,26 @@ require("lazy").setup({
 				{
 					filter = {
 						event = "msg_show",
-						any = { -- put save and other messages in the mini area instead of a popup
-							{ find = "%d+L, %d+B" },
-							{ find = "; after #%d+" },
-							{ find = "; before #%d+" },
+						any = { -- specific messages in the mini area instead of a popup
+							{ find = "%d+L, %d+B" }, -- file saved
+							{ find = "; after #%d+" }, -- undo/redo
+							{ find = "; before #%d+" }, -- undo/redo
+							{ find = "yanked" }, -- yank
+							{ find = "%d more lines" }, -- paste
+							{ find = "%d fewer lines" }, -- delete
+							{ find = "Already at newest change" }, -- history
 						},
 					},
 					view = "mini",
+				},
+				{
+					filter = {
+						event = "msg_show",
+						any = {
+							{ find = "^/" }, -- search performed with no results will show the search performed as well as the no results message. This hides the search performed messages
+						},
+					},
+					opt = { show = false },
 				},
 			},
 			lsp = {
@@ -1706,6 +1719,12 @@ require("lazy").setup({
 				},
 			},
 		},
+	},
+
+	{ -- render markdown in terminal with glow
+		"ellisonleao/glow.nvim",
+		config = true,
+		cmd = "Glow",
 	},
 }, {
 	ui = {
