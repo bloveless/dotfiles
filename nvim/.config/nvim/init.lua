@@ -584,6 +584,7 @@ require("lazy").setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"blade-formatter",
+				-- "buf", -- Don't install buf from Mason since the lsp requires the latest head version to run. Install with `brew install bufbuild/buf/buf --HEAD`
 				"gofumpt",
 				"goimports",
 				"golangci-lint",
@@ -609,6 +610,24 @@ require("lazy").setup({
 						require("lspconfig")[server_name].setup(server)
 					end,
 				},
+			})
+
+			local configs = require("lspconfig.configs")
+			local util = require("lspconfig.util")
+
+			configs.buf_lsp = {
+				default_config = {
+					cmd = { "buf", "beta", "lsp" },
+					filetypes = { "proto" },
+					root_dir = function(fname)
+						return util.root_pattern("buf.work.yaml", ".git")(fname)
+					end,
+				},
+			}
+
+			local lspconfig = require("lspconfig")
+			lspconfig.buf_lsp.setup({
+				capabilities = capabilities,
 			})
 		end,
 	},
@@ -656,6 +675,7 @@ require("lazy").setup({
 				},
 				php = { "pint" },
 				blade = { "blade-formatter" },
+				proto = { "buf" },
 			},
 		},
 	},
@@ -683,6 +703,7 @@ require("lazy").setup({
 			lint.linters_by_ft["docker"] = { "hadolint" }
 			lint.linters_by_ft["text"] = nil
 			lint.linters_by_ft["php"] = { "phpstan" }
+			lint.linters_by_ft["proto"] = { "buf_lint" }
 
 			-- Create autocommand which carries out the actual linting
 			-- on the specified events.
