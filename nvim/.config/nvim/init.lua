@@ -256,6 +256,13 @@ require("lazy").setup({
 				lsp_trouble = true,
 				which_key = true,
 			},
+			custom_highlights = function(colors)
+				return {
+					DiagnosticUnderlineWarn = {
+						sp = "#564d3a",
+					},
+				}
+			end,
 		},
 		config = function(_, opts)
 			require("catppuccin").setup(opts)
