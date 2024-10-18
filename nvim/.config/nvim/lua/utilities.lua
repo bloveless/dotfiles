@@ -116,11 +116,6 @@ return {
 
 			require("mini.extra").setup()
 
-			local choose_all = function()
-				local mappings = MiniPick.get_picker_opts().mappings
-				vim.api.nvim_input(mappings.mark_all .. mappings.choose_marked)
-			end
-
 			local minifiles = require("mini.files")
 			minifiles.setup({
 				windows = {
@@ -155,6 +150,13 @@ return {
 			vim.keymap.set("n", "<leader>w", function()
 				require("mini.bufremove").delete(0, false)
 			end, { desc = "buffer delete" })
+
+			-- this is already done by something else... although I'm not sure what
+			require("mini.cursorword").setup()
+
+			require("mini.statusline").setup()
+
+			require("mini.notify").setup()
 		end,
 	},
 

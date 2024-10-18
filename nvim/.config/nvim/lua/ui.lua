@@ -52,64 +52,64 @@ return {
 		end,
 	},
 
-	{ -- tabbar
-		"romgrk/barbar.nvim",
-		dependencies = {
-			"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
-			"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
-		},
-		init = function()
-			vim.g.barbar_auto_setup = false
-		end,
-		opts = {
-			-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-			animation = false,
-			-- insert_at_start = true,
-			-- …etc.
-		},
-		config = function(_, opts)
-			require("barbar").setup(opts)
+	-- { -- tabbar
+	-- 	"romgrk/barbar.nvim",
+	-- 	dependencies = {
+	-- 		"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+	-- 		"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+	-- 	},
+	-- 	init = function()
+	-- 		vim.g.barbar_auto_setup = false
+	-- 	end,
+	-- 	opts = {
+	-- 		-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+	-- 		animation = false,
+	-- 		-- insert_at_start = true,
+	-- 		-- …etc.
+	-- 	},
+	-- 	config = function(_, opts)
+	-- 		require("barbar").setup(opts)
+	--
+	-- 		vim.keymap.set("n", "<C-p>", "<Cmd>BufferPick<CR>", { desc = "Buffer pick" })
+	-- 		vim.keymap.set("n", "<S-l>", "<cmd>BufferNext<cr>", { desc = "Buffer next" })
+	-- 		vim.keymap.set("n", "<S-h>", "<cmd>BufferPrevious<cr>", { desc = "Buffer previous" })
+	-- 		vim.keymap.set("n", "<A-<>", "<Cmd>BufferMovePrevious<cr>", { desc = "Move buffer previous" })
+	-- 		vim.keymap.set("n", "<A->>", "<Cmd>BufferMoveNext<cr>", { desc = "Move buffer next" })
+	-- 		vim.keymap.set("n", "<leader>w", "<cmd>BufferDelete<cr>", { desc = "Buffer previous" })
+	-- 	end,
+	-- },
 
-			vim.keymap.set("n", "<C-p>", "<Cmd>BufferPick<CR>", { desc = "Buffer pick" })
-			vim.keymap.set("n", "<S-l>", "<cmd>BufferNext<cr>", { desc = "Buffer next" })
-			vim.keymap.set("n", "<S-h>", "<cmd>BufferPrevious<cr>", { desc = "Buffer previous" })
-			vim.keymap.set("n", "<A-<>", "<Cmd>BufferMovePrevious<cr>", { desc = "Move buffer previous" })
-			vim.keymap.set("n", "<A->>", "<Cmd>BufferMoveNext<cr>", { desc = "Move buffer next" })
-			vim.keymap.set("n", "<leader>w", "<cmd>BufferDelete<cr>", { desc = "Buffer previous" })
-		end,
-	},
-
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = {
-			"folke/noice.nvim",
-			"nvim-tree/nvim-web-devicons", -- optional dependency
-		},
-		config = function()
-			require("lualine").setup({
-				theme = "catppuccin",
-				sections = {
-					lualine_x = {
-						{
-							require("noice").api.status.command.get,
-							cond = require("noice").api.status.command.has,
-							color = { fg = "#ff9e64" },
-						},
-						{
-							require("noice").api.status.mode.get,
-							cond = require("noice").api.status.mode.has,
-							color = { fg = "#ff9e64" },
-						},
-						{
-							require("noice").api.status.search.get,
-							cond = require("noice").api.status.search.has,
-							color = { fg = "#ff9e64" },
-						},
-					},
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"nvim-lualine/lualine.nvim",
+	-- 	dependencies = {
+	-- 		"folke/noice.nvim",
+	-- 		"nvim-tree/nvim-web-devicons", -- optional dependency
+	-- 	},
+	-- 	config = function()
+	-- 		require("lualine").setup({
+	-- 			theme = "catppuccin",
+	-- 			sections = {
+	-- 				lualine_x = {
+	-- 					{
+	-- 						require("noice").api.status.command.get,
+	-- 						cond = require("noice").api.status.command.has,
+	-- 						color = { fg = "#ff9e64" },
+	-- 					},
+	-- 					{
+	-- 						require("noice").api.status.mode.get,
+	-- 						cond = require("noice").api.status.mode.has,
+	-- 						color = { fg = "#ff9e64" },
+	-- 					},
+	-- 					{
+	-- 						require("noice").api.status.search.get,
+	-- 						cond = require("noice").api.status.search.has,
+	-- 						color = { fg = "#ff9e64" },
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 
 	{ -- vscode style breadcrumbs
 		"utilyre/barbecue.nvim",
@@ -159,11 +159,6 @@ return {
 					"python",
 				},
 			},
-		},
-
-		{
-			"j-hui/fidget.nvim",
-			opts = {},
 		},
 	},
 

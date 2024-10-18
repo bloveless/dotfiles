@@ -1,3 +1,5 @@
+-- This file exists simply to store configurations that I've tried with plugins that I'm not using right now
+
 return {
 	{
 		"navarasu/onedark.nvim",
@@ -264,5 +266,10 @@ return {
 				},
 			},
 		},
+	},
+
+	{
+		"j-hui/fidget.nvim",
+		opts = {},
 	},
 }

@@ -1,139 +1,133 @@
-return {
-	{ -- Autocompletion
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
-		dependencies = {
+local now, add = MiniDeps.now, MiniDeps.add
+
+-- Autocompletion
+now(function() 
+	add({
+		source = "hrsh7th/nvim-cmp"
+		depends = {
 			-- Snippet Engine & its associated nvim-cmp source
-			{
-				"L3MON4D3/LuaSnip",
-				build = (function()
-					-- Build Step is needed for regex support in snippets.
-					return "make install_jsregexp"
-				end)(),
-				dependencies = {},
-			},
+			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 
 			-- Adds other completion capabilities.
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
+		}
+	})
+
+	-- See `:help cmp`
+	local cmp = require("cmp")
+	local luasnip = require("luasnip")
+	luasnip.config.setup({})
+
+	cmp.setup({
+		snippet = {
+			expand = function(args)
+				luasnip.lsp_expand(args.body)
+			end,
 		},
-		config = function()
-			-- See `:help cmp`
-			local cmp = require("cmp")
-			local luasnip = require("luasnip")
-			luasnip.config.setup({})
+		completion = { completeopt = "menu,menuone,noinsert" },
 
-			cmp.setup({
-				snippet = {
-					expand = function(args)
-						luasnip.lsp_expand(args.body)
-					end,
-				},
-				completion = { completeopt = "menu,menuone,noinsert" },
+		-- For an understanding of why these mappings were
+		-- chosen, you will need to read `:help ins-completion`
+		--
+		-- No, but seriously. Please read `:help ins-completion`, it is really good!
+		mapping = cmp.mapping.preset.insert({
+			-- Select the [n]ext item
+			["<C-n>"] = cmp.mapping.select_next_item(),
+			-- Select the [p]revious item
+			["<C-p>"] = cmp.mapping.select_prev_item(),
 
-				-- For an understanding of why these mappings were
-				-- chosen, you will need to read `:help ins-completion`
-				--
-				-- No, but seriously. Please read `:help ins-completion`, it is really good!
-				mapping = cmp.mapping.preset.insert({
-					-- Select the [n]ext item
-					["<C-n>"] = cmp.mapping.select_next_item(),
-					-- Select the [p]revious item
-					["<C-p>"] = cmp.mapping.select_prev_item(),
+			-- Scroll the documentation window [b]ack / [f]orward
+			["<C-b>"] = cmp.mapping.scroll_docs(-4),
+			["<C-f>"] = cmp.mapping.scroll_docs(4),
 
-					-- Scroll the documentation window [b]ack / [f]orward
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
+			-- Accept ([y]es) the completion.
+			["<C-y>"] = cmp.mapping.confirm({ select = true }),
 
-					-- Accept ([y]es) the completion.
-					["<C-y>"] = cmp.mapping.confirm({ select = true }),
+			-- Manually trigger a completion from nvim-cmp.
+			["<C-Space>"] = cmp.mapping.complete({}),
 
-					-- Manually trigger a completion from nvim-cmp.
-					["<C-Space>"] = cmp.mapping.complete({}),
+			-- Think of <c-l> as moving to the right of your snippet expansion.
+			["<C-l>"] = cmp.mapping(function()
+				if luasnip.expand_or_locally_jumpable() then
+					luasnip.expand_or_jump()
+				end
+			end, { "i", "s" }),
+			["<C-h>"] = cmp.mapping(function()
+				if luasnip.locally_jumpable(-1) then
+					luasnip.jump(-1)
+				end
+			end, { "i", "s" }),
 
-					-- Think of <c-l> as moving to the right of your snippet expansion.
-					["<C-l>"] = cmp.mapping(function()
-						if luasnip.expand_or_locally_jumpable() then
-							luasnip.expand_or_jump()
-						end
-					end, { "i", "s" }),
-					["<C-h>"] = cmp.mapping(function()
-						if luasnip.locally_jumpable(-1) then
-							luasnip.jump(-1)
-						end
-					end, { "i", "s" }),
-
-					-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-					--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
-				}),
-				sources = {
-					{
-						name = "lazydev",
-						-- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
-						group_index = 0,
-					},
-					{ name = "nvim_lsp" },
-					{ name = "luasnip" },
-					{ name = "path" },
-				},
-			})
-		end,
-	},
-
-	{ -- Highlight, edit, and navigate code
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		main = "nvim-treesitter.configs", -- Sets main module to use for opts
-		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-		dependencies = {
-			{ "nvim-treesitter/nvim-treesitter-textobjects" }, -- Syntax aware text-objects
-		},
-		opts = {
-			ensure_installed = {
-				"bash",
-				"c",
-				"diff",
-				"go",
-				"gomod",
-				"gosum",
-				"gotmpl",
-				"hcl",
-				"html",
-				"lua",
-				"luadoc",
-				"markdown",
-				"markdown_inline",
-				"php",
-				"query",
-				"vim",
-				"vimdoc",
+			-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
+			--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+		}),
+		sources = {
+			{
+				name = "lazydev",
+				-- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
+				group_index = 0,
 			},
-			-- Autoinstall languages that are not installed
-			auto_install = true,
-			highlight = {
-				enable = true,
-				-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-				--  If you are experiencing weird indenting issues, add the language to
-				--  the list of additional_vim_regex_highlighting and disabled languages for indent.
-				additional_vim_regex_highlighting = { "ruby" },
-			},
-			indent = { enable = true, disable = { "ruby" } },
+			{ name = "nvim_lsp" },
+			{ name = "luasnip" },
+			{ name = "path" },
 		},
-		config = function(_, opts)
-			require("nvim-treesitter.configs").setup(opts)
-			local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+	})
+end)
 
-			parser_config.blade = {
-				install_info = {
-					url = "https://github.com/EmranMR/tree-sitter-blade",
-					files = { "src/parser.c" },
-					branch = "main",
-				},
-				filetype = "blade",
-			}
-		end,
-	},
+now(function()
+	add({
+		source = "nvim-treesitter/nvim-treesitter"
+		depends = {
+			"nvim-treesitter/nvim-treesitter-textobjects", -- Syntax aware text-objects
+		}
+		-- Perform action after every checkout
+		hooks = { post_checkout = function() vim.cmd('TSUpdate') end },
+	})
+
+	require("nvim-treesitter.configs").setup({
+		ensure_installed = {
+			"bash",
+			"c",
+			"diff",
+			"go",
+			"gomod",
+			"gosum",
+			"gotmpl",
+			"hcl",
+			"html",
+			"lua",
+			"luadoc",
+			"markdown",
+			"markdown_inline",
+			"php",
+			"query",
+			"vim",
+			"vimdoc",
+		},
+		-- Autoinstall languages that are not installed
+		auto_install = true,
+		highlight = {
+			enable = true,
+			-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+			--  If you are experiencing weird indenting issues, add the language to
+			--  the list of additional_vim_regex_highlighting and disabled languages for indent.
+			additional_vim_regex_highlighting = { "ruby" },
+		},
+		indent = { enable = true, disable = { "ruby" } },
+	})
+	local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+	parser_config.blade = {
+		install_info = {
+			url = "https://github.com/EmranMR/tree-sitter-blade",
+			files = { "src/parser.c" },
+			branch = "main",
+		},
+		filetype = "blade",
+	}
+end)
 
 	{ -- Autoformat
 		"stevearc/conform.nvim",
