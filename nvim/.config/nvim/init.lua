@@ -183,6 +183,6 @@ require("mini.deps").setup({ path = { package = path_package } })
 
 require("ui")
 require("lsp")
-require("utilities")
-require("languages")
+require("coding")
 require("testing")
+require("utilities")
