@@ -66,6 +66,7 @@ now(function() -- vscode style breadcrumbs
 	require("barbecue").setup({
 		theme = "catppuccin-macchiato",
 		create_autocmd = false, -- prevent barbecue from updating itself automatically
+		exclude_filetypes = { "toggleterm" },
 	})
 
 	vim.api.nvim_create_autocmd({
