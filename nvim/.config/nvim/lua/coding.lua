@@ -262,3 +262,36 @@ later(function() -- quick diagnostics display
 	vim.keymap.set("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
 	vim.keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
 end)
+
+later(function()
+	add({
+		source = "ThePrimeagen/harpoon",
+		depends = {
+			"nvim-lua/plenary.nvim",
+		},
+	})
+
+	require("harpoon").setup()
+
+	vim.keymap.set("n", "<leader>hm", function()
+		require("harpoon.mark").add_file()
+	end, { desc = "Add harpoon mark" })
+	vim.keymap.set("n", "<leader>hh", function()
+		require("harpoon.ui").toggle_quick_menu()
+	end, { desc = "Add harpoon mark" })
+	vim.keymap.set("n", "<leader>1", function()
+		require("harpoon.ui").nav_file(1)
+	end, { desc = "Go to harpoon 1" })
+	vim.keymap.set("n", "<leader>2", function()
+		require("harpoon.ui").nav_file(2)
+	end, { desc = "Go to harpoon 2" })
+	vim.keymap.set("n", "<leader>3", function()
+		require("harpoon.ui").nav_file(3)
+	end, { desc = "Go to harpoon 3" })
+	vim.keymap.set("n", "<leader>4", function()
+		require("harpoon.ui").nav_file(4)
+	end, { desc = "Go to harpoon 4" })
+	vim.keymap.set("n", "<leader>5", function()
+		require("harpoon.ui").nav_file(5)
+	end, { desc = "Go to harpoon 5" })
+end)
