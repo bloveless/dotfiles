@@ -10,7 +10,7 @@ later(function() -- Main LSP Configuration
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 			-- Allows extra capabilities provided by nvim-cmp
-			"hrsh7th/cmp-nvim-lsp",
+			-- "hrsh7th/cmp-nvim-lsp",
 		},
 	})
 
@@ -92,7 +92,7 @@ later(function() -- Main LSP Configuration
 	})
 
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+	-- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 	local servers = {
 		-- clangd = {},
