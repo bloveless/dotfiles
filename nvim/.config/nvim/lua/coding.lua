@@ -27,7 +27,14 @@ later(function()
 		-- accept = { auto_brackets = { enabled = true } }
 
 		-- experimental signature help support
-		-- trigger = { signature_help = { enabled = true } }
+		trigger = { signature_help = { enabled = true } },
+
+		windows = {
+			documentation = {
+				auto_show = true,
+				auto_show_delay_ms = 250,
+			},
+		},
 	})
 end)
 
