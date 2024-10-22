@@ -29,6 +29,7 @@ alias ls='eza --color=auto'
 
 export PATH="/Applications/WezTerm.app/Contents/MacOS:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
 
 # brew install zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
