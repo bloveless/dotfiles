@@ -331,3 +331,13 @@ later(function()
 		require("harpoon.ui").nav_file(5)
 	end, { desc = "Go to harpoon 5" })
 end)
+
+now(function()
+	add({
+		source = "iamcco/markdown-preview.nvim",
+	})
+end)
+
+later(function()
+	vim.fn["mkdp#util#install"]()
+end)
