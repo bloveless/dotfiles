@@ -91,12 +91,6 @@ now(function() -- Fuzzy Finder (files, lsp, etc)
 end)
 
 now(function() -- Collection of various small independent plugins/modules
-	require("mini.basics").setup({
-		autocommands = {
-			relnum_in_visual_mode = true,
-		},
-	})
-
 	-- Better Around/Inside textobjects
 	--
 	-- Examples:
