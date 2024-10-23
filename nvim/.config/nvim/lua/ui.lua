@@ -87,7 +87,9 @@ end)
 
 now(function() -- show cursor column only on specific file types
 	add({
-		source = "tummetott/reticle.nvim",
+		-- source = "tummetott/reticle.nvim",
+		-- revert back to tummetott if https://github.com/tummetott/reticle.nvim/pull/13 gets merged
+		source = "bloveless/reticle.nvim",
 	})
 
 	require("reticle").setup({
