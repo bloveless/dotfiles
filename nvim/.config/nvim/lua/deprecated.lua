@@ -1,5 +1,154 @@
 -- This file exists simply to store configurations that I've tried with plugins that I'm not using right now
 
+later(function() -- Autocompletion
+	add({
+		name = "nvim-cmp",
+		source = "iguanacucumber/magazine.nvim",
+		depends = {
+			-- Adds other completion capabilities.
+			{
+				name = "cmp-nvim-lsp",
+				source = "iguanacucumber/mag-nvim-lsp",
+			},
+			{
+				name = "cmp-nvim-lua",
+				source = "iguanacucumber/mag-nvim-lua",
+			},
+			{
+				name = "cmp-buffer",
+				source = "iguanacucumber/mag-buffer",
+			},
+			{
+				name = "cmp-cmdline",
+				source = "iguanacucumber/mag-cmdline",
+			},
+			"https://codeberg.org/FelipeLema/cmp-async-path",
+
+			-- Snippet Engine & its associated nvim-cmp source
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+		},
+	})
+
+	-- See `:help cmp`
+	local cmp = require("cmp")
+	local luasnip = require("luasnip")
+	luasnip.config.setup({})
+
+	cmp.setup({
+		snippet = {
+			expand = function(args)
+				luasnip.lsp_expand(args.body)
+			end,
+		},
+		completion = { completeopt = "menu,menuone,noinsert" },
+
+		-- For an understanding of why these mappings were
+		-- chosen, you will need to read `:help ins-completion`
+		--
+		-- No, but seriously. Please read `:help ins-completion`, it is really good!
+		mapping = cmp.mapping.preset.insert({
+			-- Select the [n]ext item
+			["<C-n>"] = cmp.mapping.select_next_item(),
+			-- Select the [p]revious item
+			["<C-p>"] = cmp.mapping.select_prev_item(),
+
+			-- Scroll the documentation window [b]ack / [f]orward
+			["<C-b>"] = cmp.mapping.scroll_docs(-4),
+			["<C-f>"] = cmp.mapping.scroll_docs(4),
+
+			-- Accept ([y]es) the completion.
+			["<C-y>"] = cmp.mapping.confirm({ select = true }),
+
+			-- Manually trigger a completion from nvim-cmp.
+			["<C-Space>"] = cmp.mapping.complete({}),
+
+			-- Think of <c-l> as moving to the right of your snippet expansion.
+			["<C-l>"] = cmp.mapping(function()
+				if luasnip.expand_or_locally_jumpable() then
+					luasnip.expand_or_jump()
+				end
+			end, { "i", "s" }),
+			["<C-h>"] = cmp.mapping(function()
+				if luasnip.locally_jumpable(-1) then
+					luasnip.jump(-1)
+				end
+			end, { "i", "s" }),
+
+			-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
+			--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+		}),
+		sources = {
+			{
+				name = "lazydev",
+				-- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
+				group_index = 0,
+			},
+			{ name = "nvim_lsp" },
+			{ name = "luasnip" },
+			{ name = "path" },
+			{ name = "buffer" },
+		},
+	})
+
+	-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+	cmp.setup.cmdline({ "/", "?" }, {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = "buffer" },
+		},
+	})
+
+	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+	cmp.setup.cmdline(":", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
+			{ name = "path" },
+		}, {
+			{ name = "cmdline" },
+		}),
+		matching = { disallow_symbol_nonprefix_matching = false },
+	})
+end)
+
+later(function()
+	add({ -- autocompletion
+		source = "saghen/blink.cmp",
+		depends = {
+			"rafamadriz/friendly-snippets",
+		},
+		checkout = "v0.3.1", -- check releases for latest tag
+	})
+
+	require("blink.cmp").setup({
+		keymap = {
+			accept = "<C-y>",
+		},
+		highlight = {
+			-- sets the fallback highlight groups to nvim-cmp's highlight groups
+			-- useful for when your theme doesn't support blink.cmp
+			-- will be removed in a future release, assuming themes add support
+			use_nvim_cmp_as_default = true,
+		},
+		-- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+		-- adjusts spacing to ensure icons are aligned
+		nerd_font_variant = "normal",
+
+		-- experimental auto-brackets support
+		-- accept = { auto_brackets = { enabled = true } }
+
+		-- experimental signature help support
+		trigger = { signature_help = { enabled = true } },
+
+		windows = {
+			documentation = {
+				auto_show = true,
+				auto_show_delay_ms = 250,
+			},
+		},
+	})
+end)
+
 return {
 	{
 		"navarasu/onedark.nvim",

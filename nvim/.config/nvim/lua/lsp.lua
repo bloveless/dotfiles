@@ -8,9 +8,6 @@ later(function() -- Main LSP Configuration
 			"williamboman/mason.nvim", -- NOTE: Must be loaded before dependants
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-
-			-- Allows extra capabilities provided by nvim-cmp
-			-- "hrsh7th/cmp-nvim-lsp",
 		},
 	})
 
@@ -91,9 +88,6 @@ later(function() -- Main LSP Configuration
 		end,
 	})
 
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	-- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
 	local servers = {
 		-- clangd = {},
 		gopls = {},
@@ -152,6 +146,8 @@ later(function() -- Main LSP Configuration
 		"delve",
 	})
 	require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 	require("mason-lspconfig").setup({
 		handlers = {
