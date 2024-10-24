@@ -111,7 +111,11 @@ now(function() -- diagnostics in the scrollbar
 		source = "petertriho/nvim-scrollbar",
 	})
 
-	require("scrollbar").setup()
+	require("scrollbar").setup({
+		excluded_filetypes = {
+			"neo-tree",
+		},
+	})
 end)
 
 now(function() -- render markdown in terminal with glow
@@ -246,4 +250,18 @@ now(function() -- Useful plugin to show you pending keybinds.
 			{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
 		},
 	})
+end)
+
+now(function()
+	add({
+		source = "nvim-neo-tree/neo-tree.nvim",
+		checkout = "v3.x",
+		depends = {
+			"nvim-lua/plenary.nvim",
+			-- "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended (uses mini.icons)
+			"MunifTanjim/nui.nvim",
+		},
+	})
+
+	vim.keymap.set("n", "<leader>e", "<cmd>Neotree filesystem reveal toggle<cr>", { desc = "File explorer" })
 end)
