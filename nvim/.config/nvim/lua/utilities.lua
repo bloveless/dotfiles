@@ -100,11 +100,8 @@ now(function() -- Collection of various small independent plugins/modules
 	require("mini.ai").setup({ n_lines = 500 })
 
 	-- lsp info and other notifications
-	-- require("mini.notify").setup()
 	-- require("mini.git").setup()
 	-- require("mini.diff").setup()
-	-- local icons = require("mini.icons")
-	-- icons.setup()
 	-- icons.mock_nvim_web_devicons()
 
 	require("mini.extra").setup()
@@ -174,7 +171,7 @@ now(function() -- symbol browser
 		source = "stevearc/aerial.nvim",
 		depends = {
 			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons",
+			-- "nvim-tree/nvim-web-devicons", (using mini.icons instead)
 		},
 	})
 

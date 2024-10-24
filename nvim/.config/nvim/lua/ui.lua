@@ -56,7 +56,7 @@ now(function() -- vscode style breadcrumbs
 		source = "utilyre/barbecue.nvim",
 		depends = {
 			"SmiteshP/nvim-navic",
-			"nvim-tree/nvim-web-devicons", -- optional dependency
+			-- "nvim-tree/nvim-web-devicons", -- optional dependency (using mini.icons instead)
 		},
 	})
 

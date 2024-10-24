@@ -45,7 +45,9 @@ end
 require("mini.deps").setup({ path = { package = path_package } })
 
 -- lots of things use this so just execute it immediately
-require("mini.icons").setup()
+local icons = require("mini.icons")
+icons.setup()
+icons.mock_nvim_web_devicons()
 
 -- setup basic editor settings. Do this first so that plugins that are loaded after it will use these settings (specifically leader keys)
 require("mini.basics").setup({
@@ -63,7 +65,6 @@ require("mini.basics").setup({
 	},
 })
 
-require("autocommands")
 require("keymaps")
 require("filetypes")
 require("ui")

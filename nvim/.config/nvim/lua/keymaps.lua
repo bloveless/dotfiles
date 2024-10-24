@@ -19,13 +19,26 @@ vim.keymap.set("n", "[q", "<cmd>cp<cr>", { desc = "Previous quickfix item" })
 
 -- Shortcut to inspect diagnostics just in case they don't open for some reason
 vim.keymap.set("n", "<leader>i", function()
-	-- If we find a floating window, close it.
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		if vim.api.nvim_win_get_config(win).relative ~= "" then
-			vim.api.nvim_win_close(win, true)
+	for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+		if vim.api.nvim_win_get_config(winid).zindex then
 			return
 		end
 	end
-
-	vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+	vim.diagnostic.open_float({
+		scope = "cursor",
+		focusable = false,
+		close_events = {
+			"CursorMoved",
+			"CursorMovedI",
+			"BufHidden",
+			"InsertCharPre",
+			"WinLeave",
+		},
+	})
 end, { desc = "Toggle Diagnostics" })
+vim.keymap.set("n", "]d", function()
+	vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Show diagnostics after jumping" })
+vim.keymap.set("n", "[d", function()
+	vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Show diagnostics after jumping" })
