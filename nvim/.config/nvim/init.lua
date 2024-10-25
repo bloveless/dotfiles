@@ -1,3 +1,23 @@
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
+end
+vim.opt.rtp:prepend(lazypath)
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -24,51 +44,15 @@ vim.opt.scrolloff = 10
 -- display tabs as 4 characters
 vim.opt.tabstop = 4
 
--- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
-local path_package = vim.fn.stdpath("data") .. "/site/"
-local mini_path = path_package .. "pack/deps/start/mini.nvim"
-if not vim.loop.fs_stat(mini_path) then
-	vim.cmd('echo "Installing `mini.nvim`" | redraw')
-	local clone_cmd = {
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/echasnovski/mini.nvim",
-		mini_path,
-	}
-	vim.fn.system(clone_cmd)
-	vim.cmd("packadd mini.nvim | helptags ALL")
-	vim.cmd('echo "Installed `mini.nvim`" | redraw')
-end
-
--- Set up 'mini.deps' (customize to your liking)
-require("mini.deps").setup({ path = { package = path_package } })
-
--- lots of things use this so just execute it immediately
-local icons = require("mini.icons")
-icons.setup()
-icons.mock_nvim_web_devicons()
-
--- setup basic editor settings. Do this first so that plugins that are loaded after it will use these settings (specifically leader keys)
-require("mini.basics").setup({
-	options = {
-		-- Extra UI features ('winblend', 'cmdheight=0', ...)
-		extra_ui = true,
+-- Setup lazy.nvim
+require("lazy").setup({
+	spec = {
+		-- import your plugins
+		{ import = "plugins" },
 	},
-	mappings = {
-		-- Window navigation with <C-hjkl>, resize with <C-arrow>
-		windows = true,
-	},
-	autocommands = {
-		-- Set 'relativenumber' only in linewise and blockwise Visual mode
-		relnum_in_visual_mode = true,
-	},
+	-- Configure any other settings here. See the documentation for more details.
+	-- colorscheme that will be used when installing plugins.
+	install = { colorscheme = { "catppuccin-macchiato" } },
+	-- automatically check for plugin updates
+	checker = { enabled = true },
 })
-
-require("keymaps")
-require("filetypes")
-require("ui")
-require("lsp")
-require("coding")
-require("testing")
-require("utilities")
