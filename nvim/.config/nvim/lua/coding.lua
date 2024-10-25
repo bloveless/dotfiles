@@ -196,33 +196,21 @@ end)
 
 later(function()
 	add({
-		source = "ThePrimeagen/harpoon",
-		depends = {
-			"nvim-lua/plenary.nvim",
-		},
+		source = "cbochs/grapple.nvim",
 	})
 
-	require("harpoon").setup()
+	require("grapple").setup({
+		scope = "git_branch",
+	})
 
-	vim.keymap.set("n", "<leader>hm", function()
-		require("harpoon.mark").add_file()
-	end, { desc = "Add harpoon mark" })
-	vim.keymap.set("n", "<leader>hh", "<cmd>Telescope harpoon marks<cr>", { desc = "View harpoon marks" })
-	vim.keymap.set("n", "<leader>1", function()
-		require("harpoon.ui").nav_file(1)
-	end, { desc = "Go to harpoon 1" })
-	vim.keymap.set("n", "<leader>2", function()
-		require("harpoon.ui").nav_file(2)
-	end, { desc = "Go to harpoon 2" })
-	vim.keymap.set("n", "<leader>3", function()
-		require("harpoon.ui").nav_file(3)
-	end, { desc = "Go to harpoon 3" })
-	vim.keymap.set("n", "<leader>4", function()
-		require("harpoon.ui").nav_file(4)
-	end, { desc = "Go to harpoon 4" })
-	vim.keymap.set("n", "<leader>5", function()
-		require("harpoon.ui").nav_file(5)
-	end, { desc = "Go to harpoon 5" })
+	vim.keymap.set("n", "<leader>m", "<cmd>Grapple toggle<cr>", { desc = "Grapple toggle tag" })
+	vim.keymap.set("n", "<leader>M", "<cmd>Grapple toggle_tags<cr>", { desc = "Grapple open tags window" })
+	vim.keymap.set("n", "<leader>n", "<cmd>Grapple cycle_tags next<cr>", { desc = "Grapple cycle next tag" })
+	vim.keymap.set("n", "<leader>p", "<cmd>Grapple cycle_tags prev<cr>", { desc = "Grapple cycle previous tag" })
+	vim.keymap.set("n", "<leader>1", "<cmd>Grapple select index=1<cr>", { desc = "Grapple cycle index one" })
+	vim.keymap.set("n", "<leader>2", "<cmd>Grapple select index=2<cr>", { desc = "Grapple cycle index two" })
+	vim.keymap.set("n", "<leader>3", "<cmd>Grapple select index=3<cr>", { desc = "Grapple cycle index three" })
+	vim.keymap.set("n", "<leader>4", "<cmd>Grapple select index=4<cr>", { desc = "Grapple cycle index four" })
 end)
 
 now(function()
