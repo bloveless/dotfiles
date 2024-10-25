@@ -44,6 +44,9 @@ vim.opt.scrolloff = 10
 -- display tabs as 4 characters
 vim.opt.tabstop = 4
 
+-- put this in your main init.lua file ( before lazy setup )
+vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46_cache/"
+
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = {
@@ -56,3 +59,8 @@ require("lazy").setup({
 	-- automatically check for plugin updates
 	checker = { enabled = true },
 })
+
+-- (method 2, for non lazyloaders) to load all highlights at once
+for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+  dofile(vim.g.base46_cache .. v)
+end
