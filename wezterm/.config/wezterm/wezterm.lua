@@ -47,8 +47,8 @@ for i = 1, 8 do
 end
 
 -- config.color_scheme = "Gruvbox dark, soft (base16)"
--- config.color_scheme = "OneDark (base16)"
-config.color_scheme = "Catppuccin Macchiato"
+config.color_scheme = "OneDark (base16)"
+-- config.color_scheme = "Catppuccin Macchiato"
 
 config.font = wezterm.font("MonoLisa")
 config.font_size = 11
@@ -60,7 +60,8 @@ config.keys = mykeys
 config.tab_bar_at_bottom = true
 
 -- local theme = require("lua/rose-pine").moon
-local theme = wezterm.color.get_builtin_schemes()["Catppuccin Macchiato"]
+-- local theme = wezterm.color.get_builtin_schemes()["Catppuccin Macchiato"]
+local theme = wezterm.color.get_builtin_schemes()["OneDark (base16)"]
 
 config.window_frame = {
 	-- The font used in the tab bar.
