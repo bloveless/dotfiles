@@ -3,7 +3,7 @@ return {
 		"utilyre/barbecue.nvim",
 		dependencies = {
 			"SmiteshP/nvim-navic",
-			-- "nvim-tree/nvim-web-devicons", -- optional dependency (using mini.icons instead)
+			"nvim-tree/nvim-web-devicons", -- optional dependency (using mini.icons instead)
 		},
 		opts = {
 			theme = "auto",

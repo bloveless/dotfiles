@@ -17,6 +17,10 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 vim.keymap.set("n", "]q", "<cmd>cn<cr>", { desc = "Next quickfix item" })
 vim.keymap.set("n", "[q", "<cmd>cp<cr>", { desc = "Previous quickfix item" })
 
+-- Navigate buffer tabs
+vim.keymap.set("n", "L", "<cmd>bnext<cr>", { desc = "Next buffer" })
+vim.keymap.set("n", "H", "<cmd>bprev<cr>", { desc = "Next buffer" })
+
 -- Shortcut to inspect diagnostics just in case they don't open for some reason
 vim.keymap.set("n", "<leader>i", function()
 	for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do

@@ -1,17 +1,17 @@
 return {
   base46 = {
-    theme = "onedark", -- default theme
+    theme = "kanagawa", -- default theme
     hl_add = {},
     hl_override = {},
     integrations = {},
     changed_themes = {},
     transparency = false,
-    theme_toggle = { "onedark", "one_light" },
+    theme_toggle = { "kanagawa", "one_light" },
   },
 
   ui = {
     cmp = {
-      icons_left = false, -- only for non-atom styles!
+      icons_left = true, -- only for non-atom styles!
       lspkind_text = true,
       style = "default", -- default/flat_light/flat_dark/atom/atom_colored
       format_colors = {

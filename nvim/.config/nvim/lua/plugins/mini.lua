@@ -4,9 +4,9 @@ return {
 		version = false,
 		config = function()
 			-- lots of things use this so just execute it immediately
-			local icons = require("mini.icons")
-			icons.setup()
-			icons.mock_nvim_web_devicons()
+			-- local icons = require("mini.icons")
+			-- icons.setup()
+			-- icons.mock_nvim_web_devicons()
 
 			-- setup basic editor settings. Do this first so that plugins that are loaded after it will use these settings (specifically leader keys)
 			require("mini.basics").setup({
