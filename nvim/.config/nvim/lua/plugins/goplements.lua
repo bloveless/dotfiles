@@ -1,0 +1,3 @@
+return {
+	"maxandron/goplements.nvim",
+}
