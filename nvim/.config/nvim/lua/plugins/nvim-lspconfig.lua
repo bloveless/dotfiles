@@ -6,6 +6,7 @@ return {
 			"williamboman/mason.nvim", -- NOTE: Must be loaded before dependants
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			"nvchad/ui",
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -39,7 +40,7 @@ return {
 					)
 
 					-- Rename the variable under your cursor.
-					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+					map("<leader>rn", require "nvchad.lsp.renamer", "[R]e[n]ame")
 
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })

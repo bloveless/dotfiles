@@ -1,12 +1,15 @@
 return {
 	{
 		"utilyre/barbecue.nvim",
+		enabled = false,
 		dependencies = {
 			"SmiteshP/nvim-navic",
 			"nvim-tree/nvim-web-devicons", -- optional dependency (using mini.icons instead)
+			"nvchad/ui",
+			"nvchad/base46",
 		},
 		opts = {
-			theme = "auto",
+			theme = "gruvbox",
 			create_autocmd = false, -- prevent barbecue from updating itself automatically
 			exclude_filetypes = { "toggleterm", "netrw" },
 			show_modified = true,
