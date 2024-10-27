@@ -40,7 +40,7 @@ return {
 					)
 
 					-- Rename the variable under your cursor.
-					map("<leader>rn", require "nvchad.lsp.renamer", "[R]e[n]ame")
+					-- map("<leader>rn", require "nvchad.lsp.renamer", "[R]e[n]ame")
 
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })

@@ -28,7 +28,7 @@ vim.opt.scrolloff = 10
 vim.opt.tabstop = 4
 
 -- put this in your main init.lua file ( before lazy setup )
-vim.g.base46_cache = vim.fn.stdpath("data") .. "/base46_cache/"
+-- vim.g.base46_cache = vim.fn.stdpath("data") .. "/base46_cache/"
 
 require("filetypes")
 require("keymaps")
@@ -57,12 +57,12 @@ require("lazy").setup({
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.
-	install = { colorscheme = { "nvchad" } },
+	install = { colorscheme = { "catppuccin-macchiato" } },
 	-- automatically check for plugin updates
 	checker = { enabled = true },
 })
 
 -- (method 2, for non lazyloaders) to load all highlights at once
-for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
-	dofile(vim.g.base46_cache .. v)
-end
+-- for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+-- 	dofile(vim.g.base46_cache .. v)
+-- end

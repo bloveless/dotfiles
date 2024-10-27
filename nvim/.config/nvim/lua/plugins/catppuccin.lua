@@ -1,7 +1,6 @@
 return {
 	{
 		"catppuccin/nvim",
-		enabled = false,
 		opts = {
 			integrations = {
 				cmp = true,

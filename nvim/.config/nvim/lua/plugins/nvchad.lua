@@ -5,6 +5,7 @@ return {
 	{
 		"nvchad/ui",
 		priority = 1000,
+		enabled = false,
 		config = function()
 			require("nvchad")
 
@@ -16,6 +17,7 @@ return {
 
 	{
 		"nvchad/base46",
+		enabled = false,
 		priority = 1000,
 		lazy = true,
 		build = function()
@@ -23,6 +25,9 @@ return {
 		end,
 	},
 
-	"nvchad/volt", -- optional, needed for theme switcher
+	{
+		"nvchad/volt", -- optional, needed for theme switcher
+		enabled = false,
+	}
 	-- or just use Telescope themes
 }
