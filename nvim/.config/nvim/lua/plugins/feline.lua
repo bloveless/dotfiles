@@ -4,6 +4,7 @@ return {
 		opts = {},
 		config = function(_, opts)
 			local clrs = require("catppuccin.palettes").get_palette()
+			local latte = require("catppuccin.palettes.latte")
 			local ctp_feline = require("catppuccin.groups.integrations.feline")
 			local U = require("catppuccin.utils.colors")
 
@@ -29,10 +30,8 @@ return {
 					},
 				},
 				sett = {
-					-- text = U.vary_color({ latte = latte.base }, clrs.surface0),
-					-- bkg = U.vary_color({ latte = latte.crust }, clrs.surface0),
-					text = clrs.surface0,
-					bkg = clrs.surface0,
+					text = U.vary_color({ latte = latte.base }, clrs.surface0),
+					bkg = U.vary_color({ latte = latte.crust }, clrs.surface0),
 					diffs = clrs.mauve,
 					extras = clrs.overlay1,
 					curr_file = clrs.maroon,
