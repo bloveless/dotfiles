@@ -39,17 +39,17 @@ return {
 
 			require("mini.extra").setup()
 
-			-- local minifiles = require("mini.files")
-			-- minifiles.setup({
-			-- 	windows = {
-			-- 		preview = true,
-			-- 		width_preview = 75,
-			-- 	},
-			-- })
-			-- vim.keymap.set("n", "<leader>e", function()
-			-- 	minifiles.open(vim.api.nvim_buf_get_name(0))
-			-- 	minifiles.reveal_cwd()
-			-- end, { desc = "File explorer" })
+			local minifiles = require("mini.files")
+			minifiles.setup({
+				windows = {
+					preview = true,
+					width_preview = 75,
+				},
+			})
+			vim.keymap.set("n", "<leader>e", function()
+				minifiles.open(vim.api.nvim_buf_get_name(0))
+				minifiles.reveal_cwd()
+			end, { desc = "File explorer" })
 
 			local hipatterns = require("mini.hipatterns")
 			hipatterns.setup({
