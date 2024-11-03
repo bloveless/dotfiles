@@ -13,6 +13,7 @@ return {
 			{ "<leader>2", "<cmd>Grapple select index=2<cr>", { desc = "Grapple cycle index two" } },
 			{ "<leader>3", "<cmd>Grapple select index=3<cr>", { desc = "Grapple cycle index three" } },
 			{ "<leader>4", "<cmd>Grapple select index=4<cr>", { desc = "Grapple cycle index four" } },
+			{ "<leader>5", "<cmd>Grapple select index=5<cr>", { desc = "Grapple cycle index five" } },
 		},
 		opts = {
 			scope = "git_branch",
