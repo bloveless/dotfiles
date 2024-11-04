@@ -48,7 +48,13 @@ return {
 					section_separators = { left = "", right = "" },
 				},
 				sections = {
-					lualine_a = { { "mode", separator = { left = "" }, right_padding = 2 } },
+					lualine_a = {
+						{
+							"mode",
+							icon = "",
+							separator = { left = "" },
+						},
+					},
 					lualine_b = {
 						"filename",
 						"branch",
