@@ -4,13 +4,13 @@ return {
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 			"arkav/lualine-lsp-progress",
-			{
-				"will-lynas/grapple-line.nvim",
-				version = "1.x",
-				dependencies = {
-					"cbochs/grapple.nvim",
-				},
-			},
+			-- {
+			-- 	"will-lynas/grapple-line.nvim",
+			-- 	version = "1.x",
+			-- 	dependencies = {
+			-- 		"cbochs/grapple.nvim",
+			-- 	},
+			-- },
 		},
 		config = function()
 			local colors = {
@@ -23,9 +23,9 @@ return {
 				grey = "#303030",
 			}
 
-			require("grapple-line").setup({
-				number_of_files = 10,
-			})
+			-- require("grapple-line").setup({
+			-- 	number_of_files = 10,
+			-- })
 
 			require("lualine").setup({
 				options = {
@@ -94,9 +94,9 @@ return {
 					lualine_z = { "location" },
 				},
 				tabline = {
-					lualine_a = {
-						{ require("grapple-line").lualine, separator = { right = "", left = "" } },
-					},
+					-- lualine_a = {
+					-- 	{ require("grapple-line").lualine, separator = { right = "", left = "" } },
+					-- },
 				},
 				extensions = {
 					"aerial",
