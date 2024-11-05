@@ -51,8 +51,8 @@ end
 config.color_scheme = "Catppuccin Macchiato"
 
 config.font = wezterm.font("MonoLisa")
-config.font_size = 11
-config.line_height = 1.6
+config.font_size = 14
+config.line_height = 1.2
 config.initial_cols = 150
 config.initial_rows = 45
 config.scrollback_lines = 100000
@@ -74,7 +74,7 @@ config.window_frame = {
 
 	-- The size of the font in the tab bar.
 	-- Default to 10.0 on Windows but 12.0 on other systems
-	font_size = 11.0,
+	font_size = 13.0,
 
 	-- The overall background color of the tab bar when
 	-- the window is focused
