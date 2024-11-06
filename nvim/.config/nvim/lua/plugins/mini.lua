@@ -39,17 +39,17 @@ return {
 
 			require("mini.extra").setup()
 
-			local minifiles = require("mini.files")
-			minifiles.setup({
-				windows = {
-					preview = true,
-					width_preview = 75,
-				},
-			})
-			vim.keymap.set("n", "<leader>e", function()
-				minifiles.open(vim.api.nvim_buf_get_name(0))
-				minifiles.reveal_cwd()
-			end, { desc = "File explorer" })
+			-- local minifiles = require("mini.files")
+			-- minifiles.setup({
+			-- 	windows = {
+			-- 		preview = true,
+			-- 		width_preview = 75,
+			-- 	},
+			-- })
+			-- vim.keymap.set("n", "<leader>e", function()
+			-- 	minifiles.open(vim.api.nvim_buf_get_name(0))
+			-- 	minifiles.reveal_cwd()
+			-- end, { desc = "File explorer" })
 
 			local hipatterns = require("mini.hipatterns")
 			hipatterns.setup({
@@ -69,13 +69,13 @@ return {
 			-- - sr)'  - [S]urround [R]eplace [)] [']
 			require("mini.surround").setup()
 
-			require("mini.bufremove").setup()
-			vim.keymap.set("n", "<leader>w", function()
-				require("mini.bufremove").delete(0, false)
-			end, { desc = "buffer delete" })
+			-- require("mini.bufremove").setup()
+			-- vim.keymap.set("n", "<leader>w", function()
+			-- 	require("mini.bufremove").delete(0, false)
+			-- end, { desc = "buffer delete" })
 
 			-- this is already done by something else... although I'm not sure what
-			require("mini.cursorword").setup()
+			-- require("mini.cursorword").setup()
 
 			-- require("mini.statusline").setup()
 

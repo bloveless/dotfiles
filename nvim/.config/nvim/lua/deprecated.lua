@@ -294,7 +294,7 @@ return {
 		"nvim-lualine/lualine.nvim",
 		dependencies = {
 			"folke/noice.nvim",
-			-- "nvim-tree/nvim-web-devicons", -- optional dependency (using mini.icons instead)
+			"nvim-tree/nvim-web-devicons", -- optional dependency (using mini.icons instead)
 		},
 		config = function()
 			require("lualine").setup({

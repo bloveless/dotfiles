@@ -33,11 +33,13 @@ return {
 					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 
 					-- Fuzzy find all the symbols in your current workspace.
-					map(
-						"<leader>ws",
-						require("telescope.builtin").lsp_dynamic_workspace_symbols,
-						"[W]orkspace [S]ymbols"
-					)
+					-- TODO: should this be another map. Right now <leader>w is for closing a buffer and this
+					--       mapping means that closing a buffer is slow
+					-- map(
+					-- 	"<leader>ws",
+					-- 	require("telescope.builtin").lsp_dynamic_workspace_symbols,
+					-- 	"[W]orkspace [S]ymbols"
+					-- )
 
 					-- Rename the variable under your cursor.
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
