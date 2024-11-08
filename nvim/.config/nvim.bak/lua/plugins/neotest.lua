@@ -127,7 +127,8 @@ return {
 			opts.adapters = {
 				require("neotest-golang")({
 					-- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
-					go_test_args = { "-cover", "-short" },
+					-- go_test_args = { "-cover", "-short" },
+					go_test_args = { "-cover" },
 					dap_go_enabled = true,
 				}),
 				require("neotest-pest")({

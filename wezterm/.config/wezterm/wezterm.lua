@@ -2,7 +2,29 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
-local mykeys = {
+local function active_tab_idx(mux_win)
+	for _, item in ipairs(mux_win:tabs_with_info()) do
+		-- wezterm.log_info('idx: ', idx, 'tab:', item)
+		if item.is_active then
+			return item.index
+		end
+	end
+end
+
+-- https://wezfurlong.org/wezterm/config/keys.html
+config.keys = {
+	{
+		key = "t",
+		mods = "CMD",
+		-- https://github.com/wez/wezterm/issues/909
+		-- this will open new tabs next to the current active tab
+		action = wezterm.action_callback(function(win, pane)
+			local mux_win = win:mux_window()
+			local idx = active_tab_idx(mux_win)
+			mux_win:spawn_tab({})
+			win:perform_action(wezterm.action.MoveTab(idx + 1), pane)
+		end),
+	},
 	{
 		key = "{",
 		mods = "SHIFT|ALT",
@@ -39,7 +61,7 @@ local mykeys = {
 
 for i = 1, 8 do
 	-- CTRL+ALT + number to move to that position
-	table.insert(mykeys, {
+	table.insert(config.keys, {
 		key = tostring(i),
 		mods = "CTRL|ALT",
 		action = wezterm.action.MoveTab(i - 1),
@@ -50,17 +72,17 @@ end
 -- config.color_scheme = "OneDark (base16)"
 config.color_scheme = "Catppuccin Macchiato"
 
-config.font = wezterm.font("MonoLisa")
+-- config.font = wezterm.font("MonoLisa")
 -- config.font = wezterm.font("JetBrainsMono Nerd Font")
 -- config.font = wezterm.font("MesloLGS NF")
 -- config.font = wezterm.font("FiraCode Nerd Font")
 -- config.font = wezterm.font("Monaspace Argon Var")
+-- config.font = wezterm.font("Hack", { weight = "Regular" })
 config.font_size = 12
-config.line_height = 1.4
+config.line_height = 1.6
 config.initial_cols = 150
 config.initial_rows = 45
 config.scrollback_lines = 100000
-config.keys = mykeys
 config.tab_bar_at_bottom = true
 
 -- local theme = require("lua/rose-pine").moon
@@ -74,7 +96,7 @@ config.window_frame = {
 	-- Whatever font is selected here, it will have the
 	-- main font setting appended to it to pick up any
 	-- fallback fonts you may have used there.
-	font = wezterm.font({ family = "MonoLisa", weight = "Bold" }),
+	-- font = wezterm.font({ family = "MonoLisa", weight = "Bold" }),
 
 	-- The size of the font in the tab bar.
 	-- Default to 10.0 on Windows but 12.0 on other systems
