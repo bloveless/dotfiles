@@ -72,14 +72,14 @@ end
 -- config.color_scheme = "OneDark (base16)"
 config.color_scheme = "Catppuccin Macchiato"
 
--- config.font = wezterm.font("MonoLisa")
+config.font = wezterm.font("MonoLisa")
 -- config.font = wezterm.font("JetBrainsMono Nerd Font")
 -- config.font = wezterm.font("MesloLGS NF")
 -- config.font = wezterm.font("FiraCode Nerd Font")
 -- config.font = wezterm.font("Monaspace Argon Var")
 -- config.font = wezterm.font("Hack", { weight = "Regular" })
-config.font_size = 12
-config.line_height = 1.6
+config.font_size = 11
+config.line_height = 1.4
 config.initial_cols = 150
 config.initial_rows = 45
 config.scrollback_lines = 100000
