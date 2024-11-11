@@ -2,6 +2,9 @@ return {
   {
     "nvim-neotest/neotest",
     opts = {
+      quickfix = {
+        enabled = false,
+      },
       -- See all config options with :h neotest.Config
       discovery = {
         -- Drastically improve performance in ginormous projects by
