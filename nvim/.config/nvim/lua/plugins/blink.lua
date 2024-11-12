@@ -3,6 +3,8 @@
 return {
   {
     "saghen/blink.cmp",
+    version = false,
+    build = "cargo build --release",
     opts = {
       keymap = { preset = "default" },
       accept = { auto_brackets = { enabled = true } },
