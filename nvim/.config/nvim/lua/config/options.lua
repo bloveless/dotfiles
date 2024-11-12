@@ -27,3 +27,6 @@ vim.opt.scrolloff = 10
 
 -- display tabs as 4 characters
 vim.opt.tabstop = 4
+
+-- Set to "intelephense" to use intelephense instead of phpactor.
+vim.g.lazyvim_php_lsp = "intelephense"
