@@ -17,5 +17,10 @@ return {
         false,
       },
     },
+    opts = {
+      defaults = {
+        dynamic_preview_title = true,
+      },
+    },
   },
 }
