@@ -16,7 +16,7 @@ set number " relativenumber
 set ignorecase
 set smartcase
 set scrolloff=10
-" set NERDTree
+set NERDTree
 
 " Use system clipboard by default
 set clipboard+=unnamedplus
@@ -80,6 +80,7 @@ nnoremap <leader>2 :action GotoHarpoon2<cr>
 nnoremap <leader>3 :action GotoHarpoon3<cr>
 nnoremap <leader>4 :action GotoHarpoon4<cr>
 nnoremap <leader>5 :action GotoHarpoon5<cr>
+nnoremap <leader>e :action ActivateProjectToolWindow<cr>
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
