@@ -81,6 +81,8 @@ nnoremap <leader>3 :action GotoHarpoon3<cr>
 nnoremap <leader>4 :action GotoHarpoon4<cr>
 nnoremap <leader>5 :action GotoHarpoon5<cr>
 nnoremap <leader>e :action ActivateProjectToolWindow<cr>
+nnoremap s :action AceAction<cr>
+nnoremap S :action AceReverseAction<cr>
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
