@@ -59,6 +59,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- display tabs as 4 characters
+vim.opt.tabstop = 4
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -582,6 +585,44 @@ require("lazy").setup({
 			},
 			indent = { enable = true, disable = { "ruby" } },
 		},
+	},
+
+	{
+		"folke/persistence.nvim",
+		keys = {
+			{
+				"<leader>qs",
+				function()
+					require("persistence").load()
+				end,
+				{ desc = "[q][s] Load session" },
+			},
+
+			{
+				"<leader>qS",
+				function()
+					require("persistence").load()
+				end,
+				{ desc = "[q][S] Select session to load" },
+			},
+
+			{
+				"<leader>ql",
+				function()
+					require("persistence").load({ last = true })
+				end,
+				{ desc = "[q][l] Load last session" },
+			},
+
+			{
+				"<leader>qd",
+				function()
+					require("persistence").load({ last = true })
+				end,
+				{ desc = "[q][d] Stop persistence, session won't be saved" },
+			},
+		},
+		opts = {},
 	},
 
 	require("plugins.nvim-lint"),
