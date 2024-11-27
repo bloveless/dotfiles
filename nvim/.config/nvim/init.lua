@@ -624,6 +624,10 @@ require("lazy").setup({
 		},
 		opts = {},
 	},
+	{
+		"pcolladosoto/tinygo.nvim",
+		opts = {},
+	},
 
 	require("plugins.nvim-lint"),
 	require("plugins.neo-tree"),
