@@ -378,6 +378,9 @@ require("lazy").setup({
 						},
 					},
 				},
+				zls = {
+					cmd = { os.getenv("HOME") .. "/.zvm/bin/zls" },
+				},
 			}
 
 			require("mason").setup()
