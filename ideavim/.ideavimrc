@@ -12,7 +12,7 @@ set which-key
 " set easymotion
 set incsearch
 " set visualbell
-set number " relativenumber
+set number norelativenumber
 set ignorecase
 set smartcase
 set scrolloff=10
