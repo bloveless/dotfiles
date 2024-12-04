@@ -313,10 +313,7 @@ require("lazy").setup({
 						require("telescope.builtin").lsp_dynamic_workspace_symbols,
 						"[W]orkspace [S]ymbols"
 					)
-					-- Rename the variable under your cursor.
-					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 					-- Execute a code action
-					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
 					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
 					-- The following two autocommands are used to highlight references of the
@@ -558,6 +555,10 @@ require("lazy").setup({
 			statusline.section_location = function()
 				return "%2l:%-2v"
 			end
+
+			vim.keymap.set("n", "<leader>bd", function()
+				require("mini.bufremove").delete(0, false)
+			end, { desc = "Buffer delete" })
 		end,
 	},
 	{ -- Highlight, edit, and navigate code
@@ -634,7 +635,8 @@ require("lazy").setup({
 
 	require("plugins.nvim-lint"),
 	require("plugins.neo-tree"),
-	require("plugins.gitsigns"), -- adds gitsigns recommend keymaps
+	require("plugins.gitsigns"),
+	require("plugins.lspsaga"),
 }, {
 	ui = {
 		icons = vim.g.have_nerd_font and {} or {
@@ -656,4 +658,4 @@ require("lazy").setup({
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-- vim: ts=2 st=2 sw=2 et
