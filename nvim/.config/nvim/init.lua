@@ -633,10 +633,11 @@ require("lazy").setup({
 		opts = {},
 	},
 
-	require("plugins.nvim-lint"),
-	require("plugins.neo-tree"),
 	require("plugins.gitsigns"),
+	require("plugins.harpoon"),
 	require("plugins.lspsaga"),
+	require("plugins.neo-tree"),
+	require("plugins.nvim-lint"),
 }, {
 	ui = {
 		icons = vim.g.have_nerd_font and {} or {
