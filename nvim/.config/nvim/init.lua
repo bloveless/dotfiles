@@ -544,18 +544,6 @@ require("lazy").setup({
 			-- - sr)'  - [S]urround [R]eplace [)] [']
 			require("mini.surround").setup()
 
-			-- Simple and easy statusline.
-			local statusline = require("mini.statusline")
-			statusline.setup({ use_icons = vim.g.have_nerd_font })
-
-			-- You can configure sections in the statusline by overriding their
-			-- default behavior. For example, here we set the section for
-			-- cursor location to LINE:COLUMN
-			---@diagnostic disable-next-line: duplicate-set-field
-			statusline.section_location = function()
-				return "%2l:%-2v"
-			end
-
 			vim.keymap.set("n", "<leader>bd", function()
 				require("mini.bufremove").delete(0, false)
 			end, { desc = "Buffer delete" })
@@ -630,12 +618,19 @@ require("lazy").setup({
 	},
 	{
 		"pcolladosoto/tinygo.nvim",
+		cmd = {
+			"TinyGoSetTarget",
+			"TinyGoTargets",
+			"TinyGoEnv",
+		},
 		opts = {},
 	},
 
+	require("plugins.gitlinker"),
 	require("plugins.gitsigns"),
 	require("plugins.harpoon"),
 	require("plugins.lspsaga"),
+	require("plugins.lualine"),
 	require("plugins.neo-tree"),
 	require("plugins.nvim-lint"),
 }, {
@@ -657,6 +652,3 @@ require("lazy").setup({
 		},
 	},
 })
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 st=2 sw=2 et
