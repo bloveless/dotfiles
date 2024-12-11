@@ -75,11 +75,10 @@ nnoremap <leader>rr :action Rerun<cr>
 nnoremap <leader>hw :action HideAllWindows<cr>
 nnoremap <leader>m :action AddToHarpoon<cr>
 nnoremap <leader>M :action ShowHarpoon<cr>
-nnoremap <leader>1 :action GotoHarpoon1<cr>
-nnoremap <leader>2 :action GotoHarpoon2<cr>
-nnoremap <leader>3 :action GotoHarpoon3<cr>
-nnoremap <leader>4 :action GotoHarpoon4<cr>
-nnoremap <leader>5 :action GotoHarpoon5<cr>
+nnoremap <leader>j :action GotoHarpoon1<cr>
+nnoremap <leader>k :action GotoHarpoon2<cr>
+nnoremap <leader>l :action GotoHarpoon3<cr>
+nnoremap <leader>; :action GotoHarpoon4<cr>
 nnoremap <leader>e :action ActivateProjectToolWindow<cr>
 nnoremap s :action AceAction<cr>
 nnoremap S :action AceReverseAction<cr>
