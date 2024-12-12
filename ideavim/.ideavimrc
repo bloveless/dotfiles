@@ -9,7 +9,7 @@ set ideajoin
 set surround
 set commentary
 set which-key
-" set easymotion
+set easymotion
 set incsearch
 " set visualbell
 set number norelativenumber

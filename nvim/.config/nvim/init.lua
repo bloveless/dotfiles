@@ -315,6 +315,7 @@ require("lazy").setup({
 					)
 					-- Execute a code action
 					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+					map("K", vim.lsp.buf.hover, "Hover")
 
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.
@@ -365,7 +366,7 @@ require("lazy").setup({
 
 			local servers = {
 				gopls = {},
-
+				phpactor = {},
 				lua_ls = {
 					settings = {
 						Lua = {
