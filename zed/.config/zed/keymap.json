@@ -1,0 +1,8 @@
+[
+  {
+    "bindings": {
+      "space c a": "editor::ToggleCodeActions"
+    },
+    "context": "Editor && vim_mode == normal"
+  }
+]
