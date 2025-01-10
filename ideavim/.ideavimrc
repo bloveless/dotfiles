@@ -1,18 +1,4 @@
-"
-" Make sure to update https://gist.github.com/bloveless/e45e97de38f2eeeddc5ff296ed241caf when updating.
-"
-
-let g:EasyMotion_override_acejump = 0
-
 let mapleader = " "
-set ideajoin
-set surround
-set commentary
-set which-key
-set easymotion
-set incsearch
-" set visualbell
-set number norelativenumber
 set ignorecase
 set smartcase
 set scrolloff=10
@@ -20,12 +6,6 @@ set NERDTree
 
 " Use system clipboard by default
 set clipboard+=unnamedplus
-
-" Disable which-key timeout
-set notimeout
-
-" change easymotion prefix to a single leader + command. I.E. <leader>f or <leader>w
-" map <Leader> <Plug>(easymotion-prefix)
 
 " Navigate splits/tabs
 map <C-H> <C-W>h
@@ -35,25 +15,11 @@ map <C-J> <C-W>j
 nnoremap L :action NextTab<cr>
 nnoremap H :action PreviousTab<cr>
 
-" Save relative jumps to jumplist so they can be undone with ctrl+o
-nnoremap <expr> j (v:count <= 1 ? 'j' : "m'" . v:count . 'j')
-nnoremap <expr> k (v:count <= 1 ? 'k' : "m'" . v:count . 'k')
-xnoremap <expr> j (v:count <= 1 ? 'j' : "m'" . v:count . 'j')
-xnoremap <expr> k (v:count <= 1 ? 'k' : "m'" . v:count . 'k')
-
 nnoremap <leader>si :source ~/.ideavimrc \| action IdeaVim.ReloadVimRc.reload<cr>
-nnoremap <c-n> :action ActivateProjectToolWindow<cr>
+
 " Actions aren't supposed to use remap
-nnoremap <leader>f :action ReformatCode<cr>
-nnoremap <leader>sf :action GotoFile<cr>
-nnoremap <leader>g :action FindInPath<cr>
-nnoremap <leader>s :action Switcher<cr>
-nnoremap <leader>bd :action CloseEditor<cr>
-nnoremap gy :action com.github.kawamataryo.copygitlink.CopyPermalink<cr>
-vnoremap gy :action com.github.kawamataryo.copygitlink.CopyPermalink<cr>
-nnoremap <leader>rn :action Refactorings.QuickListPopupAction<cr>
-nnoremap <c-y> :action EditorChooseLookupItem<cr>
-inoremap <c-y> :action EditorChooseLookupItem<cr>
+nnoremap <leader>i :action QuickImplementations<CR>
+nnoremap K :action ShowHoverInfo<CR>
 nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
 nnoremap ]d :action GotoNextError<cr>
@@ -62,30 +28,35 @@ nnoremap ]c :action VcsShowNextChangeMarker<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap gI :action GotoImplementation<cr>
 nnoremap gr :action GotoDeclaration<cr>
-nnoremap <leader>z :action ToggleDistractionFreeMode<cr>
-" Run whole test file (not sure what the command is here)
+nnoremap <c-y> :action EditorChooseLookupItem<cr>
+inoremap <c-y> :action EditorChooseLookupItem<cr>
+nnoremap <leader>sf :action GotoFile<cr>
+nnoremap <leader>bd :action CloseEditor<cr>
+nnoremap <leader>rn :action RenameElement<cr>
+" " Run whole test file (not sure what the command is here)
 nnoremap <leader>tt :action RunClass<cr>
-" Run/debug closest test
+" " Run/debug closest test
 nnoremap <leader>tr :action RunClass<cr>
 nnoremap <leader>dr :action DebugClass<cr>
-" Test/debug run last
+" " Test/debug run last
 nnoremap <leader>tl :action Rerun<cr>
 nnoremap <leader>dl :action Rerun<cr>
 nnoremap <leader>rr :action Rerun<cr>
-nnoremap <leader>hw :action HideAllWindows<cr>
-nnoremap <leader>m :action AddToHarpoon<cr>
-nnoremap <leader>M :action ShowHarpoon<cr>
-nnoremap <leader>j :action GotoHarpoon1<cr>
-nnoremap <leader>k :action GotoHarpoon2<cr>
-nnoremap <leader>l :action GotoHarpoon3<cr>
-nnoremap <leader>; :action GotoHarpoon4<cr>
-nnoremap <leader>e :action ActivateProjectToolWindow<cr>
-nnoremap s :action AceAction<cr>
-nnoremap S :action AceReverseAction<cr>
 
-" Don't use Ex mode, use Q for formatting.
-map Q gq
-
-map <leader>i :action QuickImplementations<CR>
-map K :action ShowHoverInfo<CR>
-command! Format action ReformatCode
+" nnoremap <c-n> :action ActivateProjectToolWindow<cr>
+" nnoremap <leader>f :action ReformatCode<cr>
+" nnoremap <leader>g :action FindInPath<cr>
+" nnoremap <leader>s :action Switcher<cr>
+" nnoremap gy :action com.github.kawamataryo.copygitlink.CopyPermalink<cr>
+" vnoremap gy :action com.github.kawamataryo.copygitlink.CopyPermalink<cr>
+" nnoremap <leader>z :action ToggleDistractionFreeMode<cr>
+" nnoremap <leader>hw :action HideAllWindows<cr>
+" nnoremap <leader>m :action AddToHarpoon<cr>
+" nnoremap <leader>M :action ShowHarpoon<cr>
+" nnoremap <leader>j :action GotoHarpoon1<cr>
+" nnoremap <leader>k :action GotoHarpoon2<cr>
+" nnoremap <leader>l :action GotoHarpoon3<cr>
+" nnoremap <leader>; :action GotoHarpoon4<cr>
+" nnoremap <leader>e :action ActivateProjectToolWindow<cr>
+" nnoremap s :action AceAction<cr>
+" nnoremap S :action AceReverseAction<cr>
