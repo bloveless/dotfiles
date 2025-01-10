@@ -103,10 +103,30 @@ require("lazy").setup({
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		-- or if using mini.icons/mini.nvim
 		-- dependencies = { "echasnovski/mini.icons" },
-		opts = {},
+		config = function()
+			local actions = require("fzf-lua").actions
+			require("fzf-lua").setup({
+				keymap = {
+					builtin = {
+						true,
+						["<c-d>"] = "preview-page-down",
+						["<c-u>"] = "preview-page-up",
+					},
+				},
+				actions = {
+					files = {
+						true,
+						["ctrl-q"] = actions.file_edit_or_qf,
+						["ctrl-Q"] = actions.file_edit_or_ll,
+					},
+				},
+			})
+		end,
 		keys = {
 			{ "<leader>sf", "<cmd>FzfLua files<cr>", desc = "Search Files" },
 			{ "<leader>sh", "<cmd>FzfLua helptags<cr>", desc = "Search Help" },
+			{ "<leader>sg", "<cmd>FzfLua grep_project<cr>", desc = "Grep Project" },
+			{ "<leader><space>", "<cmd>FzfLua buffers<cr>", desc = "Search Buffers" },
 		},
 	},
 
@@ -333,7 +353,7 @@ require("lazy").setup({
 			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
 			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
 			-- See the full "keymap" documentation for information on defining your own keymap.
-			keymap = { preset = "default" },
+			keymap = { preset = "super-tab" },
 
 			appearance = {
 				-- Sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -350,8 +370,33 @@ require("lazy").setup({
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },
 			},
+
+			signature = {
+				enabled = true,
+			},
+
+			completion = {
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 500,
+				},
+			},
 		},
 		opts_extend = { "sources.default" },
+	},
+
+	{ -- file tree
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+		},
+		keys = {
+			{ "\\", "<cmd>Neotree filesystem toggle reveal<cr>", desc = "Show file tree" },
+		},
 	},
 
 	{
@@ -403,6 +448,8 @@ require("lazy").setup({
 				return "%2l:%-2v"
 			end
 
+			vim.keymap.set("n", "<leader>bd", require("mini.bufremove").delete, { desc = "Buffer Delete" })
+
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
@@ -435,6 +482,13 @@ require("lazy").setup({
 			},
 			indent = { enable = true },
 		},
+	},
+
+	{ -- create sessions automatically
+		"rmagatti/auto-session",
+		config = function()
+			require("auto-session").setup()
+		end,
 	},
 }, {
 	ui = {
