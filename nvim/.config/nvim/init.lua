@@ -46,6 +46,41 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- close some filetypes with <q> (From LazyVim)
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("close_with_q", { clear = true }),
+	pattern = {
+		"PlenaryTestPopup",
+		"checkhealth",
+		"dbout",
+		"gitsigns-blame",
+		"grug-far",
+		"help",
+		"lspinfo",
+		"neotest-output",
+		"neotest-output-panel",
+		"neotest-summary",
+		"notify",
+		"qf",
+		"spectre_panel",
+		"startuptime",
+		"tsplayground",
+	},
+	callback = function(event)
+		vim.bo[event.buf].buflisted = false
+		vim.schedule(function()
+			vim.keymap.set("n", "q", function()
+				vim.cmd("close")
+				pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+			end, {
+				buffer = event.buf,
+				silent = true,
+				desc = "Quit buffer",
+			})
+		end)
+	end,
+})
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -490,6 +525,143 @@ require("lazy").setup({
 			require("auto-session").setup()
 		end,
 	},
+
+	{
+		"folke/trouble.nvim",
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
+		cmd = "Trouble",
+		keys = {
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xX",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>cs",
+				"<cmd>Trouble symbols toggle focus=false<cr>",
+				desc = "Symbols (Trouble)",
+			},
+			{
+				"<leader>cl",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+			{
+				"<leader>xL",
+				"<cmd>Trouble loclist toggle<cr>",
+				desc = "Location List (Trouble)",
+			},
+			{
+				"<leader>xQ",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
+		},
+	},
+	{ -- test runner
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			{
+				"fredrikaverpil/neotest-golang", -- Installation
+				dependencies = {
+					"uga-rosa/utf8.nvim", -- Additional dependency required
+				},
+			},
+		},
+		config = function()
+			require("neotest").setup({
+				-- See all config options with :h neotest.Config
+				discovery = {
+					-- Drastically improve performance in ginormous projects by
+					-- only AST-parsing the currently opened buffer.
+					enabled = false,
+				},
+				running = {
+					-- Run tests concurrently when an adapter provides multiple commands to run.
+					concurrent = true,
+				},
+				adapters = {
+					require("neotest-golang")({ sanitize_output = true }), -- Registration
+				},
+			})
+		end,
+		keys = {
+			{ "<leader>t", "", desc = "+test" },
+			{
+				"<leader>tt",
+				function()
+					require("neotest").run.run(vim.fn.expand("%"))
+				end,
+				desc = "Run File (Neotest)",
+			},
+			{
+				"<leader>tT",
+				function()
+					require("neotest").run.run(vim.uv.cwd())
+				end,
+				desc = "Run All Test Files (Neotest)",
+			},
+			{
+				"<leader>tr",
+				function()
+					require("neotest").run.run()
+				end,
+				desc = "Run Nearest (Neotest)",
+			},
+			{
+				"<leader>tl",
+				function()
+					require("neotest").run.run_last()
+				end,
+				desc = "Run Last (Neotest)",
+			},
+			{
+				"<leader>ts",
+				function()
+					require("neotest").summary.toggle()
+				end,
+				desc = "Toggle Summary (Neotest)",
+			},
+			{
+				"<leader>to",
+				function()
+					require("neotest").output.open({ enter = true, auto_close = true })
+				end,
+				desc = "Show Output (Neotest)",
+			},
+			{
+				"<leader>tO",
+				function()
+					require("neotest").output_panel.toggle()
+				end,
+				desc = "Toggle Output Panel (Neotest)",
+			},
+			{
+				"<leader>tS",
+				function()
+					require("neotest").run.stop()
+				end,
+				desc = "Stop (Neotest)",
+			},
+			{
+				"<leader>tw",
+				function()
+					require("neotest").watch.toggle(vim.fn.expand("%"))
+				end,
+				desc = "Toggle Watch (Neotest)",
+			},
+		},
+	},
+	-- Maybe display coverage results in neovim https://github.com/andythigpen/nvim-coverage
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
