@@ -522,6 +522,8 @@ require("lazy").setup({
 
 			vim.keymap.set("n", "<leader>bd", require("mini.bufremove").delete, { desc = "Buffer Delete" })
 
+			require("mini.bracketed").setup()
+
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
@@ -699,6 +701,45 @@ require("lazy").setup({
 		},
 	},
 	-- Maybe display coverage results in neovim https://github.com/andythigpen/nvim-coverage
+	{
+		"David-Kunz/gen.nvim",
+		opts = {
+			model = "mistral", -- The default model to use.
+		},
+	},
+
+	{
+		"nomnivore/ollama.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+
+		-- All the user commands added by the plugin
+		cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
+
+		keys = {
+			-- Sample keybind for prompt menu. Note that the <c-u> is important for selections to work properly.
+			{
+				"<leader>oo",
+				":<c-u>lua require('ollama').prompt()<cr>",
+				desc = "ollama prompt",
+				mode = { "n", "v" },
+			},
+
+			-- Sample keybind for direct prompting. Note that the <c-u> is important for selections to work properly.
+			{
+				"<leader>oG",
+				":<c-u>lua require('ollama').prompt('Generate_Code')<cr>",
+				desc = "ollama Generate Code",
+				mode = { "n", "v" },
+			},
+		},
+
+		---@type Ollama.Config
+		opts = {
+			-- your configuration overrides
+		},
+	},
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
