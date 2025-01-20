@@ -544,8 +544,12 @@ require("lazy").setup({
 		opts = {
 			ensure_installed = {
 				"bash",
+				"blade",
 				"c",
 				"diff",
+				"go",
+				"gomod",
+				"gowork",
 				"html",
 				"lua",
 				"luadoc",
@@ -554,9 +558,6 @@ require("lazy").setup({
 				"query",
 				"vim",
 				"vimdoc",
-				"go",
-				"gomod",
-				"gowork",
 			},
 			auto_install = true,
 			highlight = {
@@ -564,6 +565,20 @@ require("lazy").setup({
 			},
 			indent = { enable = true },
 		},
+		config = function(_, opts)
+			---@class ParserInfo
+			local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+			parser_config.blade = {
+				install_info = {
+					url = "https://github.com/EmranMR/tree-sitter-blade",
+					files = { "src/parser.c" },
+					branch = "main",
+				},
+				filetype = "blade",
+			}
+
+			require("nvim-treesitter.configs").setup(opts)
+		end,
 	},
 
 	{ -- create sessions automatically
