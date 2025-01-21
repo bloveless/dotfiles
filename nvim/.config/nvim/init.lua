@@ -422,9 +422,25 @@ require("lazy").setup({
 		end,
 	},
 
+	{ -- autocompletion compatibility with nvim-cmp
+		"saghen/blink.compat",
+		lazy = true,
+		opts = {},
+		config = function()
+			-- monkeypatch cmp.ConfirmBehavior for Avante
+			require("cmp").ConfirmBehavior = {
+				Insert = "insert",
+				Replace = "replace",
+			}
+		end,
+	},
+
 	{ -- Autocompletion
 		"saghen/blink.cmp",
-		dependencies = "rafamadriz/friendly-snippets",
+		dependencies = {
+			"rafamadriz/friendly-snippets",
+			"saghen/blink.compat",
+		},
 		version = "*",
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
@@ -433,7 +449,7 @@ require("lazy").setup({
 			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
 			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
 			-- See the full "keymap" documentation for information on defining your own keymap.
-			keymap = { preset = "super-tab" },
+			keymap = { preset = "default" },
 
 			appearance = {
 				-- Sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -448,7 +464,27 @@ require("lazy").setup({
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
+				default = { "lsp", "path", "snippets", "buffer", "avante_commands", "avante_mentions", "avante_files" },
+				providers = {
+					avante_commands = {
+						name = "avante_commands",
+						module = "blink.compat.source",
+						score_offset = 90, -- show at a higher priority than lsp
+						opts = {},
+					},
+					avante_files = {
+						name = "avante_commands",
+						module = "blink.compat.source",
+						score_offset = 100, -- show at a higher priority than lsp
+						opts = {},
+					},
+					avante_mentions = {
+						name = "avante_mentions",
+						module = "blink.compat.source",
+						score_offset = 1000, -- show at a higher priority than lsp
+						opts = {},
+					},
+				},
 			},
 
 			signature = {
@@ -725,44 +761,101 @@ require("lazy").setup({
 	},
 	-- Maybe display coverage results in neovim https://github.com/andythigpen/nvim-coverage
 	{
-		"David-Kunz/gen.nvim",
+		"yetone/avante.nvim",
+		event = "VeryLazy",
+		lazy = false,
+		version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
 		opts = {
-			model = "codellama", -- The default model to use.
+			provider = "ollama",
+			vendors = {
+				ollama = {
+					__inherited_from = "openai",
+					api_key_name = "",
+					endpoint = "http://127.0.0.1:11434/v1",
+					model = "codegemma:instruct",
+				},
+			},
 		},
-	},
-
-	{
-		"nomnivore/ollama.nvim",
+		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+		build = "make",
+		-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
 		dependencies = {
+			"stevearc/dressing.nvim",
 			"nvim-lua/plenary.nvim",
-		},
-
-		-- All the user commands added by the plugin
-		cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
-
-		keys = {
-			-- Sample keybind for prompt menu. Note that the <c-u> is important for selections to work properly.
+			"MunifTanjim/nui.nvim",
+			--- The below dependencies are optional,
+			-- "echasnovski/mini.pick", -- for file_selector provider mini.pick
+			-- "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+			-- "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+			-- "ibhagwan/fzf-lua", -- for file_selector provider fzf
+			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+			-- "zbirenbaum/copilot.lua", -- for providers='copilot'
+			-- {
+			-- 	-- support for image pasting
+			-- 	"HakonHarnes/img-clip.nvim",
+			-- 	event = "VeryLazy",
+			-- 	opts = {
+			-- 		-- recommended settings
+			-- 		default = {
+			-- 			embed_image_as_base64 = false,
+			-- 			prompt_for_file_name = false,
+			-- 			drag_and_drop = {
+			-- 				insert_mode = true,
+			-- 			},
+			-- 			-- required for Windows users
+			-- 			use_absolute_path = true,
+			-- 		},
+			-- 	},
+			-- },
 			{
-				"<leader>oo",
-				":<c-u>lua require('ollama').prompt()<cr>",
-				desc = "ollama prompt",
-				mode = { "n", "v" },
+				-- Make sure to set this up properly if you have lazy=true
+				"MeanderingProgrammer/render-markdown.nvim",
+				opts = {
+					file_types = { "markdown", "Avante" },
+				},
+				ft = { "markdown", "Avante" },
 			},
-
-			-- Sample keybind for direct prompting. Note that the <c-u> is important for selections to work properly.
-			{
-				"<leader>oG",
-				":<c-u>lua require('ollama').prompt('Generate_Code')<cr>",
-				desc = "ollama Generate Code",
-				mode = { "n", "v" },
-			},
-		},
-
-		---@type Ollama.Config
-		opts = {
-			model = "codellama",
 		},
 	},
+	-- {
+	-- 	"David-Kunz/gen.nvim",
+	-- 	opts = {
+	-- 		model = "codellama", -- The default model to use.
+	-- 	},
+	-- },
+	--
+	-- {
+	-- 	"nomnivore/ollama.nvim",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 	},
+	--
+	-- 	-- All the user commands added by the plugin
+	-- 	cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
+	--
+	-- 	keys = {
+	-- 		-- Sample keybind for prompt menu. Note that the <c-u> is important for selections to work properly.
+	-- 		{
+	-- 			"<leader>oo",
+	-- 			":<c-u>lua require('ollama').prompt()<cr>",
+	-- 			desc = "ollama prompt",
+	-- 			mode = { "n", "v" },
+	-- 		},
+	--
+	-- 		-- Sample keybind for direct prompting. Note that the <c-u> is important for selections to work properly.
+	-- 		{
+	-- 			"<leader>oG",
+	-- 			":<c-u>lua require('ollama').prompt('Generate_Code')<cr>",
+	-- 			desc = "ollama Generate Code",
+	-- 			mode = { "n", "v" },
+	-- 		},
+	-- 	},
+	--
+	-- 	---@type Ollama.Config
+	-- 	opts = {
+	-- 		model = "codellama",
+	-- 	},
+	-- },
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
