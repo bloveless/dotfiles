@@ -23,6 +23,8 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.inccommand = "split"
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
+-- recommendation from auto-session
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
@@ -87,6 +89,21 @@ vim.api.nvim_create_autocmd("FileType", {
 			})
 		end)
 	end,
+})
+
+vim.filetype.add({
+	extension = {
+		gotmpl = "gotmpl",
+		[".go.tmpl"] = "gotmpl",
+		ddl = "sql",
+		[".*%.blade%.php"] = "blade",
+	},
+	pattern = {
+		[".*/templates/.*%.tpl"] = "helm",
+		[".*/templates/.*%.ya?ml"] = "helm",
+		["helmfile.*%.ya?ml"] = "helm",
+		["docker-compose.ya?ml"] = "yaml.docker-compose",
+	},
 })
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -174,6 +191,8 @@ require("lazy").setup({
 	-- },
 	{ -- small qol plugins
 		"folke/snacks.nvim",
+		lazy = false,
+		priority = 1000,
 		opts = {},
 		-- stylua: ignore
 		keys = {
@@ -568,6 +587,8 @@ require("lazy").setup({
 
 			require("mini.bracketed").setup()
 
+			require("mini.diff").setup()
+
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
@@ -760,63 +781,140 @@ require("lazy").setup({
 		},
 	},
 	-- Maybe display coverage results in neovim https://github.com/andythigpen/nvim-coverage
+	-- {
+	-- 	"yetone/avante.nvim",
+	-- 	event = "VeryLazy",
+	-- 	lazy = false,
+	-- 	version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+	-- 	opts = {
+	-- 		provider = "ollama",
+	-- 		vendors = {
+	-- 			ollama = {
+	-- 				__inherited_from = "openai",
+	-- 				api_key_name = "",
+	-- 				endpoint = "http://127.0.0.1:11434/v1",
+	-- 				model = "codegemma:instruct",
+	-- 			},
+	-- 		},
+	-- 	},
+	-- 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+	-- 	build = "make",
+	-- 	-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+	-- 	dependencies = {
+	-- 		"stevearc/dressing.nvim",
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		--- The below dependencies are optional,
+	-- 		-- "echasnovski/mini.pick", -- for file_selector provider mini.pick
+	-- 		-- "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+	-- 		-- "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+	-- 		-- "ibhagwan/fzf-lua", -- for file_selector provider fzf
+	-- 		"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+	-- 		-- "zbirenbaum/copilot.lua", -- for providers='copilot'
+	-- 		-- {
+	-- 		-- 	-- support for image pasting
+	-- 		-- 	"HakonHarnes/img-clip.nvim",
+	-- 		-- 	event = "VeryLazy",
+	-- 		-- 	opts = {
+	-- 		-- 		-- recommended settings
+	-- 		-- 		default = {
+	-- 		-- 			embed_image_as_base64 = false,
+	-- 		-- 			prompt_for_file_name = false,
+	-- 		-- 			drag_and_drop = {
+	-- 		-- 				insert_mode = true,
+	-- 		-- 			},
+	-- 		-- 			-- required for Windows users
+	-- 		-- 			use_absolute_path = true,
+	-- 		-- 		},
+	-- 		-- 	},
+	-- 		-- },
+	-- 		{
+	-- 			-- Make sure to set this up properly if you have lazy=true
+	-- 			"MeanderingProgrammer/render-markdown.nvim",
+	-- 			opts = {
+	-- 				file_types = { "markdown", "Avante" },
+	-- 			},
+	-- 			ft = { "markdown", "Avante" },
+	-- 		},
+	-- 	},
+	-- },
+
 	{
-		"yetone/avante.nvim",
-		event = "VeryLazy",
-		lazy = false,
-		version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
 		opts = {
-			provider = "ollama",
-			vendors = {
-				ollama = {
-					__inherited_from = "openai",
-					api_key_name = "",
-					endpoint = "http://127.0.0.1:11434/v1",
-					model = "codegemma:instruct",
+			strategies = {
+				chat = {
+					adapter = "codegemma",
+				},
+				inline = {
+					adapter = "codegemma",
 				},
 			},
-		},
-		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-		build = "make",
-		-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-		dependencies = {
-			"stevearc/dressing.nvim",
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			--- The below dependencies are optional,
-			-- "echasnovski/mini.pick", -- for file_selector provider mini.pick
-			-- "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-			-- "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-			-- "ibhagwan/fzf-lua", -- for file_selector provider fzf
-			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-			-- "zbirenbaum/copilot.lua", -- for providers='copilot'
-			-- {
-			-- 	-- support for image pasting
-			-- 	"HakonHarnes/img-clip.nvim",
-			-- 	event = "VeryLazy",
-			-- 	opts = {
-			-- 		-- recommended settings
-			-- 		default = {
-			-- 			embed_image_as_base64 = false,
-			-- 			prompt_for_file_name = false,
-			-- 			drag_and_drop = {
-			-- 				insert_mode = true,
-			-- 			},
-			-- 			-- required for Windows users
-			-- 			use_absolute_path = true,
-			-- 		},
-			-- 	},
-			-- },
-			{
-				-- Make sure to set this up properly if you have lazy=true
-				"MeanderingProgrammer/render-markdown.nvim",
-				opts = {
-					file_types = { "markdown", "Avante" },
-				},
-				ft = { "markdown", "Avante" },
+			adapters = {
+				codegemma = function()
+					return require("codecompanion.adapters").extend("ollama", {
+						name = "codegemma",
+						schema = {
+							model = {
+								default = "codegemma:instruct",
+							},
+							num_ctx = {
+								default = 16384,
+							},
+							num_predict = {
+								default = -1,
+							},
+						},
+					})
+				end,
 			},
 		},
 	},
+
+	-- {
+	-- 	"milanglacier/minuet-ai.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim" },
+	-- 	config = function()
+	-- 		require("minuet").setup({
+	-- 			virtualtext = {
+	-- 				auto_trigger_ft = {},
+	-- 				keymap = {
+	-- 					-- accept whole completion
+	-- 					accept = "<A-A>",
+	-- 					-- accept one line
+	-- 					accept_line = "<A-a>",
+	-- 					-- accept n lines (prompts for number)
+	-- 					accept_n_lines = "<A-z>",
+	-- 					-- Cycle to prev completion item, or manually invoke completion
+	-- 					prev = "<A-[>",
+	-- 					-- Cycle to next completion item, or manually invoke completion
+	-- 					next = "<A-]>",
+	-- 					dismiss = "<A-e>",
+	-- 				},
+	-- 			},
+	-- 			provider = "openai_fim_compatible",
+	-- 			provider_options = {
+	-- 				openai_fim_compatible = {
+	-- 					api_key = "TERM",
+	-- 					name = "Ollama",
+	-- 					end_point = "http://localhost:11434/v1/completions",
+	-- 					-- model = "qwen2.5-coder:14b",
+	-- 					model = "codegemma:instruct",
+	-- 					optional = {
+	-- 						max_tokens = 256,
+	-- 						stop = { "\n\n" },
+	-- 						top_p = 0.9,
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
+
 	-- {
 	-- 	"David-Kunz/gen.nvim",
 	-- 	opts = {
