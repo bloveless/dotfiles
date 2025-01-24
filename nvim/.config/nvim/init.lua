@@ -801,19 +801,19 @@ require("lazy").setup({
 			strategies = {
 				-- Change the default chat adapter
 				chat = {
-					adapter = "codegemma",
+					adapter = "qwen25",
 				},
 				inline = {
-					adapter = "codegemma",
+					adapter = "qwen25",
 				},
 			},
 			adapters = {
-				codegemma = function()
+				qwen25 = function()
 					return require("codecompanion.adapters").extend("ollama", {
-						name = "codegemma", -- Give this adapter a different name to differentiate it from the default ollama adapter
+						name = "qwen2.5-coder:14b", -- Give this adapter a different name to differentiate it from the default ollama adapter
 						schema = {
 							model = {
-								default = "codegemma:instruct",
+								default = "qwen2.5-coder:14b",
 							},
 							num_ctx = {
 								default = 16384,
