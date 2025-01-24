@@ -39,12 +39,6 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
--- Show both the diagnostics and hover when typing K
-vim.keymap.set("n", "K", function()
-	vim.diagnostic.open_float({ border = "single", anchor_bias = "above" })
-	vim.lsp.buf.hover({ border = "single", anchor_bias = "above" })
-end, { desc = "Display definition and lsp diagnostics" })
-
 vim.diagnostic.config({ virtual_text = false })
 
 -- Highlight when yanking (copying) text
@@ -781,6 +775,39 @@ require("lazy").setup({
 		},
 	},
 	-- Maybe display coverage results in neovim https://github.com/andythigpen/nvim-coverage
+	{
+		"lewis6991/hover.nvim",
+		config = function()
+			require("hover").setup({
+				init = function()
+					-- Require providers
+					require("hover.providers.lsp")
+					-- require('hover.providers.gh')
+					-- require('hover.providers.gh_user')
+					-- require('hover.providers.jira')
+					-- require('hover.providers.dap')
+					-- require('hover.providers.fold_preview')
+					require("hover.providers.diagnostic")
+					-- require('hover.providers.man')
+					-- require('hover.providers.dictionary')
+				end,
+				preview_opts = {
+					border = "single",
+				},
+				-- Whether the contents of a currently open hover window should be moved
+				-- to a :h preview-window when pressing the hover keymap.
+				preview_window = false,
+				title = true,
+				mouse_providers = {
+					"LSP",
+				},
+				mouse_delay = 1000,
+			})
+
+			vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
+		end,
+	},
+
 	-- {
 	-- 	"yetone/avante.nvim",
 	-- 	event = "VeryLazy",
