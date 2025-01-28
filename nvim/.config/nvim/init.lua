@@ -190,42 +190,10 @@ require("lazy").setup({
 		opts = {},
 		-- stylua: ignore
 		keys = {
-			{ "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
-			{ "<leader>/", function() Snacks.picker.grep() end, desc = "Grep", },
-			{ "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History", },
-			{ "<leader><space>", function() Snacks.picker.files() end, desc = "Find Files", },
-			-- find
-			{ "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers", },
-			{ "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File", },
-			{ "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files", },
-			{ "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files", },
-			{ "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent", },
-			-- git
-			{ "<leader>gc", function() Snacks.picker.git_log() end, desc = "Git Log", },
-			{ "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status", },
-			-- Grep
-			{ "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines", },
-			{ "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers", },
+			{ "<leader>sf", function() Snacks.picker.files() end, desc = "Find Files", },
 			{ "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep", },
-			{ "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" }, },
-			-- search
-			{ '<leader>s"', function() Snacks.picker.registers() end, desc = "Registers", },
-			{ "<leader>sa", function() Snacks.picker.autocmds() end, desc = "Autocmds", },
-			{ "<leader>sc", function() Snacks.picker.command_history() end, desc = "Command History", },
-			{ "<leader>sC", function() Snacks.picker.commands() end, desc = "Commands", },
-			{ "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics", },
-			{ "<leader>sh", function() Snacks.picker.help() end, desc = "Help Pages", },
-			{ "<leader>sH", function() Snacks.picker.highlights() end, desc = "Highlights", },
-			{ "<leader>sj", function() Snacks.picker.jumps() end, desc = "Jumps", },
-			{ "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps", },
-			{ "<leader>sl", function() Snacks.picker.loclist() end, desc = "Location List", },
-			{ "<leader>sM", function() Snacks.picker.man() end, desc = "Man Pages", },
-			{ "<leader>sm", function() Snacks.picker.marks() end, desc = "Marks", },
-			{ "<leader>sR", function() Snacks.picker.resume() end, desc = "Resume", },
-			{ "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List", },
-			{ "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes", },
-			{ "<leader>qp", function() Snacks.picker.projects() end, desc = "Projects", },
-			-- LSP
+			{ "<leader><space>", function() Snacks.picker.buffers() end, desc = "Buffers" },
+			{ "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History", },
 			{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", },
 			{ "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Delcaration", },
 			{ "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References", },
@@ -341,7 +309,7 @@ require("lazy").setup({
 
 			local servers = {
 				gopls = {},
-
+				terraformls = {},
 				lua_ls = {
 					-- cmd = { ... },
 					-- filetypes = { ... },
@@ -363,10 +331,14 @@ require("lazy").setup({
 				"stylua", -- Used to format Lua code
 				"golangci-lint",
 				"gofumpt",
+				"tflint",
+				"tfsec",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 			require("mason-lspconfig").setup({
+				ensure_installed = {},
+				automatic_installation = true,
 				handlers = {
 					function(server_name)
 						local server = servers[server_name] or {}
@@ -420,6 +392,7 @@ require("lazy").setup({
 		config = function()
 			require("lint").linters_by_ft = {
 				go = { "golangcilint" },
+				terraform = { "tflint", "tfsec" },
 			}
 
 			vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
@@ -512,12 +485,36 @@ require("lazy").setup({
 	},
 
 	{
-		"navarasu/onedark.nvim",
-		priority = 1000, -- Make sure to load this before all the other start plugins.
-		init = function()
-			require("onedark").load()
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		opts = {
+			flavour = "macchiato",
+			integrations = {
+				blink_cmp = true,
+				cmp = false,
+				dap = false,
+				neotest = true,
+				snacks = true,
+				telescope = {
+					enabled = false,
+				},
+				lsp_trouble = true,
+			},
+		},
+		config = function(_, opts)
+			require("catppuccin").setup(opts)
+			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
+
+	-- {
+	-- 	"navarasu/onedark.nvim",
+	-- 	priority = 1000, -- Make sure to load this before all the other start plugins.
+	-- 	init = function()
+	-- 		require("onedark").load()
+	-- 	end,
+	-- },
 
 	-- Highlight todo, notes, etc in comments
 	{
@@ -617,8 +614,13 @@ require("lazy").setup({
 
 	{ -- create sessions automatically
 		"rmagatti/auto-session",
-		config = function()
-			require("auto-session").setup()
+		opts = {
+			pre_save_cmds = {
+				"tabdo Trouble close",
+			},
+		},
+		config = function(_, opts)
+			require("auto-session").setup(opts)
 		end,
 	},
 
@@ -827,7 +829,7 @@ require("lazy").setup({
 			},
 			opts = {
 				-- Set debug logging
-				log_level = "DEBUG",
+				-- log_level = "DEBUG",
 			},
 		},
 	},
