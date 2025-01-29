@@ -148,23 +148,40 @@ require("lazy").setup({
 		},
 	},
 
-	{ -- small qol plugins
-		"folke/snacks.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},
-		-- stylua: ignore
+	-- { -- small qol plugins
+	-- 	"folke/snacks.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	opts = {},
+	-- 	-- stylua: ignore
+	-- 	keys = {
+	-- 		{ "<leader>sf", function() Snacks.picker.files() end, desc = "Find Files", },
+	-- 		{ "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep", },
+	-- 		{ "<leader><space>", function() Snacks.picker.buffers() end, desc = "Buffers" },
+	-- 		{ "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History", },
+	-- 		{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", },
+	-- 		{ "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Delcaration", },
+	-- 		{ "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References", },
+	-- 		{ "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation", },
+	-- 		{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition", },
+	-- 		{ "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols", },
+	-- 	},
+	-- },
+
+	{
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	 	-- stylua: ignore
 		keys = {
-			{ "<leader>sf", function() Snacks.picker.files() end, desc = "Find Files", },
-			{ "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep", },
-			{ "<leader><space>", function() Snacks.picker.buffers() end, desc = "Buffers" },
-			{ "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History", },
-			{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", },
-			{ "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Delcaration", },
-			{ "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References", },
-			{ "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation", },
-			{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition", },
-			{ "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols", },
+			{ "<leader>sf", "<cmd>FzfLua files<cr>", desc = "Find Files", },
+			{ "<leader>sg", "<cmd>FzfLua live_grep<cr>", desc = "Grep", },
+			{ "<leader><space>", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
+			{ "gd", "<cmd>FzfLua lsp_definitions<cr>", desc = "Goto Definition", },
+			{ "gD", "<cmd>FzfLua lsp_declarations<cr>", desc = "Goto Delcaration", },
+			{ "gr", "<cmd>FzfLua lsp_references<cr>", nowait = true, desc = "References", },
+			{ "gI", "<cmd>FzfLua lsp_implementations<cr>", desc = "Goto Implementation", },
+			{ "gy", "<cmd>FzfLua lsp_typedefs<cr>", desc = "Goto T[y]pe Definition", },
+			{ "<leader>ss", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "LSP Symbols", },
 		},
 	},
 
@@ -473,28 +490,36 @@ require("lazy").setup({
 	},
 
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
+		"EdenEast/nightfox.nvim",
 		priority = 1000,
-		opts = {
-			flavour = "macchiato",
-			integrations = {
-				blink_cmp = true,
-				cmp = false,
-				dap = false,
-				neotest = true,
-				snacks = true,
-				telescope = {
-					enabled = false,
-				},
-				lsp_trouble = true,
-			},
-		},
 		config = function(_, opts)
-			require("catppuccin").setup(opts)
-			vim.cmd.colorscheme("catppuccin")
+			vim.cmd.colorscheme("duskfox")
 		end,
 	},
+
+	-- {
+	-- 	"catppuccin/nvim",
+	-- 	name = "catppuccin",
+	-- 	priority = 1000,
+	-- 	opts = {
+	-- 		flavour = "macchiato",
+	-- 		integrations = {
+	-- 			blink_cmp = true,
+	-- 			cmp = false,
+	-- 			dap = false,
+	-- 			neotest = true,
+	-- 			snacks = true,
+	-- 			telescope = {
+	-- 				enabled = false,
+	-- 			},
+	-- 			lsp_trouble = true,
+	-- 		},
+	-- 	},
+	-- 	config = function(_, opts)
+	-- 		require("catppuccin").setup(opts)
+	-- 		vim.cmd.colorscheme("catppuccin")
+	-- 	end,
+	-- },
 
 	-- Highlight todo, notes, etc in comments
 	{
@@ -553,7 +578,7 @@ require("lazy").setup({
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			options = {
-				theme = "catppuccin",
+				theme = "auto",
 			},
 		},
 	},
