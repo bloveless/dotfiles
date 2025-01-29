@@ -23,8 +23,7 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.inccommand = "split"
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
--- recommendation from auto-session
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,globals,tabpages,winsize,winpos,terminal,localoptions"
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
@@ -149,40 +148,6 @@ require("lazy").setup({
 		},
 	},
 
-	-- { -- search
-	-- 	-- {
-	-- 	"ibhagwan/fzf-lua",
-	-- 	lazy = false,
-	-- 	-- optional for icon support
-	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	-- 	-- or if using mini.icons/mini.nvim
-	-- 	-- dependencies = { "echasnovski/mini.icons" },
-	-- 	config = function()
-	-- 		local actions = require("fzf-lua").actions
-	-- 		require("fzf-lua").setup({
-	-- 			keymap = {
-	-- 				builtin = {
-	-- 					true,
-	-- 					["<c-d>"] = "preview-page-down",
-	-- 					["<c-u>"] = "preview-page-up",
-	-- 				},
-	-- 			},
-	-- 			actions = {
-	-- 				files = {
-	-- 					true,
-	-- 					["ctrl-q"] = actions.file_edit_or_qf,
-	-- 					["ctrl-Q"] = actions.file_edit_or_ll,
-	-- 				},
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- 	keys = {
-	-- 		{ "<leader>sf", "<cmd>FzfLua files<cr>", desc = "Search Files" },
-	-- 		{ "<leader>sh", "<cmd>FzfLua helptags<cr>", desc = "Search Help" },
-	-- 		{ "<leader>sg", "<cmd>FzfLua grep_project<cr>", desc = "Grep Project" },
-	-- 		{ "<leader><space>", "<cmd>FzfLua buffers<cr>", desc = "Search Buffers" },
-	-- 	},
-	-- },
 	{ -- small qol plugins
 		"folke/snacks.nvim",
 		lazy = false,
@@ -310,6 +275,18 @@ require("lazy").setup({
 			local servers = {
 				gopls = {},
 				terraformls = {},
+				intelephense = {
+					init_options = {
+						licenceKey = "~/.config/intelephense/license.txt",
+					},
+					settings = {
+						intelephense = {
+							files = {
+								maxSize = 10000000,
+							},
+						},
+					},
+				},
 				lua_ls = {
 					-- cmd = { ... },
 					-- filetypes = { ... },
@@ -349,6 +326,24 @@ require("lazy").setup({
 						require("lspconfig")[server_name].setup(server)
 					end,
 				},
+			})
+
+			local configs = require("lspconfig.configs")
+			local util = require("lspconfig.util")
+
+			configs.buf_lsp = {
+				default_config = {
+					cmd = { "buf", "beta", "lsp" },
+					filetypes = { "proto" },
+					root_dir = function(fname)
+						return util.root_pattern("buf.work.yaml", ".git")(fname)
+					end,
+				},
+			}
+
+			local lspconfig = require("lspconfig")
+			lspconfig.buf_lsp.setup({
+				capabilities = require("blink.cmp").get_lsp_capabilities(),
 			})
 		end,
 	},
@@ -412,13 +407,6 @@ require("lazy").setup({
 		"saghen/blink.compat",
 		lazy = true,
 		opts = {},
-		config = function()
-			-- monkeypatch cmp.ConfirmBehavior for Avante
-			require("cmp").ConfirmBehavior = {
-				Insert = "insert",
-				Replace = "replace",
-			}
-		end,
 	},
 
 	{ -- Autocompletion
@@ -508,14 +496,6 @@ require("lazy").setup({
 		end,
 	},
 
-	-- {
-	-- 	"navarasu/onedark.nvim",
-	-- 	priority = 1000, -- Make sure to load this before all the other start plugins.
-	-- 	init = function()
-	-- 		require("onedark").load()
-	-- 	end,
-	-- },
-
 	-- Highlight todo, notes, etc in comments
 	{
 		"folke/todo-comments.nvim",
@@ -545,17 +525,17 @@ require("lazy").setup({
 			-- Simple and easy statusline.
 			--  You could remove this setup call if you don't like it,
 			--  and try some other statusline plugin
-			local statusline = require("mini.statusline")
+			-- local statusline = require("mini.statusline")
 			-- set use_icons to true if you have a Nerd Font
-			statusline.setup({ use_icons = vim.g.have_nerd_font })
+			-- statusline.setup({ use_icons = vim.g.have_nerd_font })
 
 			-- You can configure sections in the statusline by overriding their
 			-- default behavior. For example, here we set the section for
 			-- cursor location to LINE:COLUMN
 			---@diagnostic disable-next-line: duplicate-set-field
-			statusline.section_location = function()
-				return "%2l:%-2v"
-			end
+			-- statusline.section_location = function()
+			-- return "%2l:%-2v"
+			-- end
 
 			vim.keymap.set("n", "<leader>bd", require("mini.bufremove").delete, { desc = "Buffer Delete" })
 
@@ -566,6 +546,16 @@ require("lazy").setup({
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
+	},
+
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			options = {
+				theme = "catppuccin",
+			},
+		},
 	},
 
 	{ -- Highlight, edit, and navigate code
@@ -759,7 +749,7 @@ require("lazy").setup({
 			},
 		},
 	},
-	-- Maybe display coverage results in neovim https://github.com/andythigpen/nvim-coverage
+
 	{
 		"lewis6991/hover.nvim",
 		config = function()
@@ -794,14 +784,68 @@ require("lazy").setup({
 	},
 
 	{
+		"nanozuki/tabby.nvim",
+		-- event = 'VimEnter', -- if you want lazy load, see below
+		dependencies = "nvim-tree/nvim-web-devicons",
+		config = function()
+			local theme = {
+				fill = "TabLineFill",
+				head = { fg = "#8aadf4", bg = "#24273a", style = "italic" },
+				current_tab = { fg = "#1e2030", bg = "#8aadf4", style = "italic" },
+				tab = { fg = "#8aadf4", bg = "#24273a", style = "italic" },
+				win = { fg = "#1e2030", bg = "#8aadf4", style = "italic" },
+				tail = { fg = "#8aadf4", bg = "#24273a", style = "italic" },
+			}
+
+			require("tabby.tabline").set(function(line)
+				return {
+					{
+						{ "  ", hl = theme.head },
+						line.sep("", theme.head, theme.fill), -- 
+					},
+					line.tabs().foreach(function(tab)
+						local hl = tab.is_current() and theme.current_tab or theme.tab
+						return {
+							line.sep("", hl, theme.fill), -- 
+							tab.is_current() and "" or "",
+							tab.number(),
+							tab.name(),
+							-- tab.close_btn(''), -- show a close button
+							line.sep("", hl, theme.fill), -- 
+							hl = hl,
+							margin = " ",
+						}
+					end),
+					line.spacer(),
+					{
+						line.sep("", theme.tail, theme.fill), -- 
+						{ "  ", hl = theme.tail },
+					},
+					hl = theme.fill,
+				}
+			end)
+		end,
+	},
+
+	{
 		"olimorris/codecompanion.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
+			{
+				-- Make sure to set this up properly if you have lazy=true
+				"MeanderingProgrammer/render-markdown.nvim",
+				opts = {
+					file_types = { "markdown", "CodeCompanion" },
+				},
+				ft = { "markdown", "CodeCompanion" },
+			},
+		},
+		keys = {
+			{ "<leader>aa", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" }, desc = "AI Actions" },
 		},
 		opts = {
 			strategies = {
-				-- Change the default chat adapter
 				chat = {
 					adapter = "qwen25",
 				},
@@ -826,10 +870,6 @@ require("lazy").setup({
 						},
 					})
 				end,
-			},
-			opts = {
-				-- Set debug logging
-				-- log_level = "DEBUG",
 			},
 		},
 	},
