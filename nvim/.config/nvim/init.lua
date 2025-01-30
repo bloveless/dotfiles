@@ -148,32 +148,13 @@ require("lazy").setup({
 		},
 	},
 
-	-- { -- small qol plugins
-	-- 	"folke/snacks.nvim",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	opts = {},
-	-- 	-- stylua: ignore
-	-- 	keys = {
-	-- 		{ "<leader>sf", function() Snacks.picker.files() end, desc = "Find Files", },
-	-- 		{ "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep", },
-	-- 		{ "<leader><space>", function() Snacks.picker.buffers() end, desc = "Buffers" },
-	-- 		{ "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History", },
-	-- 		{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", },
-	-- 		{ "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Delcaration", },
-	-- 		{ "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References", },
-	-- 		{ "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation", },
-	-- 		{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition", },
-	-- 		{ "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols", },
-	-- 	},
-	-- },
-
 	{
 		"ibhagwan/fzf-lua",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	 	-- stylua: ignore
 		keys = {
 			{ "<leader>sf", "<cmd>FzfLua files<cr>", desc = "Find Files", },
+			{ "<leader>sr", "<cmd>FzfLua resume<cr>", desc = "Resume last search", },
 			{ "<leader>sg", "<cmd>FzfLua live_grep<cr>", desc = "Grep", },
 			{ "<leader><space>", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
 			{ "gd", "<cmd>FzfLua lsp_definitions<cr>", desc = "Goto Definition", },
@@ -182,6 +163,15 @@ require("lazy").setup({
 			{ "gI", "<cmd>FzfLua lsp_implementations<cr>", desc = "Goto Implementation", },
 			{ "gy", "<cmd>FzfLua lsp_typedefs<cr>", desc = "Goto T[y]pe Definition", },
 			{ "<leader>ss", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "LSP Symbols", },
+		},
+		opts = {
+			keymap = {
+				builtin = {
+					true, -- inherit defaults
+					["<c-n>"] = "preview-page-down",
+					["<c-p>"] = "preview-page-up",
+				},
+			},
 		},
 	},
 
@@ -290,7 +280,47 @@ require("lazy").setup({
 			end
 
 			local servers = {
-				gopls = {},
+				gopls = {
+					settings = {
+						gopls = {
+							["local"] = "github.com/bayer-int",
+							gofumpt = true,
+							codelenses = {
+								gc_details = false,
+								generate = true,
+								regenerate_cgo = true,
+								run_govulncheck = true,
+								test = true,
+								tidy = true,
+								upgrade_dependency = true,
+								vendor = true,
+							},
+							hints = {
+								assignVariableTypes = true,
+								compositeLiteralFields = true,
+								compositeLiteralTypes = true,
+								constantValues = true,
+								functionTypeParameters = true,
+								parameterNames = true,
+								rangeVariableTypes = true,
+							},
+							analyses = {
+								nilness = true,
+								unusedfunc = true,
+								unusedparams = true,
+								unusedresult = true,
+								unusedvariable = true,
+								unusedwrite = true,
+								useany = true,
+							},
+							usePlaceholders = true,
+							completeUnimported = true,
+							staticcheck = true,
+							directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+							semanticTokens = true,
+						},
+					},
+				},
 				terraformls = {},
 				intelephense = {
 					init_options = {
@@ -483,10 +513,35 @@ require("lazy").setup({
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
 			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+			"ibhagwan/fzf-lua",
 		},
 		keys = {
 			{ "\\", "<cmd>Neotree filesystem toggle reveal<cr>", desc = "Show file tree" },
 		},
+		config = function()
+			local get_directory_path = function(state)
+				local node = state.tree:get_node()
+				if node.type == "directory" then
+					return node.path or node:get_id()
+				end
+
+				return node:get_parent_id()
+			end
+			require("neo-tree").setup({
+				window = {
+					mappings = {
+						["<c-s>"] = function(state)
+							local path = get_directory_path(state)
+							require("fzf-lua").files({ cwd = path })
+						end,
+						["<c-g>"] = function(state)
+							local path = get_directory_path(state)
+							require("fzf-lua").live_grep({ cwd = path })
+						end,
+					},
+				},
+			})
+		end,
 	},
 
 	{
