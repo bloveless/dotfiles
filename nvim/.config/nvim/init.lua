@@ -175,6 +175,11 @@ require("lazy").setup({
 		},
 	},
 
+	{ -- improve default vim.ui interfaces (lsp rename)
+		"stevearc/dressing.nvim",
+		opts = {},
+	},
+
 	-- LSP Plugins
 	{
 		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
