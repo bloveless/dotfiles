@@ -168,8 +168,8 @@ require("lazy").setup({
 			keymap = {
 				builtin = {
 					true, -- inherit defaults
-					["<c-n>"] = "preview-page-down",
-					["<c-p>"] = "preview-page-up",
+					["<c-d>"] = "preview-page-down",
+					["<c-u>"] = "preview-page-up",
 				},
 			},
 		},
