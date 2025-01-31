@@ -348,6 +348,7 @@ require("lazy").setup({
 						},
 					},
 				},
+				buf = {},
 			}
 
 			local ensure_installed = vim.tbl_keys(servers or {})
@@ -373,24 +374,6 @@ require("lazy").setup({
 						require("lspconfig")[server_name].setup(server)
 					end,
 				},
-			})
-
-			local configs = require("lspconfig.configs")
-			local util = require("lspconfig.util")
-
-			configs.buf_lsp = {
-				default_config = {
-					cmd = { "buf", "beta", "lsp" },
-					filetypes = { "proto" },
-					root_dir = function(fname)
-						return util.root_pattern("buf.work.yaml", ".git")(fname)
-					end,
-				},
-			}
-
-			local lspconfig = require("lspconfig")
-			lspconfig.buf_lsp.setup({
-				capabilities = require("blink.cmp").get_lsp_capabilities(),
 			})
 		end,
 	},
