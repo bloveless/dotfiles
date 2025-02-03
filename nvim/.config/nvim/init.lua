@@ -611,6 +611,8 @@ require("lazy").setup({
 
 			require("mini.diff").setup()
 
+			vim.keymap.set("n", "<leader>gd", require("mini.diff").toggle_overlay, { desc = "Toggle git diff" })
+
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
