@@ -148,30 +148,68 @@ require("lazy").setup({
 		},
 	},
 
-	{
-		"ibhagwan/fzf-lua",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	 	-- stylua: ignore
-		keys = {
-			{ "<leader>sf", "<cmd>FzfLua files<cr>", desc = "Find Files", },
-			{ "<leader>sr", "<cmd>FzfLua resume<cr>", desc = "Resume last search", },
-			{ "<leader>sg", "<cmd>FzfLua live_grep<cr>", desc = "Grep", },
-			{ "<leader><space>", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
-			{ "gd", "<cmd>FzfLua lsp_definitions<cr>", desc = "Goto Definition", },
-			{ "gD", "<cmd>FzfLua lsp_declarations<cr>", desc = "Goto Delcaration", },
-			{ "gr", "<cmd>FzfLua lsp_references<cr>", nowait = true, desc = "References", },
-			{ "gI", "<cmd>FzfLua lsp_implementations<cr>", desc = "Goto Implementation", },
-			{ "gy", "<cmd>FzfLua lsp_typedefs<cr>", desc = "Goto T[y]pe Definition", },
-			{ "<leader>ss", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "LSP Symbols", },
-		},
+	{ -- Small quality of life plugins
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@class snacks.plugins.Config
 		opts = {
-			keymap = {
-				builtin = {
-					true, -- inherit defaults
-					["<c-d>"] = "preview-page-down",
-					["<c-u>"] = "preview-page-up",
+			explorer = {
+				replace_netrw = true,
+			},
+			picker = {
+				sources = {
+					explorer = {
+						actions = {
+							dir_files = function(picker)
+								local current = picker:current()
+								if current == nil then
+									return
+								end
+								if current.dir == true then
+									Snacks.picker.files({ dirs = { current.file } })
+								end
+								Snacks.picker.files({ dirs = { current.parent.file } })
+							end,
+							dir_grep = function(picker)
+								local current = picker:current()
+								if current == nil then
+									return
+								end
+								if current.dir == true then
+									Snacks.picker.grep({ dirs = { current.file } })
+								end
+								Snacks.picker.grep({ dirs = { current.parent.file } })
+							end,
+						},
+						win = {
+							list = {
+								keys = {
+									["<c-f>"] = "dir_files",
+									["<c-g>"] = "dir_grep",
+								},
+							},
+						},
+					},
 				},
 			},
+		},
+		-- stylua: ignore
+		keys = {
+			{ "\\", function() Snacks.picker.explorer() end, desc = "File explorer" },
+			{ "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
+			{ "<leader>sf", function() Snacks.picker.files() end, desc = "Find Files" },
+			{ "<leader>sr", function() Snacks.picker.resume() end, desc = "Resume last search" },
+			{ "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep" },
+			{ "<leader>sb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+			{ "<leader>sh", function() Snacks.picker.help() end, desc = "Help" },
+			{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
+			{ "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Delcaration" },
+			{ "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+			{ "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
+			{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+			{ "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+			{ "<leader>sc", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
 		},
 	},
 
@@ -288,7 +326,7 @@ require("lazy").setup({
 				gopls = {
 					settings = {
 						gopls = {
-							["local"] = "github.com/bayer-int",
+							["local"] = "github.com/bayer-int,github.com/shadowglass-xyz",
 							gofumpt = true,
 							codelenses = {
 								gc_details = false,
@@ -493,45 +531,6 @@ require("lazy").setup({
 		opts_extend = { "sources.default" },
 	},
 
-	{ -- file tree
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
-			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-			"ibhagwan/fzf-lua",
-		},
-		keys = {
-			{ "\\", "<cmd>Neotree filesystem toggle reveal<cr>", desc = "Show file tree" },
-		},
-		config = function()
-			local get_directory_path = function(state)
-				local node = state.tree:get_node()
-				if node.type == "directory" then
-					return node.path or node:get_id()
-				end
-
-				return node:get_parent_id()
-			end
-			require("neo-tree").setup({
-				window = {
-					mappings = {
-						["<c-s>"] = function(state)
-							local path = get_directory_path(state)
-							require("fzf-lua").files({ cwd = path })
-						end,
-						["<c-g>"] = function(state)
-							local path = get_directory_path(state)
-							require("fzf-lua").live_grep({ cwd = path })
-						end,
-					},
-				},
-			})
-		end,
-	},
-
 	{
 		"EdenEast/nightfox.nvim",
 		priority = 1000,
@@ -539,30 +538,6 @@ require("lazy").setup({
 			vim.cmd.colorscheme("duskfox")
 		end,
 	},
-
-	-- {
-	-- 	"catppuccin/nvim",
-	-- 	name = "catppuccin",
-	-- 	priority = 1000,
-	-- 	opts = {
-	-- 		flavour = "macchiato",
-	-- 		integrations = {
-	-- 			blink_cmp = true,
-	-- 			cmp = false,
-	-- 			dap = false,
-	-- 			neotest = true,
-	-- 			snacks = true,
-	-- 			telescope = {
-	-- 				enabled = false,
-	-- 			},
-	-- 			lsp_trouble = true,
-	-- 		},
-	-- 	},
-	-- 	config = function(_, opts)
-	-- 		require("catppuccin").setup(opts)
-	-- 		vim.cmd.colorscheme("catppuccin")
-	-- 	end,
-	-- },
 
 	-- Highlight todo, notes, etc in comments
 	{
