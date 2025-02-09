@@ -7,20 +7,20 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "theme": "One Dark",
-  "features": {
-    "copilot": false
+  "assistant": {
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-latest"
+    },
+    "version": "2"
   },
+  "theme": "Duskfox",
   "vim_mode": true,
   "buffer_font_family": "MonoLisa",
   "ui_font_family": "MonoLisa",
-  "ui_font_size": 12,
-  "buffer_font_size": 12,
-  "relative_line_numbers": true,
-  "show_whitespaces": "all",
-  "experimental.theme_overrides": {
-    "editor.invisible": "#2e324f"
-  },
+  "ui_font_size": 13,
+  "buffer_font_size": 13,
+  "show_whitespaces": "boundary",
   "language_overrides": {
     "Go": {
       "formatter": {

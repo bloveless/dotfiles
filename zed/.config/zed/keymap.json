@@ -1,8 +1,42 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
 [
   {
+    "context": "Workspace",
     "bindings": {
-      "space c a": "editor::ToggleCodeActions"
-    },
-    "context": "Editor && vim_mode == normal"
+      // "shift shift": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space c a": "editor::ToggleCodeActions",
+      "\\": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "\\": "workspace::ToggleLeftDock"
+      // ... or other keybindings
+    }
   }
 ]
