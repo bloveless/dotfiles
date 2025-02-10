@@ -16,10 +16,11 @@
   },
   "theme": "Duskfox",
   "vim_mode": true,
+  "vim": { "use_smartcase_find": true },
   "buffer_font_family": "MonoLisa",
   "ui_font_family": "MonoLisa",
   "ui_font_size": 13,
-  "buffer_font_size": 13,
+  "buffer_font_size": null,
   "show_whitespaces": "boundary",
   "language_overrides": {
     "Go": {
