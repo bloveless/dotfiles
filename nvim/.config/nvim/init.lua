@@ -112,7 +112,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
-	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
+	{                -- Adds git related signs to the gutter, as well as utilities for managing changes
 		"lewis6991/gitsigns.nvim",
 		opts = {
 			signs = {
@@ -125,7 +125,7 @@ require("lazy").setup({
 		},
 	},
 
-	{ -- Useful plugin to show you pending keybinds.
+	{                 -- Useful plugin to show you pending keybinds.
 		"folke/which-key.nvim",
 		event = "VimEnter", -- Sets the loading event to 'VimEnter'
 		opts = {
@@ -139,7 +139,7 @@ require("lazy").setup({
 
 			-- Document existing key chains
 			spec = {
-				{ "<leader>c", group = "[C]ode", mode = { "n", "x" } },
+				{ "<leader>c", group = "[C]ode",     mode = { "n", "x" } },
 				{ "<leader>d", group = "[D]ocument" },
 				{ "<leader>r", group = "[R]ename" },
 				{ "<leader>s", group = "[S]earch" },
@@ -172,7 +172,7 @@ require("lazy").setup({
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 
 			-- Useful for getting pretty icons, but requires a Nerd Font.
-			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+			{ "nvim-tree/nvim-web-devicons",            enabled = vim.g.have_nerd_font },
 		},
 		config = function()
 			-- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -322,7 +322,7 @@ require("lazy").setup({
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 			-- Useful status updates for LSP.
-			{ "j-hui/fidget.nvim", opts = {} },
+			{ "j-hui/fidget.nvim",       opts = {} },
 
 			-- Allows extra capabilities provided by blink
 			"saghen/blink.cmp",
@@ -439,8 +439,8 @@ require("lazy").setup({
 				gopls = {
 					settings = {
 						gopls = {
-							["local"] = "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless",
 							gofumpt = true,
+							["local"] = "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless",
 							codelenses = {
 								gc_details = false,
 								generate = true,
@@ -566,14 +566,10 @@ require("lazy").setup({
 					lsp_format = "fallback",
 				}
 			end,
-			formatters = {
-				goimports = {
-					args = { "-local", "github.com/bayer-int" },
-				},
-			},
+			formatters = {},
 			formatters_by_ft = {
 				lua = { "stylua" },
-				go = { "goimports", "gofumpt" },
+				-- fallback to go lsp formatter
 			},
 		},
 	},
@@ -942,49 +938,51 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"milanglacier/minuet-ai.nvim",
-		config = function()
-			require("minuet").setup({
-				virtualtext = {
-					auto_trigger_ft = {},
-					keymap = {
-						-- accept whole completion
-						accept = "<A-A>",
-						-- accept one line
-						accept_line = "<A-a>",
-						-- accept n lines (prompts for number)
-						accept_n_lines = "<A-z>",
-						-- Cycle to prev completion item, or manually invoke completion
-						prev = "<A-[>",
-						-- Cycle to next completion item, or manually invoke completion
-						next = "<A-]>",
-						dismiss = "<A-e>",
-					},
-				},
-				provider = "openai_fim_compatible",
-				n_completions = 1, -- recommend for local model for resource saving
-				-- I recommend beginning with a small context window size and incrementally
-				-- expanding it, depending on your local computing power. A context window
-				-- of 512, serves as an good starting point to estimate your computing
-				-- power. Once you have a reliable estimate of your local computing power,
-				-- you should adjust the context window to a larger value.
-				context_window = 512,
-				provider_options = {
-					openai_fim_compatible = {
-						api_key = "TERM",
-						name = "Ollama",
-						end_point = "http://localhost:11434/v1/completions",
-						model = "qwen2.5-coder:14b",
-						optional = {
-							max_tokens = 256,
-							top_p = 0.9,
-						},
-					},
-				},
-			})
-		end,
-	},
+	"github/copilot.vim",
+
+	-- {
+	-- 	"milanglacier/minuet-ai.nvim",
+	-- 	config = function()
+	-- 		require("minuet").setup({
+	-- 			virtualtext = {
+	-- 				auto_trigger_ft = {},
+	-- 				keymap = {
+	-- 					-- accept whole completion
+	-- 					accept = "<A-A>",
+	-- 					-- accept one line
+	-- 					accept_line = "<A-a>",
+	-- 					-- accept n lines (prompts for number)
+	-- 					accept_n_lines = "<A-z>",
+	-- 					-- Cycle to prev completion item, or manually invoke completion
+	-- 					prev = "<A-[>",
+	-- 					-- Cycle to next completion item, or manually invoke completion
+	-- 					next = "<A-]>",
+	-- 					dismiss = "<A-e>",
+	-- 				},
+	-- 			},
+	-- 			provider = "openai_fim_compatible",
+	-- 			n_completions = 1, -- recommend for local model for resource saving
+	-- 			-- I recommend beginning with a small context window size and incrementally
+	-- 			-- expanding it, depending on your local computing power. A context window
+	-- 			-- of 512, serves as an good starting point to estimate your computing
+	-- 			-- power. Once you have a reliable estimate of your local computing power,
+	-- 			-- you should adjust the context window to a larger value.
+	-- 			context_window = 512,
+	-- 			provider_options = {
+	-- 				openai_fim_compatible = {
+	-- 					api_key = "TERM",
+	-- 					name = "Ollama",
+	-- 					end_point = "http://localhost:11434/v1/completions",
+	-- 					model = "qwen2.5-coder:14b",
+	-- 					optional = {
+	-- 						max_tokens = 256,
+	-- 						top_p = 0.9,
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 
 	{
 		"olimorris/codecompanion.nvim",
