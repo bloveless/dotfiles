@@ -320,10 +320,6 @@ require("lazy").setup({
 			{ "williamboman/mason.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-
-			-- Useful status updates for LSP.
-			{ "j-hui/fidget.nvim", opts = {} },
-
 			-- Allows extra capabilities provided by blink
 			"saghen/blink.cmp",
 		},
@@ -681,6 +677,8 @@ require("lazy").setup({
 
 			require("mini.bracketed").setup()
 
+			require("mini.notify").setup()
+
 			require("mini.diff").setup()
 			vim.keymap.set("n", "<leader>gd", require("mini.diff").toggle_overlay, { desc = "Toggle git diff" })
 		end,
@@ -1008,10 +1006,10 @@ require("lazy").setup({
 		opts = {
 			strategies = {
 				chat = {
-					adapter = "qwen25",
+					adapter = "copilot",
 				},
 				inline = {
-					adapter = "qwen25",
+					adapter = "copilot",
 				},
 			},
 			adapters = {

@@ -27,7 +27,10 @@
       "formatter": {
         "external": {
           "command": "goimports",
-          "arguments": ["-local", "github.com/bayer-int"]
+          "arguments": [
+            "-local",
+            "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless"
+          ]
         }
       }
     }
