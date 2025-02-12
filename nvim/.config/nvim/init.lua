@@ -112,7 +112,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
-	{                -- Adds git related signs to the gutter, as well as utilities for managing changes
+	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
 		"lewis6991/gitsigns.nvim",
 		opts = {
 			signs = {
@@ -125,7 +125,7 @@ require("lazy").setup({
 		},
 	},
 
-	{                 -- Useful plugin to show you pending keybinds.
+	{ -- Useful plugin to show you pending keybinds.
 		"folke/which-key.nvim",
 		event = "VimEnter", -- Sets the loading event to 'VimEnter'
 		opts = {
@@ -139,7 +139,7 @@ require("lazy").setup({
 
 			-- Document existing key chains
 			spec = {
-				{ "<leader>c", group = "[C]ode",     mode = { "n", "x" } },
+				{ "<leader>c", group = "[C]ode", mode = { "n", "x" } },
 				{ "<leader>d", group = "[D]ocument" },
 				{ "<leader>r", group = "[R]ename" },
 				{ "<leader>s", group = "[S]earch" },
@@ -172,7 +172,7 @@ require("lazy").setup({
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 
 			-- Useful for getting pretty icons, but requires a Nerd Font.
-			{ "nvim-tree/nvim-web-devicons",            enabled = vim.g.have_nerd_font },
+			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 		},
 		config = function()
 			-- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -322,7 +322,7 @@ require("lazy").setup({
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 			-- Useful status updates for LSP.
-			{ "j-hui/fidget.nvim",       opts = {} },
+			{ "j-hui/fidget.nvim", opts = {} },
 
 			-- Allows extra capabilities provided by blink
 			"saghen/blink.cmp",
@@ -647,10 +647,14 @@ require("lazy").setup({
 	},
 
 	{
-		"EdenEast/nightfox.nvim",
+		"loctvl842/monokai-pro.nvim",
 		priority = 1000,
+		opts = {
+			filter = "octagon",
+		},
 		config = function(_, opts)
-			vim.cmd.colorscheme("duskfox")
+			require("monokai-pro").setup(opts)
+			vim.cmd([[colorscheme monokai-pro]])
 		end,
 	},
 
@@ -687,7 +691,7 @@ require("lazy").setup({
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			options = {
-				theme = "auto",
+				theme = "monokai-pro",
 			},
 		},
 	},
