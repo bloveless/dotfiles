@@ -7,6 +7,7 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "show_edit_predictions": false, // automatic edit predictions seem to be disabling lsp suggestions
   "theme": "Gruvbox Dark",
   "assistant": {
     "default_model": {
@@ -33,16 +34,11 @@
       "format_on_save": "off"
     }
   },
-  "language_overrides": {
-    "Go": {
-      "formatter": {
-        "external": {
-          "command": "goimports",
-          "arguments": [
-            "-local",
-            "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless"
-          ]
-        }
+  "lsp": {
+    "gopls": {
+      "initialization_options": {
+        "gofumpt": true,
+        "local": "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless"
       }
     }
   }
