@@ -7,11 +7,11 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "theme": "macOS Classic Light",
+  "theme": "Gruvbox Dark",
   "assistant": {
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-latest"
+      "provider": "copilot_chat",
+      "model": "gpt-4o"
     },
     "version": "2"
   },
@@ -19,9 +19,20 @@
   "vim": { "use_smartcase_find": true },
   "buffer_font_family": "MonoLisa",
   "ui_font_family": "MonoLisa",
-  "ui_font_size": 13,
-  "buffer_font_size": 13,
+  "ui_font_size": 12,
+  "buffer_font_size": 12,
   "show_whitespaces": "selection",
+  "languages": {
+    "Proto": {
+      "formatter": {
+        "external": {
+          "command": "buf",
+          "arguments": ["format", "{buffer_path}"]
+        }
+      },
+      "format_on_save": "off"
+    }
+  },
   "language_overrides": {
     "Go": {
       "formatter": {

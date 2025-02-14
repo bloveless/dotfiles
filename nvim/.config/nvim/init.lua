@@ -643,14 +643,11 @@ require("lazy").setup({
 	},
 
 	{
-		"loctvl842/monokai-pro.nvim",
+		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
-		opts = {
-			filter = "octagon",
-		},
 		config = function(_, opts)
-			require("monokai-pro").setup(opts)
-			vim.cmd([[colorscheme monokai-pro]])
+			require("gruvbox").setup(opts)
+			vim.cmd([[colorscheme gruvbox]])
 		end,
 	},
 
@@ -679,19 +676,16 @@ require("lazy").setup({
 
 			require("mini.notify").setup()
 
+			local statusline = require("mini.statusline")
+			statusline.setup({ use_icons = vim.g.have_nerd_font })
+			---@diagnostic disable-next-line: duplicate-set-field
+			statusline.section_location = function()
+				return "%2l:%-2v"
+			end
+
 			require("mini.diff").setup()
 			vim.keymap.set("n", "<leader>gd", require("mini.diff").toggle_overlay, { desc = "Toggle git diff" })
 		end,
-	},
-
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			options = {
-				theme = "monokai-pro",
-			},
-		},
 	},
 
 	{ -- Highlight, edit, and navigate code
