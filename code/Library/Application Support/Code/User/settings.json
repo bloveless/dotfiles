@@ -1,0 +1,39 @@
+{
+    "workbench.colorTheme": "Gruvbox Dark Medium",
+    "editor.fontFamily": "Monolisa, Menlo, Monaco, 'Courier New', monospace",
+    "vim.easymotion": true,
+    "vim.sneak": true,
+    "vim.sneakReplacesF": true,
+    "vim.sneakUseIgnorecaseAndSmartcase": true,
+    "vim.leader": "<space>",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["\\"],
+            "commands": ["workbench.view.explorer"]
+        },
+        {
+            "before": ["<leader>", "c", "a"],
+            "commands": ["editor.action.codeAction"]
+        },
+
+        {
+            "before": ["ctrl", "h"],
+            "commands": ["workbench.action.navigateLeft"]
+        },
+        {
+            "before": ["ctrl", "l"],
+            "commands": ["workbench.action.navigateRight"]
+        },
+        {
+            "before": ["ctrl", "k"],
+            "commands": ["workbench.action.navigateUp"],
+        },
+        {
+            "before": ["ctrl", "j"],
+            "commands": ["workbench.action.navigateDown"],
+        }
+    ],
+    "extensions.experimental.affinity": {
+      "vscodevim.vim": 1
+    }
+}

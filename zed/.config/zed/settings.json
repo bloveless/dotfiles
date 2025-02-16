@@ -6,40 +6,106 @@
 // To see all of Zed's default settings without changing your
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
+// For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
-  "show_edit_predictions": false, // automatic edit predictions seem to be disabling lsp suggestions
-  "theme": "Gruvbox Dark",
-  "assistant": {
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-4o"
+    "features": {
+        "edit_prediction_provider": "zed"
     },
-    "version": "2"
-  },
-  "vim_mode": true,
-  "vim": { "use_smartcase_find": true },
-  "buffer_font_family": "MonoLisa",
-  "ui_font_family": "MonoLisa",
-  "ui_font_size": 12,
-  "buffer_font_size": 12,
-  "show_whitespaces": "selection",
-  "languages": {
-    "Proto": {
-      "formatter": {
-        "external": {
-          "command": "buf",
-          "arguments": ["format", "{buffer_path}"]
+    "show_edit_predictions": false, // automatic edit predictions seem to be disabling lsp suggestions
+    "theme": "Gruvbox Dark",
+    "assistant": {
+        "default_model": {
+            "provider": "copilot_chat",
+            "model": "gpt-4o"
+        },
+        "version": "2"
+    },
+    "vim_mode": true,
+    "use_multiline_find": true,
+    "vertical_scroll_margin": 15,
+    "vim": { "use_smartcase_find": true },
+    "buffer_font_family": "MonoLisa",
+    "ui_font_family": "MonoLisa",
+    "ui_font_size": 12,
+    "buffer_font_size": 12,
+    "show_whitespaces": "selection",
+    "tab_bar": {
+        "show": true,
+        "show_nav_history_buttons": false
+    },
+    "tabs": {
+        "file_icons": true,
+        "git_status": true,
+        "show_diagnostics": "all"
+    },
+    "tab_size": 4,
+    "project_panel": {
+        "indent_size": 10
+    },
+    "preferred_line_length": 160,
+    "languages": {
+        "PHP": {
+            "language_servers": ["intelephense", "!phpactor", "..."]
+        },
+        "Proto": {
+            "formatter": {
+                "external": {
+                    "command": "buf",
+                    "arguments": ["format", "{buffer_path}"]
+                }
+            },
+            "format_on_save": "off"
+        },
+        "Markdown": {
+            // Wrap text according to the previously defined preferred line length.
+            "soft_wrap": "preferred_line_length",
+
+            // do not remove any trailing whitespace since line breaks in
+            // lists (without adding a new punctuation) rely on whitespaces.
+            "remove_trailing_whitespace_on_save": false
         }
-      },
-      "format_on_save": "off"
+    },
+    "lsp": {
+        "gopls": {
+            "initialization_options": {
+                "gofumpt": true,
+                "local": "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless"
+            }
+        },
+        "intelephense": {
+            "settings": {
+                "files": {
+                    "maxSize": 3000000,
+                    "associations": ["**/*.php"],
+                    "exclude": ["**/.git/**", "**/node_modules/**", "**/vendor/**", "**/vendors/**"]
+                },
+                "diagnostics": {
+                    "typeErrors": true,
+                    "undefinedClassConstants": true,
+                    "undefinedConstants": true,
+                    "undefinedFunctions": true,
+                    "undefinedMethods": true,
+                    "undefinedProperties": true,
+                    "undefinedSymbols": true,
+                    "undefinedTypes": true
+                },
+                "environment": {
+                    "phpVersion": "8.2.0",
+                    "shortOpenTag": false,
+                    "includePaths": []
+                },
+                "format": {
+                    "enable": true,
+                    "braces": "psr12"
+                },
+                "maxMemory": 256,
+                "references": {
+                    "exclude": ["**/.git/**", "**/node_modules/**", "**/vendor/**", "**/vendors/**"]
+                },
+                "rename": {
+                    "exclude": ["**/.git/**", "**/node_modules/**", "**/vendor/**", "**/vendors/**"]
+                }
+            }
+        }
     }
-  },
-  "lsp": {
-    "gopls": {
-      "initialization_options": {
-        "gofumpt": true,
-        "local": "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless"
-      }
-    }
-  }
 }
