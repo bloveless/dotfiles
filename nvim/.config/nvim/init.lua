@@ -7,6 +7,7 @@ vim.opt.showmode = false
 vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"
 end)
+vim.opt.laststatus = 3
 vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.ignorecase = true
@@ -643,11 +644,9 @@ require("lazy").setup({
 	},
 
 	{
-		"ellisonleao/gruvbox.nvim",
-		priority = 1000,
-		config = function(_, opts)
-			require("gruvbox").setup(opts)
-			vim.cmd([[colorscheme gruvbox]])
+		"shaunsingh/nord.nvim",
+		config = function()
+			vim.cmd.colorscheme([[nord]])
 		end,
 	},
 

@@ -1,5 +1,5 @@
 {
-    "workbench.colorTheme": "Gruvbox Dark Medium",
+    "workbench.colorTheme": "Nord",
     "editor.fontFamily": "Monolisa, Menlo, Monaco, 'Courier New', monospace",
     "vim.easymotion": true,
     "vim.sneak": true,
@@ -30,5 +30,9 @@
     ],
     "extensions.experimental.affinity": {
       "vscodevim.vim": 1
+    },
+    "redhat.telemetry.enabled": false,
+    "vs-kubernetes": {
+        "vs-kubernetes.crd-code-completion": "enabled"
     }
 }

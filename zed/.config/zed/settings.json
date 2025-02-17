@@ -12,7 +12,7 @@
         "edit_prediction_provider": "zed"
     },
     "show_edit_predictions": false, // automatic edit predictions seem to be disabling lsp suggestions
-    "theme": "Gruvbox Dark",
+    "theme": "Nord",
     "assistant": {
         "default_model": {
             "provider": "copilot_chat",
