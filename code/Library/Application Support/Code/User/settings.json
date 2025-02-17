@@ -34,5 +34,6 @@
     "redhat.telemetry.enabled": false,
     "vs-kubernetes": {
         "vs-kubernetes.crd-code-completion": "enabled"
-    }
+    },
+    "workbench.activityBar.location": "top"
 }
