@@ -12,25 +12,20 @@
             "commands": ["workbench.view.explorer"]
         },
         {
+            "before": ["K"],
+            "commands": ["editor.action.showDefinitionPreviewHover"]
+        },
+        {
             "before": ["<leader>", "c", "a"],
             "commands": ["editor.action.codeAction"]
         },
-
         {
-            "before": ["ctrl", "h"],
-            "commands": ["workbench.action.navigateLeft"]
+            "before": ["]", "d"],
+            "commands": ["editor.action.marker.next"]
         },
         {
-            "before": ["ctrl", "l"],
-            "commands": ["workbench.action.navigateRight"]
-        },
-        {
-            "before": ["ctrl", "k"],
-            "commands": ["workbench.action.navigateUp"],
-        },
-        {
-            "before": ["ctrl", "j"],
-            "commands": ["workbench.action.navigateDown"],
+            "before": ["[", "d"],
+            "commands": ["editor.action.marker.prev"]
         }
     ],
     "extensions.experimental.affinity": {
