@@ -126,6 +126,18 @@ require("lazy").setup({
 		},
 	},
 
+	{
+		"petertriho/nvim-scrollbar",
+		dependencies = {
+			"lewis6991/gitsigns.nvim",
+		},
+		opts = {},
+		config = function(_, opts)
+			require("scrollbar").setup(opts)
+			require("scrollbar.handlers.gitsigns").setup()
+		end,
+	},
+
 	{ "akinsho/git-conflict.nvim", version = "*", config = true },
 
 	{ -- Useful plugin to show you pending keybinds.
