@@ -126,6 +126,8 @@ require("lazy").setup({
 		},
 	},
 
+	{ "akinsho/git-conflict.nvim", version = "*", config = true },
+
 	{ -- Useful plugin to show you pending keybinds.
 		"folke/which-key.nvim",
 		event = "VimEnter", -- Sets the loading event to 'VimEnter'
@@ -521,7 +523,6 @@ require("lazy").setup({
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
 				"golangci-lint",
-				"gofumpt",
 				"tflint",
 				"tfsec",
 			})
@@ -538,6 +539,14 @@ require("lazy").setup({
 					end,
 				},
 			})
+		end,
+	},
+
+	{ -- automatically run code actions on save
+		"fnune/codeactions-on-save.nvim",
+		config = function()
+			local cos = require("codeactions-on-save")
+			cos.register({ "*.go" }, { "source.organizeImports" })
 		end,
 	},
 
