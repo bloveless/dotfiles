@@ -192,11 +192,13 @@ require("lazy").setup({
 			{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
 			{ "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
 			{ "<leader>sc", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
+			{ "<leader>gy", function() Snacks.gitbrowse.get_url() end, desc = "Yank git url" },
+			{ "<leader>bd", function() Snacks.bufdelete() end, desc = "Buffer Delete" },
 		},
 		---@type snacks.Config
 		opts = {
 			bigfile = { enabled = true },
-			dashboard = { enabled = true },
+			dashboard = { enabled = false },
 			explorer = {
 				enabled = true,
 				replace_netrw = true,
@@ -243,7 +245,7 @@ require("lazy").setup({
 			notifier = { enabled = true },
 			quickfile = { enabled = true },
 			scope = { enabled = true },
-			scroll = { enabled = true },
+			scroll = { enabled = false },
 			statuscolumn = { enabled = true },
 			words = { enabled = true },
 		},
@@ -532,7 +534,6 @@ require("lazy").setup({
 			require("mini.ai").setup({ n_lines = 500 })
 
 			require("mini.surround").setup()
-			vim.keymap.set("n", "<leader>bd", require("mini.bufremove").delete, { desc = "Buffer Delete" })
 
 			require("mini.bracketed").setup()
 
