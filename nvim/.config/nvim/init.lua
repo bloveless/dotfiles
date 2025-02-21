@@ -115,6 +115,7 @@ require("lazy").setup({
 
 	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
 		"lewis6991/gitsigns.nvim",
+		event = "VimEnter",
 		---@type gitsigns.Config
 		opts = {
 			current_line_blame = true,
@@ -125,6 +126,10 @@ require("lazy").setup({
 				topdelete = { text = "‾" },
 				changedelete = { text = "~" },
 			},
+		},
+		--stylua: ignore
+		keys = {
+			{ "<leader>gb", function() require("gitsigns").blame() end, desc = "Git Blame" },
 		},
 	},
 
