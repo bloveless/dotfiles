@@ -1,7 +1,9 @@
-font-family = "CommitMono"
-#font-family = "Input Mono"
+#font-family = "CommitMono"
+font-family = "Input Mono"
 #font-family = "MonoLisa"
 theme = catppuccin-macchiato
-adjust-cell-height = 35%
-adjust-cursor-height = 35%
-cursor-opacity = 0.3
+#adjust-cell-height = 35%
+#adjust-cursor-height = 35%
+adjust-cursor-thickness = 3
+cursor-opacity = 0.5
+cursor-color = "#8aadf4"

@@ -427,7 +427,7 @@ require("lazy").setup({
 		"fnune/codeactions-on-save.nvim",
 		config = function()
 			local cos = require("codeactions-on-save")
-			cos.register({ "*.go" }, { "source.organizeImports" })
+			cos.register({ "*.go" }, { "source.organizeImports" }, 2000)
 		end,
 	},
 
@@ -449,7 +449,7 @@ require("lazy").setup({
 			notify_on_error = false,
 			format_on_save = function(bufnr)
 				return {
-					timeout_ms = 500,
+					timeout_ms = 1000,
 					lsp_format = "fallback",
 				}
 			end,
