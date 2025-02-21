@@ -1,2 +1,4 @@
-font-family = "MonoLisa"
+font-family = "CommitMono"
+#font-family = "Input Mono"
 theme = catppuccin-macchiato
+adjust-cell-height = 20%

@@ -152,7 +152,7 @@ require("lazy").setup({
 
 	{ -- Useful plugin to show you pending keybinds.
 		"folke/which-key.nvim",
-		event = "VimEnter", -- Sets the loading event to 'VimEnter'
+		event = "VimEnter",
 		opts = {
 			delay = 0,
 			icons = {
@@ -539,16 +539,19 @@ require("lazy").setup({
 
 			require("mini.notify").setup()
 
-			local statusline = require("mini.statusline")
-			statusline.setup({ use_icons = vim.g.have_nerd_font })
-			---@diagnostic disable-next-line: duplicate-set-field
-			statusline.section_location = function()
-				return "%2l:%-2v"
-			end
-
 			require("mini.diff").setup()
 			vim.keymap.set("n", "<leader>gd", require("mini.diff").toggle_overlay, { desc = "Toggle git diff" })
 		end,
+	},
+
+	{ -- statusline
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			options = {
+				theme = "catppuccin",
+			},
+		},
 	},
 
 	{ -- Highlight, edit, and navigate code
@@ -775,7 +778,6 @@ require("lazy").setup({
 
 	{
 		"nanozuki/tabby.nvim",
-		-- event = 'VimEnter', -- if you want lazy load, see below
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("tabby").setup({
