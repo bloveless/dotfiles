@@ -183,6 +183,7 @@ require("lazy").setup({
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
+		dependencies = { "nvim-lua/plenary.nvim" },
 		-- stylua: ignore
 		keys = {
 			{ "\\", function() Snacks.picker.explorer() end, desc = "File explorer" },
@@ -214,7 +215,25 @@ require("lazy").setup({
 			input = { enabled = true },
 			picker = {
 				enabled = true,
+				formatters = {
+					file = {
+						trucate = 150,
+					},
+				},
 				sources = {
+					files = {
+						layout = {
+							preset = "custom",
+						},
+					},
+					grep = {
+						layout = {
+							preset = "custom",
+						},
+						transform = function(item)
+							item.text = require("plenary.path").new(item.text):shorten(3)
+						end,
+					},
 					explorer = {
 						actions = {
 							dir_files = function(picker)
@@ -245,6 +264,15 @@ require("lazy").setup({
 									["<c-g>"] = "dir_grep",
 								},
 							},
+						},
+					},
+				},
+				layouts = {
+					custom = {
+						preset = "default",
+						layout = {
+							width = 0.99,
+							height = 0.99,
 						},
 					},
 				},
