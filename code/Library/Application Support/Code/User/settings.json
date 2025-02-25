@@ -35,5 +35,6 @@
     "vs-kubernetes": {
         "vs-kubernetes.crd-code-completion": "enabled"
     },
-    "workbench.activityBar.location": "top"
+    "workbench.activityBar.location": "top",
+    "go.toolsManagement.autoUpdate": true
 }

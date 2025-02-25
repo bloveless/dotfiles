@@ -284,6 +284,15 @@ require("lazy").setup({
 			statuscolumn = { enabled = true },
 			words = { enabled = true },
 		},
+		config = function(_, opts)
+			local Path = require("plenary.path")
+			require("snacks.picker.util").truncpath = function(path, len, truncopts)
+				local p = Path:new(path)
+				p:make_relative(truncopts.cwd)
+				return p:shorten(3, { -1, 1 })
+			end
+			require("snacks").setup(opts)
+		end,
 	},
 
 	{
