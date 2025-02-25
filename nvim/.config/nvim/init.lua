@@ -217,7 +217,7 @@ require("lazy").setup({
 				enabled = true,
 				formatters = {
 					file = {
-						trucate = 150,
+						truncate = 150,
 					},
 				},
 				sources = {
