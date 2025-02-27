@@ -8,15 +8,16 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
+    "icon_theme": "Colored Zed Icons Theme Dark",
     "features": {
         "edit_prediction_provider": "zed"
     },
-    "show_edit_predictions": false, // automatic edit predictions seem to be disabling lsp suggestions
+    // "show_edit_predictions": false, // automatic edit predictions seem to be disabling lsp suggestions
     "theme": "Catppuccin Macchiato",
     "assistant": {
         "default_model": {
             "provider": "copilot_chat",
-            "model": "gpt-4o"
+            "model": "claude-3-7-sonnet"
         },
         "version": "2"
     },
