@@ -450,6 +450,7 @@ require("lazy").setup({
 				"golangci-lint",
 				"tflint",
 				"tfsec",
+				"delve",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -691,6 +692,7 @@ require("lazy").setup({
 			},
 		},
 	},
+
 	{ -- test runner
 		"nvim-neotest/neotest",
 		dependencies = {
@@ -722,72 +724,59 @@ require("lazy").setup({
 				},
 			})
 		end,
+		-- stylua: ignore
 		keys = {
 			{ "<leader>t", "", desc = "+test" },
+			{ "<leader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run File (Neotest)" },
+			{ "<leader>tT", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "Run All Test Files (Neotest)" },
+			{ "<leader>td", function() require("neotest").run.run({strategy = "dap"}) end, desc = "Debug Nearest" },
+			{ "<leader>tr", function() require("neotest").run.run() end, desc = "Run Nearest (Neotest)" },
+			{ "<leader>tl", function() require("neotest").run.run_last() end, desc = "Run Last (Neotest)" },
+			{ "<leader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle Summary (Neotest)" },
+			{ "<leader>to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show Output (Neotest)" },
+			{ "<leader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel (Neotest)" },
+			{ "<leader>tS", function() require("neotest").run.stop() end, desc = "Stop (Neotest)" },
+			{ "<leader>tw", function() require("neotest").watch.toggle(vim.fn.expand("%")) end, desc = "Toggle Watch (Neotest)" },
+		},
+	},
+
+	{
+		"mfussenegger/nvim-dap",
+		recommended = true,
+		desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
+
+		dependencies = {
+			{ "igorlfs/nvim-dap-view", opts = {} },
 			{
-				"<leader>tt",
-				function()
-					require("neotest").run.run(vim.fn.expand("%"))
-				end,
-				desc = "Run File (Neotest)",
+				"leoluz/nvim-dap-go",
+				opts = {},
 			},
 			{
-				"<leader>tT",
-				function()
-					require("neotest").run.run(vim.uv.cwd())
-				end,
-				desc = "Run All Test Files (Neotest)",
-			},
-			{
-				"<leader>tr",
-				function()
-					require("neotest").run.run()
-				end,
-				desc = "Run Nearest (Neotest)",
-			},
-			{
-				"<leader>tl",
-				function()
-					require("neotest").run.run_last()
-				end,
-				desc = "Run Last (Neotest)",
-			},
-			{
-				"<leader>ts",
-				function()
-					require("neotest").summary.toggle()
-				end,
-				desc = "Toggle Summary (Neotest)",
-			},
-			{
-				"<leader>to",
-				function()
-					require("neotest").output.open({ enter = true, auto_close = true })
-				end,
-				desc = "Show Output (Neotest)",
-			},
-			{
-				"<leader>tO",
-				function()
-					require("neotest").output_panel.toggle()
-				end,
-				desc = "Toggle Output Panel (Neotest)",
-			},
-			{
-				"<leader>tS",
-				function()
-					require("neotest").run.stop()
-				end,
-				desc = "Stop (Neotest)",
-			},
-			{
-				"<leader>tw",
-				function()
-					require("neotest").watch.toggle(vim.fn.expand("%"))
-				end,
-				desc = "Toggle Watch (Neotest)",
+				"theHamsta/nvim-dap-virtual-text",
+				opts = {},
 			},
 		},
+
+	    -- stylua: ignore
+	    keys = {
+		    { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
+		    { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+		    { "<leader>dc", function() require("dap").continue() end, desc = "Run/Continue" },
+		    -- { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
+		    { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+		    { "<leader>dg", function() require("dap").goto_() end, desc = "Go to Line (No Execute)" },
+		    { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
+		    { "<leader>dj", function() require("dap").down() end, desc = "Down" },
+		    { "<leader>dk", function() require("dap").up() end, desc = "Up" },
+		    { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
+		    { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
+		    { "<leader>dO", function() require("dap").step_over() end, desc = "Step Over" },
+		    { "<leader>dP", function() require("dap").pause() end, desc = "Pause" },
+		    { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+		    { "<leader>ds", function() require("dap").session() end, desc = "Session" },
+		    { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
+		    { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+	    },
 	},
 
 	{
@@ -827,6 +816,9 @@ require("lazy").setup({
 			require("tabby").setup({
 				preset = "active_wins_at_tail",
 			})
+
+			vim.api.nvim_set_keymap("n", "H", "<cmd>tabn<cr>", { noremap = true })
+			vim.api.nvim_set_keymap("n", "L", "<cmd>tabp<cr>", { noremap = true })
 		end,
 	},
 

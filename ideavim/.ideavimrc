@@ -2,6 +2,7 @@ let mapleader = " "
 set ignorecase
 set smartcase
 set scrolloff=10
+set commentary
 set NERDTree
 
 " Use system clipboard by default
@@ -42,6 +43,7 @@ nnoremap <leader>dr :action DebugClass<cr>
 nnoremap <leader>tl :action Rerun<cr>
 nnoremap <leader>dl :action Rerun<cr>
 nnoremap <leader>rr :action Rerun<cr>
+nnoremap \\ :action ActivateProjectToolWindow<cr>
 
 " nnoremap <c-n> :action ActivateProjectToolWindow<cr>
 " nnoremap <leader>f :action ReformatCode<cr>
