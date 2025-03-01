@@ -8,6 +8,7 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
+    "show_edit_predictions": true,
     "icon_theme": "Colored Zed Icons Theme Dark",
     "features": {
         "edit_prediction_provider": "zed"
@@ -45,9 +46,9 @@
     },
     "preferred_line_length": 160,
     "languages": {
-        "PHP": {
-            "language_servers": ["intelephense", "!phpactor", "..."]
-        },
+        // "PHP": {
+        //     "language_servers": ["intelephense", "!phpactor", "..."]
+        // },
         "Proto": {
             "formatter": {
                 "external": {
@@ -71,6 +72,11 @@
             "initialization_options": {
                 "gofumpt": true,
                 "local": "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless"
+            }
+        },
+        "phpactor": {
+            "settings": {
+                "maxMemory": 256
             }
         },
         "intelephense": {
@@ -99,7 +105,7 @@
                     "enable": true,
                     "braces": "psr12"
                 },
-                "maxMemory": 256,
+                "maxMemory": 512,
                 "references": {
                     "exclude": ["**/.git/**", "**/node_modules/**", "**/vendor/**", "**/vendors/**"]
                 },
