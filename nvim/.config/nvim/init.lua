@@ -293,6 +293,7 @@ require("lazy").setup({
 						},
 					},
 				},
+				harper_ls = {},
 				terraformls = {},
 				intelephense = {
 					init_options = {
