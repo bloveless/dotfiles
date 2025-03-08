@@ -11,9 +11,8 @@
     "show_edit_predictions": true,
     "icon_theme": "Colored Zed Icons Theme Dark",
     "features": {
-        "edit_prediction_provider": "zed"
+        "edit_prediction_provider": "copilot"
     },
-    // "show_edit_predictions": false, // automatic edit predictions seem to be disabling lsp suggestions
     "theme": "Catppuccin Macchiato",
     "assistant": {
         "default_model": {
@@ -25,7 +24,9 @@
     "vim_mode": true,
     "use_multiline_find": true,
     "vertical_scroll_margin": 15,
-    "vim": { "use_smartcase_find": true },
+    "vim": {
+        "use_smartcase_find": true
+    },
     "buffer_font_family": "MonoLisa",
     "ui_font_family": "MonoLisa",
     "ui_font_size": 12,

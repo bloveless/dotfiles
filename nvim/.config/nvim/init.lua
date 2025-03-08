@@ -143,9 +143,8 @@ require("lazy").setup({
 			excluded_filetypes = {
 				"dropbar_menu",
 				"dropbar_menu_fzf",
-				"snacks_input",
-				"snacks_picker_input",
-				"snacks_picker_list",
+				"minifiles",
+				"minipick",
 				"prompt",
 			},
 		},
@@ -180,122 +179,6 @@ require("lazy").setup({
 	},
 
 	{
-		"folke/snacks.nvim",
-		priority = 1000,
-		lazy = false,
-		dependencies = { "nvim-lua/plenary.nvim" },
-		-- stylua: ignore
-		keys = {
-			{ "\\", function() Snacks.picker.explorer() end, desc = "File explorer" },
-			{ "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
-			{ "<leader>sf", function() Snacks.picker.files() end, desc = "Find Files" },
-			{ "<leader>sr", function() Snacks.picker.resume() end, desc = "Resume last search" },
-			{ "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep" },
-			{ "<leader>sb", function() Snacks.picker.buffers() end, desc = "Buffers" },
-			{ "<leader>sh", function() Snacks.picker.help() end, desc = "Help" },
-			{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
-			{ "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Delcaration" },
-			{ "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
-			{ "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
-			{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
-			{ "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
-			{ "<leader>sc", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
-			{ "<leader>go", function() Snacks.gitbrowse.open() end, desc = "Yank git url" },
-			{ "<leader>bd", function() Snacks.bufdelete() end, desc = "Buffer Delete" },
-		},
-		---@type snacks.Config
-		opts = {
-			bigfile = { enabled = true },
-			dashboard = { enabled = false },
-			explorer = {
-				enabled = true,
-				replace_netrw = true,
-			},
-			indent = { enabled = true },
-			input = { enabled = true },
-			picker = {
-				enabled = true,
-				formatters = {
-					file = {
-						truncate = 150,
-					},
-				},
-				sources = {
-					files = {
-						layout = {
-							preset = "custom",
-						},
-					},
-					grep = {
-						layout = {
-							preset = "custom",
-						},
-						transform = function(item)
-							item.text = require("plenary.path").new(item.text):shorten(3)
-						end,
-					},
-					explorer = {
-						actions = {
-							dir_files = function(picker)
-								local current = picker:current()
-								if current == nil then
-									return
-								end
-								if current.dir == true then
-									Snacks.picker.files({ dirs = { current.file } })
-								end
-								Snacks.picker.files({ dirs = { current.parent.file } })
-							end,
-							dir_grep = function(picker)
-								local current = picker:current()
-								if current == nil then
-									return
-								end
-								if current.dir == true then
-									Snacks.picker.grep({ dirs = { current.file } })
-								end
-								Snacks.picker.grep({ dirs = { current.parent.file } })
-							end,
-						},
-						win = {
-							list = {
-								keys = {
-									["<c-f>"] = "dir_files",
-									["<c-g>"] = "dir_grep",
-								},
-							},
-						},
-					},
-				},
-				layouts = {
-					custom = {
-						preset = "default",
-						layout = {
-							width = 0.99,
-							height = 0.99,
-						},
-					},
-				},
-			},
-			notifier = { enabled = true },
-			quickfile = { enabled = true },
-			scope = { enabled = true },
-			scroll = { enabled = false },
-			statuscolumn = { enabled = true },
-			words = { enabled = true },
-		},
-		config = function(_, opts)
-			local Path = require("plenary.path")
-			require("snacks.picker.util").truncpath = function(path, len, truncopts)
-				local p = Path:new(path)
-				p:make_relative(truncopts.cwd)
-				return p:shorten(3, { -1, 1 })
-			end
-			require("snacks").setup(opts)
-		end,
-	},
-
-	{
 		"folke/lazydev.nvim",
 		ft = "lua",
 		opts = {
@@ -312,8 +195,6 @@ require("lazy").setup({
 			{ "williamboman/mason.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			-- Allows extra capabilities provided by blink
-			"saghen/blink.cmp",
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -369,8 +250,6 @@ require("lazy").setup({
 				end
 				vim.diagnostic.config({ signs = { text = diagnostic_signs } })
 			end
-
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 			local servers = {
 				gopls = {
@@ -430,7 +309,6 @@ require("lazy").setup({
 				lua_ls = {
 					-- cmd = { ... },
 					-- filetypes = { ... },
-					capabilities = capabilities,
 					settings = {
 						Lua = {
 							completion = {
@@ -459,9 +337,7 @@ require("lazy").setup({
 				automatic_installation = false,
 				handlers = {
 					function(server_name)
-						local server = servers[server_name] or {}
-						server.capabilities = require("blink.cmp").get_lsp_capabilities(server.capabilities)
-						require("lspconfig")[server_name].setup(server)
+						require("lspconfig")[server_name].setup(servers[server_name] or {})
 					end,
 				},
 			})
@@ -506,34 +382,6 @@ require("lazy").setup({
 		},
 	},
 
-	{ -- Autocompletion
-		"saghen/blink.cmp",
-		dependencies = "rafamadriz/friendly-snippets",
-		version = "*",
-		---@module 'blink.cmp'
-		---@type blink.cmp.Config
-		opts = {
-			keymap = { preset = "default" },
-			appearance = {
-				use_nvim_cmp_as_default = true,
-				nerd_font_variant = "mono",
-			},
-			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
-			},
-			signature = {
-				enabled = true,
-			},
-			completion = {
-				documentation = {
-					auto_show = true,
-					auto_show_delay_ms = 500,
-				},
-			},
-		},
-		opts_extend = { "sources.default" },
-	},
-
 	{ -- Code linter
 		"mfussenegger/nvim-lint",
 		config = function()
@@ -558,7 +406,7 @@ require("lazy").setup({
 			require("catppuccin").setup({
 				flavor = "macchiato",
 				integrations = {
-					snacks = true,
+					-- snacks = true,
 				},
 			})
 			vim.cmd.colorscheme("catppuccin-macchiato")
@@ -575,8 +423,11 @@ require("lazy").setup({
 
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
+		lazy = false,
 		config = function()
 			require("mini.ai").setup({ n_lines = 500 })
+
+			require("mini.extra").setup()
 
 			require("mini.surround").setup()
 
@@ -586,7 +437,40 @@ require("lazy").setup({
 
 			require("mini.diff").setup()
 			vim.keymap.set("n", "<leader>gd", require("mini.diff").toggle_overlay, { desc = "Toggle git diff" })
+
+			require("mini.icons").setup()
+
+			require("mini.files").setup({
+				windows = {
+					preview = true,
+					width_preview = 100,
+				},
+			})
+
+			require("mini.pick").setup()
+
+			require("mini.bufremove").setup()
+
+			require("mini.completion").setup()
 		end,
+		-- stylua: ignore
+		keys = {
+			{ "\\", function() 
+    			if not MiniFiles.close() then MiniFiles.open(vim.api.nvim_buf_get_name(0), false) end
+			end, desc = "File explorer" },
+			{ "<leader>sf", function() MiniPick.builtin.files() end, desc = "Find Files" },
+			{ "<leader>sr", function() MiniPick.builtin.resume() end, desc = "Resume last search" },
+			{ "<leader>sg", function() MiniPick.builtin.grep_live() end, desc = "Grep" },
+			{ "<leader>sb", function() MiniPick.builtin.buffers() end, desc = "Buffers" },
+			{ "<leader>sh", function() MiniPick.builtin.help() end, desc = "Help" },
+			{ "gd", function() MiniExtra.pickers.lsp({ scope = "definition" }) end, desc = "Goto Definition" },
+			{ "gD", function() MiniExtra.pickers.lsp({ scope = "declaration" }) end, desc = "Goto Delcaration" },
+			{ "gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, nowait = true, desc = "References" },
+			{ "gI", function() MiniExtra.pickers.lsp({ scope = "implementation" }) end, desc = "Goto Implementation" },
+			{ "gy", function() MiniExtra.pickers.lsp({ scope = "type_definition" }) end, desc = "Goto T[y]pe Definition" },
+			{ "<leader>ss", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, desc = "LSP Symbols" },
+			{ "<leader>bd", function() MiniBufremove.delete() end, desc = "Buffer Delete" },
+		},
 	},
 
 	{ -- statusline
