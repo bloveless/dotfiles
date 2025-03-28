@@ -1,7 +1,7 @@
 #font-family = "CommitMono"
 font-family = "Input Mono"
 #font-family = "MonoLisa"
-theme = catppuccin-macchiato
+theme = tokyonight-storm
 #adjust-cell-height = 35%
 #adjust-cursor-height = 35%
 adjust-cursor-thickness = 3

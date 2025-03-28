@@ -8,33 +8,77 @@
     "vim.leader": "<space>",
     "vim.normalModeKeyBindingsNonRecursive": [
         {
-            "before": ["\\"],
-            "commands": ["workbench.view.explorer"]
+            "before": [
+                "\\"
+            ],
+            "commands": [
+                "workbench.view.explorer"
+            ]
         },
         {
-            "before": ["K"],
-            "commands": ["editor.action.showDefinitionPreviewHover"]
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "editor.action.showDefinitionPreviewHover"
+            ]
         },
         {
-            "before": ["<leader>", "c", "a"],
-            "commands": ["editor.action.codeAction"]
+            "before": [
+                "<leader>",
+                "c",
+                "a"
+            ],
+            "commands": [
+                "editor.action.codeAction"
+            ]
         },
         {
-            "before": ["]", "d"],
-            "commands": ["editor.action.marker.next"]
+            "before": [
+                "<leader>",
+                "r",
+                "n"
+            ],
+            "commands": [
+                "editor.action.rename"
+            ]
         },
         {
-            "before": ["[", "d"],
-            "commands": ["editor.action.marker.prev"]
+            "before": [
+                "]",
+                "d"
+            ],
+            "commands": [
+                "editor.action.marker.next"
+            ]
+        },
+        {
+            "before": [
+                "[",
+                "d"
+            ],
+            "commands": [
+                "editor.action.marker.prev"
+            ]
         }
     ],
     "extensions.experimental.affinity": {
-      "vscodevim.vim": 1
+        "vscodevim.vim": 1
     },
     "redhat.telemetry.enabled": false,
     "vs-kubernetes": {
         "vs-kubernetes.crd-code-completion": "enabled"
     },
     "workbench.activityBar.location": "top",
-    "go.toolsManagement.autoUpdate": true
+    "go.toolsManagement.autoUpdate": true,
+    "workbench.iconTheme": "vscode-icons",
+    "cloudcode.project": "bcs-ely-np",
+    "go.lintTool": "golangci-lint",
+    "editor.formatOnSave": true,
+    "workbench.startupEditor": "none",
+    "go.testTimeout": "3m",
+    "files.associations": {
+        "*.dml": "sql",
+        "*.ddl": "sql"
+    }
 }

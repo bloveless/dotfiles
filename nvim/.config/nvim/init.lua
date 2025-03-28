@@ -400,17 +400,12 @@ require("lazy").setup({
 	},
 
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
+		"folke/tokyonight.nvim",
+		lazy = false,
 		priority = 1000,
+		opts = {},
 		config = function()
-			require("catppuccin").setup({
-				flavor = "macchiato",
-				integrations = {
-					-- snacks = true,
-				},
-			})
-			vim.cmd.colorscheme("catppuccin-macchiato")
+			vim.cmd.colorscheme("tokyonight-storm")
 		end,
 	},
 
@@ -479,7 +474,7 @@ require("lazy").setup({
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			options = {
-				theme = "catppuccin",
+				theme = "tokyonight",
 			},
 		},
 	},

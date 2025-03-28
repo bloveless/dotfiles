@@ -6,51 +6,49 @@
 // To see the default key bindings run `zed: open default keymap`
 // from the command palette.
 [
-  {
-    "context": "Workspace && vim_mode == normal",
-    "bindings": {
-      "space s f": "file_finder::Toggle",
-      "space s g": "project_search::SearchInNew",
-      "space r r": "task::Rerun"
+    {
+        "context": "Workspace && vim_mode == normal",
+        "bindings": {
+            "space s f": "file_finder::Toggle",
+            "space s g": "project_search::SearchInNew",
+            "space r r": "task::Rerun"
+        }
+    },
+    {
+        "context": "Editor && vim_mode == normal",
+        "bindings": {
+            "space c a": "editor::ToggleCodeActions",
+            "space r n": "editor::Rename",
+            "space r r": "task::Rerun",
+            "\\": "workspace::ToggleLeftDock"
+        }
+    },
+    {
+        "context": "Editor",
+        "bindings": {
+            "ctrl-l": "workspace::ActivatePaneRight",
+            "ctrl-h": "workspace::ActivatePaneLeft",
+            "ctrl-k": "workspace::ActivatePaneUp",
+            "ctrl-j": "workspace::ActivatePaneDown",
+            "ctrl-y": "editor::ConfirmCompletion"
+        }
+    },
+    {
+        "context": "vim_mode == normal || vim_mode == visual",
+        "bindings": {
+            "g y": "editor::CopyPermalinkToLine",
+            "s": ["vim::PushSneak", {}],
+            "S": ["vim::PushSneakBackward", {}]
+        }
+    },
+    {
+        "context": "Dock",
+        "bindings": {
+            "ctrl-l": "workspace::ActivatePaneRight",
+            "ctrl-h": "workspace::ActivatePaneLeft",
+            "ctrl-k": "workspace::ActivatePaneUp",
+            "ctrl-j": "workspace::ActivatePaneDown",
+            "\\": "workspace::ToggleLeftDock"
+        }
     }
-  },
-  {
-    "context": "Editor && vim_mode == normal",
-    "bindings": {
-      "space c a": "editor::ToggleCodeActions",
-      "space r n": "editor::Rename",
-      "space r r": "task::Rerun",
-      "\\": "workspace::ToggleLeftDock"
-    }
-  },
-  {
-    "context": "Editor",
-    "bindings": {
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-y": "editor::ConfirmCompletion"
-    }
-  },
-  {
-    "context": "vim_mode == normal || vim_mode == visual",
-    "bindings": {
-      "g y": "editor::CopyPermalinkToLine",
-      "s": ["vim::PushSneak", {}],
-      "S": ["vim::PushSneakBackward", {}]
-    }
-  },
-  {
-    "context": "Dock",
-    "bindings": {
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      "space r n": "project_panel::Rename",
-      "\\": "workspace::ToggleLeftDock",
-      "space r r": "task::Rerun"
-    }
-  }
 ]
