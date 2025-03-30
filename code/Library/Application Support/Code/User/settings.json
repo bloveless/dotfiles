@@ -1,5 +1,4 @@
 {
-    "workbench.colorTheme": "Catppuccin Macchiato",
     "editor.fontFamily": "Monolisa, Menlo, Monaco, 'Courier New', monospace",
     "vim.easymotion": true,
     "vim.sneak": true,
@@ -81,4 +80,6 @@
         "*.dml": "sql",
         "*.ddl": "sql"
     }
+    "git.autofetch": true,
+    "workbench.colorTheme": "Catppuccin Macchiato"
 }

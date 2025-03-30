@@ -712,7 +712,7 @@ require("lazy").setup({
 		end,
 	},
 
-	"github/copilot.vim",
+	-- "github/copilot.vim",
 
 	{
 		"olimorris/codecompanion.nvim",
