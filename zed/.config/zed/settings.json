@@ -8,18 +8,25 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
-  "theme": "Tokyo Night Storm",
+  "edit_predictions": {
+    "mode": "subtle",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null
+    },
+    "enabled_in_assistant": false
+  },
+  "theme": "Rosé Pine Moon",
   "icon_theme": "Catppuccin Macchiato",
   "file_types": {
     "Blade": ["*.blade.php"],
-    "SQL": ["ddl", "dml"]
+    "SQL": ["ddl", "dml"],
+    "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml", "**/templates/**/*.yml", "**/helmfile.d/**/*.yaml", "**/helmfile.d/**/*.yml"]
   },
   "auto_install_extensions": {
-    "harper": true,
     "tokyo-night": true,
     "catppuccin-icons": true,
-    "golangci-lint": true,
-    "colored-zed-icons-theme": true
+    "golangci-lint": true
   },
   "show_edit_predictions": true,
   "features": {
@@ -106,7 +113,7 @@
     },
     "golangci-lint": {
       "initialization_options": {
-        "command": ["golangci-lint", "run", "--output.json.path", "stdout", "--issues-exit-code=1"]
+        "command": ["golangci-lint", "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code=1"]
       }
     },
     "intelephense": {
