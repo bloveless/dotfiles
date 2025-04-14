@@ -399,13 +399,37 @@ require("lazy").setup({
 		end,
 	},
 
+	-- {
+	-- 	"folke/tokyonight.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		vim.cmd.colorscheme("tokyonight-storm")
+	-- 	end,
+	-- },
+
 	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},
+		"f-person/auto-dark-mode.nvim",
+		opts = {
+			set_dark_mode = function()
+				vim.api.nvim_set_option_value("background", "dark", {})
+				vim.cmd("colorscheme onedark")
+			end,
+			set_light_mode = function()
+				vim.api.nvim_set_option_value("background", "light", {})
+				vim.cmd("colorscheme onelight")
+			end,
+			update_interval = 3000,
+			fallback = "dark",
+		},
+	},
+
+	{
+		"olimorris/onedarkpro.nvim",
+		priority = 1000, -- Ensure it loads first
 		config = function()
-			vim.cmd.colorscheme("tokyonight-storm")
+			vim.cmd("colorscheme onedark")
 		end,
 	},
 
@@ -472,11 +496,7 @@ require("lazy").setup({
 	{ -- statusline
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			options = {
-				theme = "tokyonight",
-			},
-		},
+		opts = {},
 	},
 
 	{ -- Highlight, edit, and navigate code
