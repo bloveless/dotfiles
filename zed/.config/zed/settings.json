@@ -8,10 +8,14 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
+  "outline_panel": {
+    "dock": "right"
+  },
+  "bottom_dock_layout": "contained",
   "assistant": {
     "default_model": {
-      "model": "claude-3-5-sonnet-latest",
-      "provider": "zed.dev"
+      "model": "copilot",
+      "provider": "copilot_chat"
     },
     "version": "2"
   },
@@ -20,7 +24,7 @@
     "golangci-lint": true,
     "tokyo-night": true
   },
-  "buffer_font_family": "Hack",
+  "buffer_font_family": "Monaspace Argon",
   "buffer_font_size": 13,
   "edit_predictions": {
     "enabled_in_assistant": false,
@@ -109,6 +113,7 @@
   },
   "show_edit_predictions": true,
   "show_whitespaces": "selection",
+  "wrap_guides": [120],
   "tab_bar": {
     "show": true,
     "show_nav_history_buttons": false
@@ -124,7 +129,7 @@
     "light": "One Light",
     "mode": "system"
   },
-  "ui_font_family": "MonoLisa",
+  "ui_font_family": "Monaspace Argon",
   "ui_font_size": 12,
   "use_multiline_find": true,
   "vertical_scroll_margin": 15,
