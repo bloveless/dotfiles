@@ -24,8 +24,8 @@
     "golangci-lint": true,
     "tokyo-night": true
   },
-  "buffer_font_family": "Monaspace Argon",
-  "buffer_font_size": 13,
+  "buffer_font_family": "MonoLisa",
+  "buffer_font_size": 12,
   "edit_predictions": {
     "enabled_in_assistant": false,
     "mode": "subtle"
@@ -129,7 +129,7 @@
     "light": "One Light",
     "mode": "system"
   },
-  "ui_font_family": "Monaspace Argon",
+  "ui_font_family": "MonoLisa",
   "ui_font_size": 12,
   "use_multiline_find": true,
   "vertical_scroll_margin": 15,

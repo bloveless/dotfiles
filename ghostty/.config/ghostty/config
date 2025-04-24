@@ -1,6 +1,4 @@
-#font-family = "CommitMono"
-font-family = "Input Mono"
-#font-family = "MonoLisa"
+font-family = "MonoLisa"
 theme = light:OneHalfLight,dark:OneHalfDark
 #adjust-cell-height = 35%
 #adjust-cursor-height = 35%
