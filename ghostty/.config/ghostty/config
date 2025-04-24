@@ -8,3 +8,4 @@ adjust-cursor-thickness = 3
 cursor-opacity = 0.5
 cursor-color = "#8aadf4"
 custom-shader = shaders/cubes.glsl
+command = /opt/homebrew/bin/fish --login --interactive
