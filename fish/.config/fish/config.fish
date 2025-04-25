@@ -16,6 +16,17 @@ if status is-interactive
 	end
 	# $HOME/.wezterm.sh | source
 	# $HOME/.zshrc.local | source
+
+	alias gpf "git push --force-with-lease --force-if-includes"
+	# brew install bat
+	alias cat 'bat'
+	# brew install eza
+	alias l 'eza'
+	alias la 'eza -a'
+	alias ll 'eza -lah'
+	alias ls 'eza --color=auto'
+	alias ghpr 'gh pr view -w'
+	alias ghprc 'gh pr create -w'
 end
 
 # [d]ocker [st]op [r]e[m]ove
