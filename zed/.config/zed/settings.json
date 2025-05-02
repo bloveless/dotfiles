@@ -14,8 +14,8 @@
   "bottom_dock_layout": "contained",
   "assistant": {
     "default_model": {
-      "model": "copilot",
-      "provider": "copilot_chat"
+      "model": "claude-3-7-sonnet-latest",
+      "provider": "zed.dev"
     },
     "version": "2"
   },
