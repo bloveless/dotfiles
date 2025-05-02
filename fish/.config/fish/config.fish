@@ -27,6 +27,7 @@ if status is-interactive
 	alias ls 'eza --color=auto'
 	alias ghpr 'gh pr view -w'
 	alias ghprc 'gh pr create -w'
+	alias dps 'docker ps'
 end
 
 # [d]ocker [st]op [r]e[m]ove
