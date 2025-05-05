@@ -28,6 +28,7 @@ if status is-interactive
 	alias ghpr 'gh pr view -w'
 	alias ghprc 'gh pr create -w'
 	alias dps 'docker ps'
+	alias k 'kubectl'
 end
 
 # [d]ocker [st]op [r]e[m]ove

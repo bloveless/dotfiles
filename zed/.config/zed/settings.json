@@ -13,8 +13,9 @@
   },
   "bottom_dock_layout": "contained",
   "assistant": {
+    "always_allow_tool_actions": true,
     "default_model": {
-      "model": "claude-3-7-sonnet-latest",
+      "model": "claude-3-7-sonnet-thinking-latest",
       "provider": "zed.dev"
     },
     "version": "2"
