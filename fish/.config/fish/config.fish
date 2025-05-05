@@ -1,5 +1,4 @@
 if status is-interactive
-	/opt/homebrew/bin/brew shellenv | source
 	starship init fish | source
 	# brew install zoxide
 	zoxide init fish | source
