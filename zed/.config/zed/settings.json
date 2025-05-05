@@ -8,10 +8,49 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
-  "outline_panel": {
-    "dock": "right"
+  "auto_install_extensions": {
+    "catppuccin-icons": true,
+    "golangci-lint": true,
+    "tokyo-night": true
   },
-  "bottom_dock_layout": "contained",
+  "theme": {
+    "dark": "One Dark",
+    "light": "One Light",
+    "mode": "system"
+  },
+  "icon_theme": "Catppuccin Macchiato",
+  "vim_mode": true,
+  "vim": {
+    "use_smartcase_find": true,
+    "use_system_clipboard": "always"
+  },
+  "buffer_font_family": "MonoLisa",
+  "buffer_font_size": 12,
+  "ui_font_family": "MonoLisa",
+  "ui_font_size": 12,
+  "show_whitespaces": "selection",
+  "preferred_line_length": 120,
+  "wrap_guides": [120],
+  "tab_size": 4,
+  "tabs": {
+    "file_icons": true,
+    "git_status": true,
+    "show_diagnostics": "all"
+  },
+  "use_multiline_find": true,
+  "vertical_scroll_margin": 15,
+  "tab_bar": {
+    "show": true,
+    "show_nav_history_buttons": false
+  },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "show_edit_predictions": true,
+  "edit_predictions": {
+    "enabled_in_assistant": false,
+    "mode": "subtle"
+  },
   "assistant": {
     "always_allow_tool_actions": true,
     "default_model": {
@@ -20,19 +59,17 @@
     },
     "version": "2"
   },
-  "auto_install_extensions": {
-    "catppuccin-icons": true,
-    "golangci-lint": true,
-    "tokyo-night": true
+  "outline_panel": {
+    "dock": "right"
   },
-  "buffer_font_family": "MonoLisa",
-  "buffer_font_size": 12,
-  "edit_predictions": {
-    "enabled_in_assistant": false,
-    "mode": "subtle"
+  "bottom_dock_layout": "contained",
+  "project_panel": {
+    "indent_size": 10
   },
-  "features": {
-    "edit_prediction_provider": "copilot"
+  "terminal": {
+    "shell": {
+      "program": "/opt/homebrew/bin/fish"
+    }
   },
   "file_types": {
     "Blade": ["*.blade.php"],
@@ -45,7 +82,6 @@
     ],
     "SQL": ["ddl", "dml"]
   },
-  "icon_theme": "Catppuccin Macchiato",
   "languages": {
     "Go": {
       "language_servers": ["gopls", "golangci-lint"]
@@ -107,36 +143,5 @@
         "local": "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless"
       }
     }
-  },
-  "preferred_line_length": 120,
-  "project_panel": {
-    "indent_size": 10
-  },
-  "show_edit_predictions": true,
-  "show_whitespaces": "selection",
-  "wrap_guides": [120],
-  "tab_bar": {
-    "show": true,
-    "show_nav_history_buttons": false
-  },
-  "tab_size": 4,
-  "tabs": {
-    "file_icons": true,
-    "git_status": true,
-    "show_diagnostics": "all"
-  },
-  "theme": {
-    "dark": "One Dark",
-    "light": "One Light",
-    "mode": "system"
-  },
-  "ui_font_family": "MonoLisa",
-  "ui_font_size": 12,
-  "use_multiline_find": true,
-  "vertical_scroll_margin": 15,
-  "vim": {
-    "use_smartcase_find": true,
-    "use_system_clipboard": "always"
-  },
-  "vim_mode": true
+  }
 }
