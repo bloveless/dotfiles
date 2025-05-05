@@ -11,9 +11,6 @@ if status is-interactive
 
 	direnv hook fish | source
 
-	if test -f $HOME/.local.fish
-		source "$HOME/.local.fish"
-	end
 	# $HOME/.wezterm.sh | source
 	# $HOME/.zshrc.local | source
 
