@@ -10,24 +10,40 @@
 {
   "auto_install_extensions": {
     "catppuccin-icons": true,
-    "golangci-lint": true,
-    "tokyo-night": true
+    "golangci-lint": true
+  },
+  "minimap": {
+    "show": "auto",
+    "thumb": "always",
+    "thumb_border": "none"
   },
   "theme": {
-    "dark": "One Dark",
-    "light": "One Light",
+    "dark": "Gruvbox Dark Soft",
+    "light": "Gruvbox Light Soft",
     "mode": "system"
   },
-  "icon_theme": "Catppuccin Macchiato",
+  "icon_theme": "Catppuccin Frappé",
   "vim_mode": true,
   "vim": {
     "use_smartcase_find": true,
     "use_system_clipboard": "always"
   },
-  "buffer_font_family": "MonoLisa",
+  "buffer_font_family": "Fira Code",
   "buffer_font_size": 12,
-  "ui_font_family": "MonoLisa",
+  "buffer_line_height": {
+    "custom": 2
+  },
+  "buffer_font_features": {
+    // disable ligatures
+    "calt": false
+  },
+  "ui_font_family": "Fira Code",
+  "ui_font_features": {
+    // disable ligatures
+    "calt": false
+  },
   "ui_font_size": 12,
+  "agent_font_size": 13,
   "show_whitespaces": "selection",
   "preferred_line_length": 120,
   "wrap_guides": [120],
@@ -48,14 +64,14 @@
   },
   "show_edit_predictions": true,
   "edit_predictions": {
-    "enabled_in_assistant": false,
+    "enabled_in_text_threads": false,
     "mode": "subtle"
   },
-  "assistant": {
+  "agent": {
     "always_allow_tool_actions": true,
     "default_model": {
-      "model": "claude-3-7-sonnet-thinking-latest",
-      "provider": "zed.dev"
+      "model": "claude-3.7-sonnet",
+      "provider": "copilot_chat"
     },
     "version": "2"
   },
@@ -66,6 +82,7 @@
   "project_panel": {
     "indent_size": 10
   },
+  "inline_code_actions": false,
   "terminal": {
     "shell": {
       "program": "/opt/homebrew/bin/fish"

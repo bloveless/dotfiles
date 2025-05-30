@@ -34,3 +34,7 @@ function dstrm
   echo "Removing docker containers"
   docker rm $(docker container ls -aq)
 end
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

@@ -409,28 +409,30 @@ require("lazy").setup({
 	-- 	end,
 	-- },
 
+	-- {
+	-- 	"olimorris/onedarkpro.nvim",
+	-- 	priority = 1000, -- Ensure it loads first
+	-- 	config = function()
+	-- 		vim.cmd("colorscheme onedark")
+	-- 	end,
+	-- },
+
+	{ "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = ... },
+
 	{
 		"f-person/auto-dark-mode.nvim",
 		opts = {
 			set_dark_mode = function()
 				vim.api.nvim_set_option_value("background", "dark", {})
-				vim.cmd("colorscheme onedark")
+				vim.cmd("colorscheme gruvbox")
 			end,
 			set_light_mode = function()
 				vim.api.nvim_set_option_value("background", "light", {})
-				vim.cmd("colorscheme onelight")
+				vim.cmd("colorscheme gruvbox")
 			end,
 			update_interval = 3000,
 			fallback = "dark",
 		},
-	},
-
-	{
-		"olimorris/onedarkpro.nvim",
-		priority = 1000, -- Ensure it loads first
-		config = function()
-			vim.cmd("colorscheme onedark")
-		end,
 	},
 
 	-- Highlight todo, notes, etc in comments

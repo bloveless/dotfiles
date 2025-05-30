@@ -1,10 +1,7 @@
-font-family = "MonoLisa"
+font-family = "JetBrains Mono"
 font-size = 12
-theme = light:OneHalfLight,dark:OneHalfDark
+theme = light:GruvboxLight,dark:GruvboxDark
 #adjust-cell-height = 35%
 #adjust-cursor-height = 35%
-adjust-cursor-thickness = 3
-cursor-opacity = 0.5
-cursor-color = "#8aadf4"
 custom-shader = shaders/cubes.glsl
 command = /opt/homebrew/bin/fish --login --interactive
