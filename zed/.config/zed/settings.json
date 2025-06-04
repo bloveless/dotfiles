@@ -18,7 +18,7 @@
     "thumb_border": "none"
   },
   "theme": {
-    "dark": "Gruvbox Dark Soft",
+    "dark": "Gruvbox Dark",
     "light": "Gruvbox Light Soft",
     "mode": "system"
   },
@@ -149,6 +149,12 @@
     }
   },
   "lsp": {
+    "protobuf-language-server": {
+      "binary": {
+        "path": "buf",
+        "arguments": ["beta", "lsp", "--timeout=0", "--log-format=text"]
+      }
+    },
     "golangci-lint": {
       "initialization_options": {
         "command": ["golangci-lint", "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code=1"]
