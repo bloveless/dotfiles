@@ -19,8 +19,7 @@
     "bindings": {
       "space c a": "editor::ToggleCodeActions",
       "space r n": "editor::Rename",
-      "space r r": "task::Rerun",
-      "\\": "workspace::ToggleLeftDock"
+      "space r r": "task::Rerun"
     }
   },
   {
@@ -48,8 +47,7 @@
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      "\\": "workspace::ToggleLeftDock"
+      "ctrl-j": "workspace::ActivatePaneDown"
     }
   }
 ]

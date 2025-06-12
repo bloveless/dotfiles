@@ -18,11 +18,11 @@
     "thumb_border": "none"
   },
   "theme": {
-    "dark": "Gruvbox Dark",
-    "light": "Gruvbox Light Soft",
+    "dark": "Catppuccin Macchiato",
+    "light": "Catppuccin Latte",
     "mode": "system"
   },
-  "icon_theme": "Catppuccin Frappé",
+  "icon_theme": "Catppuccin Macchiato",
   "vim_mode": true,
   "vim": {
     "use_smartcase_find": true,
@@ -70,7 +70,7 @@
   "agent": {
     "always_allow_tool_actions": true,
     "default_model": {
-      "model": "claude-3.7-sonnet",
+      "model": "gpt-4.1",
       "provider": "copilot_chat"
     },
     "version": "2"

@@ -399,36 +399,18 @@ require("lazy").setup({
 		end,
 	},
 
-	-- {
-	-- 	"folke/tokyonight.nvim",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	opts = {},
-	-- 	config = function()
-	-- 		vim.cmd.colorscheme("tokyonight-storm")
-	-- 	end,
-	-- },
-
-	-- {
-	-- 	"olimorris/onedarkpro.nvim",
-	-- 	priority = 1000, -- Ensure it loads first
-	-- 	config = function()
-	-- 		vim.cmd("colorscheme onedark")
-	-- 	end,
-	-- },
-
-	{ "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = ... },
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
 	{
 		"f-person/auto-dark-mode.nvim",
 		opts = {
 			set_dark_mode = function()
 				vim.api.nvim_set_option_value("background", "dark", {})
-				vim.cmd("colorscheme gruvbox")
+				vim.cmd("colorscheme catppuccin-macchiato")
 			end,
 			set_light_mode = function()
 				vim.api.nvim_set_option_value("background", "light", {})
-				vim.cmd("colorscheme gruvbox")
+				vim.cmd("colorscheme catppuccin-latte")
 			end,
 			update_interval = 3000,
 			fallback = "dark",
