@@ -100,6 +100,9 @@
     "SQL": ["ddl", "dml"]
   },
   "languages": {
+    "Elixir": {
+      "tab_size": 2
+    },
     "Go": {
       "language_servers": ["gopls", "golangci-lint"]
     },
@@ -126,6 +129,15 @@
       "remove_trailing_whitespace_on_save": false,
       // Wrap text according to the previously defined preferred line length.
       "soft_wrap": "preferred_line_length"
+    },
+    "Nix": {
+      "tab_size": 2,
+      "formatter": {
+        "external": {
+          "command": "alejandra", // or "nixfmt"
+          "arguments": ["--quiet", "--"]
+        }
+      }
     },
     "PHP": {
       "prettier": {
