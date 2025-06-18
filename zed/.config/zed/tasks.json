@@ -1,7 +1,1 @@
-[
-  {
-    "label": "Ely document tests",
-    "command": "go",
-    "args": ["test", "-v", "github.com/bayer-int/ely/cmd/documents/..."]
-  }
-]
+[]

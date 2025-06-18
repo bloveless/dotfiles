@@ -18,7 +18,7 @@
     "thumb_border": "none"
   },
   "theme": {
-    "dark": "Catppuccin Macchiato",
+    "dark": "Gruvbox Dark",
     "light": "Catppuccin Latte",
     "mode": "system"
   },
@@ -70,7 +70,7 @@
   "agent": {
     "always_allow_tool_actions": true,
     "default_model": {
-      "model": "gpt-4.1",
+      "model": "claude-3.7-sonnet",
       "provider": "copilot_chat"
     },
     "version": "2"
@@ -97,7 +97,8 @@
       "**/helmfile.d/**/*.yaml",
       "**/helmfile.d/**/*.yml"
     ],
-    "SQL": ["ddl", "dml"]
+    "SQL": ["ddl", "dml"],
+    "JSON": ["jsonl"]
   },
   "languages": {
     "Elixir": {
