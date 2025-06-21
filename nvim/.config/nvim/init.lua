@@ -403,16 +403,18 @@ require("lazy").setup({
 
 	{ "ellisonleao/gruvbox.nvim", priority = 1000 },
 
+	{ "folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {} },
+
 	{
 		"f-person/auto-dark-mode.nvim",
 		opts = {
 			set_dark_mode = function()
 				vim.api.nvim_set_option_value("background", "dark", {})
-				vim.cmd("colorscheme gruvbox")
+				vim.cmd("colorscheme tokyonight-storm")
 			end,
 			set_light_mode = function()
 				vim.api.nvim_set_option_value("background", "light", {})
-				vim.cmd("colorscheme gruvbox")
+				vim.cmd("colorscheme tokyonight-day")
 			end,
 			update_interval = 3000,
 			fallback = "dark",

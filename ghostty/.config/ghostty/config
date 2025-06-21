@@ -1,6 +1,6 @@
 font-family = "JetBrains Mono"
 font-size = 12
-theme = light:GruvboxLight,dark:GruvboxDark
+theme = light:tokyonight-day,dark:tokyonight-storm
 #adjust-cell-height = 35%
 #adjust-cursor-height = 35%
 custom-shader = shaders/cubes.glsl
