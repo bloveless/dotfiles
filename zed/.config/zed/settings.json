@@ -18,7 +18,7 @@
     "thumb_border": "none"
   },
   "theme": {
-    "dark": "Tokyo Night Storm",
+    "dark": "Catppuccin Macchiato",
     "light": "Catppuccin Latte",
     "mode": "system"
   },
@@ -168,6 +168,7 @@
         "arguments": ["beta", "lsp", "--timeout=0", "--log-format=text"]
       }
     },
+    // this needs to be installed manually with `go install github.com/bloveless/golangci-lint-langserver@latest`
     "golangci-lint": {
       "initialization_options": {
         "command": ["golangci-lint", "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code=1"]
