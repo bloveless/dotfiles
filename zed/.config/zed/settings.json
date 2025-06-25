@@ -147,6 +147,7 @@
     },
     "Proto": {
       "format_on_save": "off",
+      "tab_size": 2,
       "formatter": {
         "external": {
           "arguments": ["format", "{buffer_path}"],
