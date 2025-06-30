@@ -9,6 +9,7 @@ if status is-interactive
 	set -gx EDITOR nvim
 
 	direnv hook fish | source
+	atuin init fish | source
 
 	# $HOME/.wezterm.sh | source
 	# $HOME/.zshrc.local | source
