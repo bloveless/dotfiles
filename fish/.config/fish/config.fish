@@ -1,7 +1,7 @@
 if status is-interactive
 	starship init fish | source
 	# brew install zoxide
-	zoxide init fish | source
+	zoxide init fish --cmd zo | source
 	fish_add_path "/opt/homebrew/opt/libpq/bin"
 	fish_add_path "/Applications/WezTerm.app/Contents/MacOS"
 	fish_add_path "$(go env GOPATH)/bin"
@@ -34,6 +34,14 @@ function dstrm
   docker stop $(docker container ls -aq)
   echo "Removing docker containers"
   docker rm $(docker container ls -aq)
+end
+
+function z
+  "$HOME/.cargo/bin/cli" --zed $HOME/.cargo/bin/zed $argv
+end
+
+function jwt-decode -a jwt
+  echo $jwt | jq -R 'split(".") |.[0:2] | map(@base64d) | map(fromjson)'
 end
 
 # bun

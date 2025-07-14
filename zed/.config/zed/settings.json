@@ -8,6 +8,7 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
+  "context_servers": {},
   "auto_install_extensions": {
     "catppuccin-icons": true,
     "golangci-lint": true
@@ -53,7 +54,6 @@
     "git_status": true,
     "show_diagnostics": "all"
   },
-  "use_multiline_find": true,
   "vertical_scroll_margin": 15,
   "tab_bar": {
     "show": true,
@@ -68,12 +68,15 @@
     "mode": "subtle"
   },
   "agent": {
+    "inline_assistant_model": {
+      "provider": "google-vertex-ai",
+      "model": "gemini-2.5-pro"
+    },
     "always_allow_tool_actions": true,
     "default_model": {
-      "model": "claude-3.7-sonnet",
-      "provider": "copilot_chat"
-    },
-    "version": "2"
+      "provider": "google-vertex-ai",
+      "model": "gemini-2.5-pro"
+    }
   },
   "outline_panel": {
     "dock": "right"
@@ -160,6 +163,13 @@
     },
     "YAML": {
       "tab_size": 2
+    }
+  },
+  "language_models": {
+    "google_vertex": {
+      "api_url": "https://aiplatform.googleapis.com",
+      "location_id": "us-central1",
+      "project_id": "product360-nonprod"
     }
   },
   "lsp": {
