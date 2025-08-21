@@ -18,6 +18,11 @@
     "thumb": "always",
     "thumb_border": "none"
   },
+  "preview_tabs": {
+    "enabled": true,
+    "enable_preview_from_file_finder": true,
+    "enable_preview_from_code_navigation": true
+  },
   "theme": {
     "dark": "Catppuccin Macchiato",
     "light": "Catppuccin Latte",
@@ -68,13 +73,14 @@
     "mode": "subtle"
   },
   "agent": {
+    "default_profile": "ask",
     "inline_assistant_model": {
       "provider": "google-vertex-ai",
       "model": "gemini-2.5-pro"
     },
     "always_allow_tool_actions": true,
     "default_model": {
-      "provider": "google-vertex-ai",
+      "provider": "copilot_chat",
       "model": "gemini-2.5-pro"
     }
   },
@@ -182,7 +188,14 @@
     // this needs to be installed manually with `go install github.com/bloveless/golangci-lint-langserver@latest`
     "golangci-lint": {
       "initialization_options": {
-        "command": ["golangci-lint", "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code=1"]
+        "command": [
+          "golangci-lint",
+          "run",
+          "--allow-parallel-runners",
+          "--output.json.path=stdout",
+          "--show-stats=false",
+          "--issues-exit-code=1"
+        ]
       }
     },
     "gopls": {

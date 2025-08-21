@@ -10,6 +10,7 @@ if status is-interactive
 
 	direnv hook fish | source
 	atuin init fish | source
+	test -r '/Users/ejvzx/.opam/opam-init/init.fish' && source '/Users/ejvzx/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
 
 	# $HOME/.wezterm.sh | source
 	# $HOME/.zshrc.local | source
@@ -26,6 +27,7 @@ if status is-interactive
 	alias ghprc 'gh pr create -w'
 	alias dps 'docker ps'
 	alias k 'kubectl'
+
 end
 
 # [d]ocker [st]op [r]e[m]ove

@@ -75,3 +75,12 @@ before_repo_root_style = 'fg:248'
 repo_root_style = 'bold cyan'
 truncate_to_repo = false
 
+[kubernetes]
+disabled = false
+format = '[$symbol$context( \($namespace\))]($style) '
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
