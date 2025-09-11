@@ -16,6 +16,7 @@ if status is-interactive
 	# $HOME/.zshrc.local | source
 
 	alias gpf "git push --force-with-lease --force-if-includes"
+	alias ghpr "gh pr view --web"
 	# brew install bat
 	alias cat 'bat'
 	# brew install eza

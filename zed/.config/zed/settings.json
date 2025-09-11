@@ -19,9 +19,9 @@
     "thumb_border": "none"
   },
   "preview_tabs": {
-    "enabled": true,
-    "enable_preview_from_file_finder": true,
-    "enable_preview_from_code_navigation": true
+    "enabled": false,
+    "enable_preview_from_file_finder": false,
+    "enable_preview_from_code_navigation": false
   },
   "theme": {
     "dark": "Catppuccin Macchiato",
@@ -92,11 +92,6 @@
     "indent_size": 10
   },
   "inline_code_actions": false,
-  "terminal": {
-    "shell": {
-      "program": "/opt/homebrew/bin/fish"
-    }
-  },
   "file_types": {
     "Blade": ["*.blade.php"],
     "Helm": [
