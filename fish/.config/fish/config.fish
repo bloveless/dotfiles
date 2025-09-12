@@ -34,9 +34,17 @@ end
 # [d]ocker [st]op [r]e[m]ove
 function dstrm 
   echo "Stopping docker containers"
-  docker stop $(docker container ls -aq)
+  docker stop (docker container ls -aq)
   echo "Removing docker containers"
-  docker rm $(docker container ls -aq)
+  docker rm (docker container ls -aq)
+end
+
+# [p]odman [st]op [r]e[m]ove
+function pstrm 
+  echo "Stopping podamn containers"
+  podman stop (podman container ls -aq)
+  echo "Removing podman containers"
+  podman rm (podman container ls -aq)
 end
 
 function z
