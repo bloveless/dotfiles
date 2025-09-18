@@ -88,8 +88,8 @@ config.font = wezterm.font("JetBrainsMono Nerd Font")
 -- config.font = wezterm.font("Hack", { weight = "Regular" })
 config.font_size = 13
 config.line_height = 1.4
-config.initial_cols = 150
-config.initial_rows = 45
+config.initial_cols = 180
+config.initial_rows = 35
 config.scrollback_lines = 100000
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
