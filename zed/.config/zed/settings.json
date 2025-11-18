@@ -8,6 +8,7 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
+  "agent_buffer_font_size": 13.0,
   "context_servers": {},
   "auto_install_extensions": {
     "catppuccin-icons": true,
@@ -24,7 +25,7 @@
     "enable_preview_from_code_navigation": false
   },
   "theme": {
-    "dark": "Catppuccin Macchiato",
+    "dark": "Rosé Pine Moon",
     "light": "Catppuccin Latte",
     "mode": "system"
   },
@@ -43,13 +44,13 @@
     // disable ligatures
     "calt": false
   },
-  "ui_font_family": "Fira Code",
+  "ui_font_family": "JetBrainsMono Nerd Font Mono",
   "ui_font_features": {
     // disable ligatures
     "calt": false
   },
-  "ui_font_size": 12,
-  "agent_font_size": 13,
+  "ui_font_size": 13.0,
+  "agent_ui_font_size": 13,
   "show_whitespaces": "selection",
   "preferred_line_length": 120,
   "wrap_guides": [120],
@@ -64,6 +65,9 @@
     "show": true,
     "show_nav_history_buttons": false
   },
+  "terminal": {
+    "default_height": 200
+  },
   "features": {
     "edit_prediction_provider": "copilot"
   },
@@ -73,22 +77,18 @@
     "mode": "subtle"
   },
   "agent": {
-    "default_profile": "ask",
-    "inline_assistant_model": {
-      "provider": "google-vertex-ai",
-      "model": "gemini-2.5-pro"
-    },
-    "always_allow_tool_actions": true,
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gemini-2.5-pro"
-    }
+      "model": "claude-sonnet-4.5"
+    },
+    "default_profile": "ask"
   },
   "outline_panel": {
     "dock": "right"
   },
   "bottom_dock_layout": "contained",
   "project_panel": {
+    "entry_spacing": "comfortable",
     "indent_size": 10
   },
   "inline_code_actions": false,
@@ -110,6 +110,9 @@
     },
     "Go": {
       "language_servers": ["gopls", "golangci-lint"]
+    },
+    "Python": {
+      "language_servers": ["ty", "basedpyright", "..."]
     },
     "JSON": {
       "prettier": {
@@ -166,13 +169,6 @@
       "tab_size": 2
     }
   },
-  "language_models": {
-    "google_vertex": {
-      "api_url": "https://aiplatform.googleapis.com",
-      "location_id": "us-central1",
-      "project_id": "product360-nonprod"
-    }
-  },
   "lsp": {
     "protobuf-language-server": {
       "binary": {
@@ -180,7 +176,7 @@
         "arguments": ["beta", "lsp", "--timeout=0", "--log-format=text"]
       }
     },
-    // this needs to be installed manually with `go install github.com/bloveless/golangci-lint-langserver@latest`
+    // This requires a manual checkout of https://github.com/nametake/golangci-lint-langserver and `go install .`
     "golangci-lint": {
       "initialization_options": {
         "command": [

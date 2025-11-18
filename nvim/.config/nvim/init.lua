@@ -399,24 +399,18 @@ require("lazy").setup({
 		end,
 	},
 
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-
-	{ "ellisonleao/gruvbox.nvim", priority = 1000 },
-
-	{ "folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {} },
-
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{ "rose-pine/neovim", name = "rose-pine", priority = 1000 },
 
 	{
 		"f-person/auto-dark-mode.nvim",
 		opts = {
 			set_dark_mode = function()
 				vim.api.nvim_set_option_value("background", "dark", {})
-				vim.cmd("colorscheme catppuccin-macchiato")
+				vim.cmd("colorscheme rose-pine-moon")
 			end,
 			set_light_mode = function()
 				vim.api.nvim_set_option_value("background", "light", {})
-				vim.cmd("colorscheme catppuccin-latte")
+				vim.cmd("colorscheme rose-pine-dawn")
 			end,
 			update_interval = 3000,
 			fallback = "dark",
