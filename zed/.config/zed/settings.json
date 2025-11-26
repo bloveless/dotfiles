@@ -8,6 +8,10 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
+  "sticky_scroll": {
+    "enabled": true
+  },
+  "colorize_brackets": true,
   "agent_buffer_font_size": 13.0,
   "context_servers": {},
   "auto_install_extensions": {
@@ -137,15 +141,6 @@
       "remove_trailing_whitespace_on_save": false,
       // Wrap text according to the previously defined preferred line length.
       "soft_wrap": "preferred_line_length"
-    },
-    "Nix": {
-      "tab_size": 2,
-      "formatter": {
-        "external": {
-          "command": "alejandra", // or "nixfmt"
-          "arguments": ["--quiet", "--"]
-        }
-      }
     },
     "PHP": {
       "prettier": {
