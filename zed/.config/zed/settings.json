@@ -12,7 +12,6 @@
     "enabled": true
   },
   "colorize_brackets": true,
-  "agent_buffer_font_size": 13.0,
   "context_servers": {},
   "auto_install_extensions": {
     "catppuccin-icons": true,
@@ -55,10 +54,10 @@
   },
   "ui_font_size": 13.0,
   "agent_ui_font_size": 13,
+  "agent_buffer_font_size": 13.0,
   "show_whitespaces": "selection",
   "preferred_line_length": 120,
   "wrap_guides": [120],
-  "tab_size": 4,
   "tabs": {
     "file_icons": true,
     "git_status": true,
@@ -80,12 +79,12 @@
     "enabled_in_text_threads": false,
     "mode": "subtle"
   },
-  "agent": {
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5"
-    },
-    "default_profile": "ask"
+  "agent_servers": {
+    "OpenCode": {
+      "type": "custom",
+      "command": "opencode",
+      "args": ["acp"]
+    }
   },
   "outline_panel": {
     "dock": "right"
@@ -110,7 +109,10 @@
   },
   "languages": {
     "Elixir": {
-      "tab_size": 2
+      "language_servers": ["expert", "!elixir-ls", "!next-ls", "!lexical", "..."]
+    },
+    "HEEX": {
+      "language_servers": ["expert", "!elixir-ls", "!next-ls", "!lexical", "..."]
     },
     "Go": {
       "language_servers": ["gopls", "golangci-lint"]
@@ -121,11 +123,7 @@
     "JSON": {
       "prettier": {
         "allowed": false
-      },
-      "tab_size": 2
-    },
-    "JSONC": {
-      "tab_size": 2
+      }
     },
     "JavaScript": {
       "formatter": {
