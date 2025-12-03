@@ -8,6 +8,13 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
+  "agent": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "claude-sonnet-4.5"
+    },
+    "model_parameters": []
+  },
   "sticky_scroll": {
     "enabled": true
   },
