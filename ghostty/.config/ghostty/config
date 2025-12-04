@@ -5,4 +5,4 @@ adjust-cell-height = 35%
 adjust-cursor-height = 35%
 custom-shader = shaders/cubes.glsl
 command = /opt/homebrew/bin/fish --login --interactive
-shell-integration-features = ssh-terminfo,ssh-env
+shell-integration-features = ssh-env
