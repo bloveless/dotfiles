@@ -101,6 +101,7 @@
     "entry_spacing": "comfortable",
     "indent_size": 10
   },
+  "tab_size": 2,
   "inline_code_actions": false,
   "file_types": {
     "Blade": ["*.blade.php"],
