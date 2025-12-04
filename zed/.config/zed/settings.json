@@ -9,6 +9,7 @@
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
   "agent": {
+    "always_allow_tool_actions": true,
     "default_model": {
       "provider": "copilot_chat",
       "model": "claude-sonnet-4.5"
