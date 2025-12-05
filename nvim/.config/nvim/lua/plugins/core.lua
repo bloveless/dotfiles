@@ -18,6 +18,7 @@ return {
         gopls = {
           settings = {
             gopls = {
+              ["local"] = "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless",
               hints = {
                 assignVariableTypes = false,
                 compositeLiteralFields = false,
@@ -32,5 +33,12 @@ return {
         },
       },
     },
+  },
+  { -- automatically run code actions on save
+    "fnune/codeactions-on-save.nvim",
+    config = function()
+      local cos = require("codeactions-on-save")
+      cos.register({ "*.go" }, { "source.organizeImports" }, 2000)
+    end,
   },
 }
