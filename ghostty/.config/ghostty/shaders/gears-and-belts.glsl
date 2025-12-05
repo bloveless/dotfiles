@@ -17,7 +17,7 @@ float random (vec2 p) {
 }
 
 float innerGear(vec2 p, float dir){
-    p*=Rot(radians(-iTime*45.+45.)*dir);
+    p*=Rot(radians(-iTime*5.+45.)*dir);
     vec2 prevP = p;
 
     //p*=Rot(radians(iTime*45.+20.));
@@ -67,7 +67,7 @@ vec3 pattern2(vec2 p, vec3 col, float dir){
     float size = 0.33;
     float thick = 0.15;
     float thift = 0.0;
-    float speed = 0.3;
+    float speed = 0.01;
     
     p-=vec2(size,0.);
     float d = B(p,vec2(size,thick));
@@ -140,7 +140,7 @@ vec3 pattern2(vec2 p, vec3 col, float dir){
     d = B(p,vec2(0.08));
     col = mix(col,vec3(0.),S(d,0.0));
     
-    p*=Rot(radians(60.*iTime*dir));
+    p*=Rot(radians(10.*iTime*dir));
     d = B(p,vec2(0.03));
     col = mix(col,vec3(1.),S(d,0.0));     
      
@@ -174,7 +174,7 @@ vec3 drawBelt(vec2 p, vec3 col, float size){
 vec3 gear(vec2 p, vec3 col, float dir){
     vec2 prevP = p;
 
-    p*=Rot(radians(iTime*45.+13.)*-dir);
+    p*=Rot(radians(iTime*5.+13.)*-dir);
     p = DF(p,7.);
     p-=vec2(0.23);
     p*=Rot(deg45);
@@ -184,14 +184,14 @@ vec3 gear(vec2 p, vec3 col, float dir){
     d = min(d,d2);
     col = mix(col,vec3(1.),S(d,0.0));
     
-    p*=Rot(radians(iTime*30.-30.)*dir);
+    p*=Rot(radians(iTime*1.-30.)*dir);
     p = DF(p,6.);
     p-=vec2(0.14);
     p*=Rot(radians(45.));
     d = B(p,vec2(0.01,0.03));
     p = prevP;
     d2 =abs( length(p)-0.1)-0.02;
-    p*=Rot(radians(iTime*25.+30.)*-dir);
+    p*=Rot(radians(iTime*5.+30.)*-dir);
     d2 = max(-(abs(p.x)-0.05),d2);
     d = min(d,d2);
     col = mix(col,vec3(1.),S(d,0.0));
@@ -202,7 +202,7 @@ vec3 gear(vec2 p, vec3 col, float dir){
 vec3 item0(vec2 p, vec3 col, float dir){
     vec2 prevP = p;
     p.x*=dir;
-    p*=Rot(radians(iTime*30.+30.));
+    p*=Rot(radians(iTime*10.+30.));
     float d = abs(length(p)-0.2)-0.05;
     col = mix(col,vec3(0.3),S(d,0.0));
     
@@ -219,7 +219,7 @@ vec3 item0(vec2 p, vec3 col, float dir){
 vec3 item1(vec2 p, vec3 col, float dir){
     p.x*=dir;
     vec2 prevP = p;
-    p*=Rot(radians(iTime*30.+30.));
+    p*=Rot(radians(iTime*3.+30.));
     float d = abs(length(p)-0.25)-0.04;
     d = abs(max((abs(p.y)-0.15),d))-0.005;
     float d2 = abs(length(p)-0.25)-0.01;
@@ -234,7 +234,7 @@ vec3 item1(vec2 p, vec3 col, float dir){
     d = min(d,d2);
     
     p = prevP;
-    p*=Rot(radians(iTime*-20.+30.));
+    p*=Rot(radians(iTime*-1.+30.));
     p = DF(p,2.);
     p-=vec2(0.105);
     p*=Rot(radians(45.));
@@ -254,7 +254,7 @@ vec3 item1(vec2 p, vec3 col, float dir){
 
 vec3 item2(vec2 p, vec3 col, float dir){
     p.x*=dir;
-    p*=Rot(radians(iTime*50.-10.));
+    p*=Rot(radians(iTime*5.-10.));
     vec2 prevP = p;
     float d = abs(length(p)-0.15)-0.005;
     float d2 =  abs(length(p)-0.2)-0.01;
@@ -297,7 +297,7 @@ float needle(vec2 p){
 
 vec3 item3(vec2 p, vec3 col, float dir){
     
-    p*=Rot(radians(sin(iTime*dir)*120.));
+    p*=Rot(radians(sin(iTime*dir)*1.));
     vec2 prevP = p;
    
     p.y= abs(p.y)-0.05;
@@ -351,7 +351,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     vec2 p = (fragCoord-0.5*iResolution.xy)/iResolution.y;
     // set speed of downwards motion
-    p.y+=iTime*0.005;
+    p.y+=iTime*0.001;
     
     float size = 4.;
     vec3 col = vec3(0.);
