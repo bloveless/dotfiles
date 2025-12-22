@@ -12,53 +12,53 @@
     "always_allow_tool_actions": true,
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5"
+      "model": "gemini-3-pro-preview",
     },
-    "model_parameters": []
+    "model_parameters": [],
   },
   "sticky_scroll": {
-    "enabled": true
+    "enabled": true,
   },
   "colorize_brackets": true,
   "context_servers": {},
   "auto_install_extensions": {
     "catppuccin-icons": true,
-    "golangci-lint": true
+    "golangci-lint": true,
   },
   "minimap": {
     "show": "auto",
     "thumb": "always",
-    "thumb_border": "none"
+    "thumb_border": "none",
   },
   "preview_tabs": {
     "enabled": false,
     "enable_preview_from_file_finder": false,
-    "enable_preview_from_code_navigation": false
+    "enable_keep_preview_on_code_navigation": false,
   },
   "theme": {
     "dark": "Catppuccin Macchiato",
     "light": "Catppuccin Latte",
-    "mode": "system"
+    "mode": "system",
   },
   "icon_theme": "Catppuccin Macchiato",
   "vim_mode": true,
   "vim": {
     "use_smartcase_find": true,
-    "use_system_clipboard": "always"
+    "use_system_clipboard": "always",
   },
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_size": 13,
   "buffer_line_height": {
-    "custom": 2
+    "custom": 2,
   },
   "buffer_font_features": {
     // disable ligatures
-    "calt": false
+    "calt": false,
   },
   "ui_font_family": "JetBrainsMono Nerd Font Mono",
   "ui_font_features": {
     // disable ligatures
-    "calt": false
+    "calt": false,
   },
   "ui_font_size": 13.0,
   "agent_ui_font_size": 13,
@@ -69,38 +69,38 @@
   "tabs": {
     "file_icons": true,
     "git_status": true,
-    "show_diagnostics": "all"
+    "show_diagnostics": "all",
   },
   "vertical_scroll_margin": 15,
   "tab_bar": {
     "show": true,
-    "show_nav_history_buttons": false
+    "show_nav_history_buttons": false,
   },
   "terminal": {
-    "default_height": 200
+    "default_height": 200,
   },
   "features": {
-    "edit_prediction_provider": "copilot"
+    "edit_prediction_provider": "copilot",
   },
   "show_edit_predictions": true,
   "edit_predictions": {
     "enabled_in_text_threads": false,
-    "mode": "subtle"
+    "mode": "subtle",
   },
   "agent_servers": {
     "OpenCode": {
       "type": "custom",
       "command": "opencode",
-      "args": ["acp"]
-    }
+      "args": ["acp"],
+    },
   },
   "outline_panel": {
-    "dock": "right"
+    "dock": "right",
   },
   "bottom_dock_layout": "contained",
   "project_panel": {
     "entry_spacing": "comfortable",
-    "indent_size": 10
+    "indent_size": 10,
   },
   "tab_size": 2,
   "inline_code_actions": false,
@@ -111,48 +111,49 @@
       "**/templates/**/*.yaml",
       "**/templates/**/*.yml",
       "**/helmfile.d/**/*.yaml",
-      "**/helmfile.d/**/*.yml"
+      "**/helmfile.d/**/*.yml",
     ],
     "SQL": ["ddl", "dml"],
-    "JSON": ["jsonl"]
+    "JSON": ["jsonl"],
   },
   "languages": {
     "Elixir": {
-      "language_servers": ["expert", "!elixir-ls", "!next-ls", "!lexical", "..."]
+      "language_servers": ["expert", "!elixir-ls", "!next-ls", "!lexical", "..."],
     },
     "HEEX": {
-      "language_servers": ["expert", "!elixir-ls", "!next-ls", "!lexical", "..."]
+      "language_servers": ["expert", "!elixir-ls", "!next-ls", "!lexical", "..."],
     },
     "Go": {
-      "language_servers": ["gopls", "golangci-lint"]
+      "language_servers": ["gopls", "golangci-lint"],
     },
     "Python": {
-      "language_servers": ["ty", "basedpyright", "..."]
+      "tab_size": 4,
+      "language_servers": ["ty", "ruff", "basedpyright", "!pyrefly", "!pyright", "!pylsp"],
     },
     "JSON": {
       "prettier": {
-        "allowed": false
-      }
+        "allowed": false,
+      },
     },
     "JavaScript": {
       "formatter": {
         "external": {
           "arguments": ["prettier", "--stdin-filepath", "{buffer_path}"],
-          "command": "npx"
-        }
-      }
+          "command": "npx",
+        },
+      },
     },
     "Markdown": {
       // do not remove any trailing whitespace since line breaks in
       // lists (without adding a new punctuation) rely on whitespaces.
       "remove_trailing_whitespace_on_save": false,
       // Wrap text according to the previously defined preferred line length.
-      "soft_wrap": "preferred_line_length"
+      "soft_wrap": "preferred_line_length",
     },
     "PHP": {
       "prettier": {
-        "allowed": false
-      }
+        "allowed": false,
+      },
     },
     "Proto": {
       "format_on_save": "off",
@@ -160,25 +161,25 @@
       "formatter": {
         "external": {
           "arguments": ["format", "{buffer_path}"],
-          "command": "buf"
-        }
-      }
+          "command": "buf",
+        },
+      },
     },
     "SQL": {
-      "format_on_save": "off"
+      "format_on_save": "off",
     },
     "YAML": {
-      "tab_size": 2
-    }
+      "tab_size": 2,
+    },
   },
   "lsp": {
     "protobuf-language-server": {
       "binary": {
         "path": "buf",
-        "arguments": ["beta", "lsp", "--timeout=0", "--log-format=text"]
-      }
+        "arguments": ["beta", "lsp", "--timeout=0", "--log-format=text"],
+      },
     },
-    // This requires a manual checkout of https://github.com/nametake/golangci-lint-langserver and `go install .`
+    // This must be installed manually for the foreseeable future `go install github.com/nametake/golangci-lint-langserver@main`
     "golangci-lint": {
       "initialization_options": {
         "command": [
@@ -187,15 +188,15 @@
           "--allow-parallel-runners",
           "--output.json.path=stdout",
           "--show-stats=false",
-          "--issues-exit-code=1"
-        ]
-      }
+          "--issues-exit-code=1",
+        ],
+      },
     },
     "gopls": {
       "initialization_options": {
         "gofumpt": true,
-        "local": "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless"
-      }
-    }
-  }
+        "local": "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless",
+      },
+    },
+  },
 }
