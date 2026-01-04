@@ -403,9 +403,9 @@ require('lazy').setup({
 				preset = 'default',
 				['<Tab>'] = {
 					'snippet_forward',
-					function() -- sidekick next edit suggestion
-						return require('sidekick').nes_jump_or_apply()
-					end,
+					-- function() -- sidekick next edit suggestion
+					-- 	return require('sidekick').nes_jump_or_apply()
+					-- end,
 					'fallback',
 				},
 			},
