@@ -1,178 +1,120 @@
 return {
 	'zbirenbaum/copilot.lua',
 
-	-- {
-	-- 	'folke/sidekick.nvim',
-	-- 	opts = {
-	-- 		cli = {
-	-- 			tools = {
-	-- 				amp = {
-	-- 					cmd = { 'amp' },
-	-- 					format = function(text)
-	-- 						local Text = require 'sidekick.text'
-	-- 						Text.transform(text, function(str)
-	-- 							return str:find '[^%w/_%.%-]' and ('"' .. str .. '"') or str
-	-- 						end, 'SidekickLocFile')
-	-- 						local ret = Text.to_string(text)
-	-- 						-- transform line ranges to a format that amp understands
-	-- 						ret = ret:gsub('@([^ ]+)%s*:L(%d+):C%d+%-L(%d+):C%d+', '@%1#L%2-%3') -- @file :L5:C20-L6:C8 => @file#L5-6
-	-- 						ret = ret:gsub('@([^ ]+)%s*:L(%d+):C%d+%-C%d+', '@%1#L%2') -- @file :L5:C9-C29 => @file#L5
-	-- 						ret = ret:gsub('@([^ ]+)%s*:L(%d+)%-L(%d+)', '@%1#L%2-%3') -- @file :L5-L13 => @file#L5-13
-	-- 						ret = ret:gsub('@([^ ]+)%s*:L(%d+):C%d+', '@%1#L%2') -- @file :L5:C9 => @file#L5
-	-- 						ret = ret:gsub('@([^ ]+)%s*:L(%d+)', '@%1#L%2') -- @file :L5 => @file#L5
-	-- 						return ret
-	-- 					end,
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 	},
-	-- 	keys = {
-	-- 		{
-	-- 			'<tab>',
-	-- 			function()
-	-- 				-- if there is a next edit, jump to it, otherwise apply it if any
-	-- 				if not require('sidekick').nes_jump_or_apply() then
-	-- 					return '<Tab>' -- fallback to normal tab
-	-- 				end
-	-- 			end,
-	-- 			expr = true,
-	-- 			desc = 'Goto/Apply Next Edit Suggestion',
-	-- 		},
-	-- 		{
-	-- 			'<c-.>',
-	-- 			function()
-	-- 				require('sidekick.cli').toggle()
-	-- 			end,
-	-- 			desc = 'Sidekick Toggle',
-	-- 			mode = { 'n', 't', 'i', 'x' },
-	-- 		},
-	-- 		{
-	-- 			'<leader>aa',
-	-- 			function()
-	-- 				require('sidekick.cli').toggle()
-	-- 			end,
-	-- 			desc = 'Sidekick Toggle CLI',
-	-- 		},
-	-- 		{
-	-- 			'<leader>as',
-	-- 			function()
-	-- 				require('sidekick.cli').select()
-	-- 			end,
-	-- 			-- Or to select only installed tools:
-	-- 			-- require("sidekick.cli").select({ filter = { installed = true } })
-	-- 			desc = 'Select CLI',
-	-- 		},
-	-- 		{
-	-- 			'<leader>ad',
-	-- 			function()
-	-- 				require('sidekick.cli').close()
-	-- 			end,
-	-- 			desc = 'Detach a CLI Session',
-	-- 		},
-	-- 		{
-	-- 			'<leader>at',
-	-- 			function()
-	-- 				require('sidekick.cli').send { msg = '{this}' }
-	-- 			end,
-	-- 			mode = { 'x', 'n' },
-	-- 			desc = 'Send This',
-	-- 		},
-	-- 		{
-	-- 			'<leader>af',
-	-- 			function()
-	-- 				require('sidekick.cli').send { msg = '{file}' }
-	-- 			end,
-	-- 			desc = 'Send File',
-	-- 		},
-	-- 		{
-	-- 			'<leader>av',
-	-- 			function()
-	-- 				require('sidekick.cli').send { msg = '{selection}' }
-	-- 			end,
-	-- 			mode = { 'x' },
-	-- 			desc = 'Send Visual Selection',
-	-- 		},
-	-- 		{
-	-- 			'<leader>ap',
-	-- 			function()
-	-- 				require('sidekick.cli').prompt()
-	-- 			end,
-	-- 			mode = { 'n', 'x' },
-	-- 			desc = 'Sidekick Select Prompt',
-	-- 		},
-	-- 		-- Example of a keybinding to open Claude directly
-	-- 		{
-	-- 			'<leader>ac',
-	-- 			function()
-	-- 				require('sidekick.cli').toggle { name = 'claude', focus = true }
-	-- 			end,
-	-- 			desc = 'Sidekick Toggle Claude',
-	-- 		},
-	-- 	},
-	-- },
-
 	{
-		'NickvanDyke/opencode.nvim',
-		dependencies = {
-			-- Recommended for `ask()` and `select()`.
-			-- Required for `snacks` provider.
-			---@module 'snacks' <- Loads `snacks.nvim` types for configuration intellisense.
-			{ 'folke/snacks.nvim', opts = { input = {}, picker = {}, terminal = {} } },
+		'folke/sidekick.nvim',
+		opts = {
+			cli = {
+				mux = {
+					backend = 'zellij',
+					enabled = true,
+				},
+				tools = {
+					amp = {
+						cmd = { 'amp' },
+						format = function(text)
+							local Text = require 'sidekick.text'
+							Text.transform(text, function(str)
+								return str:find '[^%w/_%.%-]' and ('"' .. str .. '"') or str
+							end, 'SidekickLocFile')
+							local ret = Text.to_string(text)
+							-- transform line ranges to a format that amp understands
+							ret = ret:gsub('@([^ ]+)%s*:L(%d+):C%d+%-L(%d+):C%d+', '@%1#L%2-%3') -- @file :L5:C20-L6:C8 => @file#L5-6
+							ret = ret:gsub('@([^ ]+)%s*:L(%d+):C%d+%-C%d+', '@%1#L%2') -- @file :L5:C9-C29 => @file#L5
+							ret = ret:gsub('@([^ ]+)%s*:L(%d+)%-L(%d+)', '@%1#L%2-%3') -- @file :L5-L13 => @file#L5-13
+							ret = ret:gsub('@([^ ]+)%s*:L(%d+):C%d+', '@%1#L%2') -- @file :L5:C9 => @file#L5
+							ret = ret:gsub('@([^ ]+)%s*:L(%d+)', '@%1#L%2') -- @file :L5 => @file#L5
+							return ret
+						end,
+					},
+					['csgdaa-code'] = {
+						cmd = { 'csgdaa-code' },
+					},
+				},
+			},
 		},
-		config = function()
-			---@type opencode.Opts
-			vim.g.opencode_opts = {}
-
-			vim.o.autoread = true
-
-			vim.keymap.set({ 'n', 'x' }, '<leader>ak', function()
-				require('opencode').ask('@this: ', { submit = true })
-			end, { desc = 'Ask opencode' })
-			vim.keymap.set({ 'n', 'x' }, '<leader>ax', function()
-				require('opencode').select()
-			end, { desc = 'Execute opencode action…' })
-			vim.keymap.set({ 'n', 't' }, '<leader>ao', function()
-				require('opencode').toggle()
-			end, { desc = 'Toggle opencode' })
-
-			vim.keymap.set({ 'n', 'x' }, 'go', function()
-				return require('opencode').operator '@this '
-			end, { expr = true, desc = 'Add range to opencode' })
-			vim.keymap.set('n', 'goo', function()
-				return require('opencode').operator '@this ' .. '_'
-			end, { expr = true, desc = 'Add line to opencode' })
-
-			vim.keymap.set('n', '<S-C-u>', function()
-				require('opencode').command 'session.half.page.up'
-			end, { desc = 'opencode half page up' })
-			vim.keymap.set('n', '<S-C-d>', function()
-				require('opencode').command 'session.half.page.down'
-			end, { desc = 'opencode half page down' })
-		end,
-	},
-
-	{
-		'coder/claudecode.nvim',
-		dependencies = { 'folke/snacks.nvim' },
-		config = true,
 		keys = {
-			{ '<leader>a', nil, desc = 'AI/Claude Code' },
-			{ '<leader>ac', '<cmd>ClaudeCode<cr>', desc = 'Toggle Claude' },
-			{ '<leader>af', '<cmd>ClaudeCodeFocus<cr>', desc = 'Focus Claude' },
-			{ '<leader>ar', '<cmd>ClaudeCode --resume<cr>', desc = 'Resume Claude' },
-			{ '<leader>aC', '<cmd>ClaudeCode --continue<cr>', desc = 'Continue Claude' },
-			{ '<leader>am', '<cmd>ClaudeCodeSelectModel<cr>', desc = 'Select Claude model' },
-			{ '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', desc = 'Add current buffer' },
-			{ '<leader>as', '<cmd>ClaudeCodeSend<cr>', mode = 'v', desc = 'Send to Claude' },
+			{
+				'<tab>',
+				function()
+					-- if there is a next edit, jump to it, otherwise apply it if any
+					if not require('sidekick').nes_jump_or_apply() then
+						return '<Tab>' -- fallback to normal tab
+					end
+				end,
+				expr = true,
+				desc = 'Goto/Apply Next Edit Suggestion',
+			},
+			{
+				'<c-.>',
+				function()
+					require('sidekick.cli').toggle()
+				end,
+				desc = 'Sidekick Toggle',
+				mode = { 'n', 't', 'i', 'x' },
+			},
+			{
+				'<leader>aa',
+				function()
+					require('sidekick.cli').toggle()
+				end,
+				desc = 'Sidekick Toggle CLI',
+			},
 			{
 				'<leader>as',
-				'<cmd>ClaudeCodeTreeAdd<cr>',
-				desc = 'Add file',
-				ft = { 'NvimTree', 'neo-tree', 'oil', 'minifiles', 'netrw' },
+				function()
+					require('sidekick.cli').select()
+				end,
+				-- Or to select only installed tools:
+				-- require("sidekick.cli").select({ filter = { installed = true } })
+				desc = 'Select CLI',
 			},
-			-- Diff management
-			{ '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', desc = 'Accept diff' },
-			{ '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', desc = 'Deny diff' },
+			{
+				'<leader>ad',
+				function()
+					require('sidekick.cli').close()
+				end,
+				desc = 'Detach a CLI Session',
+			},
+			{
+				'<leader>at',
+				function()
+					require('sidekick.cli').send { msg = '{this}' }
+				end,
+				mode = { 'x', 'n' },
+				desc = 'Send This',
+			},
+			{
+				'<leader>af',
+				function()
+					require('sidekick.cli').send { msg = '{file}' }
+				end,
+				desc = 'Send File',
+			},
+			{
+				'<leader>av',
+				function()
+					require('sidekick.cli').send { msg = '{selection}' }
+				end,
+				mode = { 'x' },
+				desc = 'Send Visual Selection',
+			},
+			{
+				'<leader>ap',
+				function()
+					require('sidekick.cli').prompt()
+				end,
+				mode = { 'n', 'x' },
+				desc = 'Sidekick Select Prompt',
+			},
+			-- Example of a keybinding to open Claude directly
+			{
+				'<leader>ac',
+				function()
+					require('sidekick.cli').toggle { name = 'claude', focus = true }
+				end,
+				desc = 'Sidekick Toggle Claude',
+			},
 		},
 	},
 
@@ -189,6 +131,7 @@ return {
 			},
 		},
 	},
+
 	{ -- create sessions automatically
 		'rmagatti/auto-session',
 		opts = {
@@ -200,6 +143,7 @@ return {
 			require('auto-session').setup(opts)
 		end,
 	},
+
 	{
 		'folke/trouble.nvim',
 		opts = {}, -- for default options, refer to the configuration section for custom setup.
@@ -236,59 +180,62 @@ return {
 				desc = 'Quickfix List (Trouble)',
 			},
 		},
-		{
-			'f-person/auto-dark-mode.nvim',
-			opts = {
-				set_dark_mode = function()
-					vim.api.nvim_set_option_value('background', 'dark', {})
-					vim.cmd.colorscheme 'catppuccin-macchiato'
-				end,
-				set_light_mode = function()
-					vim.api.nvim_set_option_value('background', 'light', {})
-					vim.cmd.colorscheme 'catppuccin-latte'
-				end,
-				update_interval = 3000,
-				fallback = 'dark',
-			},
-		},
-		{
-			'lewis6991/hover.nvim',
-			config = function()
-				require('hover').config {
-					providers = {
-						'hover.providers.diagnostic',
-						'hover.providers.lsp',
-						'hover.providers.dap',
-						'hover.providers.man',
-						'hover.providers.gh',
-					},
-					preview_opts = {
-						border = 'single',
-					},
-					preview_window = false,
-					title = true,
-					mouse_providers = {},
-				}
+	},
 
-				-- Setup keymaps
-				vim.keymap.set('n', 'K', function()
-					require('hover').open()
-				end, { desc = 'hover.nvim (open)' })
-
-				vim.keymap.set('n', 'gK', function()
-					require('hover').enter()
-				end, { desc = 'hover.nvim (enter)' })
-
-				vim.keymap.set('n', '<C-p>', function()
-					require('hover').switch 'previous'
-				end, { desc = 'hover.nvim (previous source)' })
-
-				vim.keymap.set('n', '<C-n>', function()
-					require('hover').switch 'next'
-				end, { desc = 'hover.nvim (next source)' })
+	{
+		'f-person/auto-dark-mode.nvim',
+		opts = {
+			set_dark_mode = function()
+				vim.api.nvim_set_option_value('background', 'dark', {})
+				vim.cmd.colorscheme 'catppuccin-macchiato'
 			end,
+			set_light_mode = function()
+				vim.api.nvim_set_option_value('background', 'light', {})
+				vim.cmd.colorscheme 'catppuccin-latte'
+			end,
+			update_interval = 3000,
+			fallback = 'dark',
 		},
 	},
+
+	{
+		'lewis6991/hover.nvim',
+		config = function()
+			require('hover').config {
+				providers = {
+					'hover.providers.diagnostic',
+					'hover.providers.lsp',
+					'hover.providers.dap',
+					'hover.providers.man',
+					'hover.providers.gh',
+				},
+				preview_opts = {
+					border = 'single',
+				},
+				preview_window = false,
+				title = true,
+				mouse_providers = {},
+			}
+
+			-- Setup keymaps
+			vim.keymap.set('n', 'K', function()
+				require('hover').open()
+			end, { desc = 'hover.nvim (open)' })
+
+			vim.keymap.set('n', 'gK', function()
+				require('hover').enter()
+			end, { desc = 'hover.nvim (enter)' })
+
+			vim.keymap.set('n', '<C-p>', function()
+				require('hover').switch 'previous'
+			end, { desc = 'hover.nvim (previous source)' })
+
+			vim.keymap.set('n', '<C-n>', function()
+				require('hover').switch 'next'
+			end, { desc = 'hover.nvim (next source)' })
+		end,
+	},
+
 	{
 		'akinsho/bufferline.nvim',
 		event = 'VeryLazy',
@@ -346,6 +293,7 @@ return {
 			})
 		end,
 	},
+
 	{
 		'folke/snacks.nvim',
 		priority = 1000,
@@ -466,6 +414,7 @@ return {
 			},
 		},
 	},
+
 	{
 		'Bekaboo/dropbar.nvim',
 		config = function()
@@ -475,26 +424,7 @@ return {
 			vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
 		end,
 	},
-	{
-		'petertriho/nvim-scrollbar',
-		dependencies = {
-			'lewis6991/gitsigns.nvim',
-		},
-		opts = {
-			excluded_buftypes = { 'terminal' },
-			excluded_filetypes = {
-				'dropbar_menu',
-				'dropbar_menu_fzf',
-				'minifiles',
-				'minipick',
-				'prompt',
-			},
-		},
-		config = function(_, opts)
-			require('scrollbar').setup(opts)
-			require('scrollbar.handlers.gitsigns').setup()
-		end,
-	},
+
 	{
 		'stevearc/aerial.nvim',
 		opts = {
@@ -512,5 +442,27 @@ return {
 			'nvim-treesitter/nvim-treesitter',
 			'nvim-tree/nvim-web-devicons',
 		},
+	},
+
+	{
+		'swaits/zellij-nav.nvim',
+		lazy = true,
+		event = 'VeryLazy',
+		keys = {
+			{ '<c-h>', '<cmd>ZellijNavigateLeftTab<cr>', { silent = true, desc = 'navigate left or tab' } },
+			{ '<c-j>', '<cmd>ZellijNavigateDown<cr>', { silent = true, desc = 'navigate down' } },
+			{ '<c-k>', '<cmd>ZellijNavigateUp<cr>', { silent = true, desc = 'navigate up' } },
+			{ '<c-l>', '<cmd>ZellijNavigateRightTab<cr>', { silent = true, desc = 'navigate right or tab' } },
+		},
+		opts = {},
+		config = function(_, opts)
+			-- NOTE: Ensures that when exiting NeoVim, Zellij returns to normal mode
+			vim.api.nvim_create_autocmd('VimLeave', {
+				pattern = '*',
+				command = 'silent !zellij action switch-mode normal',
+			})
+
+			require('zellij-nav').setup()
+		end,
 	},
 }
