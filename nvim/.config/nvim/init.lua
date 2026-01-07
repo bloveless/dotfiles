@@ -242,7 +242,6 @@ require('lazy').setup({
 			local servers = {
 				expert = {},
 				ty = {},
-				ruff = {},
 				gopls = {
 					settings = {
 						gopls = {
@@ -313,6 +312,7 @@ require('lazy').setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				'stylua',
+				'ruff',
 			})
 			require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -360,7 +360,7 @@ require('lazy').setup({
 			formatters_by_ft = {
 				elixir = { 'mix' },
 				lua = { 'stylua' },
-				python = { 'ruff_format' },
+				python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
 			},
 		},
 	},
