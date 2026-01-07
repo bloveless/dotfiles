@@ -241,7 +241,6 @@ require('lazy').setup({
 
 			local servers = {
 				expert = {},
-				basedpyright = {},
 				ty = {},
 				ruff = {},
 				gopls = {
