@@ -465,4 +465,30 @@ return {
 			require('zellij-nav').setup()
 		end,
 	},
+
+	{
+		'petertriho/nvim-scrollbar',
+		dependencies = {
+			'lewis6991/gitsigns.nvim',
+		},
+		opts = {
+			excluded_filetypes = {
+				'blink-cmp-menu',
+				'dropbar_menu',
+				'dropbar_menu_fzf',
+				'DressingInput',
+				'cmp_docs',
+				'cmp_menu',
+				'noice',
+				'prompt',
+				'TelescopePrompt',
+				'snacks_picker_list',
+				'aerial',
+			},
+		},
+		config = function(_, opts)
+			require('scrollbar').setup(opts)
+			require('scrollbar.handlers.gitsigns').setup()
+		end,
+	},
 }
