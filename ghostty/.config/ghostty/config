@@ -4,6 +4,5 @@ theme = dark:Catppuccin Macchiato,light:Catppuccin Latte
 adjust-cell-height = 35%
 adjust-cursor-height = 35%
 custom-shader = shaders/gears-and-belts.glsl
-command = /opt/homebrew/bin/fish --login --interactive
 shell-integration-features = ssh-env
 scrollback-limit = 100000000

@@ -16,6 +16,9 @@
     },
     "model_parameters": [],
   },
+  "which_key": {
+    "enabled": true,
+  },
   "sticky_scroll": {
     "enabled": true,
   },
@@ -31,9 +34,10 @@
     "thumb_border": "none",
   },
   "preview_tabs": {
-    "enabled": false,
-    "enable_preview_from_file_finder": false,
-    "enable_keep_preview_on_code_navigation": false,
+    "enable_preview_multibuffer_from_code_navigation": true,
+    "enabled": true,
+    "enable_preview_from_file_finder": true,
+    "enable_keep_preview_on_code_navigation": true,
   },
   "theme": {
     "dark": "Catppuccin Macchiato",
@@ -87,13 +91,6 @@
     "enabled_in_text_threads": false,
     "mode": "subtle",
   },
-  "agent_servers": {
-    "OpenCode": {
-      "type": "custom",
-      "command": "opencode",
-      "args": ["acp"],
-    },
-  },
   "outline_panel": {
     "dock": "right",
   },
@@ -128,7 +125,7 @@
     },
     "Python": {
       "tab_size": 4,
-      "language_servers": ["ty", "ruff", "basedpyright", "!pyrefly", "!pyright", "!pylsp"],
+      "language_servers": ["ty", "ruff", "!basedpyright", "!pyrefly", "!pyright", "!pylsp"],
     },
     "JSON": {
       "prettier": {

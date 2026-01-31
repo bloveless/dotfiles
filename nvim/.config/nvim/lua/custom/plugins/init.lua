@@ -238,6 +238,7 @@ return {
 
 	{
 		'akinsho/bufferline.nvim',
+		enabled = false,
 		event = 'VeryLazy',
 		dependencies = {
 			'echasnovski/mini.nvim',
@@ -445,25 +446,53 @@ return {
 	},
 
 	{
-		'swaits/zellij-nav.nvim',
-		lazy = true,
-		event = 'VeryLazy',
-		keys = {
-			{ '<c-h>', '<cmd>ZellijNavigateLeftTab<cr>', { silent = true, desc = 'navigate left or tab' } },
-			{ '<c-j>', '<cmd>ZellijNavigateDown<cr>', { silent = true, desc = 'navigate down' } },
-			{ '<c-k>', '<cmd>ZellijNavigateUp<cr>', { silent = true, desc = 'navigate up' } },
-			{ '<c-l>', '<cmd>ZellijNavigateRightTab<cr>', { silent = true, desc = 'navigate right or tab' } },
+		'mrjones2014/smart-splits.nvim',
+		lazy = false,
+		opts = {
+			at_edge = 'stop',
 		},
-		opts = {},
-		config = function(_, opts)
-			-- NOTE: Ensures that when exiting NeoVim, Zellij returns to normal mode
-			vim.api.nvim_create_autocmd('VimLeave', {
-				pattern = '*',
-				command = 'silent !zellij action switch-mode normal',
-			})
-
-			require('zellij-nav').setup()
-		end,
+		keys = {
+			{
+				'<c-h>',
+				function()
+					require('smart-splits').move_cursor_left()
+				end,
+				mode = { 'n', 't' },
+				desc = 'Navigate left',
+			},
+			{
+				'<c-j>',
+				function()
+					require('smart-splits').move_cursor_down()
+				end,
+				mode = { 'n', 't' },
+				desc = 'Navigate down',
+			},
+			{
+				'<c-k>',
+				function()
+					require('smart-splits').move_cursor_up()
+				end,
+				mode = { 'n', 't' },
+				desc = 'Navigate up',
+			},
+			{
+				'<c-l>',
+				function()
+					require('smart-splits').move_cursor_right()
+				end,
+				mode = { 'n', 't' },
+				desc = 'Navigate right',
+			},
+			{
+				'<c-\\>',
+				function()
+					require('smart-splits').move_cursor_previous()
+				end,
+				mode = { 'n', 't' },
+				desc = 'Navigate to previous',
+			},
+		},
 	},
 
 	{
@@ -490,5 +519,13 @@ return {
 			require('scrollbar').setup(opts)
 			require('scrollbar.handlers.gitsigns').setup()
 		end,
+	},
+
+	{
+		'qvalentin/helm-ls.nvim',
+		ft = 'helm',
+		opts = {
+			-- leave empty or see below
+		},
 	},
 }

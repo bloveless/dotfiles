@@ -41,6 +41,44 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	end,
 })
 
+vim.filetype.add {
+	extension = {
+		ddl = 'sql',
+	},
+	pattern = {
+		['.*/templates/.*%.yaml'] = 'helm',
+		['.*/templates/.*%.yml'] = 'helm',
+		['.*/templates/.*%.tpl'] = 'helm',
+		['.*/helm/.*%.yaml'] = 'helm',
+		['.*/helm/.*%.yml'] = 'helm',
+		['.*/helm/.*%.tpl'] = 'helm',
+	},
+}
+
+--[[ Your UUID function global and renamed for example --]]
+local function generate_uuid()
+	return string.lower(vim.trim(vim.system({ 'uuidgen' }, { text = true }):wait().stdout))
+end
+
+--[[ Generate a uuid and place it at current cursor position --]]
+local insert_uuid = function()
+	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+	local uuid = generate_uuid()
+	vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { uuid })
+	vim.api.nvim_win_set_cursor(0, { row, col + string.len(uuid) })
+end
+
+vim.keymap.set('i', '<c-u>', insert_uuid, { noremap = true, silent = true })
+
+-- vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true, desc = 'Navigate left' })
+-- vim.keymap.set('n', '<C-j>', '<C-w>j', { noremap = true, silent = true, desc = 'Navigate down' })
+-- vim.keymap.set('n', '<C-k>', '<C-w>k', { noremap = true, silent = true, desc = 'Navigate up' })
+-- vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true, desc = 'Navigate right' })
+-- vim.keymap.set('t', '<C-h>', '<C-\\><C-n><C-w>h', { noremap = true, silent = true, desc = 'Navigate left' })
+-- vim.keymap.set('t', '<C-j>', '<C-\\><C-n><C-w>j', { noremap = true, silent = true, desc = 'Navigate down' })
+-- vim.keymap.set('t', '<C-k>', '<C-\\><C-n><C-w>k', { noremap = true, silent = true, desc = 'Navigate up' })
+-- vim.keymap.set('t', '<C-l>', '<C-\\><C-n><C-w>l', { noremap = true, silent = true, desc = 'Navigate right' })
+
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -56,6 +94,7 @@ rtp:prepend(lazypath)
 
 require('lazy').setup({
 	'NMAC427/guess-indent.nvim',
+
 	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
 		'lewis6991/gitsigns.nvim',
 		opts = {
@@ -125,6 +164,7 @@ require('lazy').setup({
 			},
 		},
 	},
+
 	{
 		'neovim/nvim-lspconfig',
 		dependencies = {
@@ -242,7 +282,6 @@ require('lazy').setup({
 			local servers = {
 				expert = {},
 				ty = {},
-				basedpyright = {},
 				gopls = {
 					settings = {
 						gopls = {
@@ -308,6 +347,7 @@ require('lazy').setup({
 						},
 					},
 				},
+				helm_ls = {},
 			}
 
 			local ensure_installed = vim.tbl_keys(servers or {})
