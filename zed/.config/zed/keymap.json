@@ -31,7 +31,7 @@
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-y": "editor::ConfirmCompletion",
-      "ctrl-shift-l": "editor::AcceptPartialEditPrediction"
+      "ctrl-shift-l": "editor::AcceptNextWordEditPrediction"
     }
   },
   {

@@ -29,7 +29,7 @@
     "golangci-lint": true,
   },
   "minimap": {
-    "show": "auto",
+    "show": "never",
     "thumb": "always",
     "thumb_border": "none",
   },

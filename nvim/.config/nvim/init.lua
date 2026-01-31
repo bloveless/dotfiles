@@ -282,6 +282,7 @@ require('lazy').setup({
 			local servers = {
 				expert = {},
 				ty = {},
+				zls = {},
 				gopls = {
 					settings = {
 						gopls = {
