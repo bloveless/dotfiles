@@ -116,9 +116,10 @@ require('lazy').setup({
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
-          map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+          -- map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+          -- map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
           map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          map('grd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -216,13 +217,13 @@ require('lazy').setup({
           },
         },
         buf = {},
+        ruff = {},
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'lua_ls',
         'stylua',
-        'ruff',
       })
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -378,11 +379,31 @@ require('lazy').setup({
 
   { -- Collection of various small independent plugins/modules
     'nvim-mini/mini.nvim',
+    keys = {
+      {
+        '\\',
+        function() require('mini.files').open(vim.api.nvim_buf_get_name(0), true) end,
+        desc = 'Open mini.files (Directory of Current File)',
+      },
+      {
+        '<leader>fM',
+        function() require('mini.files').open(vim.uv.cwd(), true) end,
+        desc = 'Open mini.files (cwd)',
+      },
+    },
     config = function()
       require('mini.ai').setup { n_lines = 500 }
       require('mini.surround').setup()
-      require('mini.files').setup()
-      vim.keymap.set('n', '\\', function() MiniFiles.open() end, { desc = 'Open file exporer' })
+      require('mini.files').setup {
+        windows = {
+          preview = true,
+          width_focus = 30,
+          width_preview = 100,
+        },
+        mappings = {
+          close = '<ESC>',
+        },
+      }
     end,
   },
 
