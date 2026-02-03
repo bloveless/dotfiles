@@ -14,6 +14,7 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.splitright = true
 vim.o.splitbelow = true
+vim.o.tabstop = 4
 
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
@@ -323,6 +324,13 @@ require('lazy').setup({
     opts = {
       keymap = {
         preset = 'default',
+        ['<Tab>'] = {
+          'snippet_forward',
+          function() -- sidekick next edit suggestion
+            return require('sidekick').nes_jump_or_apply()
+          end,
+          'fallback',
+        },
       },
 
       appearance = {
@@ -382,7 +390,11 @@ require('lazy').setup({
     keys = {
       {
         '\\',
-        function() require('mini.files').open(vim.api.nvim_buf_get_name(0), true) end,
+        function()
+          local MiniFiles = require 'mini.files'
+          local _ = MiniFiles.close() or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+          MiniFiles.reveal_cwd()
+        end,
         desc = 'Open mini.files (Directory of Current File)',
       },
       {

@@ -102,12 +102,43 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
-      options = {
-        globalstatus = true,
-        disabled_filetypes = {
-          statusline = { 'AgenticChat', 'AgenticInput', 'AgenticCode', 'AgenticFiles' },
-          winbar = { 'AgenticChat', 'AgenticInput', 'AgenticCode', 'AgenticFiles' },
+      options = { globalstatus = true },
+      disabled_filetypes = {
+        statusline = { 'AgenticChat', 'AgenticInput', 'AgenticCode', 'AgenticFiles' },
+        winbar = { 'AgenticChat', 'AgenticInput', 'AgenticCode', 'AgenticFiles' },
+      },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = {
+          'filename',
+          {
+            function() return ' ' end,
+            color = function()
+              local status = require('sidekick.status').get()
+              if status then return status.kind == 'Error' and 'DiagnosticError' or status.busy and 'DiagnosticWarn' or 'Special' end
+            end,
+            cond = function()
+              local status = require 'sidekick.status'
+              return status.get() ~= nil
+            end,
+          },
         },
+        lualine_x = {
+          {
+            function()
+              local status = require('sidekick.status').cli()
+              return ' ' .. (#status > 1 and #status or '')
+            end,
+            cond = function() return #require('sidekick.status').cli() > 0 end,
+            color = function() return 'Special' end,
+          },
+          'encoding',
+          'fileformat',
+          'filetype',
+        },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
       },
     },
   },
