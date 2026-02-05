@@ -1,5 +1,11 @@
 return {
-  { 'zbirenbaum/copilot.lua', opts = {} },
+  {
+    'zbirenbaum/copilot.lua',
+    dependencies = {
+      'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
+    },
+    opts = {},
+  },
 
   {
     'folke/sidekick.nvim',
