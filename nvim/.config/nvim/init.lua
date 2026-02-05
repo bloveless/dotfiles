@@ -41,6 +41,33 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.filetype.add {
+  extension = {
+    ddl = 'sql',
+  },
+  pattern = {
+    ['.*/templates/.*%.yaml'] = 'helm',
+    ['.*/templates/.*%.yml'] = 'helm',
+    ['.*/templates/.*%.tpl'] = 'helm',
+    ['.*/helm/.*%.yaml'] = 'helm',
+    ['.*/helm/.*%.yml'] = 'helm',
+    ['.*/helm/.*%.tpl'] = 'helm',
+  },
+}
+
+--[[ Your UUID function global and renamed for example --]]
+local function generate_uuid() return string.lower(vim.trim(vim.system({ 'uuidgen' }, { text = true }):wait().stdout)) end
+
+--[[ Generate a uuid and place it at current cursor position --]]
+local insert_uuid = function()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local uuid = generate_uuid()
+  vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { uuid })
+  vim.api.nvim_win_set_cursor(0, { row, col + string.len(uuid) })
+end
+
+vim.keymap.set('i', '<c-u>', insert_uuid, { noremap = true, silent = true })
+
 -- [[ Basic Autocommands ]]
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -411,9 +438,6 @@ require('lazy').setup({
           preview = true,
           width_focus = 30,
           width_preview = 100,
-        },
-        mappings = {
-          close = '<ESC>',
         },
       }
     end,
