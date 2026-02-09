@@ -1,6 +1,7 @@
 return {
   {
     'zbirenbaum/copilot.lua',
+    enabled = string.find(os.getenv 'HOME' or '', 'ejvzx', 1, true) ~= nil,
     dependencies = {
       'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
     },
@@ -39,14 +40,8 @@ return {
     },
     keys = {
       {
-        '<tab>',
-        function()
-          -- if there is a next edit, jump to it, otherwise apply it if any
-          if not require('sidekick').nes_jump_or_apply() then
-            return '<Tab>' -- fallback to normal tab
-          end
-        end,
-        expr = true,
+        '<c-n>',
+        function() require('sidekick').nes_jump_or_apply() end,
         desc = 'Goto/Apply Next Edit Suggestion',
       },
       {
