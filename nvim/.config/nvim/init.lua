@@ -108,18 +108,7 @@ require('lazy').setup({
   { -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs and related tools to stdpath for Neovim
-      -- Mason must be loaded before its dependents so we need to set it up here.
-      -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'mason-org/mason.nvim', opts = {} },
-      -- This plugin streamlines Neovim's LSP setup by automating server installation and activation, providing helpful management commands, and mapping mason.nvim packages to nvim-lspconfig configurations.
-      { 'mason-org/mason-lspconfig.nvim', opts = {} },
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-      -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
-
-      -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
     },
     config = function()
@@ -172,82 +161,64 @@ require('lazy').setup({
       })
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
-
-      local servers = {
-        expert = {},
-        ty = {},
-        gopls = {
-          settings = {
-            gopls = {
-              gofumpt = true,
-              ['local'] = 'github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless',
-              codelenses = {
-                gc_details = false,
-                generate = true,
-                regenerate_cgo = true,
-                run_govulncheck = true,
-                test = true,
-                tidy = true,
-                upgrade_dependency = true,
-                vendor = true,
-              },
-              hints = {
-                assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
-                constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
-              },
-              analyses = {
-                nilness = true,
-                unusedfunc = true,
-                unusedparams = true,
-                unusedresult = true,
-                unusedvariable = true,
-                unusedwrite = true,
-                useany = true,
-              },
-              usePlaceholders = true,
-              completeUnimported = true,
-              staticcheck = true,
-              directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
-              semanticTokens = true,
-            },
-          },
-        },
-        harper_ls = {},
-        terraformls = {},
-        intelephense = {
-          init_options = {
-            licenceKey = '~/.config/intelephense/license.txt',
-          },
-          settings = {
-            intelephense = {
-              files = {
-                maxSize = 10000000,
-              },
-            },
-          },
-        },
-        buf = {},
-        ruff = {},
-      }
-
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'lua_ls',
-        'stylua',
+      vim.lsp.config('*', {
+        capabilities = capabilities,
       })
 
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      vim.lsp.config('intelephense', {
+        init_options = {
+          licenceKey = '~/.config/intelephense/license.txt',
+        },
+        settings = {
+          intelephense = {
+            files = {
+              maxSize = 10000000,
+            },
+          },
+        },
+      })
 
-      for name, server in pairs(servers) do
-        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-        vim.lsp.config(name, server)
-        vim.lsp.enable(name)
-      end
+      vim.lsp.config('gopls', {
+        settings = {
+          gopls = {
+            gofumpt = true,
+            ['local'] = 'github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless',
+            codelenses = {
+              gc_details = false,
+              generate = true,
+              regenerate_cgo = true,
+              run_govulncheck = true,
+              test = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true,
+            },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+            analyses = {
+              nilness = true,
+              unusedfunc = true,
+              unusedparams = true,
+              unusedresult = true,
+              unusedvariable = true,
+              unusedwrite = true,
+              useany = true,
+            },
+            usePlaceholders = true,
+            completeUnimported = true,
+            staticcheck = true,
+            directoryFilters = { '-.git', '-.vscode', '-.idea', '-.vscode-test', '-node_modules' },
+            semanticTokens = true,
+          },
+        },
+      })
 
       -- Special Lua Config, as recommended by neovim help docs
       vim.lsp.config('lua_ls', {
@@ -274,6 +245,15 @@ require('lazy').setup({
           Lua = {},
         },
       })
+
+      vim.lsp.enable 'expert'
+      vim.lsp.enable 'ty'
+      vim.lsp.enable 'gopls'
+      vim.lsp.enable 'harper_ls'
+      vim.lsp.enable 'terraformls'
+      vim.lsp.enable 'intelephense'
+      vim.lsp.enable 'buf_ls'
+      vim.lsp.enable 'ruff'
       vim.lsp.enable 'lua_ls'
       vim.lsp.enable 'zls'
     end,
