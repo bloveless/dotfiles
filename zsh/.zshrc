@@ -104,4 +104,3 @@ export NVM_DIR="/Users/brennon/Library/Application Support/Herd/config/nvm"
 
 eval "$(mise activate zsh)"
 eval "$(mise activate zsh)"
-eval "$(mise activate zsh)"
