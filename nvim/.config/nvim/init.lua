@@ -17,7 +17,7 @@ vim.o.splitbelow = true
 vim.o.tabstop = 4
 
 vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '│ ', trail = '·', nbsp = '␣' }
 vim.o.inccommand = 'split'
 vim.o.cursorline = true
 vim.o.scrolloff = 25
@@ -102,7 +102,6 @@ require('lazy').setup({
         dropbar = {
           enabled = true,
         },
-        fidget = true,
         gitsigns = true,
         mini = {
           enabled = true,
@@ -121,6 +120,12 @@ require('lazy').setup({
   },
 
   { 'NMAC427/guess-indent.nvim', opts = {} },
+
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    opts = {},
+  },
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
@@ -186,14 +191,42 @@ require('lazy').setup({
     },
   },
 
+  { -- experimental plugin that replaces some UI elements like cmdline, messages, and the popup menu
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    },
+    opts = {
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+      },
+      lsp = {
+        hover = {
+          enabled = false,
+        },
+        signature = {
+          enabled = false,
+        },
+      },
+    },
+  },
+
   { -- Fuzzy Finder (files, lsp, etc)
     'ibhagwan/fzf-lua',
-    enabled = true,
-    event = 'VimEnter',
     dependencies = { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-    config = function()
+    ---@module "fzf-lua"
+    ---@type fzf-lua.Config|{}
+    ---@diagnostic disable: missing-fields
+    opts = {},
+    ---@diagnostic enable: missing-fields
+    event = 'VimEnter',
+    config = function(_, opts)
       local fzf = require 'fzf-lua'
-      fzf.setup {}
+      fzf.setup(opts)
 
       vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', fzf.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -236,10 +269,7 @@ require('lazy').setup({
 
   { -- Main LSP Configuration
     'neovim/nvim-lspconfig',
-    dependencies = {
-      { 'j-hui/fidget.nvim', opts = {} },
-      'saghen/blink.cmp',
-    },
+    dependencies = { 'saghen/blink.cmp' },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -918,12 +948,45 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'HiPhish/rainbow-delimiters.nvim',
+    config = function(_, opts) require('rainbow-delimiters.setup').setup(opts) end,
+  },
+
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',
-    opts = {},
+    config = function(_, opts)
+      require('ibl').setup(opts)
+      local highlight = {
+        'RainbowRed',
+        'RainbowYellow',
+        'RainbowBlue',
+        'RainbowOrange',
+        'RainbowGreen',
+        'RainbowViolet',
+        'RainbowCyan',
+      }
+      local hooks = require 'ibl.hooks'
+      -- create the highlight groups in the highlight setup hook, so they are reset
+      -- every time the colorscheme changes
+      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+        vim.api.nvim_set_hl(0, 'RainbowRed', { fg = '#E06C75' })
+        vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = '#E5C07B' })
+        vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#61AFEF' })
+        vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = '#D19A66' })
+        vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = '#98C379' })
+        vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = '#C678DD' })
+        vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#56B6C2' })
+      end)
+
+      vim.g.rainbow_delimiters = { highlight = highlight }
+      require('ibl').setup { scope = { show_start = false, highlight = highlight } }
+
+      hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+    end,
   },
 }, {
   ui = {
