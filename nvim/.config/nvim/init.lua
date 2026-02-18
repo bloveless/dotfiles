@@ -987,6 +987,14 @@ require('lazy').setup({
       hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
     end,
   },
+
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && npm install',
+    init = function() vim.g.mkdp_filetypes = { 'markdown' } end,
+    ft = { 'markdown' },
+  },
 }, {
   ui = {
     icons = vim.g.have_nerd_font and {} or {
