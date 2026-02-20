@@ -79,3 +79,4 @@ zstyle ':fzf-tab:*' use-fzf-default-opts yes
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
 eval "$(mise activate zsh)"
+eval "$(atuin init zsh)"

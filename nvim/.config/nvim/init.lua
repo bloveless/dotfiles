@@ -226,6 +226,7 @@ require('lazy').setup({
     config = function(_, opts)
       local fzf = require 'fzf-lua'
       fzf.setup(opts)
+      fzf.register_ui_select()
 
       vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', fzf.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -278,8 +279,6 @@ require('lazy').setup({
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          -- map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
-          -- map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
           map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
           map('grd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 
@@ -520,6 +519,11 @@ require('lazy').setup({
     'nvim-mini/mini.nvim',
     keys = {
       {
+        '<leader>bd',
+        function() require('mini.bufremove').delete(0, false) end,
+        desc = 'Delete Buffer',
+      },
+      {
         '\\',
         function()
           local MiniFiles = require 'mini.files'
@@ -536,6 +540,7 @@ require('lazy').setup({
     },
     config = function()
       require('mini.ai').setup { n_lines = 500 }
+      require('mini.bufremove').setup()
       require('mini.surround').setup()
       require('mini.files').setup {
         windows = {
@@ -968,6 +973,15 @@ require('lazy').setup({
         'RainbowViolet',
         'RainbowCyan',
       }
+      local highlight_dim = {
+        'RainbowRedDim',
+        'RainbowYellowDim',
+        'RainbowBlueDim',
+        'RainbowOrangeDim',
+        'RainbowGreenDim',
+        'RainbowVioletDim',
+        'RainbowCyanDim',
+      }
       local hooks = require 'ibl.hooks'
       -- create the highlight groups in the highlight setup hook, so they are reset
       -- every time the colorscheme changes
@@ -979,10 +993,17 @@ require('lazy').setup({
         vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = '#98C379' })
         vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = '#C678DD' })
         vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#56B6C2' })
+        vim.api.nvim_set_hl(0, 'RainbowRedDim', { fg = '#72373b' })
+        vim.api.nvim_set_hl(0, 'RainbowYellowDim', { fg = '#776440' })
+        vim.api.nvim_set_hl(0, 'RainbowBlueDim', { fg = '#3d6c93' })
+        vim.api.nvim_set_hl(0, 'RainbowOrangeDim', { fg = '#543e2a' })
+        vim.api.nvim_set_hl(0, 'RainbowGreenDim', { fg = '#38472d' })
+        vim.api.nvim_set_hl(0, 'RainbowVioletDim', { fg = '#472c50' })
+        vim.api.nvim_set_hl(0, 'RainbowCyanDim', { fg = '#265055' })
       end)
 
       vim.g.rainbow_delimiters = { highlight = highlight }
-      require('ibl').setup { scope = { show_start = false, highlight = highlight } }
+      require('ibl').setup { scope = { show_start = false, highlight = highlight_dim } }
 
       hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
     end,
