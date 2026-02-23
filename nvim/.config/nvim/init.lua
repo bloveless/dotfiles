@@ -484,13 +484,6 @@ require('lazy').setup({
     opts = {
       keymap = {
         preset = 'default',
-        ['<Tab>'] = {
-          'snippet_forward',
-          function() -- sidekick next edit suggestion
-            return require('sidekick').nes_jump_or_apply()
-          end,
-          'fallback',
-        },
       },
 
       appearance = {
@@ -587,7 +580,17 @@ require('lazy').setup({
     dependencies = {
       'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
     },
-    opts = {},
+    event = 'InsertEnter',
+    opts = {
+      nes = {
+        enabled = true,
+        keymap = {
+          accept_and_goto = '<c-a>',
+          accept = false,
+          dismiss = '<Esc>',
+        },
+      },
+    },
   },
 
   {
@@ -621,12 +624,6 @@ require('lazy').setup({
       },
     },
     keys = {
-      {
-        '<c-a>',
-        function() require('sidekick').nes_jump_or_apply() end,
-        desc = 'Goto/Apply Next Edit Suggestion',
-        mode = { 'n', 'i' },
-      },
       {
         '<c-.>',
         function() require('sidekick.cli').toggle() end,
