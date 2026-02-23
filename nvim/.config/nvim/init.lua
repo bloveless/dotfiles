@@ -410,7 +410,6 @@ require('lazy').setup({
       vim.lsp.enable 'terraformls'
       vim.lsp.enable 'intelephense'
       vim.lsp.enable 'buf_ls'
-      vim.lsp.enable 'ruff'
       vim.lsp.enable 'lua_ls'
       vim.lsp.enable 'zls'
     end,
