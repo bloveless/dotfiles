@@ -412,6 +412,7 @@ require('lazy').setup({
       vim.lsp.enable 'buf_ls'
       vim.lsp.enable 'lua_ls'
       vim.lsp.enable 'zls'
+      vim.lsp.enable 'rust_analyzer'
     end,
   },
 
@@ -1008,7 +1009,7 @@ require('lazy').setup({
   {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    build = 'cd app && npm install',
+    build = 'cd app && npx --yes yarn install',
     init = function() vim.g.mkdp_filetypes = { 'markdown' } end,
     ft = { 'markdown' },
   },
