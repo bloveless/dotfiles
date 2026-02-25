@@ -1,0 +1,10 @@
+# keymap.toml
+[[mgr.prepend_keymap]]
+on   = [ "g", "c" ]
+run  = "plugin git-files"
+desc = "Show Git file changes"
+
+[[mgr.prepend_keymap]]
+on   = [ "g", "l" ]
+run  = "plugin open-git-remote"
+desc = "open git remote url"
