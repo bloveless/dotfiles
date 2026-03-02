@@ -1,54 +1,40 @@
-// Zed keymap
-//
-// For information on binding keys, see the Zed
-// documentation: https://zed.dev/docs/key-bindings
-//
-// To see the default key bindings run `zed: open default keymap`
-// from the command palette.
+// Lots of good suggestions found here
+// https://gist.github.com/oca159/0b480ed6555056418905b6e59af33674
 [
   {
-    "context": "Workspace && vim_mode == normal",
+    "context": "VimControl && !menu",
     "bindings": {
-      "space s f": "file_finder::Toggle",
-      "space s g": "project_search::SearchInNew",
-      "space r r": "task::Rerun"
-    }
+      "\\": "project_panel::Toggle",
+      "g y": "editor::CopyPermalinkToLine",
+      "g r d": "editor::GoToDefinition",
+      "g r shift-d": "editor::GoToDeclaration",
+      "s": "vim::PushSneak",
+      "shift-s": "vim::PushSneakBackward",
+    },
   },
   {
-    "context": "Editor && vim_mode == normal",
-    "bindings": {
-      "space c a": "editor::ToggleCodeActions",
-      "space r n": "editor::Rename",
-      "space r r": "task::Rerun",
-      "space d r": "debugger::Rerun"
-    }
-  },
-  {
-    "context": "Editor",
+    "context": "Editor && VimControl && !VimWaiting && !menu",
     "bindings": {
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-y": "editor::ConfirmCompletion",
-      "ctrl-shift-l": "editor::AcceptNextWordEditPrediction"
-    }
+      "ctrl-shift-l": "editor::AcceptNextWordEditPrediction",
+      "space space": "file_finder::Toggle",
+      "space s f": "file_finder::Toggle",
+      "space s g": "workspace::NewSearch",
+      // Chat with AI
+      "space a a": "agent::ToggleFocus",
+      "space a e": "assistant::InlineAssist",
+      "space a t": "workspace::ToggleRightDock",
+      "space o": "outline_panel::Toggle",
+    },
   },
   {
-    "context": "vim_mode == normal || vim_mode == visual",
+    "context": "EmptyPane || SharedScreen || (ProjectPanel && not_editing)",
     "bindings": {
-      "g y": "editor::CopyPermalinkToLine",
-      "s": ["vim::PushSneak", {}],
-      "S": ["vim::PushSneakBackward", {}]
-    }
+      "\\": "project_panel::Toggle",
+    },
   },
-  {
-    "context": "Dock",
-    "bindings": {
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown"
-    }
-  }
 ]

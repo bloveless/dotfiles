@@ -8,11 +8,23 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
+  "base_keymap": "VSCode",
+  "agent_servers": {
+    "opencode": {
+      "type": "registry",
+    },
+  },
   "agent": {
-    "always_allow_tool_actions": true,
+    "tool_permissions": {
+      "tools": {
+        "mcp:mcp-server-context7:query-docs": {
+          "default": "allow"
+        }
+      }
+    },
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "gemini-3-pro-preview",
+      "provider": "google",
+      "model": "gemini-3-flash-preview",
     },
     "model_parameters": [],
   },
@@ -77,14 +89,11 @@
   },
   "vertical_scroll_margin": 15,
   "tab_bar": {
-    "show": true,
+    "show": false,
     "show_nav_history_buttons": false,
   },
   "terminal": {
     "default_height": 200,
-  },
-  "features": {
-    "edit_prediction_provider": "copilot",
   },
   "show_edit_predictions": true,
   "edit_predictions": {
