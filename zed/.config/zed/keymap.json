@@ -10,31 +10,63 @@
       "g r shift-d": "editor::GoToDeclaration",
       "s": "vim::PushSneak",
       "shift-s": "vim::PushSneakBackward",
-    },
-  },
-  {
-    "context": "Editor && VimControl && !VimWaiting && !menu",
-    "bindings": {
+      "space space": "file_finder::Toggle",
+      "space s f": "file_finder::Toggle",
+      "space s g": "workspace::NewSearch",
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-y": "editor::ConfirmCompletion",
+      "space o": "outline_panel::Toggle",
+      "space r r": "task::Rerun",
+      "space b d": ["pane::CloseActiveItem", { "close_pinned": false }],
+    },
+  },
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {
       "ctrl-shift-l": "editor::AcceptNextWordEditPrediction",
-      "space space": "file_finder::Toggle",
-      "space s f": "file_finder::Toggle",
-      "space s g": "workspace::NewSearch",
-      // Chat with AI
       "space a a": "agent::ToggleFocus",
       "space a e": "assistant::InlineAssist",
       "space a t": "workspace::ToggleRightDock",
-      "space o": "outline_panel::Toggle",
     },
   },
   {
     "context": "EmptyPane || SharedScreen || (ProjectPanel && not_editing)",
     "bindings": {
       "\\": "project_panel::Toggle",
+    },
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+    },
+  },
+  {
+    // Vim: File Tree ("ProjectPanel") actions
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "h": "project_panel::CollapseSelectedEntry",
+      "l": "project_panel::ExpandSelectedEntry",
+      "j": "menu::SelectNext",
+      "k": "menu::SelectPrevious",
+      "o": "menu::Confirm",
+      "r": "project_panel::Rename",
+      "z c": "project_panel::CollapseSelectedEntry",
+      "z o": "project_panel::ExpandSelectedEntry",
+      "x": "project_panel::Cut",
+      "c": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "d": "project_panel::Delete",
+      "a": "project_panel::NewFile",
+      "shift-a": "project_panel::NewDirectory",
+      "shift-y": "workspace::CopyRelativePath",
+      "g y": "workspace::CopyPath",
     },
   },
 ]

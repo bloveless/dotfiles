@@ -536,6 +536,11 @@ require('lazy').setup({
       require('mini.bufremove').setup()
       require('mini.surround').setup()
       require('mini.files').setup {
+        mappings = {
+          scroll_down = '<c-f>',
+          scroll_up = '<c-b>',
+          jump_edges = '<c-g>',
+        },
         windows = {
           preview = true,
           width_focus = 30,
@@ -581,17 +586,7 @@ require('lazy').setup({
     dependencies = {
       'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
     },
-    event = 'InsertEnter',
-    opts = {
-      nes = {
-        enabled = true,
-        keymap = {
-          accept_and_goto = '<c-a>',
-          accept = false,
-          dismiss = '<Esc>',
-        },
-      },
-    },
+    opts = {},
   },
 
   {
@@ -625,6 +620,17 @@ require('lazy').setup({
       },
     },
     keys = {
+      {
+        '<tab>',
+        function()
+          -- if there is a next edit, jump to it, otherwise apply it if any
+          if not require('sidekick').nes_jump_or_apply() then
+            return '<Tab>' -- fallback to normal tab
+          end
+        end,
+        expr = true,
+        desc = 'Goto/Apply Next Edit Suggestion',
+      },
       {
         '<c-.>',
         function() require('sidekick.cli').toggle() end,
