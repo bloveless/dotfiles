@@ -9,6 +9,7 @@
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
   "base_keymap": "VSCode",
+  "cursor_blink": false,
   "agent_servers": {
     "github-copilot": {
       "default_model": "claude-sonnet-4.6",
@@ -98,12 +99,13 @@
     "git_status": true,
     "show_diagnostics": "all",
   },
-  "vertical_scroll_margin": 15,
+  "vertical_scroll_margin": 5,
   "tab_bar": {
     "show": false,
     "show_nav_history_buttons": false,
   },
   "terminal": {
+    "dock": "bottom",
     "default_height": 200,
   },
   "show_edit_predictions": true,

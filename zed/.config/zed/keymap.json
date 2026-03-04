@@ -24,6 +24,18 @@
     },
   },
   {
+    "context": "CommandPalette > Editor",
+    "bindings": {
+      "ctrl-y": "menu::Confirm",
+    },
+  },
+  {
+    "context": "Pane > Editor",
+    "bindings": {
+      "ctrl-y": "editor::ConfirmCompletion",
+    },
+  },
+  {
     "context": "Editor && VimControl && !VimWaiting && !menu",
     "bindings": {
       "ctrl-shift-l": "editor::AcceptNextWordEditPrediction",
@@ -36,6 +48,9 @@
     "context": "EmptyPane || SharedScreen || (ProjectPanel && not_editing)",
     "bindings": {
       "\\": "project_panel::Toggle",
+      "space space": "file_finder::Toggle",
+      "space s f": "file_finder::Toggle",
+      "space s g": "workspace::NewSearch",
     },
   },
   {
@@ -55,7 +70,7 @@
       "l": "project_panel::ExpandSelectedEntry",
       "j": "menu::SelectNext",
       "k": "menu::SelectPrevious",
-      "o": "menu::Confirm",
+      "o": "project_panel::Open",
       "r": "project_panel::Rename",
       "z c": "project_panel::CollapseSelectedEntry",
       "z o": "project_panel::ExpandSelectedEntry",
