@@ -84,4 +84,11 @@
       "g y": "workspace::CopyPath",
     },
   },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-p": ["terminal::SendKeystroke", "up"],
+      "ctrl-n": ["terminal::SendKeystroke", "down"],
+    },
+  },
 ]
