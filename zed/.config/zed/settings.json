@@ -22,9 +22,9 @@
     "tool_permissions": {
       "tools": {
         "mcp:mcp-server-context7:query-docs": {
-          "default": "allow"
-        }
-      }
+          "default": "allow",
+        },
+      },
     },
     "default_model": {
       "provider": "google",
@@ -170,9 +170,7 @@
       "soft_wrap": "preferred_line_length",
     },
     "PHP": {
-      "prettier": {
-        "allowed": false,
-      },
+      "language_servers": ["intelephense", "!phpactor", "!phptools", "..."],
     },
     "Proto": {
       "format_on_save": "off",
@@ -192,12 +190,6 @@
     },
   },
   "lsp": {
-    "protobuf-language-server": {
-      "binary": {
-        "path": "buf",
-        "arguments": ["beta", "lsp", "--timeout=0", "--log-format=text"],
-      },
-    },
     // This must be installed manually for the foreseeable future `go install github.com/nametake/golangci-lint-langserver@main`
     "golangci-lint": {
       "initialization_options": {
@@ -215,6 +207,17 @@
       "initialization_options": {
         "gofumpt": true,
         "local": "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless",
+      },
+    },
+    "intelephense": {
+      "initialization_options": {
+        "licenceKey": "~/.config/intelephense/licence.txt",
+      },
+    },
+    "protobuf-language-server": {
+      "binary": {
+        "path": "buf",
+        "arguments": ["beta", "lsp", "--timeout=0", "--log-format=text"],
       },
     },
   },
