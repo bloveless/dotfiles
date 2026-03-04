@@ -107,6 +107,11 @@
   "terminal": {
     "dock": "bottom",
     "default_height": 200,
+    "line_height": "comfortable",
+    "font_features": {
+      // disable ligatures
+      "calt": false,
+    },
   },
   "show_edit_predictions": true,
   "edit_predictions": {
