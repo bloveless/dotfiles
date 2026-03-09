@@ -46,6 +46,10 @@
   "sticky_scroll": {
     "enabled": true,
   },
+  "centered_layout": {
+    "left_padding": 0.1,
+    "right_padding": 0.1,
+  },
   "colorize_brackets": true,
   "context_servers": {},
   "auto_install_extensions": {
@@ -101,7 +105,7 @@
   },
   "vertical_scroll_margin": 5,
   "tab_bar": {
-    "show": false,
+    "show": true,
     "show_nav_history_buttons": false,
   },
   "terminal": {

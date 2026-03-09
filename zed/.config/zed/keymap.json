@@ -91,4 +91,16 @@
       "ctrl-n": ["terminal::SendKeystroke", "down"],
     },
   },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-alt-o": [
+        "task::Spawn",
+        {
+          "task_name": "Open OpenCode",
+          "reveal_target": "dock"
+        }
+      ],
+    },
+  },
 ]
