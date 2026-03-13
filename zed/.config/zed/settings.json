@@ -8,14 +8,15 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
+  "excerpt_context_lines": 5,
   "base_keymap": "VSCode",
   "cursor_blink": false,
   "agent_servers": {
-    "github-copilot": {
-      "default_model": "claude-sonnet-4.6",
+    "cursor": {
       "type": "registry",
     },
-    "opencode": {
+    "github-copilot": {
+      "default_model": "claude-sonnet-4.6",
       "type": "registry",
     },
   },
@@ -40,7 +41,6 @@
     "quick_actions": false,
   },
   "which_key": {
-    "delay_ms": 250,
     "enabled": true,
   },
   "sticky_scroll": {

@@ -4,7 +4,7 @@
   {
     "context": "VimControl && !menu",
     "bindings": {
-      "\\": "project_panel::Toggle",
+      "\\": "workspace::ToggleLeftDock",
       "g y": "editor::CopyPermalinkToLine",
       "g r d": "editor::GoToDefinition",
       "g r shift-d": "editor::GoToDeclaration",
@@ -47,7 +47,7 @@
   {
     "context": "EmptyPane || SharedScreen || (ProjectPanel && not_editing)",
     "bindings": {
-      "\\": "project_panel::Toggle",
+      "\\": "workspace::ToggleLeftDock",
       "space space": "file_finder::Toggle",
       "space s f": "file_finder::Toggle",
       "space s g": "workspace::NewSearch",
@@ -98,8 +98,8 @@
         "task::Spawn",
         {
           "task_name": "Open OpenCode",
-          "reveal_target": "dock"
-        }
+          "reveal_target": "dock",
+        },
       ],
     },
   },
