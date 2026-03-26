@@ -135,12 +135,12 @@
     },
     "bottom_dock_layout": "contained",
     "project_panel": {
+        "diagnostic_badges": true,
         "starts_open": false,
         "entry_spacing": "comfortable",
         "indent_size": 10,
     },
     "tab_size": 4,
-    "inline_code_actions": false,
     "file_types": {
         "Blade": ["*.blade.php"],
         "Helm": [
