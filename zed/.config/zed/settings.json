@@ -79,7 +79,11 @@
         "light": "Catppuccin Latte",
         "mode": "system",
     },
-    "icon_theme": "Catppuccin Macchiato",
+    "icon_theme": {
+        "mode": "light",
+        "light": "Catppuccin Macchiato",
+        "dark": "Catppuccin Macchiato",
+    },
     "vim_mode": true,
     "vim": {
         "use_smartcase_find": true,
@@ -167,6 +171,14 @@
             "tab_size": 4,
             "language_servers": ["ty", "ruff", "!basedpyright", "!pyrefly", "!pyright", "!pylsp"],
         },
+        "Rust": {
+            "inlay_hints": {
+                "enabled": true,
+                "show_type_hints": true,
+                "show_parameter_hints": true,
+                "show_other_hints": true,
+            },
+        },
         "JSON": {
             "prettier": {
                 "allowed": false,
@@ -236,6 +248,22 @@
             "binary": {
                 "path": "buf",
                 "arguments": ["beta", "lsp", "--timeout=0", "--log-format=text"],
+            },
+        },
+        "rust-analyzer": {
+            "initialization_options": {
+                "check": {
+                    "command": "clippy",
+                },
+                "checkOnSave": true,
+                "cargo": {
+                    "allFeatures": true,
+                },
+                "procMacro": {
+                    "enable": true,
+                },
+                "rust-analyzer.cargo.targetDir": true,
+                "rust-analyzer.inlayHints.typeHints.location": "end_of_line",
             },
         },
     },
