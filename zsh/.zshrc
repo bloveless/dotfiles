@@ -80,3 +80,9 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 
 eval "$(mise activate zsh)"
 eval "$(atuin init zsh)"
+
+# Ensure the edit-command-line widget is available
+autoload -U +X edit-command-line
+
+# Map 'v' in command mode to open the current command in $EDITOR (Vim)
+bindkey '^v' edit-command-line

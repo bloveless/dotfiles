@@ -16,9 +16,13 @@
         "show_count_badge": true,
         "file_icons": true,
     },
+    "inline_code_actions": false,
     "base_keymap": "VSCode",
     "cursor_blink": false,
     "agent_servers": {
+        "github-copilot-cli": {
+            "type": "registry"
+        },
         "cursor": {
             "type": "registry",
         },
