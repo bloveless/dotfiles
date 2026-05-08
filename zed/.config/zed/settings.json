@@ -8,11 +8,14 @@
 // from the command palette or from `Zed` application menu.
 // For reference: https://romanzipp.com/blog/must-have-zed-settings
 {
+    "cli_default_open_behavior": "new_window",
     "excerpt_context_lines": 5,
     "collaboration_panel": {
+        "dock": "left",
         "button": false,
     },
     "git_panel": {
+        "dock": "left",
         "show_count_badge": true,
         "file_icons": true,
     },
@@ -21,7 +24,7 @@
     "cursor_blink": false,
     "agent_servers": {
         "github-copilot-cli": {
-            "type": "registry"
+            "type": "registry",
         },
         "cursor": {
             "type": "registry",
@@ -32,6 +35,7 @@
         },
     },
     "agent": {
+        "dock": "right",
         "tool_permissions": {
             "tools": {
                 "mcp:mcp-server-context7:query-docs": {
@@ -143,6 +147,7 @@
     },
     "bottom_dock_layout": "contained",
     "project_panel": {
+        "dock": "left",
         "diagnostic_badges": true,
         "starts_open": false,
         "entry_spacing": "comfortable",
