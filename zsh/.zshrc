@@ -93,5 +93,5 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# Map 'v' in command mode to open the current command in $EDITOR (Vim)
-bindkey '^v' edit-command-line
+# Map 'ctrl-x ctrl-e' in command mode to open the current command in $EDITOR (Vim)
+bindkey '^xe' edit-command-line
