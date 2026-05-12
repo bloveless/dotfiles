@@ -1,0 +1,280 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+// For reference: https://romanzipp.com/blog/must-have-zed-settings
+{
+    "code_lens": "on",
+    "file_finder": {
+        "modal_max_width": "large",
+    },
+   "cli_default_open_behavior": "new_window",
+    "excerpt_context_lines": 5,
+    "collaboration_panel": {
+        "dock": "left",
+        "button": false,
+    },
+    "git_panel": {
+        "dock": "left",
+        "show_count_badge": true,
+        "file_icons": true,
+    },
+    "inline_code_actions": false,
+    "base_keymap": "VSCode",
+    "cursor_blink": false,
+    "agent_servers": {
+        "cursor": {
+            "favorite_config_option_values": {
+                "model": ["claude-opus-4-7[thinking=true,effort=high]"],
+            },
+            "type": "registry",
+        },
+    },
+    "agent": {
+        "dock": "right",
+        "thinking_display": "always_expanded",
+        "tool_permissions": {
+            "tools": {
+                "fetch": {
+                    "default": "allow",
+                },
+                "web-search": {
+                    "default": "allow",
+                },
+                "mcp:mcp-server-context7:query-docs": {
+                    "default": "allow",
+                },
+            },
+        },
+    },
+    "title_bar": {
+        "show_onboarding_banner": false,
+        "show_user_menu": false,
+    },
+    "which_key": {
+        "enabled": true,
+    },
+    "sticky_scroll": {
+        "enabled": true,
+    },
+    "centered_layout": {
+        "left_padding": 0.1,
+        "right_padding": 0.1,
+    },
+    "colorize_brackets": true,
+    "context_servers": {},
+    "auto_install_extensions": {
+        "catppuccin-icons": true,
+        "golangci-lint": true,
+    },
+    "minimap": {
+        "show": "never",
+        "thumb": "always",
+        "thumb_border": "none",
+    },
+    "preview_tabs": {
+        "enable_preview_multibuffer_from_code_navigation": true,
+        "enabled": true,
+        "enable_preview_from_file_finder": true,
+        "enable_keep_preview_on_code_navigation": true,
+    },
+    "theme": {
+        "dark": "Catppuccin Macchiato",
+        "light": "Catppuccin Latte",
+        "mode": "system",
+    },
+    "icon_theme": {
+        "mode": "light",
+        "light": "Catppuccin Macchiato",
+        "dark": "Catppuccin Macchiato",
+    },
+    "vim_mode": true,
+    "vim": {
+        "use_smartcase_find": true,
+        "use_system_clipboard": "always",
+    },
+    "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+    "buffer_font_size": 12.0,
+    "buffer_line_height": {
+        "custom": 2,
+    },
+    "buffer_font_features": {
+        // disable ligatures
+        "calt": false,
+    },
+    "ui_font_family": "JetBrainsMono Nerd Font Mono",
+    "ui_font_features": {
+        // disable ligatures
+        "calt": false,
+    },
+    "ui_font_size": 12.0,
+    "agent_ui_font_size": 12,
+    "agent_buffer_font_size": 12.0,
+    "show_whitespaces": "selection",
+    "preferred_line_length": 120,
+    "wrap_guides": [120],
+    "tabs": {
+        "file_icons": true,
+        "git_status": true,
+        "show_diagnostics": "all",
+    },
+    "vertical_scroll_margin": 5,
+    "tab_bar": {
+        "show": true,
+        "show_nav_history_buttons": false,
+    },
+    "terminal": {
+        "dock": "bottom",
+        "default_height": 200,
+        "line_height": "comfortable",
+        "font_features": {
+            // disable ligatures
+            "calt": false,
+        },
+        "max_scroll_history_lines": 10000,
+    },
+    "show_edit_predictions": true,
+    "edit_predictions": {
+        "provider": "copilot",
+        "mode": "subtle",
+    },
+    "outline_panel": {
+        "default_width": 500.0,
+        "dock": "right",
+    },
+    "bottom_dock_layout": "contained",
+    "project_panel": {
+        "dock": "left",
+        "diagnostic_badges": true,
+        "starts_open": false,
+        "entry_spacing": "comfortable",
+        "indent_size": 10,
+    },
+    "tab_size": 4,
+    "file_types": {
+        "Blade": ["*.blade.php"],
+        "Helm": [
+            "**/templates/**/*.tpl",
+            "**/templates/**/*.yaml",
+            "**/templates/**/*.yml",
+            "**/helmfile.d/**/*.yaml",
+            "**/helmfile.d/**/*.yml",
+        ],
+        "SQL": ["ddl", "dml"],
+        "JSON": ["jsonl"],
+    },
+    "languages": {
+        "Elixir": {
+            "language_servers": ["expert", "!elixir-ls", "!next-ls", "!lexical", "..."],
+        },
+        "HEEx": {
+            "language_servers": ["expert", "!elixir-ls", "!next-ls", "!lexical", "..."],
+        },
+        "Go": {
+            "language_servers": ["gopls", "golangci-lint"],
+        },
+        "Python": {
+            "tab_size": 4,
+            "language_servers": ["ty", "ruff", "!basedpyright", "!pyrefly", "!pyright", "!pylsp"],
+        },
+        "Rust": {
+            "inlay_hints": {
+                "enabled": true,
+                "show_type_hints": true,
+                "show_parameter_hints": true,
+                "show_other_hints": true,
+            },
+        },
+        "JSON": {
+            "prettier": {
+                "allowed": false,
+            },
+        },
+        "JavaScript": {
+            "formatter": {
+                "external": {
+                    "arguments": ["prettier", "--stdin-filepath", "{buffer_path}"],
+                    "command": "npx",
+                },
+            },
+        },
+        "Markdown": {
+            // do not remove any trailing whitespace since line breaks in
+            // lists (without adding a new punctuation) rely on whitespaces.
+            "remove_trailing_whitespace_on_save": false,
+            // Wrap text according to the previously defined preferred line length.
+            "soft_wrap": "preferred_line_length",
+        },
+        "PHP": {
+            "language_servers": ["intelephense", "!phpactor", "!phptools", "..."],
+        },
+        "Proto": {
+            "format_on_save": "off",
+            "tab_size": 2,
+            "formatter": {
+                "external": {
+                    "arguments": ["format", "{buffer_path}"],
+                    "command": "buf",
+                },
+            },
+        },
+        "SQL": {
+            "format_on_save": "off",
+        },
+        "YAML": {
+            "tab_size": 2,
+        },
+    },
+    "lsp": {
+        // This must be installed manually for the foreseeable future `go install github.com/nametake/golangci-lint-langserver@main`
+        "golangci-lint": {
+            "initialization_options": {
+                "command": [
+                    "golangci-lint",
+                    "run",
+                    "--allow-parallel-runners",
+                    "--output.json.path=stdout",
+                    "--show-stats=false",
+                    "--issues-exit-code=1",
+                ],
+            },
+        },
+        "gopls": {
+            "initialization_options": {
+                "gofumpt": true,
+                "local": "github.com/bayer-int,github.com/shadowglass-xyz,github.com/bloveless",
+            },
+        },
+        "intelephense": {
+            "initialization_options": {
+                "licenceKey": "~/.config/intelephense/licence.txt",
+            },
+        },
+        "protobuf-language-server": {
+            "binary": {
+                "path": "buf",
+                "arguments": ["beta", "lsp", "--timeout=0", "--log-format=text"],
+            },
+        },
+        "rust-analyzer": {
+            "initialization_options": {
+                "check": {
+                    "command": "clippy",
+                },
+                "checkOnSave": true,
+                "cargo": {
+                    "allFeatures": true,
+                },
+                "procMacro": {
+                    "enable": true,
+                },
+                "rust-analyzer.cargo.targetDir": true,
+                "rust-analyzer.inlayHints.typeHints.location": "end_of_line",
+            },
+        },
+    },
+}
