@@ -34,6 +34,7 @@
     "dock": "left",
   },
   "agent": {
+    "thinking_display": "always_expanded",
     "dock": "right",
     "favorite_models": [],
     "model_parameters": [],
