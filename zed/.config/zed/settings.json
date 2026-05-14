@@ -14,7 +14,9 @@
   "edit_predictions": {
     "provider": "copilot",
   },
-  "buffer_line_height": "comfortable",
+  "buffer_line_height": {
+    "custom": 1.75,
+  },
   "excerpt_context_lines": 5,
   "expand_excerpt_lines": 10,
   "cli_default_open_behavior": "new_window",
@@ -50,9 +52,14 @@
     "dark": "One Dark",
   },
   "terminal": {
-    "line_height": "comfortable",
+    "line_height": {
+      "custom": 1.75,
+    },
   },
   "wrap_guides": [120],
+  "file_types": {
+    "SQL": ["**/*.ddl", "**/*.dml"],
+  },
   "lsp": {
     "golangci-lint": {
       "initialization_options": {
