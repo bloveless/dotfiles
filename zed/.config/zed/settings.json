@@ -60,6 +60,11 @@
   "file_types": {
     "SQL": ["**/*.ddl", "**/*.dml"],
   },
+  "languages": {
+    "PHP": {
+      "language_servers": ["intelephense", "!phpactor", "!phptools", "..."],
+    },
+  },
   "lsp": {
     "golangci-lint": {
       "initialization_options": {
@@ -70,6 +75,11 @@
           "--show-stats=false",
           "--issues-exit-code=1",
         ],
+      },
+    },
+    "intelephense": {
+      "initialization_options": {
+        "licenceKey": "~/.config/intelephense/licence.txt",
       },
     },
   },
