@@ -36,6 +36,16 @@
     "dock": "left",
   },
   "agent": {
+    "tool_permissions": {
+      "tools": {
+        "search_web": {
+          "default": "allow",
+        },
+        "fetch": {
+          "default": "allow",
+        },
+      },
+    },
     "thinking_display": "always_expanded",
     "dock": "right",
     "favorite_models": [],
@@ -59,6 +69,9 @@
   "wrap_guides": [120],
   "file_types": {
     "SQL": ["**/*.ddl", "**/*.dml"],
+  },
+  "file_finder": {
+    "modal_max_width": "large",
   },
   "languages": {
     "PHP": {
