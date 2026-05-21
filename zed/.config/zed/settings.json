@@ -75,7 +75,19 @@
   },
   "languages": {
     "PHP": {
-      "language_servers": ["intelephense", "!phpactor", "!phptools", "..."],
+      "language_servers": [
+        "phpantom_lsp",
+        "!intelephense",
+        "!phpactor",
+        "!phptools",
+        "...",
+      ],
+      "formatter": {
+        "external": {
+          "command": "mago",
+          "arguments": ["format", "--stdin-input"],
+        },
+      },
     },
   },
   "lsp": {
