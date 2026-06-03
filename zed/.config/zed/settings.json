@@ -14,6 +14,7 @@
   "edit_predictions": {
     "provider": "copilot",
   },
+  "completion_menu_item_kind": "symbol",
   "buffer_line_height": {
     "custom": 1.75,
   },
@@ -21,8 +22,27 @@
   "expand_excerpt_lines": 10,
   "cli_default_open_behavior": "new_window",
   "agent_servers": {
+    "opencode": {
+      "default_config_options": {
+        "effort": "medium",
+        "model": "google-vertex/gemini-3.5-flash",
+      },
+      "type": "custom",
+      "command": "opencode",
+      "args": ["acp"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "/Users/ejvzx/.config/gcloud/application_default_credentials.json",
+        "GOOGLE_CLOUD_PROJECT": "bcs-ely-ops",
+        "VERTEX_LOCATION": "global",
+      },
+    },
     "cursor": {
       "type": "registry",
+    },
+    "csgdaa-code": {
+      "type": "custom",
+      "command": "csgdaa-code",
+      "args": ["--acp"],
     },
   },
   "vim_mode": true,
@@ -62,9 +82,9 @@
     "dark": "One Dark",
   },
   "terminal": {
-    "line_height": {
-      "custom": 1.75,
-    },
+    // "line_height": {
+    //   "custom": 1.75,
+    // },
   },
   "wrap_guides": [120],
   "file_types": {
@@ -88,6 +108,16 @@
           "arguments": ["format", "--stdin-input"],
         },
       },
+    },
+    "Python": {
+      "language_servers": [
+        // Enable ty, disable basedpyright, and enable all
+        // other registered language servers (ruff, pylsp, pyright).
+        "ty",
+        "!basedpyright",
+        "!pyright",
+        "...",
+      ],
     },
   },
   "lsp": {

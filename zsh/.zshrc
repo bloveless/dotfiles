@@ -30,6 +30,7 @@ alias ll='eza -lah'
 alias ls='eza --color=auto'
 alias ghpr='gh pr view -w'
 alias ghprc='gh pr create -w'
+alias tf='terraform'
 
 export PATH="/Applications/WezTerm.app/Contents/MacOS:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
