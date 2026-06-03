@@ -12,7 +12,7 @@
   },
   "icon_theme": "Catppuccin Macchiato",
   "edit_predictions": {
-    "provider": "copilot",
+    "provider": "zed",
   },
   "completion_menu_item_kind": "symbol",
   "buffer_line_height": {
@@ -35,6 +35,10 @@
         "GOOGLE_CLOUD_PROJECT": "bcs-ely-ops",
         "VERTEX_LOCATION": "global",
       },
+      "type": "registry"
+    },
+    "codex-acp": {
+      "type": "registry"
     },
     "cursor": {
       "type": "registry",

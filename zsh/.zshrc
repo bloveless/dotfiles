@@ -23,11 +23,11 @@ alias dps="docker ps -a"
 alias gpf="git push --force-with-lease --force-if-includes"
 # brew install bat
 alias cat='bat'
-# brew install eza
-alias l='eza'
-alias la='eza -a'
-alias ll='eza -lah'
-alias ls='eza --color=auto'
+# brew install lsd
+alias l='lsd'
+alias la='lsd -a'
+alias ll='lsd -lah'
+alias ls='lsd --color=auto'
 alias ghpr='gh pr view -w'
 alias ghprc='gh pr create -w'
 alias tf='terraform'
@@ -96,3 +96,7 @@ function y() {
 
 # Map 'ctrl-x ctrl-e' in command mode to open the current command in $EDITOR (Vim)
 bindkey '^xe' edit-command-line
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/brennon/.local/bin:$PATH"
