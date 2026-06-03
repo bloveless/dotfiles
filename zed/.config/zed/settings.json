@@ -35,10 +35,9 @@
         "GOOGLE_CLOUD_PROJECT": "bcs-ely-ops",
         "VERTEX_LOCATION": "global",
       },
-      "type": "registry"
     },
     "codex-acp": {
-      "type": "registry"
+      "type": "registry",
     },
     "cursor": {
       "type": "registry",
