@@ -24,10 +24,10 @@ alias gpf="git push --force-with-lease --force-if-includes"
 # brew install bat
 alias cat='bat'
 # brew install lsd
-alias l='lsd'
-alias la='lsd -a'
-alias ll='lsd -lah'
-alias ls='lsd --color=auto'
+alias l='eza'
+alias la='eza -a'
+alias ll='eza -lah'
+alias ls='eza --color=auto'
 alias ghpr='gh pr view -w'
 alias ghprc='gh pr create -w'
 alias tf='terraform'

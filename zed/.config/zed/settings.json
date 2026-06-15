@@ -10,7 +10,11 @@
   "tabs": {
     "show_diagnostics": "all",
   },
-  "icon_theme": "Catppuccin Macchiato",
+  "icon_theme": {
+    "mode": "light",
+    "light": "Catppuccin Macchiato",
+    "dark": "Catppuccin Macchiato",
+  },
   "edit_predictions": {
     "provider": "zed",
   },
@@ -24,8 +28,8 @@
   "agent_servers": {
     "opencode": {
       "default_config_options": {
-        "effort": "medium",
-        "model": "google-vertex/gemini-3.5-flash",
+        "effort": "max",
+        "model": "opencode/deepseek-v4-flash-free",
       },
       "type": "custom",
       "command": "opencode",
@@ -69,7 +73,7 @@
         },
       },
     },
-    "thinking_display": "always_expanded",
+    "thinking_display": "preview",
     "dock": "right",
     "favorite_models": [],
     "model_parameters": [],
@@ -80,9 +84,9 @@
   "ui_font_size": 13.0,
   "buffer_font_size": 12.0,
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "One Light",
-    "dark": "One Dark",
+    "dark": "Catppuccin Macchiato - No Italics",
   },
   "terminal": {
     // "line_height": {
