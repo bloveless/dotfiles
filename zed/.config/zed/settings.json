@@ -23,6 +23,7 @@
       },
     },
   },
+  "colorize_brackets": true,
   "tabs": {
     "show_diagnostics": "all",
   },
@@ -41,7 +42,8 @@
   "agent_servers": {
     "opencode": {
       "default_config_options": {
-        "effort": "max",
+        "mode": "build",
+        "effort": "medium",
         "model": "opencode/deepseek-v4-flash-free",
       },
       "type": "custom",
