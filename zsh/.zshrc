@@ -23,7 +23,6 @@ alias dps="docker ps -a"
 alias gpf="git push --force-with-lease --force-if-includes"
 # brew install bat
 alias cat='bat'
-# brew install lsd
 alias l='eza'
 alias la='eza -a'
 alias ll='eza -lah'
@@ -45,9 +44,6 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
-# Bind ctry+y to zsh autosuggestions accept
-bindkey '^y' autosuggest-accept
-
 # brew install zoxide
 eval "$(zoxide init zsh)"
 # brew install starship
@@ -58,26 +54,6 @@ eval "$(direnv hook zsh)"
 source <(fzf --zsh)
 
 source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
-
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-# NOTE: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
-zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-zstyle ':completion:*' menu no
-# preview directory's content with eza when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-# custom fzf flags
-# NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
-zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
-# To make fzf-tab follow FZF_DEFAULT_OPTS.
-# NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
-zstyle ':fzf-tab:*' use-fzf-default-opts yes
-# switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
 
 eval "$(mise activate zsh)"
 eval "$(atuin init zsh)"
@@ -93,10 +69,3 @@ function y() {
 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
-
-# Map 'ctrl-x ctrl-e' in command mode to open the current command in $EDITOR (Vim)
-bindkey '^xe' edit-command-line
-
-
-# Added by Antigravity CLI installer
-export PATH="/Users/brennon/.local/bin:$PATH"

@@ -7,6 +7,22 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "profiles": {
+    "home": {
+      "settings": {
+        "edit_predictions": {
+          "provider": "zed",
+        },
+      },
+    },
+    "work": {
+      "settings": {
+        "edit_predictions": {
+          "provider": "copilot",
+        },
+      },
+    },
+  },
   "tabs": {
     "show_diagnostics": "all",
   },
@@ -14,9 +30,6 @@
     "mode": "light",
     "light": "Catppuccin Macchiato",
     "dark": "Catppuccin Macchiato",
-  },
-  "edit_predictions": {
-    "provider": "zed",
   },
   "completion_menu_item_kind": "symbol",
   "buffer_line_height": {
@@ -66,6 +79,7 @@
     "dock": "left",
   },
   "agent": {
+    "terminal_init_command": "pi",
     "tool_permissions": {
       "tools": {
         "search_web": {
@@ -90,11 +104,6 @@
     "mode": "dark",
     "light": "One Light",
     "dark": "Catppuccin Macchiato - No Italics",
-  },
-  "terminal": {
-    // "line_height": {
-    //   "custom": 1.75,
-    // },
   },
   "wrap_guides": [120],
   "file_types": {
