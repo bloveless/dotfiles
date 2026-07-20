@@ -153,6 +153,11 @@
         ],
       },
     },
+    "gopls": {
+      "initialization_options": {
+        "gofumpt": true
+      }
+    },
     "intelephense": {
       "initialization_options": {
         "licenceKey": "~/.config/intelephense/licence.txt",
