@@ -49,6 +49,12 @@ do
   --  Experiment for yourself to see if you like it!
   -- vim.o.relativenumber = true
 
+  -- Use 4-character tabs (guess-indent still adapts to files that use
+  -- something else)
+  vim.o.tabstop = 4
+  vim.o.softtabstop = 4
+  vim.o.shiftwidth = 4
+
   -- Enable mouse mode, can be useful for resizing splits for example!
   vim.o.mouse = 'a'
 

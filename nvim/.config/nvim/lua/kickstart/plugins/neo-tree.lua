@@ -12,13 +12,15 @@ vim.keymap.set('n', '<leader>e', '<Cmd>Neotree toggle<CR>', { desc = 'NeoTree to
 vim.keymap.set('n', '\\', '<Cmd>Neotree reveal<CR>', { desc = 'NeoTree reveal', silent = true })
 
 require('neo-tree').setup {
+  -- Close Neo-tree if it is the last window left in the tab
+  close_if_last_window = true,
   filesystem = {
     -- Keep the tree in sync with the active buffer
     follow_current_file = {
       enabled = true,
     },
     window = {
-      position = 'left',
+      position = 'right',
       mappings = {
         ['\\'] = 'close_window',
       },
