@@ -428,6 +428,8 @@ do
 
       -- Jump to the type of the word under your cursor.
       vim.keymap.set('n', 'grt', function() fzf.lsp_typedefs() end, { buffer = buf, desc = '[G]oto [T]ype Definition' })
+      -- `gry` alias, matching Zed vim-mode's `gy` muscle memory
+      vim.keymap.set('n', 'gry', function() fzf.lsp_typedefs() end, { buffer = buf, desc = '[G]oto [T]ype Definition' })
     end,
   })
 end
