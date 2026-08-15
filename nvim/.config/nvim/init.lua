@@ -15,7 +15,8 @@ What changed from stock kickstart.nvim (2026-08):
   - kickstart.plugins.debug (DAP) removed
   - LSP servers: gopls (gofumpt + staticcheck), rust-analyzer (clippy),
     lua_ls + stylua, ty + ruff (Python), phpantom_lsp (PHP)
-  - added: neotest + neotest-go + neotest-rust (lua/custom/plugins/neotest.lua)
+  - added: auto-session (per-directory resume), neotest + neotest-go +
+    neotest-rust (lua/custom/plugins/)
 
 The original kickstart guide follows; it is worth reading once.
 See `:help` and `:help lua-guide` when stuck.
@@ -787,90 +788,6 @@ do
   })
 end
 
--- ============================================================
--- SECTION 9.5: SESSIONS (native)
--- per-directory resume via :mksession, no plugin
--- ============================================================
-do
-  -- What goes into a session: layout, windows, tab pages, folds,
-  -- buffers and the terminal — but NOT `options` (global settings must
-  -- not leak between projects) and not `args`.
-  vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,terminal'
-
-  local session_dir = vim.fs.joinpath(vim.fn.stdpath 'state', 'sessions')
-  vim.fn.mkdir(session_dir, 'p')
-
-  ---Encode a directory path into a safe session file name
-  ---@param cwd string
-  ---@return string
-  local function session_file(cwd)
-    local name = (cwd or vim.fn.getcwd()):gsub('[/\\]', '%%') .. '.vim'
-    return vim.fs.joinpath(session_dir, name)
-  end
-
-  ---Does this instance participate in sessions? Only when launched with
-  ---no arguments (`nvim`) or a single directory argument (`nvim .`).
-  ---Opening specific files (nvim main.go — and thus git commit etc.) opts out.
-  ---@return boolean
-  local function manages_sessions()
-    if vim.fn.argc() == 0 then return true end
-    if vim.fn.argc() == 1 then return vim.fn.isdirectory(vim.fn.argv(0)) == 1 end
-    return false
-  end
-
-  -- Decided once at startup; the exit hook closes over it so that
-  -- `:argadd`/`:args` mid-session cannot change the verdict.
-  local owns_session = false
-
-  -- Restore before the neo-tree auto-open autocmd (registered later in
-  -- SECTION 10, so it runs after this one and can check the flag).
-  vim.api.nvim_create_autocmd('VimEnter', {
-    desc = 'Restore the session for this directory',
-    group = vim.api.nvim_create_augroup('kickstart-sessions', { clear = true }),
-    callback = function()
-      owns_session = manages_sessions()
-      if not owns_session then return end
-
-      -- `nvim <dir>`: enter the directory and drop the file-browser buffer
-      -- that nvim opened for the argument (the tree or session takes over).
-      if vim.fn.argc() == 1 then
-        vim.cmd.cd(vim.fn.argv(0))
-        vim.cmd 'silent! bwipeout'
-      end
-
-      local file = session_file()
-      if vim.fn.filereadable(file) == 1 then
-        vim.cmd.source(vim.fn.fnameescape(file))
-        -- The tree is deliberately NOT part of sessions (stripped on save,
-        -- below) — the neo-tree auto-open autocmd runs after this one and
-        -- opens a live tree next to the restored file windows.
-      end
-    end,
-  })
-
-  vim.api.nvim_create_autocmd('VimLeavePre', {
-    desc = 'Save the session for this directory',
-    group = vim.api.nvim_create_augroup('kickstart-sessions-save', { clear = true }),
-    callback = function()
-      if not owns_session then return end
-      -- Close the tree before saving: tree buffers restore as inert
-      -- buffers, so sessions keep only the file layout. The tree re-opens
-      -- live on the next launch.
-      pcall(vim.cmd, 'Neotree close')
-      vim.cmd('mksession! ' .. vim.fn.fnameescape(session_file()))
-    end,
-  })
-
-  -- Manual escape hatches for the current directory
-  vim.api.nvim_create_user_command(
-    'SessionRestore',
-    function() vim.cmd.source(vim.fn.fnameescape(session_file())) end,
-    { desc = 'Restore the session for the current directory' }
-  )
-  vim.api.nvim_create_user_command('SessionDelete', function() vim.fn.delete(session_file()) end, { desc = 'Delete the session for the current directory' })
-end
-
--- ============================================================
 -- SECTION 10: OPTIONAL EXAMPLES / NEXT STEPS
 -- kickstart.plugins.* examples
 -- ============================================================
@@ -882,11 +799,14 @@ do
   require 'kickstart.plugins.indent_line'
   require 'kickstart.plugins.lint' -- golangci-lint for Go
   require 'kickstart.plugins.autopairs'
-  require 'kickstart.plugins.neo-tree'
 
-  -- NOTE: Add/Configure additional plugins in `lua/custom/plugins/*.lua`
-  -- (currently: neotest + go/rust adapters)
+  -- Custom plugins (auto-session, neotest) load BEFORE neo-tree so that
+  -- auto-session's VimEnter restore runs before the tree auto-open:
+  -- restored file windows come back first, then a live tree opens beside
+  -- them (sessions never contain the tree — see custom/plugins/auto-session.lua).
   require 'custom.plugins'
+
+  require 'kickstart.plugins.neo-tree'
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`

@@ -4,6 +4,7 @@
 -- Backends:  Go: `go test` (gotestsum optional)   Rust: cargo-nextest
 
 vim.pack.add {
+  'https://github.com/nvim-lua/plenary.nvim', -- required by neotest-go
   'https://github.com/nvim-neotest/nvim-nio', -- required by neotest
   'https://github.com/nvim-neotest/neotest',
   'https://github.com/akinsho/neotest-go',
