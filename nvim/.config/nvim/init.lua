@@ -536,12 +536,14 @@ do
   --  See `:help lsp-config` for information on keys and how to configure
   ---@type table<string, vim.lsp.Config>
   local servers = {
-    -- Go: gofumpt formatting, staticcheck diagnostics, import organizing on save
+    -- Go: gofumpt formatting, staticcheck diagnostics
+    -- NOTE: gopls expects FLAT option names — the nested/hierarchical form
+    -- (e.g. `formatting.gofumpt`, `ui.diagnostic.staticcheck`) is rejected.
     gopls = {
       settings = {
         gopls = {
-          formatting = { gofumpt = true },
-          ui = { diagnostic = { staticcheck = true } },
+          gofumpt = true,
+          staticcheck = true,
         },
       },
     },
