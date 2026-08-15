@@ -35,6 +35,10 @@ vim.api.nvim_create_autocmd('VimEnter', {
   group = vim.api.nvim_create_augroup('kickstart-neotree-autoopen', { clear = true }),
   callback = function()
     local argv0 = vim.fn.argv(0) --[[@as string]]
-    if vim.fn.argc() == 0 or (argv0 ~= '' and vim.fn.isdirectory(argv0) == 1) then vim.cmd 'Neotree show' end
+    if vim.fn.argc() == 0 or (argv0 ~= '' and vim.fn.isdirectory(argv0) == 1) then
+      vim.cmd 'Neotree show'
+      -- Keep focus in the (restored) file window, not the tree
+      vim.cmd 'wincmd p'
+    end
   end,
 })
