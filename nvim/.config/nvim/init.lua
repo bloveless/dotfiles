@@ -1,7 +1,7 @@
 --[[
 nvim 2026 rebuild — kickstart.nvim (vim.pack edition) + surgery.
 
-Primary IDE for Go and Rust, with PHP and Python support.
+Primary IDE for Go and Rust, with PHP, Python, Terraform, and Protobuf support.
 No debugger. Catppuccin macchiato. Formatting via LSP only.
 
 What changed from stock kickstart.nvim (2026-08):
@@ -14,9 +14,11 @@ What changed from stock kickstart.nvim (2026-08):
     system-wide (brew / go / cargo / uv)
   - kickstart.plugins.debug (DAP) removed
   - LSP servers: gopls (gofumpt + staticcheck), rust-analyzer (clippy),
-    lua_ls + stylua, ty + ruff (Python), phpantom_lsp (PHP)
+    lua_ls + stylua, ty + ruff (Python), phpantom_lsp (PHP),
+    terraformls (terraform fmt), buf_ls (Protobuf via `buf lsp` / `buf format`),
+    copilot (NES)
   - added: auto-session (per-directory resume), neotest + neotest-go +
-    neotest-rust, sidekick.nvim (AI CLI terminal; NES off) (lua/custom/plugins/)
+    neotest-rust, sidekick.nvim (AI CLI terminal + Copilot NES) (lua/custom/plugins/)
 
 The original kickstart guide follows; it is worth reading once.
 See `:help` and `:help lua-guide` when stuck.
@@ -294,6 +296,13 @@ do
   vim.pack.add { { src = gh 'catppuccin/nvim', name = 'catppuccin' } }
   require('catppuccin').setup {
     flavour = 'macchiato', -- latte, frappe, macchiato, mocha
+    integrations = {
+      -- Winbar breadcrumbs (see lua/custom/plugins/dropbar.lua)
+      dropbar = {
+        enabled = true,
+        color_mode = true, -- color the symbol text, not just the icon
+      },
+    },
   }
 
   -- Load the colorscheme here.
@@ -467,9 +476,22 @@ do
   --  - stylua (formatter):  brew install stylua
   --  - ty + ruff (Python):  uv tool install ty ruff
   --  - phpantom_lsp (PHP):  brew install phpantom-lsp
+  --  - terraform-ls:        brew install terraform-ls  (formats via terraform fmt)
+  --  - buf (Protobuf LSP):  brew install bufbuild/buf/buf  (formats via `buf format`)
   --
   -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
   -- and elegantly composed help section, `:help lsp-vs-treesitter`
+
+  -- Buf config files are not auto-detected as `buf-config`; register them so
+  -- `buf_ls` attaches (and treesitter can highlight them as YAML).
+  vim.filetype.add {
+    filename = {
+      ['buf.yaml'] = 'buf-config',
+      ['buf.gen.yaml'] = 'buf-config',
+      ['buf.policy.yaml'] = 'buf-config',
+      ['buf.lock'] = 'buf-config',
+    },
+  }
 
   -- Useful status updates for LSP.
   vim.pack.add { gh 'j-hui/fidget.nvim' }
@@ -576,6 +598,21 @@ do
     -- PHP: phpantom (Laravel-aware, formats via LSP)
     phpantom_lsp = {},
 
+    -- Terraform: terraform-ls (completion, navigation, terraform fmt)
+    -- Installed system-wide via `brew install terraform-ls`.
+    -- Formatting goes through vim.lsp.buf.format (BufWritePre / <leader>f).
+    terraformls = {},
+
+    -- Protobuf: buf language server (`buf lsp serve`)
+    -- Formats via `buf format` through vim.lsp.buf.format (BufWritePre / <leader>f).
+    -- Installed system-wide via `brew install bufbuild/buf/buf` (or equivalent).
+    buf_ls = {},
+
+    -- GitHub Copilot LSP: powers sidekick.nvim's Next Edit Suggestions.
+    -- Installed system-wide via `brew install copilot-language-server`.
+    -- Sign in with `:LspCopilotSignIn`.
+    copilot = {},
+
     stylua = {}, -- Used to format Lua code
 
     -- Special Lua Config, as recommended by neovim help docs
@@ -630,7 +667,8 @@ do
   -- Formatting is handled entirely by the attached language servers:
   --   Go: gopls (gofumpt)      Rust: rust-analyzer (rustfmt)
   --   Lua: stylua               Python: ruff
-  --   PHP: phpantom_lsp
+  --   PHP: phpantom_lsp         Terraform: terraformls (terraform fmt)
+  --   Protobuf: buf_ls (`buf format`)
   --
   -- `vim.lsp.buf.format` only uses clients that support formatting,
   -- so servers like `ty` (type checking only) are automatically skipped.
@@ -674,6 +712,14 @@ do
       --
       -- See `:help blink-cmp-config-keymap` for defining your own keymap
       preset = 'default',
+
+      -- <Tab> chain: snippet jump -> sidekick's Copilot Next Edit Suggestion
+      -- (jump to / apply it) -> fall back to a literal <Tab>.
+      ['<Tab>'] = {
+        'snippet_forward',
+        function() return require('sidekick').nes_jump_or_apply() end,
+        'fallback',
+      },
     },
 
     appearance = {
@@ -696,14 +742,10 @@ do
     -- LSP servers (gopls, rust-analyzer, phpantom) send their own snippets.
     snippets = { preset = 'default' },
 
-    -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
-    -- which automatically downloads a prebuilt binary when enabled.
-    --
-    -- By default, we use the Lua implementation instead, but you may enable
-    -- the rust implementation via `'prefer_rust_with_warning'`
-    --
-    -- See `:help blink-cmp-config-fuzzy` for more information
-    fuzzy = { implementation = 'lua' },
+    -- Rust fuzzy matcher (recommended). Auto-downloads a prebuilt binary
+    -- when on a release tag (`version = vim.version.range '1.*'` above).
+    -- See `:help blink-cmp-config-fuzzy`
+    fuzzy = { implementation = 'prefer_rust_with_warning' },
 
     -- Shows a signature help window while you type arguments for a function
     signature = { enabled = true },
@@ -736,15 +778,21 @@ do
     'markdown',
     'markdown_inline',
     'php',
+    'proto', -- Protocol Buffers (.proto); buf_ls handles LSP + formatting
     'python',
     'query',
     'rust',
+    'terraform',
+    'hcl', -- .hcl / .tfvars share HCL grammar; terraform parser covers .tf
     'toml',
     'vim',
     'vimdoc',
     'yaml',
   }
   require('nvim-treesitter').install(parsers)
+
+  -- Highlight Buf configuration files with the YAML grammar
+  vim.treesitter.language.register('yaml', 'buf-config')
 
   ---@param buf integer
   ---@param language string

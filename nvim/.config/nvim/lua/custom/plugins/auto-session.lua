@@ -15,8 +15,10 @@ vim.pack.add { 'https://github.com/rmagatti/auto-session' }
 
 -- What goes into a session: layout, windows, tab pages, folds, buffers
 -- and the terminal — but NOT `options` (global settings must not leak
--- between projects) and not `args`.
-vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,terminal'
+-- between projects) and not `args`. `localoptions` keeps filetype /
+-- highlighting correct after restore (auto-session health check).
+vim.o.sessionoptions =
+  'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 require('auto-session').setup {
   enabled = true, -- enables create/save/restore

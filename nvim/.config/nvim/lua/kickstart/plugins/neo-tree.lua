@@ -20,7 +20,7 @@ require('neo-tree').setup {
       enabled = true,
     },
     window = {
-      position = 'right',
+      position = 'left',
       mappings = {
         ['\\'] = 'close_window',
       },

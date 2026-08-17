@@ -1,8 +1,11 @@
--- Sidekick: terminal for any AI CLI (pi, opencode, claude, codex, ...) + context sending
+-- Sidekick: terminal for any AI CLI (pi, opencode, claude, codex, ...) + context
+-- sending, plus Copilot LSP-powered Next Edit Suggestions (NES).
 -- https://github.com/folke/sidekick.nvim
 --
--- Only the CLI-terminal half is used here: the Copilot "Next Edit Suggestions"
--- half is disabled (no Copilot LSP in this config).
+-- NES requires the `copilot-language-server` binary (installed via
+-- `brew install copilot-language-server`) enabled through nvim-lspconfig's
+-- bundled `copilot` config (see the `servers` table in init.lua). Sign in
+-- with `:LspCopilotSignIn`. Press <Tab> to jump to / apply a suggestion.
 --
 -- Inside a sidekick terminal window: q / <c-q> hide, <c-p> prompt library,
 -- <c-b> / <c-f> buffer & file pickers (fzf-lua). <Esc><Esc> still exits
@@ -10,15 +13,11 @@
 --
 -- Sessions run inside zellij panes (cli.mux), so agent conversations
 -- survive hiding the window and Neovim restarts / auto-session restores.
--- Run `:checkhealth sidekick` after changes. The "Copilot LSP" error there
--- is expected (NES is disabled); only the CLI-terminal half is used.
+-- Run `:checkhealth sidekick` after changes.
 
 vim.pack.add { 'https://github.com/folke/sidekick.nvim' }
 
 require('sidekick').setup {
-  nes = {
-    enabled = false, -- no Copilot LSP; CLI terminal only
-  },
   cli = {
     picker = 'fzf-lua', -- matches the picker used everywhere else in this config
     mux = {
