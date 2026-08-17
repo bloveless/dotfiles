@@ -44,7 +44,7 @@
       "default_config_options": {
         "mode": "build",
         "effort": "medium",
-        "model": "opencode/deepseek-v4-flash-free",
+        "model": "opencode-go/mimo-v2.5-pro",
       },
       "type": "custom",
       "command": "opencode",
