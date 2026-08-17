@@ -16,7 +16,7 @@ What changed from stock kickstart.nvim (2026-08):
   - LSP servers: gopls (gofumpt + staticcheck), rust-analyzer (clippy),
     lua_ls + stylua, ty + ruff (Python), phpantom_lsp (PHP)
   - added: auto-session (per-directory resume), neotest + neotest-go +
-    neotest-rust (lua/custom/plugins/)
+    neotest-rust, sidekick.nvim (AI CLI terminal; NES off) (lua/custom/plugins/)
 
 The original kickstart guide follows; it is worth reading once.
 See `:help` and `:help lua-guide` when stuck.
@@ -371,6 +371,9 @@ do
   require('fzf-lua').setup {
     -- Derive fzf's highlight colors from the active colorscheme (catppuccin)
     fzf_colors = true,
+    -- Use fzf-lua for ALL vim.ui.select calls (native 0.12 picker otherwise).
+    -- Covers sidekick's tool/prompt selects and LSP code actions (`gra`).
+    ui_select = {},
   }
 
   local fzf = require 'fzf-lua'
