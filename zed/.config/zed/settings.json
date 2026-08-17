@@ -116,6 +116,7 @@
   },
   "languages": {
     "PHP": {
+      "format_on_save": "on",
       "language_servers": [
         "phpantom_lsp",
         "!intelephense",
@@ -131,6 +132,7 @@
       },
     },
     "Python": {
+      "format_on_save": "on",
       "language_servers": [
         // Enable ty, disable basedpyright, and enable all
         // other registered language servers (ruff, pylsp, pyright).
@@ -139,6 +141,12 @@
         "!pyright",
         "...",
       ],
+    },
+    "Proto": {
+      "format_on_save": "on",
+      "tab_size": 2,
+      "formatter": "language_server",
+      "language_servers": ["buf"],
     },
   },
   "lsp": {

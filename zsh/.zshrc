@@ -35,6 +35,7 @@ export PATH="/Applications/WezTerm.app/Contents/MacOS:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.bun/bin"
 
 # brew install zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -68,4 +69,14 @@ function y() {
 	IFS= read -r -d '' cwd < "$tmp"
 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
+}
+
+# capture output of running pid
+function capture() {
+    sudo dtrace -p "$1" -qn '
+        syscall::write*:entry
+        /pid == $target && arg0 == 1/ {
+            printf("%s", copyinstr(arg1, arg2));
+        }
+    '
 }
