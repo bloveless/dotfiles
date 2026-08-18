@@ -102,7 +102,7 @@ do
   --   See `:help lua-options`
   --   and `:help lua-guide-options`
   vim.o.list = true
-  vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+  vim.opt.listchars = { tab = '│ ', trail = '·', nbsp = '␣' }
 
   -- Preview substitutions live, as you type!
   vim.o.inccommand = 'split'
@@ -847,6 +847,7 @@ do
   -- (the DAP module, `kickstart.plugins.debug`, is intentionally not included)
 
   require 'kickstart.plugins.gitsigns' -- adds gitsigns recommended keymaps
+  require 'kickstart.plugins.rainbow_delimiters' -- rainbow brackets/parens
   require 'kickstart.plugins.indent_line'
   require 'kickstart.plugins.lint' -- golangci-lint for Go
   require 'kickstart.plugins.autopairs'
