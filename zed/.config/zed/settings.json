@@ -28,7 +28,7 @@
     "show_diagnostics": "all",
   },
   "icon_theme": {
-    "mode": "light",
+    "mode": "dark",
     "light": "Catppuccin Macchiato",
     "dark": "Catppuccin Macchiato",
   },
@@ -81,6 +81,12 @@
     "dock": "left",
   },
   "agent": {
+    "default_model": {
+      "provider": "opencode",
+      "model": "go/deepseek-v4-flash",
+      "enable_thinking": true,
+      "effort": "max"
+    },
     "terminal_init_command": "pi",
     "tool_permissions": {
       "tools": {
@@ -104,12 +110,13 @@
   "buffer_font_size": 12.0,
   "theme": {
     "mode": "dark",
-    "light": "One Light",
+    "light": "Catppuccin Latte",
     "dark": "Catppuccin Macchiato - No Italics",
   },
   "wrap_guides": [120],
   "file_types": {
     "SQL": ["**/*.ddl", "**/*.dml"],
+    "Helm": ["**/templates/*.yaml"],
   },
   "file_finder": {
     "modal_max_width": "large",
