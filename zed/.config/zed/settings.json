@@ -10,6 +10,15 @@
   "profiles": {
     "home": {
       "settings": {
+        "agent": {
+          "default_model": {
+            "provider": "opencode",
+            "model": "go/deepseek-v4-flash",
+            "enable_thinking": true,
+            "effort": "max"
+          },
+          "terminal_init_command": "pi",
+        },
         "edit_predictions": {
           "provider": "zed",
         },
@@ -17,6 +26,9 @@
     },
     "work": {
       "settings": {
+        "agent": {
+          "terminal_init_command": "cursor-agent",
+        },
         "edit_predictions": {
           "provider": "copilot",
         },
@@ -81,13 +93,6 @@
     "dock": "left",
   },
   "agent": {
-    "default_model": {
-      "provider": "opencode",
-      "model": "go/deepseek-v4-flash",
-      "enable_thinking": true,
-      "effort": "max"
-    },
-    "terminal_init_command": "pi",
     "tool_permissions": {
       "tools": {
         "search_web": {
@@ -107,6 +112,9 @@
     "dock": "left",
   },
   "ui_font_size": 13.0,
+  "buffer_font_features": {
+    "calt": false,
+  },
   "buffer_font_size": 12.0,
   "theme": {
     "mode": "dark",
