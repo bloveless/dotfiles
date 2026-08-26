@@ -2,6 +2,9 @@ autoload -U +X compinit && compinit
 
 export EDITOR=nvim
 
+# EDITOR contains "vi", which would otherwise make zsh default to the vi keymap
+bindkey -e
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
 source $HOME/.wezterm.sh
 source $HOME/.zshrc.local
