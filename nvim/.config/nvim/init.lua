@@ -117,6 +117,21 @@ do
   -- instead raise a dialog asking if you wish to save the current file(s)
   -- See `:help 'confirm'`
   vim.o.confirm = true
+
+  -- enabled cmd+c/cmd+v in neovide since neovide just forwards these to neovim
+  -- and neovim doesn't support these automatically (we might only need paste though)
+  if vim.g.neovide then
+    local function save() vim.cmd.write() end
+    local function copy() vim.cmd [[normal! "+y]] end
+    local function paste() vim.api.nvim_paste(vim.fn.getreg '+', true, -1) end
+
+    vim.keymap.set({ 'n', 'i', 'v' }, '<D-s>', save, { desc = 'Save' })
+    vim.keymap.set('v', '<D-c>', copy, { silent = true, desc = 'Copy' })
+    vim.keymap.set({ 'n', 'i', 'v', 'c', 't' }, '<D-v>', paste, { silent = true, desc = 'Paste' })
+
+    -- Turn off neovide smooth scrolling since it makes things jumpy
+    vim.g.neovide_scroll_animation_length = 0
+  end
 end
 
 -- ============================================================
