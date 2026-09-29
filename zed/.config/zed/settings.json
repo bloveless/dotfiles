@@ -7,6 +7,10 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "cursor_shape": "bar",
+  "cursor_animation": {
+    "enabled": true
+  },
   "profiles": {
     "home": {
       "settings": {
@@ -52,6 +56,13 @@
   "expand_excerpt_lines": 10,
   "cli_default_open_behavior": "new_window",
   "agent_servers": {
+    "pi-acp": {
+      "default_config_options": {
+        "thought_level": "high",
+        "model": "cursor/auto"
+      },
+      "type": "registry"
+    },
     "opencode": {
       "default_config_options": {
         "mode": "build",
@@ -72,7 +83,9 @@
     },
     "cursor": {
       "default_config_options": {
-        "model": "default[]",
+        "reasoning": "high",
+        "optimize_for": "balanced",
+        "model": "auto-smart",
       },
       "type": "registry",
     },
@@ -93,7 +106,9 @@
     "dock": "left",
   },
   "agent": {
+    "terminal_init_command": "pi",
     "tool_permissions": {
+      "default": "allow",
       "tools": {
         "search_web": {
           "default": "allow",
@@ -119,7 +134,7 @@
   "theme": {
     "mode": "dark",
     "light": "Catppuccin Latte",
-    "dark": "Catppuccin Macchiato - No Italics",
+    "dark": "Catppuccin Macchiato",
   },
   "wrap_guides": [120],
   "file_types": {
@@ -163,6 +178,9 @@
       "formatter": "language_server",
       "language_servers": ["buf"],
     },
+    "Terraform": {
+      "format_on_save": "on",
+    }
   },
   "lsp": {
     "golangci-lint": {

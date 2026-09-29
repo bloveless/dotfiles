@@ -29,6 +29,9 @@ require('sidekick').setup {
       split = { width = 90 },
     },
   },
+  nes = {
+    enabled = false,
+  },
 }
 
 local cli = require 'sidekick.cli'

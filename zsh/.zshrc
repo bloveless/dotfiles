@@ -5,7 +5,6 @@ export EDITOR=nvim
 # EDITOR contains "vi", which would otherwise make zsh default to the vi keymap
 bindkey -e
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
 source $HOME/.wezterm.sh
 source $HOME/.zshrc.local
 
@@ -33,12 +32,6 @@ alias ls='eza --color=auto'
 alias ghpr='gh pr view -w'
 alias ghprc='gh pr create -w'
 alias tf='terraform'
-
-export PATH="/Applications/WezTerm.app/Contents/MacOS:$PATH"
-export PATH="$PATH:$(go env GOPATH)/bin"
-export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/.bun/bin"
 
 # brew install zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
