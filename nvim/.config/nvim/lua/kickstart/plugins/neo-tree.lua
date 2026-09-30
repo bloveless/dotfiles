@@ -26,6 +26,16 @@ require('neo-tree').setup {
       },
     },
   },
+  window = {
+    mappings = {
+      ['Y'] = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id() -- gets the absolute path
+        vim.fn.setreg('+', path) -- copies to system clipboard
+        vim.notify('Copied path: ' .. path)
+      end,
+    },
+  },
 }
 
 -- Open the tree automatically when Neovim starts in a directory
