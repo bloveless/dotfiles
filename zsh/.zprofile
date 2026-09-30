@@ -5,4 +5,4 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.bun/bin"
 
 # opencode
-export PATH="/Users/brennon/.opencode/bin:$PATH"
+export PATH="$HOME/.opencode/bin:$PATH"
