@@ -14,6 +14,24 @@
   "profiles": {
     "home": {
       "settings": {
+        "ssh_connections": [
+          {
+            "host": "devbox",
+            "args": [],
+            "projects": [
+              {
+                "paths": [
+                  "/home/brennon/Projects/gitea.lan.brennonloveless.com/brennon/micro"
+                ]
+              }
+            ]
+          },
+          {
+            "host": "herdr",
+            "args": [],
+            "projects": []
+          }
+        ],
         "agent": {
           "default_model": {
             "provider": "opencode",
@@ -22,6 +40,19 @@
             "effort": "max"
           },
           "terminal_init_command": "pi",
+        },
+        "agent_servers": {
+          "opencode": {
+            "default_config_options": {
+              "effort": "high",
+              "mode": "build",
+              "model": "opencode/space-bunny-free"
+            },
+            "type": "registry"
+          },
+          "codex-acp": {
+            "type": "registry",
+          },
         },
         "edit_predictions": {
           "provider": "zed",
@@ -35,6 +66,23 @@
         },
         "edit_predictions": {
           "provider": "copilot",
+        },
+        "agent_servers": {
+          "pi-acp": {
+            "default_config_options": {
+              "thought_level": "high",
+              "model": "cursor/auto"
+            },
+            "type": "registry"
+          },
+          "cursor": {
+            "default_config_options": {
+              "reasoning": "high",
+              "optimize_for": "balanced",
+              "model": "auto-smart",
+            },
+            "type": "registry",
+          },
         },
       },
     },
@@ -55,46 +103,6 @@
   "excerpt_context_lines": 5,
   "expand_excerpt_lines": 10,
   "cli_default_open_behavior": "new_window",
-  "agent_servers": {
-    "pi-acp": {
-      "default_config_options": {
-        "thought_level": "high",
-        "model": "cursor/auto"
-      },
-      "type": "registry"
-    },
-    "opencode": {
-      "default_config_options": {
-        "mode": "build",
-        "effort": "medium",
-        "model": "opencode-go/mimo-v2.5-pro",
-      },
-      "type": "custom",
-      "command": "opencode",
-      "args": ["acp"],
-      "env": {
-        "GOOGLE_APPLICATION_CREDENTIALS": "/Users/ejvzx/.config/gcloud/application_default_credentials.json",
-        "GOOGLE_CLOUD_PROJECT": "bcs-ely-ops",
-        "VERTEX_LOCATION": "global",
-      },
-    },
-    "codex-acp": {
-      "type": "registry",
-    },
-    "cursor": {
-      "default_config_options": {
-        "reasoning": "high",
-        "optimize_for": "balanced",
-        "model": "auto-smart",
-      },
-      "type": "registry",
-    },
-    "csgdaa-code": {
-      "type": "custom",
-      "command": "csgdaa-code",
-      "args": ["--acp"],
-    },
-  },
   "vim_mode": true,
   "project_panel": {
     "dock": "left",
@@ -107,6 +115,18 @@
   },
   "agent": {
     "terminal_init_command": "pi",
+    "threads_sidebar": {
+      "position": "right"
+    },
+    "sandbox_permissions": {
+      "allow_unsandboxed": true
+    },
+    "default_model": {
+      "provider": "opencode",
+      "model": "go/hy3",
+      "enable_thinking": true,
+      "effort": "high"
+    },
     "tool_permissions": {
       "default": "allow",
       "tools": {
@@ -136,10 +156,17 @@
     "light": "Catppuccin Latte",
     "dark": "Catppuccin Macchiato",
   },
-  "wrap_guides": [120],
+  "wrap_guides": [
+    120
+  ],
   "file_types": {
-    "SQL": ["**/*.ddl", "**/*.dml"],
-    "Helm": ["**/templates/*.yaml"],
+    "SQL": [
+      "**/*.ddl",
+      "**/*.dml"
+    ],
+    "Helm": [
+      "**/templates/*.yaml"
+    ],
   },
   "file_finder": {
     "modal_max_width": "large",
@@ -157,7 +184,10 @@
       "formatter": {
         "external": {
           "command": "mago",
-          "arguments": ["format", "--stdin-input"],
+          "arguments": [
+            "format",
+            "--stdin-input"
+          ],
         },
       },
     },
@@ -176,7 +206,9 @@
       "format_on_save": "on",
       "tab_size": 2,
       "formatter": "language_server",
-      "language_servers": ["buf"],
+      "language_servers": [
+        "buf"
+      ],
     },
     "Terraform": {
       "format_on_save": "on",

@@ -3,3 +3,6 @@ export PATH="/Applications/WezTerm.app/Contents/MacOS:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.bun/bin"
+
+# opencode
+export PATH="/Users/brennon/.opencode/bin:$PATH"
