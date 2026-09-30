@@ -32,9 +32,15 @@ require('auto-session').setup {
   -- Never touch sessions for the home directory or filesystem root
   suppressed_dirs = { '/', '~' },
 
-  -- Keep sessions pure: tree buffers restore as inert windows, so close
-  -- the tree before saving. It re-opens live after restore.
-  pre_save_cmds = { 'Neotree close' },
+  -- Keep sessions pure: tree, outline, and trouble buffers restore as inert
+  -- windows, so close them before saving. Neo-tree re-opens live after restore.
+  pre_save_cmds = {
+    'Neotree close',
+    function()
+      if package.loaded['aerial'] then vim.cmd.AerialCloseAll() end
+      if package.loaded['trouble'] then require('trouble').close() end
+    end,
+  },
 }
 
 -- Commands provided by auto-session (same muscle memory as before):
