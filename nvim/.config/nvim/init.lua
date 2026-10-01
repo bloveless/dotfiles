@@ -360,6 +360,8 @@ do
   -- - sr)'  - [S]urround [R]eplace [)] [']
   require('mini.surround').setup()
 
+  vim.keymap.set('n', '<leader>bd', function() require('mini.bufremove').delete(0, false) end, { desc = 'Delete current buffer' })
+
   -- [[ Statusline ]]
   -- lualine with the catppuccin theme (pinned to the macchiato flavour).
   -- See `:help lualine`
