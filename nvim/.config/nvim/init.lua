@@ -17,7 +17,7 @@ What changed from stock kickstart.nvim (2026-08):
     lua_ls + stylua, ty + ruff (Python), phpantom_lsp (PHP),
     terraformls (terraform fmt), buf_ls (Protobuf via `buf lsp` / `buf format`),
     copilot (NES)
-  - added: auto-session (per-directory resume), neotest + neotest-go +
+  - added: persistence.nvim (per-directory resume), neotest + neotest-go +
     neotest-rust, sidekick.nvim (AI CLI terminal + Copilot NES) (lua/custom/plugins/)
 
 The original kickstart guide follows; it is worth reading once.
@@ -869,10 +869,10 @@ do
   require 'kickstart.plugins.lint' -- golangci-lint for Go
   require 'kickstart.plugins.autopairs'
 
-  -- Custom plugins (auto-session, neotest) load BEFORE neo-tree so that
-  -- auto-session's VimEnter restore runs before the tree auto-open:
+  -- Custom plugins (persistence.nvim, neotest) load BEFORE neo-tree so that
+  -- persistence.nvim's VimEnter restore runs before the tree auto-open:
   -- restored file windows come back first, then a live tree opens beside
-  -- them (sessions never contain the tree — see custom/plugins/auto-session.lua).
+  -- them (sessions never contain the tree — see custom/plugins/persistence.lua).
   require 'custom.plugins'
 
   require 'kickstart.plugins.neo-tree'

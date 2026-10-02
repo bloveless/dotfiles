@@ -12,7 +12,7 @@
 -- terminal mode (mapped in init.lua).
 --
 -- Sessions run inside zellij panes (cli.mux), so agent conversations
--- survive hiding the window and Neovim restarts / auto-session restores.
+-- survive hiding the window and Neovim restarts / persistence.nvim restores.
 -- Run `:checkhealth sidekick` after changes.
 
 vim.pack.add { 'https://github.com/folke/sidekick.nvim' }

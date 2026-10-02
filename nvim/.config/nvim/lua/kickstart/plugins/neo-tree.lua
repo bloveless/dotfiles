@@ -40,12 +40,14 @@ require('neo-tree').setup {
 
 -- Open the tree automatically when Neovim starts in a directory
 --  (i.e. plain `nvim`, or `nvim .`); skip it when opening files directly.
+local argv0 = vim.fn.argv(0) --[[@as string]]
+local directory_start = vim.fn.argc() == 0 or (argv0 ~= '' and vim.fn.isdirectory(argv0) == 1)
+
 vim.api.nvim_create_autocmd('VimEnter', {
   desc = 'Open Neo-tree when Neovim starts with a directory (or no arguments)',
   group = vim.api.nvim_create_augroup('kickstart-neotree-autoopen', { clear = true }),
   callback = function()
-    local argv0 = vim.fn.argv(0) --[[@as string]]
-    if vim.fn.argc() == 0 or (argv0 ~= '' and vim.fn.isdirectory(argv0) == 1) then
+    if directory_start then
       vim.cmd 'Neotree show'
       -- Keep focus in the (restored) file window, not the tree
       vim.cmd 'wincmd p'
