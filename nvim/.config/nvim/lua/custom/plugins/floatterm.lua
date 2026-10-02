@@ -14,9 +14,8 @@ local function toggle_float_term()
   local width = vim.api.nvim_get_option_value('columns', {})
   local height = vim.api.nvim_get_option_value('lines', {})
 
-  -- Calculate size (80% of screen)
-  local win_width = math.ceil(width * 0.8)
-  local win_height = math.ceil(height * 0.8)
+  local win_width = math.ceil(width * 0.95)
+  local win_height = math.ceil(height * 0.90)
   local row = math.ceil((height - win_height) / 2)
   local col = math.ceil((width - win_width) / 2)
 
