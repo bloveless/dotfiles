@@ -502,6 +502,10 @@ do
   -- Buf config files are not auto-detected as `buf-config`; register them so
   -- `buf_ls` attaches (and treesitter can highlight them as YAML).
   vim.filetype.add {
+    extension = {
+      dml = 'sql',
+      ddl = 'sql',
+    },
     filename = {
       ['buf.yaml'] = 'buf-config',
       ['buf.gen.yaml'] = 'buf-config',
