@@ -3,6 +3,8 @@
 vim.pack.add { 'https://github.com/mfussenegger/nvim-lint' }
 
 local lint = require 'lint'
+-- nvim fires lint often; without this, overlapping runs exit 3 ("parallel golangci-lint is running")
+table.insert(lint.linters.golangcilint.args, 2, '--allow-serial-runners')
 lint.linters_by_ft = {
   -- Everything else is covered by the language servers:
   --  Go: gopls/staticcheck, Rust: clippy, Python: ruff + ty, PHP: phpantom
