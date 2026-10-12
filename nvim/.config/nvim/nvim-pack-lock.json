@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "atlas.nvim": {
+      "rev": "fb40953462ff922c1084f1338072588c6e0eb0bf",
+      "src": "https://github.com/emrearmagan/atlas.nvim"
+    },
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/saghen/blink.cmp",
@@ -20,10 +24,6 @@
     "fzf-lua": {
       "rev": "05e44d38de0a79c11fba5f7bf8138791b1dbdd1e",
       "src": "https://github.com/ibhagwan/fzf-lua"
-    },
-    "gh.nvim": {
-      "rev": "6f367b2ab8f9d4a0a23df2b703a3f91137618387",
-      "src": "https://github.com/ldelossa/gh.nvim"
     },
     "gitsigns.nvim": {
       "rev": "5be654f2232c10ddcad19c1607a67b6b4b78fc29",
