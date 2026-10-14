@@ -400,6 +400,12 @@ do
     -- Use fzf-lua for ALL vim.ui.select calls (native 0.12 picker otherwise).
     -- Covers sidekick's tool/prompt selects and LSP code actions (`gra`).
     ui_select = {},
+    -- Include dotfiles/dot-folders but still honor .gitignore (no --no-ignore); skip .git itself.
+    files = { hidden = true },
+    grep = {
+      hidden = true,
+      rg_opts = '--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g "!.git" -e',
+    },
   }
 
   local fzf = require 'fzf-lua'

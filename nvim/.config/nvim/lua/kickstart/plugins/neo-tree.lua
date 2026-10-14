@@ -15,6 +15,12 @@ require('neo-tree').setup {
   -- Close Neo-tree if it is the last window left in the tab
   close_if_last_window = true,
   filesystem = {
+    -- Show dotfiles; still hide gitignored entries (toggle with `H`)
+    filtered_items = {
+      hide_dotfiles = false,
+      hide_gitignored = true,
+      never_show = { '.git' }, -- keep the .git dir itself out of the tree
+    },
     -- Keep the tree in sync with the active buffer
     follow_current_file = {
       enabled = true,

@@ -33,6 +33,7 @@ require('scrollview').setup {
     'terminal',
   },
   current_only = false,
+  mode = 'simple', -- avoids fold-walking `normal! zj/gg`, which closed atlas's g? help popup
   winblend = 50,
 }
 
