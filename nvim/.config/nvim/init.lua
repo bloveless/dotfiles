@@ -609,11 +609,11 @@ do
       },
     },
 
-    -- Rust: rustfmt formatting, clippy on save
+    -- Rust: rustfmt formatting, clippy (pedantic, as warnings) on save
     rust_analyzer = {
       settings = {
         ['rust-analyzer'] = {
-          check = { command = 'clippy' },
+          check = { command = 'clippy', extraArgs = { '--', '-W', 'clippy::pedantic' } },
         },
       },
     },
