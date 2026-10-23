@@ -26,7 +26,9 @@ require('sidekick').setup {
     },
     win = {
       layout = 'right',
-      split = { width = 90 },
+      -- Fraction of &columns: a fixed 90 plus neo-tree's fixed 40 crushes the
+      -- editor/tree to 1 col on narrow screens (both windows are winfixwidth)
+      split = { width = 0.33 },
     },
   },
   nes = {

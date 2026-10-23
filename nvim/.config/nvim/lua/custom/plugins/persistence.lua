@@ -14,10 +14,12 @@
 vim.pack.add { 'https://github.com/folke/persistence.nvim' }
 
 -- What goes into a session: layout, windows, tab pages, folds, buffers
--- and the terminal — but NOT `options` (global settings must not leak
+-- — but NOT `terminal` (a restored sidekick window re-runs a bare `zellij`,
+-- spawning a stray session and a mis-sized window; sidekick re-attaches via
+-- its mux instead), not `options` (global settings must not leak
 -- between projects) and not `args`. `localoptions` keeps filetype /
 -- highlighting correct after restore.
-vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions'
 
 local persistence = require 'persistence'
 persistence.setup {
