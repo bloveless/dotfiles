@@ -1,4 +1,18 @@
-autoload -U +X compinit && compinit
+# Full compinit (rescan + audit) at most once a day; otherwise trust the dump.
+autoload -Uz compinit
+() { setopt local_options extended_glob; if [[ -n ~/.zcompdump(#qN.mh+24) || ! -f ~/.zcompdump ]]; then compinit; touch ~/.zcompdump; else compinit -C; fi }
+
+# Cache `<tool> <args>` init output; key includes the Cellar version dir so `brew upgrade` regenerates it.
+_cached_init() {
+  local bin=${commands[$1]:A}
+  [[ -n $bin ]] || return
+  local f=~/.cache/zsh-init/$1-${bin:h:h:t}.zsh
+  if [[ ! -s $f ]]; then
+    mkdir -p ${f:h}; rm -f ${f:h}/$1-*.zsh(N)
+    "$@" >| $f 2>/dev/null
+  fi
+  source $f
+}
 
 export EDITOR=nvim
 
@@ -10,7 +24,7 @@ source $HOME/.zshrc.local
 
 alias resetnvim="rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim"
 
-export GPG_TTY=$(tty)
+export GPG_TTY=$TTY
 
 function dstrm { # [d]ocker [st]op [r]e[m]ove
   echo "Stopping docker containers"
@@ -34,26 +48,25 @@ alias ghprc='gh pr create -w'
 alias tf='terraform'
 
 # brew install zsh-autosuggestions
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # brew install zsh-syntax-highlighting
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 # brew install zoxide
-eval "$(zoxide init zsh)"
+_cached_init zoxide init zsh
 # brew install starship
-eval "$(starship init zsh)"
+_cached_init starship init zsh
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
-eval "$(direnv hook zsh)"
-source <(fzf --zsh)
+_cached_init direnv hook zsh
+_cached_init fzf --zsh
 
 source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
 
-eval "$(mise activate zsh)"
-eval "$(atuin init zsh)"
+_cached_init atuin init zsh
 
 # Ensure the edit-command-line widget is available
 autoload -U +X edit-command-line
