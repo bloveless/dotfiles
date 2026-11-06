@@ -43,13 +43,17 @@ else
     end,
   })
 
-  -- Keep sessions pure: tree, outline, and trouble buffers restore as inert
+  -- Keep sessions pure: tree, outline, trouble, and quickfix/loclist buffers restore as inert
   -- windows, so close them before saving. Neo-tree re-opens live after restore.
+  -- (A restored qf window lands as a contentless split beside neo-tree instead of full-width.)
   vim.api.nvim_create_autocmd('User', {
     pattern = 'PersistenceSavePre',
     callback = function()
       vim.cmd 'silent! Neotree close'
       if package.loaded.trouble then require('trouble').close() end
+      for _, info in ipairs(vim.fn.getwininfo()) do
+        if info.quickfix == 1 then pcall(vim.api.nvim_win_close, info.winid, true) end
+      end
     end,
   })
 end

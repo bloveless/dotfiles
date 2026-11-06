@@ -153,6 +153,15 @@ do
     severity_sort = true,
     float = { border = 'rounded', source = 'if_many' },
     underline = { severity = { min = vim.diagnostic.severity.WARN } },
+    -- Tint line numbers of lines with diagnostics, so problems stand out at a glance
+    signs = {
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+        [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+        [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+        [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+      },
+    },
 
     -- Can switch between these as you prefer
     virtual_text = true, -- Text shows up at the end of the line
@@ -171,6 +180,9 @@ do
   }
 
   vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+  local E = vim.diagnostic.severity.ERROR
+  vim.keymap.set('n', ']e', function() vim.diagnostic.jump { count = 1, severity = E } end, { desc = 'Next [e]rror' })
+  vim.keymap.set('n', '[e', function() vim.diagnostic.jump { count = -1, severity = E } end, { desc = 'Previous [e]rror' })
 
   -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
   -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -281,6 +293,7 @@ do
   -- The recommended hunk keymaps live in `lua/kickstart/plugins/gitsigns.lua`.
   vim.pack.add { gh 'lewis6991/gitsigns.nvim' }
   require('gitsigns').setup {
+    numhl = true, -- tint line numbers of changed lines
     signs = {
       add = { text = '+' }, ---@diagnostic disable-line: missing-fields
       change = { text = '~' }, ---@diagnostic disable-line: missing-fields
@@ -400,6 +413,9 @@ do
     -- Use fzf-lua for ALL vim.ui.select calls (native 0.12 picker otherwise).
     -- Covers sidekick's tool/prompt selects and LSP code actions (`gra`).
     ui_select = {},
+    -- ctrl-q: send every result currently shown to quickfix (enter = file_edit_or_qf sends multi-selections there).
+    -- `true` keeps fzf-lua's default fzf binds (bind tables replace defaults otherwise).
+    keymap = { fzf = { true, ['ctrl-q'] = 'select-all+accept' } },
     -- Include dotfiles/dot-folders but still honor .gitignore (no --no-ignore); skip .git itself.
     files = { hidden = true },
     grep = {
