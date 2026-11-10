@@ -89,3 +89,52 @@ function capture() {
         }
     '
 }
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+# Initializes a Git repository tailored specifically for a top-level worktree layout.
+# 
+# Instead of a standard clone, this creates a parent project directory and clones
+# the repository as a bare repo directly into the local '.git/' folder. This leaves
+# the root folder clean for adding individual worktrees side-by-side.
+#
+# Note: Because '--bare' clones omit default fetch refspecs, this function manually
+# restores standard remote-tracking behavior and unlocks the default branch.
+git-clone-worktree() {
+    if [ -z "$1" ]; then
+        echo "Error: Please provide a repository URL."
+        echo "Usage: git-clone-worktree <repo_url> [directory_name]"
+        return 1
+    fi
+
+    local repo_url="$1"
+    # Use the second argument as directory name, or extract it from the URL
+    local dir_name="${2:-$(basename "$repo_url" .git)}"
+
+    echo "Creating project directory: $dir_name"
+    mkdir -p "$dir_name"
+    cd "$dir_name" || return 1
+
+    echo "Cloning bare repository into .git/..."
+    git clone "$repo_url" --bare .git
+
+    echo "Configuring fetch refspec..."
+    git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+
+    echo "Fetching remote tracking references..."
+    git fetch origin
+
+    # Determine default branch name dynamically (usually main or master)
+    local default_branch
+    default_branch=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's|origin/||')
+    default_branch="${default_branch:-main}"
+
+    echo "Unlocking '$default_branch' by detaching bare HEAD..."
+    git symbolic-ref HEAD refs/heads/_bare_hidden_head_
+
+    echo "Creating primary worktree for '$default_branch'..."
+    git worktree add "./$default_branch" "$default_branch"
+
+    echo "Done! Structure created successfully inside $dir_name/"
+    ls -la
+}
