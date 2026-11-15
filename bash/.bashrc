@@ -114,3 +114,7 @@ fi
 
 # Shared shell functions (also sourced by ~/.zshrc)
 [ -r ~/.config/shell/git-worktree.sh ] && . ~/.config/shell/git-worktree.sh
+
+if [[ -x "$(command -v starship)" ]]; then
+  eval "$(starship init bash)"
+fi
