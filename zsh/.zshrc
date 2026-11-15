@@ -1,6 +1,9 @@
 # Full compinit (rescan + audit) at most once a day; otherwise trust the dump.
 autoload -Uz compinit
 () { setopt local_options extended_glob; if [[ -n ~/.zcompdump(#qN.mh+24) || ! -f ~/.zcompdump ]]; then compinit; touch ~/.zcompdump; else compinit -C; fi }
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace)
 
 # Cache `<tool> <args>` init output; key includes the Cellar version dir so `brew upgrade` regenerates it.
 _cached_init() {
