@@ -83,6 +83,14 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+f() {
+  local dir
+  dir=$(fd --type d --hidden --follow --exclude .git . "${1:-.}" | fzf --height 40% --reverse --preview 'tree -C {} | head -n 30')
+  if [[ -n "$dir" ]]; then
+    cd "$dir" || return 1
+  fi
+}
+
 # capture output of running pid
 function capture() {
     sudo dtrace -p "$1" -qn '

@@ -118,3 +118,16 @@ fi
 if [[ -x "$(command -v starship)" ]]; then
   eval "$(starship init bash)"
 fi
+
+if [[ -x "$(command -v carapace)" ]]; then
+  export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+  source <(carapace _carapace)
+fi
+
+f() {
+  local dir
+  dir=$(fd --type d --hidden --follow --exclude .git . "${1:-.}" | fzf --height 40% --reverse --preview 'tree -C {} | head -n 30')
+  if [[ -n "$dir" ]]; then
+    cd "$dir" || return 1
+  fi
+}
