@@ -6,10 +6,8 @@
 --    (a directory argument is cd'd into)
 --  - launching with file arguments (nvim main.go — and thus git $EDITOR
 --    etc.) opts out of both restore and save
---  - neo-tree is closed before saving (its buffers restore inert) and is
---    re-opened live after restore by the auto-open autocmd in
---    kickstart.plugins.neo-tree, which runs after this module's VimEnter
---    hook (load order in init.lua SECTION 10)
+--  - neo-tree is closed before saving (its buffers restore inert); open it
+--    on demand with <leader>e or `\`
 
 vim.pack.add { 'https://github.com/folke/persistence.nvim' }
 
@@ -43,14 +41,12 @@ else
     end,
   })
 
-  -- Keep sessions pure: tree, outline, trouble, and quickfix/loclist buffers restore as inert
-  -- windows, so close them before saving. Neo-tree re-opens live after restore.
-  -- (A restored qf window lands as a contentless split beside neo-tree instead of full-width.)
+  -- Keep sessions pure: tree, outline, and quickfix/loclist buffers restore as inert
+  -- windows, so close them before saving.
   vim.api.nvim_create_autocmd('User', {
     pattern = 'PersistenceSavePre',
     callback = function()
       vim.cmd 'silent! Neotree close'
-      if package.loaded.trouble then require('trouble').close() end
       for _, info in ipairs(vim.fn.getwininfo()) do
         if info.quickfix == 1 then pcall(vim.api.nvim_win_close, info.winid, true) end
       end

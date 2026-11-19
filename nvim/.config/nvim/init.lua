@@ -895,10 +895,6 @@ do
   require 'kickstart.plugins.lint' -- golangci-lint for Go
   require 'kickstart.plugins.autopairs'
 
-  -- Custom plugins (persistence.nvim, neotest) load BEFORE neo-tree so that
-  -- persistence.nvim's VimEnter restore runs before the tree auto-open:
-  -- restored file windows come back first, then a live tree opens beside
-  -- them (sessions never contain the tree — see custom/plugins/persistence.lua).
   require 'custom.plugins'
 
   require 'kickstart.plugins.neo-tree'
