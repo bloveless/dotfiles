@@ -16,7 +16,7 @@ What changed from stock kickstart.nvim (2026-08):
   - LSP servers: gopls (gofumpt + staticcheck), rust-analyzer (clippy),
     lua_ls + stylua, ty + ruff (Python), phpantom_lsp (PHP),
     terraformls (terraform fmt), buf_ls (Protobuf via `buf lsp` / `buf format`),
-    copilot (NES)
+    copilot (NES), harper_ls (comment/doc grammar), codebook (code spelling)
   - added: persistence.nvim (per-directory resume), neotest + neotest-go +
     neotest-rust, sidekick.nvim (AI CLI terminal + Copilot NES) (lua/custom/plugins/)
 
@@ -111,7 +111,7 @@ do
   vim.o.cursorline = true
 
   -- Minimal number of screen lines to keep above and below the cursor.
-  vim.o.scrolloff = 10
+  vim.o.scrolloff = 15
 
   -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
   -- instead raise a dialog asking if you wish to save the current file(s)
@@ -233,6 +233,9 @@ do
   --  To update plugins, run
   --    :lua vim.pack.update()
   --
+  --  To remove plugins you deleted from config (cleans both disk and lockfile), run
+  --    :PackClean
+  --
   --  The lockfile `nvim-pack-lock.json` lives next to this file and is
   --  version controlled, so plugin revisions are reproducible.
 
@@ -264,6 +267,19 @@ do
       end
     end,
   })
+
+  vim.api.nvim_create_user_command('PackClean', function()
+    local inactive = {}
+    for _, plugin in ipairs(vim.pack.get()) do
+      if not plugin.active then table.insert(inactive, plugin.spec.name) end
+    end
+    if #inactive == 0 then
+      vim.notify('vim.pack: no inactive plugins to remove', vim.log.levels.INFO)
+      return
+    end
+    vim.pack.del(inactive)
+    vim.notify('vim.pack: removed ' .. table.concat(inactive, ', '), vim.log.levels.INFO)
+  end, { desc = 'Remove inactive vim.pack plugins from disk and lockfile' })
 end
 
 ---Because most plugins are hosted on GitHub, you can use the helper
@@ -517,6 +533,8 @@ do
   --  - phpantom_lsp (PHP):  brew install phpantom-lsp
   --  - terraform-ls:        brew install terraform-ls  (formats via terraform fmt)
   --  - buf (Protobuf LSP):  brew install bufbuild/buf/buf  (formats via `buf format`)
+  --  - harper-ls:           brew install harper
+  --  - codebook-lsp:        brew install codebook-lsp  (or `cargo install --locked codebook-lsp`)
   --
   -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
   -- and elegantly composed help section, `:help lsp-vs-treesitter`
@@ -608,6 +626,18 @@ do
     end,
   })
 
+  -- nvim-lspconfig provides ready-made base configs for each server below;
+  -- our settings layer on top via `vim.lsp.config` and are activated with `vim.lsp.enable`.
+  vim.pack.add { gh 'neovim/nvim-lspconfig' }
+
+  ---@param server_name string
+  ---@param extra string[]
+  ---@return string[]
+  local function extend_filetypes(server_name, extra)
+    local base = (vim.lsp.config[server_name] or {}).filetypes or {}
+    return vim.list_extend(vim.deepcopy(base), extra)
+  end
+
   -- Enable the following language servers.
   --  They must be installed system-wide (see the comment block above).
   --  See `:help lsp-config` for information on keys and how to configure
@@ -656,6 +686,29 @@ do
     -- Sign in with `:LspCopilotSignIn`.
     copilot = {},
 
+    -- Harper: grammar & prose checking in comments and markdown.
+    -- Installed system-wide via `brew install harper`.
+    -- SpellCheck is disabled here so `codebook` handles spelling across both
+    -- comments and code identifiers without duplicate spelling diagnostics.
+    harper_ls = {
+      filetypes = extend_filetypes('harper_ls', { 'proto', 'terraform', 'hcl' }),
+      settings = {
+        ['harper-ls'] = {
+          diagnosticSeverity = 'hint',
+          linters = {
+            SpellCheck = false,
+            SentenceCapitalization = false,
+          },
+        },
+      },
+    },
+
+    -- Codebook: code-aware spell checker (splits camelCase / PascalCase / snake_case).
+    -- Installed system-wide via `brew install codebook-lsp` (or `cargo install --locked codebook-lsp`).
+    codebook = {
+      filetypes = extend_filetypes('codebook', { 'proto', 'terraform', 'hcl' }),
+    },
+
     stylua = {}, -- Used to format Lua code
 
     -- Special Lua Config, as recommended by neovim help docs
@@ -690,10 +743,6 @@ do
       },
     },
   }
-
-  -- nvim-lspconfig provides ready-made base configs for each server above;
-  -- our settings layer on top via `vim.lsp.config` and are activated with `vim.lsp.enable`.
-  vim.pack.add { gh 'neovim/nvim-lspconfig' }
 
   for name, server in pairs(servers) do
     vim.lsp.config(name, server)
@@ -837,6 +886,10 @@ do
   -- Highlight Buf configuration files with the YAML grammar
   vim.treesitter.language.register('yaml', 'buf-config')
 
+  -- Languages whose nvim-treesitter `indents.scm` is incomplete; fall back to
+  -- Neovim's built-in indentation (e.g. `cindent` for `proto`).
+  local ts_indent_skip = { proto = true }
+
   ---@param buf integer
   ---@param language string
   local function treesitter_try_attach(buf, language)
@@ -852,10 +905,10 @@ do
 
     -- Check if treesitter indentation is available for this language, and if so enable it
     -- in case there is no indent query, the indentexpr will fallback to the vim's built in one
-    local has_indent_query = vim.treesitter.query.get(language, 'indents') ~= nil
+    local has_indent_query = not ts_indent_skip[language] and vim.treesitter.query.get(language, 'indents') ~= nil
 
     -- Enable treesitter based indentation
-    if has_indent_query then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
+    if has_indent_query then vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
   end
 
   local available_parsers = require('nvim-treesitter').get_available()
